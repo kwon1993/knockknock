@@ -1,5 +1,5 @@
 package com.knockknock.controller;
 
-public class MamberController {
+public class MemberController {
 
 }
