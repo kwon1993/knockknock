@@ -1,5 +1,16 @@
 package com.knockknock.dto.event;
 
-public class MeetingReplyDTO {
+import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
+public class MeetingReplyDTO {
+	private int replyNumber;
+	private int writingNumber;
+	private int memberNumber;
+	private String content;
+	private Date writeDate;
+	private int parentNumber;
 }
