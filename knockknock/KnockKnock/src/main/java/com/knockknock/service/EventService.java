@@ -1,5 +1,5 @@
 package com.knockknock.service;
 
-public class EventService {
+public interface EventService {
 
 }
