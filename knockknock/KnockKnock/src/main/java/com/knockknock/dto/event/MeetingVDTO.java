@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import lombok.Data;
 
+<<<<<<< HEAD
 @Data
 public class MeetingVDTO {
 	private int writingNumber; //글번호
@@ -26,3 +27,26 @@ public class MeetingVDTO {
 
 }
 
+=======
+@Getter @Setter
+public class MeetingVDTO {
+
+	private int writingNumber;
+	private int memberNumber;
+	private String title;
+	private Date wirteTime;
+	private Date acceptStartTime;
+	private Date acceptEndTime;
+	private int recruitNumber;
+	private int hit;
+	private String simpleIntroduce;
+	private String detailIntroduce;
+	private String place;
+	private String placeDetail;
+	private String cancelReasin;
+	private Date meetingStartDate;
+	private Date meetingEndDate;
+	private String image;
+	private int like;
+}
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

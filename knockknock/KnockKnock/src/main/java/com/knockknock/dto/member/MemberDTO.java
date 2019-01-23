@@ -4,27 +4,10 @@ import java.sql.Date;
 
 import lombok.Data;
 
+<<<<<<< HEAD
 @Data
+=======
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db
 public class MemberDTO {
-	
-	private int memberNumber;
-	private String grade;
-	private String favorite1;
-	private String favorite2;
-	private String favorite3;
-	private String email;
-	private String password;
-	private String name;
-	private String nickname;
-	private Date birth;
-	private String gender;
-	private String adress;
-	private String addressDetail;
-	private String addressName;
-	private String phoneNumber;
-	private Date joinTime;
-	private Date leaveTime;
-	private String imageProfile;
-	private String intriduce;
 
 }
