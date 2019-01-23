@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
@@ -45,3 +46,10 @@ public class BranchDetailVDTO {
 	
 	
 }
+=======
+package com.knockknock.dto.branch;
+
+public class BranchDetailVDTO {
+
+}
+>>>>>>> ash

@@ -25,3 +25,4 @@ public class ContractDTO {
 	private int returnAmount;
 	private String memo;
 }
+

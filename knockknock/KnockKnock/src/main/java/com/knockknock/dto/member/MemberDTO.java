@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
@@ -30,3 +31,10 @@ public class MemberDTO {
 	private String intriduce;
 
 }
+=======
+package com.knockknock.dto.member;
+
+public class MemberDTO {
+
+}
+>>>>>>> ash

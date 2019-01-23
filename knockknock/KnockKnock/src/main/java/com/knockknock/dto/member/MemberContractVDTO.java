@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
@@ -46,3 +47,10 @@ public class MemberContractVDTO {
 	private int payAmount;
 	private int unpaid;
 }
+=======
+package com.knockknock.dto.member;
+
+public class MemberContractVDTO {
+
+}
+>>>>>>> ash
