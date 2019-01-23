@@ -1,6 +1,6 @@
 package com.knockknock.dto.event;
 
-import java.util.Date;
+import java.sql.Date;
 import lombok.*;
 
 @Getter @Setter

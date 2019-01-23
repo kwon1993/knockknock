@@ -1,15 +1,11 @@
 package com.knockknock.dto.event;
 
-<<<<<<< HEAD
-import java.sql.Date;
 
-public class EventVDTO {
-=======
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
->>>>>>> ae50c271df389a37e68fa32e1fba8126f8816c62
+
 
 @Getter @Setter
 public class EventVDTO {
