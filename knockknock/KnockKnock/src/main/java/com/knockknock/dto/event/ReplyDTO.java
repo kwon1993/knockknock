@@ -6,6 +6,6 @@ public interface ReplyDTO {
 	public int writingNumber();
 	public int meetingNumber();
 	public String content();
-	public Date writeDate();
+	public Date writeTime();
 	public int parentNumber();
 }

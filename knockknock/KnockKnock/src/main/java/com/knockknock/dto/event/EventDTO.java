@@ -5,7 +5,8 @@ import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class EventDTO {
 	private int writingNumber; //글번호
 	private int memberNumber; //회원번호
