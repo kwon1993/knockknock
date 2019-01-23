@@ -4,31 +4,7 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
-<<<<<<< HEAD
-<<<<<<< HEAD
-@Getter @Setter
-public class MeetingVDTO {
 
-	private int writingNumber;
-	private int memberNumber;
-	private String title;
-	private Date wirteTime;
-	private Date acceptStartTime;
-	private Date acceptEndTime;
-	private int recruitNumber;
-	private int hit;
-	private String simpleIntroduce;
-	private String detailIntroduce;
-	private String place;
-	private String placeDetail;
-	private String cancelReasin;
-	private Date meetingStartDate;
-	private Date meetingEndDate;
-	private String image;
-	private int like;
-=======
-=======
->>>>>>> 57732c6b7333eb9011e7a30ac436ceb104a593a0
 
 @Getter
 @Setter
@@ -51,5 +27,4 @@ public class MeetingVDTO {
 	private String image; //이미지
 	private int like; //좋아요
 
->>>>>>> 57732c6b7333eb9011e7a30ac436ceb104a593a0
 }
