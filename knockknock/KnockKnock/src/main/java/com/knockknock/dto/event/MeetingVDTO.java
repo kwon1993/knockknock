@@ -1,6 +1,5 @@
 package com.knockknock.dto.event;
 
-<<<<<<< HEAD
 import java.sql.Date;
 
 public class MeetingVDTO {
@@ -180,5 +179,5 @@ public class MeetingVDTO {
 	private Date meetingEndTime; //모임 종료시간
 	private String image; //이미지
 	private int like; //좋아요
->>>>>>> ae50c271df389a37e68fa32e1fba8126f8816c62
+
 }
