@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ReviewDTO {
 	
 	private int writingNumber;
@@ -17,10 +14,3 @@ public class ReviewDTO {
 	private Date writeTime;
 	private String image;
 }
-=======
-package com.knockknock.dto.branch;
-
-public class ReviewDTO {
-
-}
->>>>>>> ash

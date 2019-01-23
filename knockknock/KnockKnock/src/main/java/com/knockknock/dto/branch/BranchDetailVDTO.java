@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class BranchDetailVDTO {
 	
 	private int branchNumber;
@@ -46,10 +43,3 @@ public class BranchDetailVDTO {
 	
 	
 }
-=======
-package com.knockknock.dto.branch;
-
-public class BranchDetailVDTO {
-
-}
->>>>>>> ash
