@@ -22,6 +22,10 @@ public class EventVDTO {
 	private String nickname; //닉네임
 	private int replyNumber; //댓글번호
 	private String replyContent; //댓글내용
+<<<<<<< HEAD
 	private Date replyWriteDate; //댓글작성시간
+=======
+	private Date replyWriteTime; //댓글작성시간
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db
 	private int parentNumber; //부모댓글 번호
 }

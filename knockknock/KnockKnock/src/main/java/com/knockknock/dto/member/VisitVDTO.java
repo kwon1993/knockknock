@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import lombok.Data;
 
+<<<<<<< HEAD
 @Data
 public class VisitVDTO {
 	private int writingNumber;
@@ -17,3 +18,8 @@ public class VisitVDTO {
 	private String name;
 	private String phoneNumber;
 }
+=======
+public class VisitVDTO {
+
+}
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

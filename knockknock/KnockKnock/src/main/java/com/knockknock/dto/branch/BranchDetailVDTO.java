@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
@@ -43,4 +46,7 @@ public class BranchDetailVDTO {
 	private int writingNumber;
 	
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

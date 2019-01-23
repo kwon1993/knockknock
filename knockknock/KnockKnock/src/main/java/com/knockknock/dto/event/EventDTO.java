@@ -21,4 +21,7 @@ public class EventDTO {
 	private String image; //이미지
 	private int like; //좋아요
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

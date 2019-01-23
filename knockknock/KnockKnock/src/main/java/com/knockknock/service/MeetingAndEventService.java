@@ -1,14 +1,17 @@
-package com.knockknock.mapper;
+package com.knockknock.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.mapper.MeetingAndEventMapper;
 
-@Repository("com.knockknock.mapper.MeetingAndEventMapper")
-public interface MeetingAndEventMapper {
+@Service("com.knockknock.service.MeetingAndEventServiceImpl")
+public interface MeetingAndEventService {
 	public int meetingCount() throws Exception; //모임글 수
 	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
 	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
@@ -25,5 +28,4 @@ public interface MeetingAndEventMapper {
 	public int participate() throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;
-	
 }
