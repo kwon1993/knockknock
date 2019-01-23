@@ -5,6 +5,7 @@ import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Getter @Setter
 public class MeetingVDTO {
 
@@ -26,6 +27,8 @@ public class MeetingVDTO {
 	private String image;
 	private int like;
 =======
+=======
+>>>>>>> 57732c6b7333eb9011e7a30ac436ceb104a593a0
 
 @Getter
 @Setter
