@@ -3,7 +3,8 @@ package com.knockknock.dto.event;
 import java.sql.Date;
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 public class MeetingAndEventVDTO {
 	private String image; //이미지 
 	private int memberNumber; //회원번호

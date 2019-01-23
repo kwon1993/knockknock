@@ -5,7 +5,8 @@ import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class MeetingDTO {
 	private int writingNumber; //글번호
 	private int memberNumber; //회원번호
@@ -17,8 +18,8 @@ public class MeetingDTO {
 	private int hit; //조회수
 	private String simpleIntroduce; //모임 간단소개
 	private String detailIntroduce; //모임 상세소개
-	private String meetingPlace; //모임 주소
-	private String meetingPlaceDetail; //모임 세부주소
+	private String place; //모임 주소
+	private String placeDetail; //모임 세부주소
 	private String cancelReason; //취소이유
 	private Date meetingStartTime; //모임 시작시간
 	private Date meetingEndTime; //모임 종료시간

@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter @Setter
+@Getter
+@Setter
 public class EventVDTO {
 	private int writingNumber; //글번호
 	private int memberNumber; //회원번호
@@ -25,6 +26,6 @@ public class EventVDTO {
 	private String nickname; //닉네임
 	private int replyNumber; //댓글번호
 	private String replyContent; //댓글내용
-	private Date replyWriteDate; //댓글작성시간
+	private Date replyWriteTime; //댓글작성시간
 	private int parentNumber; //부모댓글 번호
 }
