@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class BranchDTO {
 	private int branchNumber;
 	private String theme;
@@ -30,10 +27,4 @@ public class BranchDTO {
 	private String imageETC;
 
 }
-=======
-package com.knockknock.dto.branch;
 
-public class BranchDTO {
-
-}
->>>>>>> ash

@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 package com.knockknock.dto.member;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class PetDTO {
 
 	private int petNumber;
@@ -14,10 +11,3 @@ public class PetDTO {
 	private int amount;
 
 }
-=======
-package com.knockknock.dto.member;
-
-public class PetDTO {
-
-}
->>>>>>> ash

@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class PayDTO {
 	
 	private int payCount;
@@ -17,10 +14,3 @@ public class PayDTO {
 	private int unpaid;
 	
 }
-=======
-package com.knockknock.dto.member;
-
-public class PayDTO {
-
-}
->>>>>>> ash

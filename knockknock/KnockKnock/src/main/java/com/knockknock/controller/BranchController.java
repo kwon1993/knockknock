@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BranchController {
 
 	@RequestMapping("/")
-	public String test() {
-		return "etc/Main";
+	public String test1() {
+		return "etc/layouts/Main";
+	}
+	
+	@RequestMapping("layoutTest")
+	public String test2() {
+		return "branch/layoutTest";
 	}
 }

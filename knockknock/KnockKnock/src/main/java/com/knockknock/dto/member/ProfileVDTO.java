@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ProfileVDTO {
 
 	private int memberNumber;
@@ -24,10 +21,3 @@ public class ProfileVDTO {
 	private int amount;
 
 }
-=======
-package com.knockknock.dto.member;
-
-public class ProfileVDTO {
-
-}
->>>>>>> ash

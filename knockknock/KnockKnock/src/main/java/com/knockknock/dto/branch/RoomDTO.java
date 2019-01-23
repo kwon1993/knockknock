@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class RoomDTO {
 	private int roomNumber;
 	private int branchNumber;
@@ -20,10 +17,4 @@ public class RoomDTO {
 	private String facility;
 	private String imageRoom;
 }
-=======
-package com.knockknock.dto.branch;
 
-public class RoomDTO {
-
-}
->>>>>>> ash

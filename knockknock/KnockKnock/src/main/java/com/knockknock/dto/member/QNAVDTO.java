@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class QNAVDTO {
 	
 	private int writingNumber;
@@ -19,10 +16,3 @@ public class QNAVDTO {
 	private String reply;
 	private String nickname;
 }
-=======
-package com.knockknock.dto.member;
-
-public class QNAVDTO {
-
-}
->>>>>>> ash

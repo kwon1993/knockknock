@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class MemberDTO {
 	
 	private int memberNumber;
@@ -31,10 +28,3 @@ public class MemberDTO {
 	private String intriduce;
 
 }
-=======
-package com.knockknock.dto.member;
-
-public class MemberDTO {
-
-}
->>>>>>> ash
