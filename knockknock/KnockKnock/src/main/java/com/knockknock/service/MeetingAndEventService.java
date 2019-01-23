@@ -6,32 +6,26 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 
-@Service("com.knockknock.service.MeetingAndEventService")
-public class MeetingAndEventService {
-	
-	@Resource(name="com.knockknock.mapper.MeetingAndEventMapper")
-	MeetingAndEventMapper meMapper;
-	
-	public List<MeetingDTO> meetingListService() throws Exception{ //미팅리스트
-		return meMapper.meetingList();
-	}
-	
-	public MeetingDTO meetingViewService(int writeNumber) throws Exception{ //미팅상세보기
-		return meMapper.meetingView(writeNumber);
-	}
-	
-	public int meetingInsertService(MeetingDTO meetingBoard) throws Exception{ //미팅 작성
-		return meMapper.meetingInsert(meetingBoard);
-	}
-
-	public int meetingModifyService(MeetingDTO meetingBoard) throws Exception{ //미팅 수정
-		return meMapper.meetingModify(meetingBoard);
-	}
-	
-	public int meetingDeleteService(int writeNumber) throws Exception{ //미팅 삭제
-		return meMapper.meetingDelete(writeNumber);
-	}
+@Service("com.knockknock.service.MeetingAndEventServiceImpl")
+public interface MeetingAndEventService {
+	public int meetingCount() throws Exception; //모임글 수
+	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
+	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
+	public int meetingInsert(MeetingDTO meetingBoard) throws Exception; //모임 글쓰기
+	public int meetingModify(MeetingDTO meetingBoard) throws Exception;
+	public int meetingDelete(int writeNumber) throws Exception;
+	public int meetingSearch() throws Exception;
+	public int eventCount() throws Exception;
+	public List<EventDTO> eventList() throws Exception;
+	public int eventSearch() throws Exception;
+	public int fileUpload() throws Exception;
+	public int fileDown() throws Exception;
+	public int likeToggle() throws Exception;
+	public int participate() throws Exception;
+	public int meetingPlace() throws Exception;
+	public int meetingPlaceDetail() throws Exception;
 }
