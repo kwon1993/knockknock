@@ -27,6 +27,6 @@ public class MemberDTO {
 	private Date joinTime;
 	private Date leaveTime;
 	private String imageProfile;
-	private String intriduce;
+	private String introduce;
 
 }
