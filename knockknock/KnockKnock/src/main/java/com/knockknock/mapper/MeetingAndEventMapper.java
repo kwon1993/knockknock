@@ -11,10 +11,10 @@ import com.knockknock.dto.event.MeetingDTO;
 public interface MeetingAndEventMapper {
 	public int meetingCount() throws Exception; //모임글 수
 	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
-	public int meetingView() throws Exception; //모임상세보기
-	public int meetingInsert() throws Exception; //모임 글쓰기
-	public int meetingModify() throws Exception;
-	public int meetingDelete() throws Exception;
+	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
+	public int meetingInsert(MeetingDTO meetingBoard) throws Exception; //모임 글쓰기
+	public int meetingModify(MeetingDTO meetingBoard) throws Exception;
+	public int meetingDelete(int writeNumber) throws Exception;
 	public int meetingSearch() throws Exception;
 	public int eventCount() throws Exception;
 	public List<EventDTO> eventList() throws Exception;
