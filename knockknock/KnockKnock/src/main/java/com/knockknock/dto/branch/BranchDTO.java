@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import lombok.Getter;
@@ -29,3 +30,10 @@ public class BranchDTO {
 	private String imageETC;
 
 }
+=======
+package com.knockknock.dto.branch;
+
+public class BranchDTO {
+
+}
+>>>>>>> ash

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
@@ -19,3 +20,10 @@ public class RoomDTO {
 	private String facility;
 	private String imageRoom;
 }
+=======
+package com.knockknock.dto.branch;
+
+public class RoomDTO {
+
+}
+>>>>>>> ash

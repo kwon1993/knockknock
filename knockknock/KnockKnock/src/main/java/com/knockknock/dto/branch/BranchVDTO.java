@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import lombok.Getter;
@@ -22,3 +23,10 @@ public class BranchVDTO {
 	private String rentableDate;
 	
 }
+=======
+package com.knockknock.dto.branch;
+
+public class BranchVDTO {
+
+}
+>>>>>>> ash

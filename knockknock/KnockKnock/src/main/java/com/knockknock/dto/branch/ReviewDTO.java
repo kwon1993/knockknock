@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
@@ -16,3 +17,10 @@ public class ReviewDTO {
 	private Date writeTime;
 	private String image;
 }
+=======
+package com.knockknock.dto.branch;
+
+public class ReviewDTO {
+
+}
+>>>>>>> ash

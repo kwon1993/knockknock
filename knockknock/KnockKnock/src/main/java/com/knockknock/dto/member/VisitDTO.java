@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.knockknock.dto.member;
 
 import java.sql.Date;
@@ -16,3 +17,10 @@ public class VisitDTO {
 	private String memo;
 	private String confirm;
 }
+=======
+package com.knockknock.dto.member;
+
+public class VisitDTO {
+
+}
+>>>>>>> ash
