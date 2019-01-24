@@ -40,9 +40,4 @@ public class BranchDetailVDTO {
 	private int petNumber;
 	private int amount;
 	private int writingNumber;
-	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> efbb975837f57fe3d8cd73ab81b864860e86518d
