@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import lombok.Data;
 
-<<<<<<< HEAD
 @Data
 public class PayDTO {
 	
@@ -15,8 +14,3 @@ public class PayDTO {
 	private int unpaid;
 	
 }
-=======
-public class PayDTO {
-
-}
->>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

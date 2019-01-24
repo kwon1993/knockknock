@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 
-@Service("com.knockknock.service.MeetingAndEventServiceImpl")
+//@Service("com.knockknock.service.MeetingAndEventServiceImpl")
 public class MeetingAndEventServiceImpl {
 	
-	@Resource(name="com.knockknock.mapper.MeetingAndEventMapper")
+//	@Resource(name="com.knockknock.mapper.MeetingAndEventMapper")
 	MeetingAndEventMapper meMapper;
 	
 	public List<MeetingDTO> meetingListService() throws Exception{ //미팅리스트

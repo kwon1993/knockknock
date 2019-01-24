@@ -10,7 +10,7 @@ import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 
-@Service("com.knockknock.service.MeetingAndEventServiceImpl")
+//@Service("com.knockknock.service.MeetingAndEventServiceImpl")
 public interface MeetingAndEventService {
 	public int meetingCount() throws Exception; //모임글 수
 	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
