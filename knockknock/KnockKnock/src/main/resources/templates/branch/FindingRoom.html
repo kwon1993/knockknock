@@ -44,5 +44,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 <footer th:replace="etc/fragments/footer :: footer">
 	<p>This is default footer area for default layout</p>
 </footer>
+
+<th:block layout:fragment="script">
+<script  type="text/javascript">
+$(document).ready(function(){
+    $("#menu ul li").on('click',function(){
+    	alert("hi");
+        $(".active").removeClass("active");
+        $(this).attr('class','active');
+    });
+});
+</script>
+</th:block>
 </body>
 </html>

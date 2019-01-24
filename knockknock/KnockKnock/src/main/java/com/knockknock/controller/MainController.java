@@ -8,7 +8,7 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String start() {
-		return "etc/layouts/Main";
+		return "etc/index";
 	}
 	
 	@RequestMapping("a")
