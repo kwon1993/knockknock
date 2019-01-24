@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import lombok.Data;
 
-<<<<<<< HEAD
 @Data
 public class ProfileVDTO {
 
@@ -22,8 +21,3 @@ public class ProfileVDTO {
 	private int amount;
 
 }
-=======
-public class ProfileVDTO {
-
-}
->>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

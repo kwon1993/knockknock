@@ -23,7 +23,3 @@ public class ContractDTO {
 	private int returnAmount;
 	private String memo;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

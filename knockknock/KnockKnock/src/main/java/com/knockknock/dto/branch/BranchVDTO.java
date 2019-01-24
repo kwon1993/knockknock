@@ -18,10 +18,5 @@ public class BranchVDTO {
 	private int menthlyRent;
 	private int deposit;
 	private String rentableDate;
-<<<<<<< HEAD
 
 }
-=======
-	
-}
->>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db

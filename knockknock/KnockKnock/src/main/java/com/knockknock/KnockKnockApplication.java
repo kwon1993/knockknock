@@ -11,16 +11,3 @@ public class KnockKnockApplication {
 	}	
 }
 
-/* $(document).ready(function(){
-var search = $("form[name=search]").serialize();
-	
-	$.ajax({
-		type:'post',
-		url:'/findingRoom',
-		data:search,
-		dataType:'json',
-		success:function(json){
-			alert(json);
-		}
-	});
-}); */

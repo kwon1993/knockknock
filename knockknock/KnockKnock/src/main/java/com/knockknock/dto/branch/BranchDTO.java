@@ -26,9 +26,4 @@ public class BranchDTO {
 	private String imageBathroom;
 	private String imageETC;
 
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> a26fd36b2e4ad7887e95e867c2311f30ec9020db
