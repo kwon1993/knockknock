@@ -16,8 +16,4 @@ public class VisitVDTO {
 	private String nickname;
 	private String name;
 	private String phoneNumber;
-<<<<<<< HEAD
-
-=======
->>>>>>> efbb975837f57fe3d8cd73ab81b864860e86518d
 }
