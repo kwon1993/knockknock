@@ -5,6 +5,10 @@ import java.util.List;
 import com.knockknock.dto.event.EventReplyDTO;
 import com.knockknock.dto.event.MeetingReplyDTO;
 import com.knockknock.dto.event.ReplyDTO;
+<<<<<<< HEAD
+=======
+
+>>>>>>> efbb975837f57fe3d8cd73ab81b864860e86518d
 
 public interface ReplyMapper {
 	public int replyWritingNumber() throws Exception;

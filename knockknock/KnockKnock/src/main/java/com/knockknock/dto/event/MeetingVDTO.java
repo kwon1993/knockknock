@@ -3,6 +3,10 @@ package com.knockknock.dto.event;
 import java.sql.Date;
 
 import lombok.Data;
+<<<<<<< HEAD
+=======
+
+>>>>>>> efbb975837f57fe3d8cd73ab81b864860e86518d
 @Data
 public class MeetingVDTO {
 	private int writingNumber; //글번호
@@ -23,4 +27,8 @@ public class MeetingVDTO {
 	private String image; //이미지
 	private int like; //좋아요
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> efbb975837f57fe3d8cd73ab81b864860e86518d
