@@ -1,60 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
-
-Name       : Undeviating 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20140322
-
--->
-
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
-
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
-<link href="css/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-
-<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>낙낙-방찾기</title>
 </head>
-
 <body>
 
-<header th:replace="etc/fragments/header :: header">
-  <p>This is default header area for default layout</p>
-</header>
-
-<div class="wrapper">
-
-방찾기 게시판이에요
-
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
 </div>
 
-<footer th:replace="etc/fragments/footer :: footer">
-	<p>This is default footer area for default layout</p>
-</footer>
+<div layout:fragment="content" class="container">
+    <div class="jumbotron" style="margin-top:200px">
+       
+	<!--지도를 표시할 div-->
+		<div id="map" style="width:100%;height:350px;"></div>
+	<!-- 지도 좌표 -->
+		<p><em>지도 중심좌표가 변경되면 지도 정보가 표출됩니다</em></p>
+		<p id="result"></p>
 
-<th:block layout:fragment="script">
-<script  type="text/javascript">
-$(document).ready(function(){
-    $("#menu ul li").on('click',function(){
-    	alert("hi");
-        $(".active").removeClass("active");
-        $(this).attr('class','active');
-    });
-});
-</script>
-</th:block>
+	<!--주소목록-->
+	search for knockknock place !
+	<!--주소 목록 리스트 출력-->
+	<div th:each="list:${list}" name="list" id="list">
+		<span th:text="${list.branch_number}" id="spanAddress"/>
+		<span th:text="${list.address}" name="address"/>
+	</div>
+	<!--주소목록-->
+
+	<!--검색-->
+	<form name="search" id="search">
+		<input type="text" name="address">
+		<select name="gender">
+			<option name="남자" value="남자">남자</option>
+			<option name="여자" value="여자">여자</option>
+			<option name="공용" value="공용">공용</option>
+		</select>
+		<input type="submit">
+	</form>
+	<!--검색-->
+    </div>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+	<p>header replace</p>
+</div>
+
 </body>
 </html>

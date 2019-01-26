@@ -27,6 +27,9 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
   <!-- =======================================================
     Theme Name: EstateAgency
@@ -56,13 +59,14 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Mount
-                      <br> Olive Road Two</h1>
+                      <span class="color-b">간단하게 </span> 방을
+                      <br> 찾아봐요!</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                    	<input type='text' name='address' placeholder="주소나 위치를 입력하세요">
+                      	<a href='/simpleRoomSearch' name='simpleSearch'><span class="price-a">방찾기</span></a>
                     </p>
                   </div>
                 </div>
@@ -79,13 +83,13 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Rino
-                      <br> Venda Road Five</h1>
+                      <span class="color-b">입주하는 방법 </span>
+                      <br>이 궁금하세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                      <a href="#"><span class="price-a"></span></a>
                     </p>
                   </div>
                 </div>
@@ -102,13 +106,13 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One</h1>
+                      <span class="color-b">입주관련 </span> 궁금한 점이 
+                      <br> 있으세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                      <a href="#"><span class="price-a"></span></a>
                     </p>
                   </div>
                 </div>
@@ -128,7 +132,7 @@ xmlns:th="http://www.w3.org/1999/xhtml">
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-              <h2 class="title-a">Our Services</h2>
+              <h2 class="title-a" style="text-align: center">"우리 서로 KnockKnock"</h2>
             </div>
           </div>
         </div>
@@ -141,14 +145,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-gamepad"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Lifestyle</h2>
+                <h2 class="title-c">관심사</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+               	 음악, 요리, 수영, 게임 등..서로의 관심사를 공유하고 관심사가 맞는 사람들끼리 KnockKnock 해보세요 ! 
               </p>
             </div>
             <div class="card-footer-c">
@@ -165,14 +167,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-usd"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Loans</h2>
+                <h2 class="title-c">쉐어하우스</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Mauris blandit
-                aliquet elit, eget tincidunt
-                nibh pulvinar a.
+                집구하기는 어렵고, 보증금과 월세는 나날이 오르고..KnockKnock 쉐어하우스로 해결해 보는 것은 어떤가요?
               </p>
             </div>
             <div class="card-footer-c">
@@ -189,14 +189,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-home"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Sell</h2>
+                <h2 class="title-c">테마</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+                테마가 있는 쉐어하우스가 있어요! 테마란 하우스 자체가 갖고 있는 관심사로, 테마에 맞는 인테리어와 장비, 소품 등이 준비되어 있어요!
               </p>
             </div>
             <div class="card-footer-c">
@@ -817,23 +815,131 @@ xmlns:th="http://www.w3.org/1999/xhtml">
   <div th:replace="etc/fragments/footer :: footer">
   <p>header replace</p>
   </div>
+
+ <!-- JavaScript Libraries -->
+<div layout:fragment="script">
+	  <script src="lib/jquery/jquery.min.js"></script>
+	  <script src="lib/jquery/jquery-migrate.min.js"></script>
+	  <script src="lib/popper/popper.min.js"></script>
+	  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	  <script src="lib/easing/easing.min.js"></script>
+	  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+	  <!-- Contact Form JavaScript File -->
+	  <script src="contactform/contactform.js"></script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
+	
+	  <!-- Template Main Javascript File -->
+	  <script src="js/main.js"></script>
+  </div>
   
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-  <div id="preloader"></div>
+<script>
+	//심플방검색 제이쿼리--------------------------------------------------------------------
+	$(document).ready(function(){
+		var simpleSearch = $("a[name=simpleSearch]");
+		var inputRoom = $("input[name=address]");
+		
+		$(simpleSearch).on('click',function(){
+			simpleSearch.attr('href','/simpleRoomSearch?address=' + inputRoom.val());
+		});
+	});
+	
+	//지도 관련 스크립트----------------------------------------------------------------------
+	//<지도생성 메서드>
+	//'map' ID를 얻어서 container 변수에 담는다. 그리고 option변수에 객체스타일로 좌표,레벨을 담는다.
+	var container = document.getElementById('map'),
+	options = {
+	     center: new daum.maps.LatLng(33.450701, 126.570667),
+	     level: 6
+	};
 
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/popper/popper.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+	//그 후, 다음맵 인스턴스에 container,options를 생성자변수로 넣어서 var map 변수에 담는다.
+	var map = new daum.maps.Map(container, options);
 
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
+	//마커가 표시될 위치
+	var markerPosition = new daum.maps.LatLng(33.450701, 126.570667); 
+
+	// 마커를 생성
+	var marker = new daum.maps.Marker({
+	    position: markerPosition
+	});
+
+	marker.setMap(map);
+
+	//좌표를 set(LatLng->위도,경도)
+	//map.setCenter(new daum.maps.LatLng(37.588183, 127.023454));
+	//좌표 정보를 반환
+	var position = map.getCenter();
+
+	//지도가 이동,확대,축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록
+	new daum.maps.event.addListener(map, 'center_changed', function() {
+
+	    // 지도의  레벨을 얻어옵니다
+	    var level = map.getLevel();
+
+	    // 지도의 중심좌표를 얻어옵니다 
+	    var latlng = map.getCenter(); 
+
+	    var message = '<p>지도 레벨은 ' + level + ' 이고</p>';
+	    message += '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
+
+	    var resultDiv = document.getElementById('result');
+	    resultDiv.innerHTML = message;
+	});
+
+	//주소->좌표변환 객체 생성
+	var geocoder = new daum.maps.services.Geocoder();
+
+	//리스트 출력한 name="address"를 getElementsByName으로 받아서 address변수에 대입
+	var address = document.getElementsByName("address");
+
+	//주소를 지도 위에 띄우기
+	window.onload = function(){
+		for(i=0; i<=address.length; i++){
+	   		geocoder.addressSearch(address[i].textContent, callback);
+		}
+	}
+
+	var coords;
+
+	var callback = function(result, status) {
+	    if (status === daum.maps.services.Status.OK) {
+	    	//좌표를 넣는 메서드
+	    	coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	    	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	        map.setCenter(coords);
+	        
+	    	console.log("주소는"+result);
+	    }
+	};
+
+
+	/* var search = $("form[name=search]").serialize();
+		
+		$.ajax({
+			type:'get',
+			url:'/FindingRoom2',
+			data:search,
+			dataType:'json',
+			success:function(json){
+				//alert("success"); //성공
+				for(i=0; i<json.length; i++){
+					$("spanAddress").empty();
+				}
+			}
+		}); */
+
+	</script>
+	
+
+		
+</script>
 
 </body>
 </html>

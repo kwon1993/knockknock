@@ -1,0 +1,26 @@
+
+	<!--주소목록-->
+	search for knockknock place !
+	<!--주소 목록 리스트 출력-->
+	<div th:each="list:${list}" name="list" id="list">
+		<span th:text="${list.branch_number}" id="spanAddress"/>
+		<span th:text="${list.address}" name="address"/>
+	</div>
+	<!--주소목록-->
+
+	<!--검색-->
+	<form name="search" id="search">
+		<input type="text" name="address">
+		<select name="gender">
+			<option name="남자" value="남자">남자</option>
+			<option name="여자" value="여자">여자</option>
+			<option name="공용" value="공용">공용</option>
+		</select>
+		<input type="submit">
+	</form>
+	<!--검색-->
+	
+	
+	
+	
+	

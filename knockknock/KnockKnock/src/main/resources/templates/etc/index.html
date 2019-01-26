@@ -4,10 +4,11 @@ layout:decorate="~{etc/fragments/main_layout}">
 <head>
     <title>Spring Boot Thymeleaf + Spring Security</title>
 </head>
+
 <body>
 
 <div layout:fragment="content" class="container">
-    <div class="jumbotron">
+    <div class="jumbotron" style="margin-top:200px">
         <h1>Navbar example</h1>
         <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work.
             It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
@@ -16,5 +17,10 @@ layout:decorate="~{etc/fragments/main_layout}">
         </p>
     </div>
 </div>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+ 	
 </body>
 </html>
