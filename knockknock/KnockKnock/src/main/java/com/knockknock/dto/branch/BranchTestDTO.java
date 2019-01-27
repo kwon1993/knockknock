@@ -18,6 +18,4 @@ public class BranchTestDTO {
 	private String pet;
 	private String maximum_resident;
 	private String rule;
-	
-	
 }

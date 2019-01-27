@@ -20,27 +20,37 @@ layout:decorate="~{etc/fragments/main_layout}">
 		<p><em>지도 중심좌표가 변경되면 지도 정보가 표출됩니다</em></p>
 		<p id="result"></p>
 
-	<!--주소목록-->
-	search for knockknock place !
-	<!--주소 목록 리스트 출력-->
-	<div th:each="list:${list}" name="list" id="list">
-		<span th:text="${list.branch_number}" id="spanAddress"/>
-		<span th:text="${list.address}" name="address"/>
-	</div>
-	<!--주소목록-->
-
 	<!--검색-->
 	<form name="search" id="search">
-		<input type="text" name="address">
+		<input type="text" name="address" id='address'>
 		<select name="gender">
 			<option name="남자" value="남자">남자</option>
 			<option name="여자" value="여자">여자</option>
 			<option name="공용" value="공용">공용</option>
 		</select>
-		<input type="submit">
+		<input type="submit" value="찾기" name='roomSearch'>
 	</form>
 	<!--검색-->
     </div>
+
+<!-- gallery Page Content -->
+    <div class="container">
+      <h1 class="my-4 text-center text-lg-left">입주가능 방 목록</h1>
+      
+      <div class="row text-center text-lg-left">
+      
+      	<!-- thymeleaf gallery test -->
+        <div th:each="list:${list}" class="col-lg-3 col-md-4 col-xs-6" name="list" id="list">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          	<span th:text="${list.branch_number}" id="spanAddress"/>
+			<span th:text="${list.address}" name="address"/>
+          </a>
+        </div>
+      	<!-- thymeleaf gallery test -->
+      </div>
+    </div>
+<!-- /.container -->
 </div>
 
 <!-- / footer replace / -->
