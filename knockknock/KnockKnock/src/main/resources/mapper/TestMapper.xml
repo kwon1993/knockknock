@@ -6,6 +6,9 @@
 
 <select id="list" resultType="BranchTestDTO">
 	select * from branch
+	<if test="address!=null">
+		where address like CONCAT('%',#{address},'%')
+	</if>
 </select>
 
 </mapper>

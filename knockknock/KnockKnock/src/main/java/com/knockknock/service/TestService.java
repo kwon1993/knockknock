@@ -14,7 +14,7 @@ public class TestService {
 	@Autowired
 	TestMapper testMapper;
 	
-	public List<BranchTestDTO> list(String address){
-		return testMapper.list(address);
+	public List<BranchTestDTO> list(BranchTestDTO branchTestDTO){
+		return testMapper.list(branchTestDTO);
 	}
 }

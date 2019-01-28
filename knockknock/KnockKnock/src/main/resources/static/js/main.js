@@ -146,19 +146,4 @@
 			}
 		}
 	});
-	
-	/*--/ customized nav bar /--*/
-	$(".nav-link").off("click").on('click',function(e){
-		e.preventDefault();
-	 	alert("hi");
-	 	
-	 	if($(".nav-link").hasClass("active")){
-	 		$(".nav-link").removeClass("active");
-	 	}
-	 	else{
-	 		$(this).addClass("active");
-	 	}
-	 	
-	 	
-    });
 })(jQuery);
