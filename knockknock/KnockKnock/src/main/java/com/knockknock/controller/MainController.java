@@ -40,7 +40,7 @@ public class MainController {
 	
 	@RequestMapping("d")
 	public String toMeetingAndEvent() {
-		return "event/?????";
+		return "event/MeetingAndEventMain";
 	}
 	
 	@RequestMapping("e")
