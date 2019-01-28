@@ -2,11 +2,13 @@ package com.knockknock.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
 
 //@Repository("com.knockknock.mapper.MeetingAndEventMapper")
+@Mapper
 public interface MeetingAndEventMapper {
 	public int meetingCount() throws Exception; //모임글 수
 	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
@@ -24,5 +26,4 @@ public interface MeetingAndEventMapper {
 	public int participate() throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;
-	
 }
