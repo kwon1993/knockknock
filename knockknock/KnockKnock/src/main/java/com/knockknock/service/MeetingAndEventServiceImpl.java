@@ -11,10 +11,10 @@ import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 
-@Service("com.knockknock.service.MeetingAndEventService")
+@Service
 public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 		
-	@Resource
+	@Autowired
 	MeetingAndEventMapper meMapper;
 	
 	@Override
