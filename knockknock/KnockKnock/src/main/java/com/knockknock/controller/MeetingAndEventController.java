@@ -13,20 +13,20 @@ public class MeetingAndEventController {
 	@Autowired
 	MeetingAndEventServiceImpl meServiceImpl;
 	
-	@RequestMapping("MeetingList") //미팅리스트
+	@RequestMapping("/MeetingList") //미팅리스트
 	private String meetingList(Model model) throws Exception{
-		model.addAttribute("meetingList", meServiceImpl.meetingListService());
-		return "meetingList";
+		model.addAttribute("MeetingList", meServiceImpl.meetingListService());
+		return "event/MeetingList";
 	}
 	
-	@RequestMapping("MeetingView/{writeNum}") //미팅 상세보기
+	@RequestMapping("/MeetingView/{writeNum}") //미팅 상세보기
 	private String meetingView(@PathVariable int writeNum, Model model) throws Exception {
-		model.addAttribute("meetingView", meServiceImpl.meetingViewService(writeNum));
-		return "meetingView";
+		model.addAttribute("MeetingView", meServiceImpl.meetingViewService(writeNum));
+		return "event/MeetingView";
 	}
 	
-	@RequestMapping("WriteBoard") //미팅 글 쓰기
+	@RequestMapping("/WriteBoard") //미팅 글 쓰기
 	private String writeBoardForm() {
-		return "writeBoard";
+		return "event/WriteBoard";
 	}
 }

@@ -5,10 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.MeetingAndEventMapper">
 
-    <select id="meetingCount" resultType="int">
+<!--     <select id="meetingCount" resultType="int"> -->
+<!--         SELECT -->
+<!--             COUNT(*) -->
+<!--         FROM meeting -->
+<!--     </select> -->
+    <select id="meetingList" resultType="MeetingDTO">
         SELECT
-            COUNT(*)
+            *
         FROM meeting
+        ORDER BY WRITING_NUMBER DESC
     </select>
 
 </mapper>

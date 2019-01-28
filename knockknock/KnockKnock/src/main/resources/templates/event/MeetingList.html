@@ -2,9 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>모임게시판</title>
 </head>
 <body>
+	<div style="margin: 15px auto;">
+		<button style="float: right;" onclick="">글쓰기</button>
+	</div>
 
+	<div>
+		<h2>모임게시판</h2>
+		<table>
+			<tr>
+				<th>제목</th>
+				<th>모임인원</th>
+				<th>간단소개</th>
+				<th>상세소개</th>
+				<th>작성일</th>
+				<th>장소</th>				
+			</tr>
+			<tr th:each="MeetingList : ${MeetingList}">
+				<td th:text="${MeetingList.title}">Text ...</td>
+				<td th:text="${MeetingList.recruitNumber}">Text ...</td>
+				<td th:text="${MeetingList.simpleIntroduce}">Text ...</td>
+				<td th:text="${MeetingList.detailIntroduce}">Text ...</td>
+				<td th:text="${MeetingList.writeTime}">Text ...</td>
+				<td th:text="${MeetingList.place}">Text ...</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

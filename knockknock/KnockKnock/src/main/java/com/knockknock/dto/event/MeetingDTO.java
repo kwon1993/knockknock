@@ -25,4 +25,5 @@ public class MeetingDTO{
 	private Date meetingEndTime; //모임 종료시간
 	private String image; //이미지
 	private int like; //좋아요
+	
 }
