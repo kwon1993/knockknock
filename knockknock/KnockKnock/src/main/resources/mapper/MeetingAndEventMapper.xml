@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="meetingCount" resultType="int">
         SELECT
             COUNT(*)
-        FROM BOARD
+        FROM meeting
     </select>
 
 </mapper>
