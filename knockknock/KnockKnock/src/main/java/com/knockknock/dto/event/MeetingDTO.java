@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class MeetingDTO {
+public class MeetingDTO{
 	private int writingNumber; //글번호
 	private int memberNumber; //회원번호
 	private String title; //글제목
