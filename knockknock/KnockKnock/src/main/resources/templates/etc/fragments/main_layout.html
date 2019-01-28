@@ -8,6 +8,10 @@ xmlns:th="http://www.w3.org/1999/xhtml">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
+  <!-- gallery meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -24,9 +28,17 @@ xmlns:th="http://www.w3.org/1999/xhtml">
   <link href="lib/animate/animate.min.css" rel="stylesheet">
   <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  
+  <!-- Gallery Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Gallery Custom styles for this template -->
+  <link href="css/thumbnail-gallery.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
   <!-- =======================================================
     Theme Name: EstateAgency
@@ -34,6 +46,45 @@ xmlns:th="http://www.w3.org/1999/xhtml">
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+  
+<style>
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:500px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option button {margin-left:5px;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position: 0 -10px;}
+#placesList .item .marker_2 {background-position: 0 -56px;}
+#placesList .item .marker_3 {background-position: 0 -102px}
+#placesList .item .marker_4 {background-position: 0 -148px;}
+#placesList .item .marker_5 {background-position: 0 -194px;}
+#placesList .item .marker_6 {background-position: 0 -240px;}
+#placesList .item .marker_7 {background-position: 0 -286px;}
+#placesList .item .marker_8 {background-position: 0 -332px;}
+#placesList .item .marker_9 {background-position: 0 -378px;}
+#placesList .item .marker_10 {background-position: 0 -423px;}
+#placesList .item .marker_11 {background-position: 0 -470px;}
+#placesList .item .marker_12 {background-position: 0 -516px;}
+#placesList .item .marker_13 {background-position: 0 -562px;}
+#placesList .item .marker_14 {background-position: 0 -608px;}
+#placesList .item .marker_15 {background-position: 0 -654px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+</style>
 </head>
 
 <body>
@@ -56,13 +107,14 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Mount
-                      <br> Olive Road Two</h1>
+                      <span class="color-b">간단하게 </span> 방을
+                      <br> 찾아봐요!</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                    	<input type='text' name='address' placeholder="주소나 위치를 입력하세요">
+                      	<a href='/simpleRoomSearch' name='simpleSearch'><span class="price-a">방찾기</span></a>
                     </p>
                   </div>
                 </div>
@@ -79,13 +131,13 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Rino
-                      <br> Venda Road Five</h1>
+                      <span class="color-b">입주하는 방법 </span>
+                      <br>이 궁금하세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                      <a href="#"><span class="price-a">바로가기</span></a>
                     </p>
                   </div>
                 </div>
@@ -102,13 +154,13 @@ xmlns:th="http://www.w3.org/1999/xhtml">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
+                    <p class="intro-title-top">
+                      <br></p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One</h1>
+                      <span class="color-b">입주관련 </span> 궁금한 점이 
+                      <br> 있으세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                      <a href="#"><span class="price-a">바로가기</span></a>
                     </p>
                   </div>
                 </div>
@@ -128,7 +180,7 @@ xmlns:th="http://www.w3.org/1999/xhtml">
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-              <h2 class="title-a">Our Services</h2>
+              <h2 class="title-a" style="text-align: center">"우리 서로 KnockKnock"</h2>
             </div>
           </div>
         </div>
@@ -141,14 +193,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-gamepad"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Lifestyle</h2>
+                <h2 class="title-c">관심사</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+               	 음악, 요리, 수영, 게임 등..서로의 관심사를 공유하고 관심사가 맞는 사람들끼리 KnockKnock 해보세요 ! 
               </p>
             </div>
             <div class="card-footer-c">
@@ -165,14 +215,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-usd"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Loans</h2>
+                <h2 class="title-c">쉐어하우스</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Mauris blandit
-                aliquet elit, eget tincidunt
-                nibh pulvinar a.
+                집구하기는 어렵고, 보증금과 월세는 나날이 오르고..KnockKnock 쉐어하우스로 해결해 보는 것은 어떤가요?
               </p>
             </div>
             <div class="card-footer-c">
@@ -189,14 +237,12 @@ xmlns:th="http://www.w3.org/1999/xhtml">
                 <span class="fa fa-home"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Sell</h2>
+                <h2 class="title-c">테마</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+                테마가 있는 쉐어하우스가 있어요! 테마란 하우스 자체가 갖고 있는 관심사로, 테마에 맞는 인테리어와 장비, 소품 등이 준비되어 있어요!
               </p>
             </div>
             <div class="card-footer-c">
@@ -817,23 +863,24 @@ xmlns:th="http://www.w3.org/1999/xhtml">
   <div th:replace="etc/fragments/footer :: footer">
   <p>header replace</p>
   </div>
-  
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-  <div id="preloader"></div>
 
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/popper/popper.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
-
-</body>
+ <!-- JavaScript Libraries -->
+<div layout:fragment="script">
+	  <script src="lib/jquery/jquery.min.js"></script>
+	  <script src="lib/jquery/jquery-migrate.min.js"></script>
+	  <script src="lib/popper/popper.min.js"></script>
+	  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	  <script src="lib/easing/easing.min.js"></script>
+	  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+	  <!-- Contact Form JavaScript File -->
+	  <script src="contactform/contactform.js"></script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
+	  <!-- Template Main Javascript File -->
+	  <script src="js/main.js"></script>
+	  <!-- about gallery script -->
+	  <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</div>
+q</body>
 </html>
