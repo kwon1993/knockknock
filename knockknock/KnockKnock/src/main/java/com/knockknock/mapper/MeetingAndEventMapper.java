@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 
 @Mapper
 public interface MeetingAndEventMapper {
-	public int meetingCount() throws Exception; //모임글 수
-	public List<MeetingVDTO> meetingList() throws Exception; //모임글 리스트
+	public int meetingCount(Criteria cri) throws Exception; //모임글 수
+	public List<MeetingVDTO> meetingList(Criteria cri) throws Exception; //모임글 리스트
 	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
 	public int meetingInsert(MeetingDTO meetingBoard) throws Exception; //모임 글쓰기
 	public int meetingModify(MeetingDTO meetingBoard) throws Exception;
