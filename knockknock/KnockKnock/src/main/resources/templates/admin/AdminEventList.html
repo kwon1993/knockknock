@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>이벤트 목록</title>
+<style>
+
+table{
+	border:1px solid black;
+    margin: 50px auto;
+}
+
+td{
+	border:1px solid black;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Test Field</h1>
+
+
+<table id="table">
+	<tr>
+		<td>글번호</td>
+		<td>닉네임</td>
+		<td>타이틀</td>
+		<td>조회수</td>
+		<td>작성시간</td>
+	</tr>
+	
+	<tr th:each="list : ${eventListView}">
+		<td th:text="${list.writingNumber}"></td>
+		<td th:text="${list.nickname}"></td>
+		<td>
+            <a th:href="@{${list.writingNumber}}"><p th:text="${list.title}"></p></a>
+        </td>
+		<td th:text="${list.hit}"></td>
+		<td th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"></td>	
+    </tr>
+    
+    <tr>
+        <td colspan="5">
+            <form action="write">
+                <input type="submit" value="Write">
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+
+	
+</body>
+</html>
