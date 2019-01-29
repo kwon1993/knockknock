@@ -2,12 +2,10 @@ package com.knockknock.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
@@ -20,8 +18,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	MeetingAndEventMapper meMapper;
 	
 	@Override
-	public List<MeetingVDTO> meetingListService() throws Exception{ //미팅리스트
-		return meMapper.meetingList();
+	public int meetingCountService(Criteria cri) throws Exception {
+		return meMapper.meetingCount(cri);
+	}
+	
+	@Override
+	public List<MeetingVDTO> meetingListService(Criteria cri) throws Exception{ //미팅리스트
+		return meMapper.meetingList(cri);
 	}
 	
 	@Override
@@ -100,8 +103,4 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
-
 }
