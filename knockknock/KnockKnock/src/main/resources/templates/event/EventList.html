@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트 게시판</title>
 </head>
 <body>
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
 
+<div layout:fragment="content" class="container">
+    <div class="jumbotron">
+        <p>이벤트 게시판 입니다.</p>
+    </div>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
+</div>
 </body>
 </html>

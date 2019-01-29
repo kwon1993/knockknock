@@ -10,10 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--             COUNT(*) -->
 <!--         FROM meeting -->
 <!--     </select> -->
-    <select id="meetingList" resultType="MeetingDTO">
+    <select id="meetingList" resultType="MeetingVDTO">
         SELECT
-            *
-        FROM meeting
+            MEETING.WRITING_NUMBER WRITINGNUMBER, MEETING.TITLE, MEETING.WRITE_TIME WRITETIME, MEETING.HIT, MEMBER.NICKNAME
+        FROM MEETING, MEMBER
+        WHERE MEETING.MEMBER_NUMBER=MEMBER.MEMBER_NUMBER
         ORDER BY WRITING_NUMBER DESC
     </select>
 

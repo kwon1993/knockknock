@@ -3,6 +3,7 @@ package com.knockknock.service;
 import java.util.List;
 
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 public interface MeetingAndEventService {
@@ -14,7 +15,7 @@ public interface MeetingAndEventService {
 	public int meetingDeleteService(int writeNum) throws Exception;
 	public int meetingSearchService() throws Exception;
 	public int eventCountService() throws Exception;
-	public List<EventDTO> eventListService() throws Exception;
+	public List<EventVDTO> eventListService() throws Exception;
 	public int eventSearchService() throws Exception;
 	public int fileUploadService() throws Exception;
 	public int fileDownService() throws Exception;

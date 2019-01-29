@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
@@ -44,7 +45,7 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public List<EventDTO> eventListService() throws Exception{
+	public List<EventVDTO> eventListService() throws Exception{
 		return meMapper.eventList();
 	}
 

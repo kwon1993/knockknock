@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임게시판</title>
 </head>
 <body>
-	<div style="margin: 15px auto;">
-		<button style="float: right;" onclick="">글쓰기</button>
-	</div>
 
-	<div>
-		<h2>모임게시판</h2>
-		<table>
-			<tr>
-				<th>제목</th>
-				<th>모임인원</th>
-				<th>간단소개</th>
-				<th>상세소개</th>
-				<th>작성일</th>
-				<th>장소</th>				
-			</tr>
-			<tr th:each="MeetingList : ${MeetingList}">
-				<td th:text="${MeetingList.title}">Text ...</td>
-				<td th:text="${MeetingList.recruitNumber}">Text ...</td>
-				<td th:text="${MeetingList.simpleIntroduce}">Text ...</td>
-				<td th:text="${MeetingList.detailIntroduce}">Text ...</td>
-				<td th:text="${MeetingList.writeTime}">Text ...</td>
-				<td th:text="${MeetingList.place}">Text ...</td>
-			</tr>
-		</table>
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
+
+	<div layout:fragment="content" class="container">
+		<div class="jumbotron">
+			<h1>모임게시판</h1>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>작성자</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="Meeting : ${MeetingList}">
+						<td th:text="${Meeting.writingNumber}">번호</td>
+						<td th:text="${Meeting.title}">제목</td>
+						<td th:text="${Meeting.writeTime}">작성일</td>
+						<td th:text="${Meeting.nickname}">작성자</td>
+						<td th:text="${Meeting.hit}">조회수</td>
+					</tr>
+				</tbody>
+			</table>
+			<a class="btn btn-outline-success font-weight-bold pull-right" role="button" th:href="@{/#}">모임 만들기</a>
+		</div>
 	</div>
+	
+	<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
+</div>
 </body>
 </html>
