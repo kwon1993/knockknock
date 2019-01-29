@@ -4,21 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.dto.event.MeetingVDTO;
 
-//@Repository("com.knockknock.mapper.MeetingAndEventMapper")
 @Mapper
 public interface MeetingAndEventMapper {
-	public int meetingCount() throws Exception; //모임글 수
-	public List<MeetingDTO> meetingList() throws Exception; //모임글 리스트
+	public int meetingCount(Criteria cri) throws Exception; //모임글 수
+	public List<MeetingVDTO> meetingList(Criteria cri) throws Exception; //모임글 리스트
 	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
 	public int meetingInsert(MeetingDTO meetingBoard) throws Exception; //모임 글쓰기
 	public int meetingModify(MeetingDTO meetingBoard) throws Exception;
 	public int meetingDelete(int writeNumber) throws Exception;
 	public int meetingSearch() throws Exception;
 	public int eventCount() throws Exception;
-	public List<EventDTO> eventList() throws Exception;
+	public List<EventVDTO> eventList() throws Exception;
 	public int eventSearch() throws Exception;
 	public int fileUpload() throws Exception;
 	public int fileDown() throws Exception;

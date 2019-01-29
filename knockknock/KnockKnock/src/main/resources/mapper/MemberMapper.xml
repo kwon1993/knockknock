@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.knockknock.mapper.MemberMapper">
+    <insert id="register">
+        insert into member(member_number,grade,email,password,nickname,name,birth,gender,join_Time)
+		values
+		(1,#{grade},#{email},#{password},#{nickname},#{name},now(),'남자',now())
+    </insert>
 
-<insert id="register" parameterType="MemberDTO">
-
-	insert 
-
-</insert>
-
+    <select id="findById">
+    	select * from member 
+    	where email = #{id}
+    </select>
 </mapper>

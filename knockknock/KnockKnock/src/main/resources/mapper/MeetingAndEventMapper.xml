@@ -8,7 +8,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="meetingCount" resultType="int">
         SELECT
             COUNT(*)
-        FROM meeting
+        FROM MEETING
+    </select>
+    <select id="meetingList" resultType="MeetingVDTO">
+    	<![CDATA[
+			SELECT
+			    MEETING.WRITING_NUMBER writingNumber, MEETING.TITLE, MEMBER.NICKNAME, MEETING.WRITE_TIME writeTime, MEETING.HIT
+			FROM
+			    MEETING, MEMBER
+			WHERE WRITING_NUMBER > 0 AND MEETING.MEMBER_NUMBER=MEMBER.MEMBER_NUMBER
+			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
+			LIMIT #{pageStart}, #{amount}
+    	]]>
     </select>
 
 </mapper>

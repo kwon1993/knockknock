@@ -6,6 +6,6 @@ import com.knockknock.dto.member.MemberDTO;
 
 @Mapper
 public interface MemberMapper {
-
-	public MemberDTO register(MemberDTO memberDTO);
+	public void register(MemberDTO memberDTO);
+	public MemberDTO findById(String id);
 }
