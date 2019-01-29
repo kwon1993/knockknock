@@ -9,7 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Data;
 
 @Data
+<<<<<<< HEAD
 public class MemberDTO{
+=======
+public class MemberDTO {
+>>>>>>> 4ae9cf6c54ad329b25714d5c841a4acd4ca2688b
 	private int memberNumber;
 	private String grade;
 	private String favorite1;
@@ -29,7 +33,10 @@ public class MemberDTO{
 	private Date leaveTime;
 	private String imageProfile;
 	private String introduce;
+<<<<<<< HEAD
 
 	
 	
+=======
+>>>>>>> 4ae9cf6c54ad329b25714d5c841a4acd4ca2688b
 }
