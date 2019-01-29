@@ -37,7 +37,7 @@ public class MainController {
 		return "branch/FindingCategoryRoom";
 	}
 	
-	@RequestMapping("d")
+	@RequestMapping("/MeetingAndEventMain")
 	public String toMeetingAndEvent() {
 		return "event/MeetingAndEventMain";
 	}
