@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.knockknock.mapper.AdminMapper">
+	<insert id="branchRegist">
+		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR, BRANCH_ACCOUNT, GENDER,
+		BRANCH_COMMENT, ADDRESS, ADDRESS_DETAIL, BRANCH_TYPE, ISPARKING,
+		ISELEVATOR, FACILITY, PET, MAXIMUM_RESIDENT, RULE, IMAGE_LIVING,
+		IMAGE_KITCHIN, IMAGE_BATHROOM, IMAGE_ETC)
+		VALUES
+		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15},#{param16},#{param17},#{param18},#{param19})
+	</insert>
+	<select id="getBranchNumber" resultType="BranchDTO">
+		SELECT BRANCH_NUMBER FROM BRANCH
+	</select>
+	<insert id="roomRegist">
+		INSERT INTO ROOM(ROOM_NUMBER, BRANCH_NUMBER, GENDER, ALLOW_NUMBER, SPACE,
+		DEPOSIT, MINTHLY_RENT, RENTABLE_DATE, FACILITY, IMAGE_ROOM)
+		VALUES()
+	</insert>
+
+
+
+	<select id="eventListView" resultType="EventVDTO">
+		SELECT E.WRITING_NUMBER, E.MEMBER_NUMBER, E.TITLE, E.HIT, E.WRITE_TIME,
+		E.CONTENT, E.ACCEPT_START_TIME, E.ACCEPT_END_TIME, E.CANCEL_REASON,
+		E.RECRUIT_NUMBER, E.EVENT_START_TIME, E.EVENT_END_TIME, E.IMAGE,
+		E.LIKE, M.NICKNAME
+		FROM EVENT E, MEMBER M
+		WHERE E.MEMBER_NUMBER = M.MEMBER_NUMBER
+	</select>
+
+
+</mapper>

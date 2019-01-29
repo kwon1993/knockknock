@@ -10,7 +10,6 @@ import com.knockknock.service.MeetingAndEventServiceImpl;
 
 @Controller
 public class MeetingAndEventController {
-	//@Resource(name = "com.knockknock.service.MeetingAndEventServiceImpl")
 	@Autowired
 	MeetingAndEventServiceImpl meServiceImpl;
 	

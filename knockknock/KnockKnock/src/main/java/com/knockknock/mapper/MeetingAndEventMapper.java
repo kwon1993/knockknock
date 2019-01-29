@@ -3,7 +3,6 @@ package com.knockknock.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.MeetingDTO;
