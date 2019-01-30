@@ -13,10 +13,10 @@ import com.knockknock.dto.event.MeetingVDTO;
 public interface MeetingAndEventMapper {
 	public int meetingCount(Criteria cri) throws Exception; //모임글 수
 	public List<MeetingVDTO> meetingList(Criteria cri) throws Exception; //모임글 리스트
-	public MeetingDTO meetingView(int writeNumber) throws Exception; //모임상세보기
+	public MeetingVDTO meetingView(int writingNumber) throws Exception; //모임상세보기
 	public int meetingInsert(MeetingDTO meetingBoard) throws Exception; //모임 글쓰기
 	public int meetingModify(MeetingDTO meetingBoard) throws Exception;
-	public int meetingDelete(int writeNumber) throws Exception;
+	public int meetingDelete(int writingNumber) throws Exception;
 	public int meetingSearch() throws Exception;
 	public int eventCount() throws Exception;
 	public List<EventVDTO> eventList() throws Exception;

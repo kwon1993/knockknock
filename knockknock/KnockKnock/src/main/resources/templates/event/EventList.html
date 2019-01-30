@@ -6,10 +6,6 @@ layout:decorate="~{etc/fragments/main_layout}">
 <title>이벤트 게시판</title>
 </head>
 <body>
-<!-- / header replace / -->
-<div th:replace="etc/fragments/header :: header">
-<p>header replace</p>
-</div>
 
 <div layout:fragment="content" class="container">
     <div class="jumbotron">
@@ -17,9 +13,5 @@ layout:decorate="~{etc/fragments/main_layout}">
     </div>
 </div>
 
-<!-- / footer replace / -->
-<div th:replace="etc/fragments/footer :: footer">
-<p>header replace</p>
-</div>
 </body>
 </html>
