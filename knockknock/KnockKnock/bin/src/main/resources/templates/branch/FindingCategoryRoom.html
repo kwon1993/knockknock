@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
+<head>
+    <title>낙낙-카테고리 방찾기</title>
+</head>
+<body>
+
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
+
+<div layout:fragment="content" class="container">
+    <div class="jumbotron">
+        <h1>낙낙 관심사로 방찾기 게시판입니다</h1>
+        <p>방을 찾아봐요</p>
+        <p>
+            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+    </div>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
+</div>
+</body>
+</html>
+
