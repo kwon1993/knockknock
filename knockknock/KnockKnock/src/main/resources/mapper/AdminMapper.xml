@@ -63,7 +63,7 @@
 		FROM EVENT E,
 		MEMBER M
 		WHERE E.MEMBER_NUMBER = M.MEMBER_NUMBER
-		GROUP BY
+		AND
 		E.WRITING_NUMBER = #{param1}
 	</select>
 	<update id="eventViewHit">
@@ -92,19 +92,32 @@
 		EVENT_END_TIME = #{param7},
 		RECRUIT_NUMBER = #{param8}
 	</select>
-	<select id="eventModifyView">
-		SELECT TITLE, CONTENT, ACCEPT_START_TIME
-		acceptStartTime, ACCEPT_END_TIME acceptEndTime, EVENT_START_TIME
-		eventStartTime, EVENT_END_TIME eventEndTime, RECRUIT_NUMBER
-		recruitTime
+	<select id="eventModifyView" resultType="EventDTO">
+		SELECT WRITING_NUMBER
+		writingNumber,
+		TITLE, CONTENT, ACCEPT_START_TIME
+		acceptStartTime,
+		ACCEPT_END_TIME acceptEndTime, EVENT_START_TIME
+		eventStartTime,
+		EVENT_END_TIME eventEndTime, RECRUIT_NUMBER
+		recruitNumber
 		FROM EVENT
 		WHERE WRITING_NUMBER = #{param1}
 	</select>
 	<update id="eventModify">
-
+		UPDATE EVENT
+		SET TITLE = #{param3},
+		CONTENT = #{param4},
+		EVENT_START_TIME = #{param5},
+		EVENT_END_TIME = #{param6},
+		ACCEPT_START_TIME = #{param7},
+		ACCEPT_END_TIME = #{param8},
+		RECRUIT_NUMBER = #{param9}
+		WHERE WRITING_NUMBER = #{param1}
 	</update>
 	<delete id="eventDelete">
-
+		DELETE FROM EVENT
+		WHERE WRITING_NUMBER = #{param1}
 	</delete>
 
 </mapper>

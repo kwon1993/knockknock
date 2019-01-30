@@ -16,6 +16,6 @@ public interface AdminService {
 	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
 	public EventVDTO eventView(int writingNumber);
 	public EventDTO eventModifyView(int writingNumber);
-	public void eventModify(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
-	public void eventDelete();
+	public void eventModify(int writingNumber, int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+	public void eventDelete(int writingNumber);
 }

@@ -58,12 +58,12 @@ td{
 	
     <tr>
         <td colspan="4">
-            <form action="delete">
+            <form action="eventDelete">
             	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
                 <input type="submit" value="delete">
             </form>
             
-            <form action="modify_view">
+            <form action="eventModifyView">
             	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
                 <input type="submit" value="modify">
             </form>

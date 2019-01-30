@@ -75,14 +75,14 @@ public class AdminController {
 			@RequestParam("content") String content, @RequestParam("eventStartTime") Date eventStartTime,
 			@RequestParam("eventEndTime") Date eventEndTime, @RequestParam("acceptStartTime") Date acceptStartTime,
 			@RequestParam("acceptEndTime") Date acceptEndTime, @RequestParam("recruitNumber") int recruitNumber) {
-		adminService.eventModify(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
+		adminService.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitNumber);
-		return "admin/AdminEventPost";
+		return "redirect:eventListView";
 	}
 
 	@RequestMapping("eventDelete")
-	public String eventDelete(Model model) {
-		adminService.eventDelete();
-		return "admin/AdminEventList";
+	public String eventDelete(Model model, @RequestParam("writingNumber") int writingNumber) {
+		adminService.eventDelete(writingNumber);
+		return "redirect:eventListView";
 	}
 }

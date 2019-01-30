@@ -61,14 +61,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void eventModify(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
+	public void eventModify(int writingNumber, int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
 			Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
-		adminMapper.eventModify(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
+		adminMapper.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
 	}
 
 	@Override
-	public void eventDelete() {
-		adminMapper.eventDelete();
+	public void eventDelete(int writingNumber) {
+		adminMapper.eventDelete(writingNumber);
 	}
 
 
