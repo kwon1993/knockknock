@@ -49,7 +49,7 @@
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
+	padding-t op: 100px; /* Location of the box */
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
@@ -179,9 +179,9 @@ img {
 
 	<div layout:fragment="content" class="container">
 
+	<h1 th:text="${details.branch_number}"></h1>
+    
 
-	<h3>낙낙 1호점</h3>
-	
 	
 	<h2 style="text-align:center">Slideshow Gallery</h2>
 
@@ -273,8 +273,11 @@ img {
 
 
 		<div id="navbar">
-			<a class="active" href="javascript:void(0)">Home</a> <a
-				href="javascript:void(0)">News</a> <a href="javascript:void(0)">Contact</a>
+			<a class="active" href="javascript:void(0)">지점 소개</a> 
+			<a href="javascript:void(0)">위치 정보</a> 
+			<a href="javascript:void(0)">방 정보</a>
+			<a href="javascript:void(0)">세부 정보</a>
+			<a href="javascript:void(0)">리뷰</a>
 		</div>
 
 		<div class="content">
@@ -340,6 +343,23 @@ img {
 			</div>
 
 		</div>
+		
+		
+		
+		
+		<form>
+			<div class="form-group">
+				<label for="writeReview">리뷰</label>
+				<textarea class="form-control" id=writeReview
+					placeholder="리뷰를 작성해주세요." rows="7"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="imageUpload">사진 업로드</label> <input type="file"
+					id="imageUpload">
+				<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
+			</div>
+			<button type="submit" class="btn btn-default">완료</button>
+		</form>
 
 		<script>
 			// Get the modal
@@ -494,20 +514,6 @@ function showSlides(n) {
 			}
 		
 		</script>
-
-		<form>
-			<div class="form-group">
-				<label for="writeReview">리뷰</label>
-				<textarea class="form-control" id=writeReview
-					placeholder="리뷰를 작성해주세요." rows="7"></textarea>
-			</div>
-			<div class="form-group">
-				<label for="imageUpload">사진 업로드</label> <input type="file"
-					id="imageUpload">
-				<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
-			</div>
-			<button type="submit" class="btn btn-default">완료</button>
-		</form>
 
 
 		<script>
