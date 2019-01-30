@@ -3,8 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+table{
+	border:1px solid black;
+    margin: 50px auto;
+}
+
+td{
+	border:1px solid black;
+}
+</style>
 </head>
 <body>
+<table id="table">
+	<tr>
+		<td>글번호</td>
+		<td>타이틀</td>
+		<td>조회수</td>
+        <td>작성시간</td>
+    </tr>
 
+    <tr>
+    	<td th:text="${eventView.writingNumber}"></td>
+    	<td th:text="${eventView.title}"></td>
+    	<td th:text="${eventView.hit}"></td>
+    	<td th:text="${eventView.writeTime}"></td>
+    </tr>
+    
+    <tr>
+    	<td colspan="1">이벤트 시작일</td>
+    	<td colspan="3" th:text=${eventView.eventStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">이벤트 종료일</td>
+    	<td colspan="3" th:text=${eventView.eventEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">접수 시작일</td>
+    	<td colspan="3" th:text=${eventView.acceptStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">접수 종료일</td>
+    	<td colspan="3" th:text=${eventView.acceptEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">모집인원</td>
+    	<td colspan="3" th:text=${eventView.recruitNumber}></td>
+    </tr>
+    
+	<tr>
+		<td colspan="1">내용</td>
+		<td colspan="3" th:text="${eventView.content}"></td>
+	</tr>
+	
+    <tr>
+        <td colspan="4">
+            <form action="delete">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="delete">
+            </form>
+            
+            <form action="modify_view">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="modify">
+            </form>
+            
+            <form action="/">
+                <input type="submit" value="main">
+            </form>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

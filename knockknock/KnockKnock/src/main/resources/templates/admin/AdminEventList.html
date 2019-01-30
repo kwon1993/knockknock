@@ -35,15 +35,15 @@ td{
 		<td th:text="${list.writingNumber}"></td>
 		<td th:text="${list.nickname}"></td>
 		<td>
-            <a th:href="@{${list.writingNumber}}"><p th:text="${list.title}"></p></a>
+            <a th:href="@{'eventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a>
         </td>
 		<td th:text="${list.hit}"></td>
-		<td th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"></td>	
+		<td th:text="${list.writeTime}"></td>	
     </tr>
     
     <tr>
         <td colspan="5">
-            <form action="write">
+            <form action="eventWriteView">
                 <input type="submit" value="Write">
             </form>
         </td>

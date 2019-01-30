@@ -3,8 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+table{
+	border:1px solid black;
+}
+
+td{
+	border:1px solid black;
+}
+</style>
 </head>
 <body>
-
+<table>
+    <form action="eventWrite">
+        <tr>
+            <td>writer number</td>
+            <td><input type="number" name="memberNumber"></td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td><input type="text" name="title"></td>
+        </tr>
+        <tr>
+            <td>event start time</td>
+            <td><input type="date" name="eventStartTime"></td>
+        </tr>
+        <tr>
+            <td>event end time</td>
+            <td><input type="date" name="eventEndTime"></td>
+        </tr>
+        <tr>
+            <td>accept start time</td>
+            <td><input type="date" name="acceptStartTime"></td>
+        </tr>
+        <tr>
+            <td>accept end time</td>
+            <td><input type="date" name="acceptEndTime"></td>
+        </tr>
+        <tr>
+        	<td>recruit number</td>
+        	<td><input type="number" name="recruitNumber"></td>
+        </tr>
+        <tr>
+            <td>content</td>
+            <td><textarea name="content"></textarea></td>
+        </tr>
+        <tr>
+            <td>send</td>
+            <td><input type="submit" name="eventWrite"></td>
+        </tr>
+    </form>
+</table>
 </body>
 </html>
