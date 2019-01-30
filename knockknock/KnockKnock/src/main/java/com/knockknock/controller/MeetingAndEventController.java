@@ -35,12 +35,17 @@ public class MeetingAndEventController {
 		return "event/MeetingView";
 	}
 	
-	@RequestMapping("/writeBoard") //미팅 글 쓰기
+	@RequestMapping("/writeBoardForm") //미팅 글 쓰기
 	private String writeBoardForm() {
 		return "event/WriteBoard";
 	}
 	
-	@RequestMapping("/meetingDelete")
+	@RequestMapping("/writeBoard") //미팅 글 쓰기
+	private String writeBoard() {
+		return "redirect:/meetingList";
+	}
+	
+	@RequestMapping("/meetingDelete") //미팅 글 삭제
 	private String meetingDelete(@RequestParam("writingNumber") int writingNumber) throws Exception{
 		meServiceImpl.meetingDeleteService(writingNumber);
 		return "redirect:/meetingList";
