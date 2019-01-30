@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>모임 만들기</title>
 </head>
 <body>
 
+	<div layout:fragment="content" class="container">
+		<div class="jumbotron">
+			<h3>모임 개설하기</h3>
+
+			<p>대표이미지</p>
+			<input type="image" value="선택">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">모임명(필수)</span> <input
+					type="text" class="form-control" placeholder="Username"
+					aria-describedby="basic-addon1">
+			</div>
+		</div>
+	</div>
 </body>
 </html>
