@@ -20,22 +20,36 @@ layout:decorate="~{etc/fragments/main_layout}">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
-						<th>작성일</th>
 						<th>작성자</th>
 						<th>조회수</th>
+						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="Meeting : ${MeetingList}">
 						<td th:text="${Meeting.writingNumber}">번호</td>
 						<td th:text="${Meeting.title}">제목</td>
-						<td th:text="${Meeting.writeTime}">작성일</td>
 						<td th:text="${Meeting.nickname}">작성자</td>
 						<td th:text="${Meeting.hit}">조회수</td>
+						<td th:text="${Meeting.writeTime}">작성일</td>
 					</tr>
 				</tbody>
 			</table>
 			<a class="btn btn-outline-success font-weight-bold pull-right" role="button" th:href="@{/#}">모임 만들기</a>
+			<!-- 게시판 하단의 페이징 버튼 -->
+            <div>
+              <ul class="pagination pagination-sm no-margin">
+              <li th:if="${pageMaker.prev} == true">
+              	<a th:href="@{/event/meetingList(pageNum=${pageMaker.startPage}-1,amount=${pageMaker.cri.amount})}">&laquo;</a>
+              </li>
+              <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.pageNum} == ${idx} ? active : null">
+                <a th:href="@{/meetingList(pageNum=${idx},amount=${pageMaker.cri.amount})}" th:text="${idx}"></a>
+              </li>
+              <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{/meetingList(pageNum=${pageMaker.endPage}+1,amount=${pageMaker.cri.amount})}">&raquo;</a>
+              </li>
+              </ul>
+            </div>
 		</div>
 	</div>
 	

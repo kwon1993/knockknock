@@ -30,6 +30,7 @@ public class MainController {
 	
 	@RequestMapping("b")
 	public String toFindingRoom() {
+		
 		return "branch/FindingCategoryRoom";
 	}
 	
@@ -38,7 +39,7 @@ public class MainController {
 		return "branch/FindingCategoryRoom";
 	}
 	
-	@RequestMapping("/MeetingAndEventMain")
+	@RequestMapping("/meetingAndEventMain")
 	public String toMeetingAndEvent() {
 		return "event/MeetingAndEventMain";
 	}

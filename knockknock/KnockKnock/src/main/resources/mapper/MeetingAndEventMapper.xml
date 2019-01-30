@@ -5,17 +5,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.MeetingAndEventMapper">
 
-<!--     <select id="meetingCount" resultType="int"> -->
-<!--         SELECT -->
-<!--             COUNT(*) -->
-<!--         FROM meeting -->
-<!--     </select> -->
-    <select id="meetingList" resultType="MeetingVDTO">
+    <select id="meetingCount" resultType="int">
         SELECT
-            MEETING.WRITING_NUMBER WRITINGNUMBER, MEETING.TITLE, MEETING.WRITE_TIME WRITETIME, MEETING.HIT, MEMBER.NICKNAME
-        FROM MEETING, MEMBER
-        WHERE MEETING.MEMBER_NUMBER=MEMBER.MEMBER_NUMBER
-        ORDER BY WRITING_NUMBER DESC
+            COUNT(*)
+        FROM MEETING
+    </select>
+    <select id="meetingList" resultType="MeetingVDTO">
+    	<![CDATA[
+			SELECT
+			    MEETING.WRITING_NUMBER writingNumber, MEETING.TITLE, MEMBER.NICKNAME, MEETING.WRITE_TIME writeTime, MEETING.HIT
+			FROM
+			    MEETING, MEMBER
+			WHERE WRITING_NUMBER > 0 AND MEETING.MEMBER_NUMBER=MEMBER.MEMBER_NUMBER
+			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
+			LIMIT #{pageStart}, #{amount}
+    	]]>
     </select>
 
 </mapper>
