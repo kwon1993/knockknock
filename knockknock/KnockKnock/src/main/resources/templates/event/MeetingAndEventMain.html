@@ -6,15 +6,10 @@ layout:decorate="~{etc/fragments/main_layout}">
 <title>모임 및 이벤트</title>
 </head>
 <body>
-<!-- / header replace / -->
-<div th:replace="etc/fragments/header :: header">
-<p>header replace</p>
-</div>
-
-	<h1>모임 및 이벤트</h1>
-	<img th:src="@{/images/event/test.jpg}" style="width:1000x; height:500px">
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron">
+		<h1>모임 및 이벤트</h1>
+		<img th:src="@{/images/event/test.jpg}" style="width:1000x; height:500px">
 			<ul>
 				<li>9월</li>
 				<li>10월</li>
@@ -29,11 +24,5 @@ layout:decorate="~{etc/fragments/main_layout}">
 			</p>	
 		</div>
 	</div>
-	
-	
-<!-- / footer replace / -->
-<div th:replace="etc/fragments/footer :: footer">
-<p>header replace</p>
-</div>
 </body>
 </html>

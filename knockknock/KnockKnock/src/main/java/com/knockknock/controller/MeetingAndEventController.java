@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
@@ -28,15 +29,21 @@ public class MeetingAndEventController {
 		return "event/MeetingList";
 	}
 	
-	@RequestMapping("/meetingView/{writeNum}") //미팅 상세보기
-	private String meetingView(@PathVariable int writeNum, Model model) throws Exception {
-		model.addAttribute("MeetingView", meServiceImpl.meetingViewService(writeNum));
+	@RequestMapping("/meetingView") //미팅 상세보기
+	private String meetingView(@RequestParam("writingNumber") int writingNumber, Model model) throws Exception {
+		model.addAttribute("MeetingView", meServiceImpl.meetingViewService(writingNumber));
 		return "event/MeetingView";
 	}
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoardForm() {
 		return "event/WriteBoard";
+	}
+	
+	@RequestMapping("/meetingDelete")
+	private String meetingDelete(@RequestParam("writingNumber") int writingNumber) throws Exception{
+		meServiceImpl.meetingDeleteService(writingNumber);
+		return "redirect:/meetingList";
 	}
 	
 	@RequestMapping("/eventList") //이벤트 리스트

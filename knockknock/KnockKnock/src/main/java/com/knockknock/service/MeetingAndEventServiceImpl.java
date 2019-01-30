@@ -28,8 +28,8 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public MeetingDTO meetingViewService(int writeNum) throws Exception{ //미팅상세보기
-		return meMapper.meetingView(writeNum);
+	public MeetingVDTO meetingViewService(int writingNumber) throws Exception{ //미팅상세보기
+		return meMapper.meetingView(writingNumber);
 	}
 	
 	@Override
@@ -43,8 +43,8 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public int meetingDeleteService(int writeNum) throws Exception{ //미팅 삭제
-		return meMapper.meetingDelete(writeNum);
+	public int meetingDeleteService(int writingNumber) throws Exception{ //미팅 삭제
+		return meMapper.meetingDelete(writingNumber);
 	}
 	
 	@Override
