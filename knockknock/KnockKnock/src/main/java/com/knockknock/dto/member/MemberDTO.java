@@ -9,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class MemberDTO {
+
 	private int memberNumber;
 	private String grade;
 	private String favorite1;

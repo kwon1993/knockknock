@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.knockknock.dto.branch.BranchTestDTO;
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.service.TestService;
 
 @Controller
@@ -17,7 +18,7 @@ public class MainController {
 	
 
 	@RequestMapping("/")
-	public String start() {
+	public String start(Model model,MemberDTO memberDTO) {
 		return "etc/fragments/main_layout";
 	}
 	

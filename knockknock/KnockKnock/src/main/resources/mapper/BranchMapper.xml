@@ -6,6 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.BranchMapper">
    <select id="getDetail" resultType="BranchVDTO">
    	select * from branch
-   	where branchNumber = ${branchNumber}
+   	where branch_Number = #{branchNumber}
    </select>
 </mapper>

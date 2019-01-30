@@ -31,19 +31,21 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 </style>
 </head>
 <body>
-
-
-<input type="text" name="email"><br>
-<input type="text" name="password"><br>
-<!--<input type="text" name="passwordCheck"><br>-->
-<input type="text" name="name"><br>
-<input type="text" name="nickname"><br>
-<input type="text" name="grade"><br>
-<select name="gender"><br>
-<option>남자</option>
-<option>여자</option>
-</select>
-<input type="submit">
-
+<form action="create">
+	아이디:<input type="text" name="email"><br>
+	비밀번호:<input type="text" name="password"><br>
+	비밀번호확인:<input type="text" name="passwordCheck"><br>
+	이름:<input type="text" name="name"><br>
+	닉네임:<input type="text" name="nickname"><br>
+	회원등급:<input type="text" name="grade"><br>
+	성별:<select name="gender"><br>
+			<option>남자</option>
+			<option>여자</option>
+		</select>
+	관심사1<input type="text" name="favorite1">
+	관심사2<input type="text" name="favorite2">
+	관심사3<input type="text" name="favorite3">
+	<input type="submit">
+</form>
 </body>
 </html>

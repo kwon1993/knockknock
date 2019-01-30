@@ -17,6 +17,7 @@ public class SecurityMember extends User{
 		
 	private static List<GrantedAuthority> makeAuth(MemberDTO memberDTO) {
 		List<GrantedAuthority> list = new ArrayList<>();
+		System.out.println("makeAuth 작동");
 		list.add(new SimpleGrantedAuthority(memberDTO.getGrade()));
 		
 		return list;
