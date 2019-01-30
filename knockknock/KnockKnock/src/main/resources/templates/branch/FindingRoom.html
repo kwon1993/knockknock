@@ -54,7 +54,7 @@
       
       	<!-- thymeleaf gallery test -->
         <div th:each="list:${list}" class="col-lg-3 col-md-4 col-xs-6" name="list" id="list">
-          <a href="#" class="d-block mb-4 h-100">
+          <a th:href="@{'/roomDetailView/?branch_number='+${list.branch_number}}" class="d-block mb-4 h-100">
             <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
           	<span th:text="${list.branch_number}" id="branch_number"/>
 			<span th:text="${list.address}" name="addressList"/>
@@ -123,12 +123,12 @@ var callback = function(result, status, pagination){
     }
     
     else if (status === daum.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.');
+        //alert('검색 결과가 존재하지 않습니다.');
         return;
     } 
     
     else if (status === daum.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.');
+        //alert('검색 결과 중 오류가 발생했습니다.');
         return;
     }
 };
@@ -148,7 +148,7 @@ function searchPlaces(){
     var keyword = document.getElementById('searchAddress').value;
 	alert(keyword);
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        //alert('키워드를 입력해주세요!');
         return false;
     }
 

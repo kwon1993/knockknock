@@ -27,19 +27,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void register(MemberDTO memberDTO) {
-		//이메일 주소를 MAP으로 넣는다.
-		//accounts.put(memberDTO.getEmail(), memberDTO);
-		
+		//3.memberDTO의 패스웓를 인코딩처리한다
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+		//4.인코딩 후, memberMapper로 등록을 간다
 		memberMapper.register(memberDTO);
-	
 	}
-
-	/*
-	 * public MemberDTO findByEmail(String username) { //이메일주소로 찾는다 return
-	 * accounts.get(username); }
-	 */
-
-	
-	
 }
