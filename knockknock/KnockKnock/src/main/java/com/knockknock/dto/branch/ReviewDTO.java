@@ -7,8 +7,9 @@ import lombok.Data;
 public class ReviewDTO {
 	
 	private int writingNumber;
-	private int memberNumber;
 	private int branchNumber;
+	
+	private int memberNumber;
 	private String content;
 	private Date writeTime;
 	private String image;

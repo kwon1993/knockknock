@@ -49,7 +49,7 @@ public class MainController {
 	}
 
 	@RequestMapping("e")
-	public String toTranslateLanguage() {
+	public String toTranslatLanguage() {
 		return "";
 	}
 
@@ -58,5 +58,9 @@ public class MainController {
 		return "etc/SharingGuide";
 	}
 	
+	@RequestMapping("/FAQ")
+	public String toFAQ() {
+		return "etc/FAQ";
+	}
 
 }

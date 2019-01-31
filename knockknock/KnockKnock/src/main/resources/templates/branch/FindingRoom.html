@@ -54,7 +54,7 @@
       
       	<!-- thymeleaf gallery test -->
         <div th:each="list:${list}" class="col-lg-3 col-md-4 col-xs-6" name="list" id="list">
-          <a th:href="@{'/roomDetailView/?branch_number='+${list.branch_number}}" class="d-block mb-4 h-100">
+          <a th:href="@{'HouseInfo?branch_number='+${list.branch_number}}" class="d-block mb-4 h-100">
             <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
           	<span th:text="${list.branch_number}" id="branch_number"/>
 			<span th:text="${list.address}" name="addressList"/>
