@@ -1,17 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/main_layout}">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
     <title>낙낙-내 모임</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
-<!-- / header replace / -->
-<div th:replace="etc/fragments/header :: header">
-<p>header replace</p>
-</div>
+
 
 <div layout:fragment="content" class="container">
 
@@ -23,10 +20,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 
 </div>
 
-<!-- / footer replace / -->
-<div th:replace="etc/fragments/footer :: footer">
-<p>header replace</p>
-</div>
+
 </body>
 </html>
 

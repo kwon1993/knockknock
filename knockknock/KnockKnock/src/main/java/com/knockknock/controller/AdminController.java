@@ -21,7 +21,7 @@ public class AdminController {
 
 	@RequestMapping("adminRoomRegistView")
 	public String adminRoomRegistView() {
-		return "admin/AdminRoomRegistView";
+		return "admin/AdminBranchRegist";
 	}
 
 	@RequestMapping("adminRoomRegist")
@@ -29,7 +29,7 @@ public class AdminController {
 
 		// adminService.branchRegist(branchDTO, roomDTO);
 
-		return "";
+		return "admin/AdminBranchRegist";
 	}
 
 	@RequestMapping("eventListView")
