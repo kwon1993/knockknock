@@ -1,10 +1,88 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>낙낙-내용입력</title>
 </head>
 <body>
 
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
+
+<div layout:fragment="content" class="container">
+
+
+
+
+
+<table id="table">
+	<tr>
+		<td>글번호</td>
+		<td>타이틀</td>
+		<td>조회수</td>
+        <td>작성시간</td>
+    </tr>
+
+    <tr>
+    	<td th:text="${eventView.writingNumber}"></td>
+    	<td th:text="${eventView.title}"></td>
+    	<td th:text="${eventView.hit}"></td>
+    	<td th:text="${eventView.writeTime}"></td>
+    </tr>
+    
+    <tr>
+    	<td colspan="1">이벤트 시작일</td>
+    	<td colspan="3" th:text=${eventView.eventStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">이벤트 종료일</td>
+    	<td colspan="3" th:text=${eventView.eventEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">접수 시작일</td>
+    	<td colspan="3" th:text=${eventView.acceptStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">접수 종료일</td>
+    	<td colspan="3" th:text=${eventView.acceptEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">모집인원</td>
+    	<td colspan="3" th:text=${eventView.recruitNumber}></td>
+    </tr>
+    
+	<tr>
+		<td colspan="1">내용</td>
+		<td colspan="3" th:text="${eventView.content}"></td>
+	</tr>
+	
+    <tr>
+        <td colspan="4">
+            <form action="eventDelete">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="delete">
+            </form>
+            
+            <form action="eventModifyView">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="modify">
+            </form>
+            
+            <form action="/">
+                <input type="submit" value="main">
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
+</div>
 </body>
 </html>

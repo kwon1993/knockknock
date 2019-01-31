@@ -1,10 +1,65 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>낙낙-내용입력</title>
 </head>
 <body>
 
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
+
+<div layout:fragment="content" class="container">
+
+<table>
+    <form action="eventWrite">
+        <tr>
+            <td>writer number</td>
+            <td><input type="number" name="memberNumber"></td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td><input type="text" name="title"></td>
+        </tr>
+        <tr>
+            <td>event start time</td>
+            <td><input type="date" name="eventStartTime"></td>
+        </tr>
+        <tr>
+            <td>event end time</td>
+            <td><input type="date" name="eventEndTime"></td>
+        </tr>
+        <tr>
+            <td>accept start time</td>
+            <td><input type="date" name="acceptStartTime"></td>
+        </tr>
+        <tr>
+            <td>accept end time</td>
+            <td><input type="date" name="acceptEndTime"></td>
+        </tr>
+        <tr>
+        	<td>recruit number</td>
+        	<td><input type="number" name="recruitNumber"></td>
+        </tr>
+        <tr>
+            <td>content</td>
+            <td><textarea name="content"></textarea></td>
+        </tr>
+        <tr>
+            <td>send</td>
+            <td><input type="submit" name="eventWrite"></td>
+        </tr>
+    </form>
+</table>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
+</div>
 </body>
 </html>

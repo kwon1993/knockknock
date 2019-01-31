@@ -1,16 +1,10 @@
 package com.knockknock.dto.member;
 
-import java.util.Collection;
 import java.util.Date;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.Data;
 
 @Data
-public class MemberDTO {
-
+public class MemberDTO{
 	private int memberNumber;
 	private String grade;
 	private String favorite1;
