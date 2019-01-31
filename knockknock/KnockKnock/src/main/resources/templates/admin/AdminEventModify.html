@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-
-table{
-	border:1px solid black;
-}
-
-td{
-	border:1px solid black;
-}
-</style>
+    <title>낙낙-내용입력</title>
 </head>
 <body>
-<div style="display:inline-block width:30% float:left">
+
+<!-- / header replace / -->
+<div th:replace="etc/fragments/header :: header">
+<p>header replace</p>
+</div>
+
+<div layout:fragment="content" class="container">
+
+
+
+
 <ul>
 	<li>이벤트 관리</li>
 	<li>회원 관리</li>
@@ -23,8 +25,8 @@ td{
 	<li>방문 문의 관리</li>
 	<li>방 등록</li>
 </ul>
-</div>
-<div style="display:inline-block width:70% float:left">
+
+
 <table>
     <form action="eventModify">
     	<tr>
@@ -66,6 +68,11 @@ td{
         </tr>
     </form>
 </table>
+</div>
+
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/footer :: footer">
+<p>header replace</p>
 </div>
 </body>
 </html>
