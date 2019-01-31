@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/main_layout}">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>이벤트 목록</title>
-<style>
-
-table{
-	border:1px solid black;
-    margin: 50px auto;
-}
-
-td{
-	border:1px solid black;
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>낙낙-카테고리 방찾기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-	<h1>Test Field</h1>
 
 
-<table id="table">
+<div layout:fragment="content" class="container">
+
+
+
+<div class="w3-container">
+<table class="w3-table-all">
 	<tr>
 		<td>글번호</td>
 		<td>닉네임</td>
@@ -50,8 +42,10 @@ td{
     </tr>
 </table>
 
+</div>
 
+</div>
 
-	
 </body>
 </html>
+

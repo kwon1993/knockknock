@@ -1,5 +1,6 @@
 <header th:fragment="header" 
 xmlns:th="http://www.w3.org/1999/xhtml">
+
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
   <!-- <div class="box-collapse">
@@ -48,7 +49,7 @@ xmlns:th="http://www.w3.org/1999/xhtml">
         <span class="fa fa-search" aria-hidden="true"></span>
       </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
-        <ul class="navbar-nav" id="navbar-nav">
+        <ul class="navbar-nav" id="navbar-nav" style="font-size: 10px">
           <li class="nav-item">
             <a class="nav-link active" th:href="@{/simpleRoomSearch}">방찾기</a>
           </li>
@@ -64,12 +65,30 @@ xmlns:th="http://www.w3.org/1999/xhtml">
           <li class="nav-item">
             <a class="nav-link" href="contact.html">고객센터</a>
           </li>
-           <li class="nav-item" style="margin-left: 80px">
-            <a class="nav-link" href="/login">로그인</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">회원가입</a>
-          </li>
+          
+         <span sec:authorize="isAuthenticated()">
+		   <li class="nav-item" style="margin-left: 80px;">
+		  		 <a class="nav-link" th:href="@{/logout}" style="font-size: 7px">로그아웃</a>
+		   </li>
+		 </span>
+		   <span sec:authorize="isAuthenticated()">
+		   <li class="nav-item">
+		   		<a class="nav-link" th:href="@{/profileMain}" style="font-size: 7px">마이페이지</a>
+		   </li>
+		    </span>
+	     
+          
+	     <span sec:authorize="isAnonymous()">	   
+			 <li class="nav-item" style="margin-left:80px;">
+			 	<a class="nav-link" th:href="@{/login}" style="font-size: 7px">로그인</a>
+			 </li>
+		</span>
+		 <span sec:authorize="isAnonymous()">	   
+			 <li class="nav-item">
+			 	<a class="nav-link" th:href="@{/register}" style="font-size: 7px">회원가입</a>
+			 </li>
+			 </span>
+	     
         </ul>
       </div>
    <!--    <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
