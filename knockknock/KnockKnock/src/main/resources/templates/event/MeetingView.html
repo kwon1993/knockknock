@@ -36,7 +36,8 @@ layout:decorate="~{etc/fragments/main_layout}">
 			</form>
 			<input class="btn btn-primary" type="button" value="참가하기"/>
 <!-- 			<input type="checkbox" onclick="toggleOn(this)"/> -->
-			<a class="btn btn-primary" role="button" th:href="@{/meetingList}">목록으로</a>
+			<a class="btn btn-primary" role="button" th:href="@{/meetingList}">목록</a>
+			<a class="btn btn-primary" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}">수정</a>
 			<a class="btn btn-primary" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}">삭제</a>
 		</div>
 	</div>
