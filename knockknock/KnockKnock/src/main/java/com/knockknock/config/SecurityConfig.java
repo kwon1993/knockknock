@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import com.knockknock.security.CustomUserDetailsService;
 
@@ -22,25 +25,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder;
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
+	
+	//요거 추가해주니 로긴 로그아웃창 수정완료
+	@Bean
+	    public SpringSecurityDialect springSecurityDialect(){
+	        return new SpringSecurityDialect();
+	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
 		//이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-		web.ignoring().antMatchers("/**");
+//		web.ignoring().antMatchers("/**");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/simpleRoomSearch").authenticated()
+		.antMatchers("/**").permitAll()
 		.and()
 		.formLogin()
 		.loginPage("/login")
 		.defaultSuccessUrl("/")
 		.failureUrl("/login")
 		.and()
-		.logout();
+		.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/")
+		.permitAll();
 		//loginProcessingUrl없애니 됨
+		
+		 http
+	      .csrf()
+	      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		
+		
 	}
 
 	//로그인 처리 시, 인증에 대한 처리.
