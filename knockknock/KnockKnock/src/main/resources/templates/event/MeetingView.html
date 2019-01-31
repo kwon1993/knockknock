@@ -4,6 +4,9 @@ layout:decorate="~{etc/fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임명</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -34,20 +37,20 @@ layout:decorate="~{etc/fragments/main_layout}">
 			</form>
 
 <!-- 			<input type="checkbox" onclick="toggleOn(this)"/> -->
-			<a class="btn btn-primary" data-toggle="modal" href="#myModal" th:text="'참가하기'"></a>
+			<a class="btn btn-primary" data-toggle="modal" data-backdrop="static" href="#myModal" th:text="'참가하기'"></a>
 			  <!-- Modal -->
 				  <div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog">
+				    <div class="modal-dialog modal-sm">
 				    
 				      <!-- Modal content-->
 				      <div class="modal-content">
 				        <div class="modal-header">
+				          <h4 class="modal-title">모임에 참가하시겠습니까?</h4>
 				          <button type="button" class="close" data-dismiss="modal">×</button>
-				          <h4 class="modal-title" th:text="'모임에 참가하시겠습니까?"></h4>
 				        </div>
 				        <div class="modal-body">
-				          <a class="btn btn-primary" th:text="'참가'"></a>
-				          <a class="btn btn-default" data-dismiss="modal" th:text="'취소'"></a>
+				          <a class="btn btn-primary" th:href="@{/participate}">참가</a><br/>
+				          <a class="btn btn-default" data-dismiss="modal">취소</a>
 				        </div>
 				      </div>
 				      

@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</update>
 	<select id="meetingModifyForm" resultType="MeetingDTO">
-		SELECT WRITING_NUMBER writingNumber, TITLE, MEETING_START_TIME meetingStartTime,
+		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
 		MEETING_END_TIME MEETING_END_TIME, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
 		PLACE, PLACE_DETAIL placeDetail, RECRUIT_NUMBER recruitNumber,
 	    SIMPLE_INTRODUCE simpleIntroduce, DETAIL_INTRODUCE detailIntroduce
