@@ -27,20 +27,19 @@
     </div>
 
 <!-- gallery Page Content -->
-    <div class="container" id='container'>
+    <div class="container" id="container">
       <h1 class="my-4 text-center text-lg-left">입주가능 방 목록</h1>
-      
-      <div class='row text-center text-lg-left' id='allGallery'>
-      	<!-- thymeleaf gallery test -->
-        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
-          <a th:href="@{'/roomDetailView/?branch_number='+${dto.branch_number}}" class='d-block mb-4 h-100' id='gallery'>
-            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="">
-          	<span th:text='${dto.branch_number}' id='branch_number'/>
-			<span th:text='${dto.address}' name='addressList' id='addressList'/>
-          </a>
-        </div>
-        <!-- /.thymeleaf gallery test -->
-      </div>
+	      <div class='row text-center text-lg-left' id='allGallery'>
+	      	<!-- thymeleaf gallery test -->
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
+	          <a th:href="@{'/roomDetailView/?branch_number='+${dto.branch_number}}" class='d-block mb-4 h-100' id='gallery'>
+	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
+	          	<span th:text='${dto.branch_number}' id='branch_number'/>
+				<span th:text='${dto.address}' name='addressList' id='addressList'/>
+	          </a>
+	        </div>
+	        <!-- /.thymeleaf gallery test -->
+	      </div>
     </div>
 <!-- /.container -->
 
@@ -53,14 +52,11 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 5 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new daum.maps.InfoWindow({zIndex:1});
 
 //주소->좌표변환 객체 생성
 var geocoder = new daum.maps.services.Geocoder();
@@ -72,6 +68,15 @@ window.onload = function(){
    		geocoder.addressSearch(addressList[i].textContent, callback);
 	}
 }
+
+function map1(){
+	for(i=0; i<=addressList.length; i++){
+   		geocoder.addressSearch(addressList[i].textContent, callback);
+	}
+	location.reload();
+	
+}
+
 var coords;
 
 //장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -89,40 +94,38 @@ var callback = function(result, status){
     }
 };
 
-$(document).ready(function(){
-	$('#roomSearch').on('click',function(){
-		//var formSearch = $('#formSearch').serialize();
-		var address = $("#searchAddress").val();
+$.noConflict();
+
+jQuery(document).ready(function(){
+	jQuery('#roomSearch').on('click',function(){
+
+		var address = jQuery("#searchAddress").val();
+		var content="";
 		
-		alert(address);
-		
-		$.ajax({
+		jQuery.ajax({
 			method:'post',
 			url:'/branch/FindingRoom',
 			data: {"address":address},
 			async : false,
 			success:function(data){
-				$("#allGallery").remove();
-				alert(data[0].address);
+				jQuery("#allGallery").remove();
 				
-				var content="";
-				if(data!=null){
-					content += "<div class='row text-center text-lg-left' id='allGallery'>"
-					+"<a href='/roomDetailView/?branch_number="+data[0].branch_number
-					+ "' class='d-block mb-4 h-100' id='gallery'></a></div>";
-					
-					$("#container").append(content);
-				}
-				
-				//$("#container").append("<div class='row text-center text-lg-left' id='allGallery'></div>");
-				//$("#allGallery").append("<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'></div>");
-				
+				content += "<h1 class='my-4 text-center text-lg-left'>입주가능 방 목록</h1><div class='row text-center text-lg-left' id='allGallery'>"
 				for(i=0; i<data.length; i++){
-					//$("#list").append("<a href='/roomDetailView/?branch_number=1 class='d-block mb-4 h-100' id='gallery'></a>");
+					content+=
+					"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
+					+
+					"<a href='/roomDetailView/?branch_number="+ data[i].branch_number
+					+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src='http://placehold.it/400x300' alt=''>" 
+					+"<span name='addressList' id='addressList'>" + data[i].address + "</span></a></div>";
 				}
+				content+="</div>";
+					
+				jQuery("#container").html(content);
+				map1();
 			},
 			error:function(data){
-				alert("에러입니다");
+				alert("error");
 			}
 		});
 	});
