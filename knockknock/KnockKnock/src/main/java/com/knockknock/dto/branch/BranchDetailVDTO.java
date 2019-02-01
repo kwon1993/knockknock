@@ -37,7 +37,14 @@ public class BranchDetailVDTO {
 	private Date writeTime;
 	private String image;
 	private String anumal;
-	private int petNumber;
+	/* private int petNumber; */
 	private int amount;
 	private int writingNumber;
+	
+	private String favorite1;
+	private String favorite2;
+	private String favorite3;
+	private Date birth;
+	private String memberGender;
+	private String introduce;
 }

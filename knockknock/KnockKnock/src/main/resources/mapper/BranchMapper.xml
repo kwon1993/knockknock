@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.knockknock.mapper.BranchMapper">
+   <select id="getDetail" resultType="BranchDetailVDTO">
+	   	SELECT 
+	   	B.BRANCH_NUMBER branchNumber,
+	   	B.BRANCH_COMMENT branchComment,
+	   	B.ADDRESS,
+	   	B.ADDRESS_DETAIL addressDetail,
+	   	B.MAXIMUM_RESIDENT maximumResident,
+	   	B.BRANCH_TYPE branchType,
+	   	B.PET,
+	   	B.ISPARKING isParking,
+	   	B.ISELEVATOR isElevator,
+	   	B.FACILITY,
+	   	B.RULE
+	   	<!-- R.ROOM_NUMBER roomNumber,
+	   	R.GENDER gender,
+	   	R.ALLOW_NUMBER allowNumber,
+	   	R.SPACE space,
+	   	R.DEPOSIT deposit,
+	   	R.MONTHLY_RENT monthlyRent,
+	   	R.RENTABLE_DATE rentableDate -->
+	   	FROM BRANCH B
+	   	WHERE B.BRANCH_NUMBER = #{BRANCH_NUMBER}
+   </select>
+   
+   <select id="getRoomInfo" resultType="RoomDTO">
+   		SELECT
+   		ROOM_NUMBER roomNumber,
+   		GENDER,
+   		ALLOW_NUMBER allowNumber,
+	   	SPACE,
+	   	DEPOSIT,
+	   	MONTHLY_RENT monthlyRent,
+	   	RENTABLE_DATE rentableDate,
+	   	FACILITY
+   		FROM ROOM
+   		WHERE BRANCH_NUMBER = #{BRANCH_NUMBER}
+   </select>
+   
+ <select id="getMemberInfo" resultType="BranchDetailVDTO">
+		SELECT
+<!-- 		C.MEMBER_NUMBER memberNumber,
+		C.BRANCH_NUMBER branchNumber, -->
+		C.ROOM_NUMBER roomNumber,
+		M.FAVORITE1,
+		M.FAVORITE2,
+		M.FAVORITE3,
+		M.NICKNAME,
+		M.BIRTH,
+		M.GENDER memberGender,
+		M.INTRODUCE,
+		P.ANIMAL,
+		P.AMOUNT
+		FROM CONTRACT C, MEMBER M, PET P
+		WHERE C.BRANCH_NUMBER = #{BRANCH_NUMBER}
+		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER	
+		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER	
+   </select>
+   
+<!--    <select id="getPetInfo" resultType="BrancnDetailVDTO">
+   		SELECT
+   		FROM MEMBER M,
+   		WHERE 
+   </select>  -->
+   
+</mapper>
