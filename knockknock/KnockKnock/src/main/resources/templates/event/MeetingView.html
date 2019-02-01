@@ -36,6 +36,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 			</form>
 
 <!-- 			<input type="checkbox" onclick="toggleOn(this)"/> -->
+		<!-- 참가하기 모달창 (로그인시에만 참가하기 구현필요, 인원이 만석되면 참가불가 구현필요)-->
 			<a class="btn btn-success" data-toggle="modal" href="#myModal1" th:text="'참가하기'"></a>
 			  <!-- Modal1 -->
 				  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -48,10 +49,12 @@ layout:decorate="~{etc/fragments/main_layout}">
 				          <button type="button" class="close" data-dismiss="modal" th:text="'x'"></button>
 				        </div>
 						<div class="modal-body">
-							<form role="form" action='#' method="post">
-								<button type="button" class="btn btn-success" id="signin" th:text="'참가'"></button>
-								<button type="button" class="btn btn-default" data-dismiss="modal" th:text="'취소'"></button>
+							<form id="goform" action="/participate">
+								<input type="number" name="memberNumber">					
+								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
 							</form>
+								<button type="submit" class="btn btn-success" id="signin" form="goform" th:text="'참가'"></button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" th:text="'취소'"></button>
 						</div>
 					  </div>
 					  
