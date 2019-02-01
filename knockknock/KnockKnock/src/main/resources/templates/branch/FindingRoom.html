@@ -29,10 +29,11 @@
 <!-- gallery Page Content -->
     <div class="container" id="container">
       <h1 class="my-4 text-center text-lg-left">입주가능 방 목록</h1>
+
 	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery test -->
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
-	          <a th:href="@{'/roomDetailView/?branch_number='+${dto.branch_number}}" class='d-block mb-4 h-100' id='gallery'>
+	          <a th:href="@{'/HouseInfo/?branch_number='+${dto.branch_number}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
 	          	<span th:text='${dto.branch_number}' id='branch_number'/>
 				<span th:text='${dto.address}' name='addressList' id='addressList'/>

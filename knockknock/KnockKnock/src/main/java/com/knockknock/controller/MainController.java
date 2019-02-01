@@ -17,8 +17,11 @@ import com.knockknock.service.TestService;
 @Controller
 public class MainController {
 
+
 	@Autowired
 	TestService testService;
+	
+
 
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO) {
@@ -27,6 +30,7 @@ public class MainController {
 
 	@RequestMapping("/simpleRoomSearch")
 	public String simpleRoomSearch(Model model, BranchTestDTO branchTestDTO) {
+
 		model.addAttribute("lists", testService.list(branchTestDTO));
 		return "branch/FindingRoom";
 	}
@@ -51,14 +55,27 @@ public class MainController {
 		return "branch/FindingCategoryRoom";
 	}
 
+
 	@RequestMapping("/meetingAndEventMain")
 	public String toMeetingAndEvent() {
 		return "event/MeetingAndEventMain";
 	}
 
 	@RequestMapping("e")
-	public String toTranslateLanguage() {
+	public String toTranslatLanguage() {
 		return "";
 	}
+
+
+	@RequestMapping("f")
+	public String toSharingGuide() {
+		return "etc/SharingGuide";
+	}
+	
+	@RequestMapping("/FAQ")
+	public String toFAQ() {
+		return "etc/FAQ";
+	}
+
 
 }
