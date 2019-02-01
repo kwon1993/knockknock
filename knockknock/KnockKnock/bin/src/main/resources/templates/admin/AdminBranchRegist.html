@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/main_layout}">
+<head>
+<title>낙낙-지점 정보 등록</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+
+	<div layout:fragment="content" class="container">
+
+
+		<div class="jumbotron">
+			<h1>지점 등록 페이지</h1>
+		</div>
+
+
+
+		<form action="eventWrite">
+			<table>
+				<tr>
+					<td>작성자번호</td>
+					<td><input type="number" name="memberNumber"></td>
+				</tr>
+				<tr>
+					<td>테마</td>
+					<td><input type="text" name="title"></td>
+				</tr>
+				<tr>
+					<td>지점은행</td>
+					<td><input type="date" name="eventStartTime"></td>
+				</tr>
+				<tr>
+					<td>지점은행 예금주</td>
+					<td><input type="date" name="eventEndTime"></td>
+				</tr>
+				<tr>
+					<td>지점은행 계좌</td>
+					<td><input type="date" name="acceptStartTime"></td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td><select name="gender">
+							<option value="공용">공용</option>
+							<option value="남">남</option>
+							<option value="여">여</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>소개글</td>
+					<td><textarea name="content"></textarea></td>
+				</tr>
+				<tr>
+					<td>주차장</td>
+					<td><select name="isParking">
+							<option value="yes">있음</option>
+							<option value="no">없음</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>엘리베이터</td>
+					<td><select name="isElevator">
+							<option value="yes">있음</option>
+							<option value="no">없음</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>반려동물 가능여부</td>
+					<td><select name="gender">
+							<option value="yes">가능</option>
+							<option value="no">불가능</option>
+					</select></td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td>send</td>
+					<td><input type="submit" name="eventWrite"></td>
+				</tr>
+			</table>
+		</form>
+
+
+	</div>
+
+
+
+
+
+	</div>
+</body>
+</html>
+
