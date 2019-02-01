@@ -84,4 +84,10 @@ public class MeetingAndEventController {
 		model.addAttribute("EventList", meServiceImpl.eventListService());
 		return "event/EventList";
 	}
+	
+	@RequestMapping("/participate") //참가하기
+	private String participate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
+		meServiceImpl.participateService(writingNumber, memberNumber);
+		return "redirect:/meetingList";
+	}
 }

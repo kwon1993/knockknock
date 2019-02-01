@@ -102,14 +102,12 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public int participateService() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public void participateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.participate(writingNumber, memberNumber);
 	}
 
 	@Override
 	public int meetingPlaceService() throws Exception {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

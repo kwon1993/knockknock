@@ -67,5 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="meetingDelete" parameterType="int">
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
-
+	<insert id="participate"> <!-- 참가하기 -->
+		INSERT INTO JOIN_MEETING (WRITING_NUMBER, MEMBER_NUMBER)
+		VALUES (#{writingNumber}, #{memberNumber})
+	</insert>
 </mapper>
