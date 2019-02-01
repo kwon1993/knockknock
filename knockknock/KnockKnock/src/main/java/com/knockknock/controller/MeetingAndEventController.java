@@ -46,11 +46,11 @@ public class MeetingAndEventController {
 			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
-			@RequestParam("recruitNumber") int recruitNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
-			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
+			@RequestParam("detailIntroduce") String detailIntroduce, @RequestParam("gender") String gender) throws Exception{
 		
 		meServiceImpl.meetingInsertService(memberNumber, title, meetingStartTime, meetingEndTime, acceptStartTime,
-				acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitNumber);
+				acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitMaxNumber, gender);
 		return "redirect:/meetingList";
 	}
 	
@@ -66,10 +66,10 @@ public class MeetingAndEventController {
 			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
-			@RequestParam("recruitNumber") int recruitNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
 			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
 		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
-				acceptStartTime, acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitNumber);
+				acceptStartTime, acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitMaxNumber);
 		return "redirect:/meetingList";
 	}
 	

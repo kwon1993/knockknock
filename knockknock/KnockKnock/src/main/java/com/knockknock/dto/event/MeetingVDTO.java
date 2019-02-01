@@ -12,7 +12,7 @@ public class MeetingVDTO {
 	private Date writeTime; //작성시간
 	private Date acceptStartTime; //모임 모집시작시간
 	private Date acceptEndTime; //모임 모집마감시간
-	private int recruitNumber; //모집인원
+	private int recruitMaxNumber; //모집인원
 	private int hit; //조회수
 	private String simpleIntroduce; //모임 간단소개
 	private String detailIntroduce; //모임 상세소개
@@ -24,4 +24,5 @@ public class MeetingVDTO {
 	private String image; //이미지
 	private int like; //좋아요
 	private String nickname;
+	private String gender; //성별
 }
