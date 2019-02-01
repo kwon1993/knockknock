@@ -2,18 +2,14 @@ package com.knockknock.controller;
 
 import java.sql.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.event.Criteria;
-import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.PageMaker;
 import com.knockknock.service.MeetingAndEventServiceImpl;
 
@@ -65,7 +61,8 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/meetingModify")
-	private String meetingModify(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
+	private String meetingModify(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
+			@RequestParam("title") String title,
 			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
@@ -73,7 +70,7 @@ public class MeetingAndEventController {
 			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
 		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
 				acceptStartTime, acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitNumber);
-		return "redirect:/meetingView";
+		return "redirect:/meetingList";
 	}
 	
 	@RequestMapping("/meetingDelete") //미팅 글 삭제
