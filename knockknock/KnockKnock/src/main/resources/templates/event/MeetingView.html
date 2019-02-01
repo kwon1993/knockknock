@@ -6,7 +6,6 @@ layout:decorate="~{etc/fragments/main_layout}">
 <title>모임명</title>
 </head>
 <body>
-
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" style="margin-top: 200px">
 			<h3>모임 게시판</h3>
@@ -16,11 +15,14 @@ layout:decorate="~{etc/fragments/main_layout}">
 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
 			<form>
 				<div>
+					<br/>
+					<span th:text="모임간단소개"></span>
 					<p th:text="${MeetingView.simpleIntroduce}"></p>
+					<span th:text="모임상세소개"></span>
 					<p th:text="${MeetingView.detailIntroduce}"></p>
 				</div>
 				<div>
-					<p>모임정보</p>
+					<span>모임정보</span>
 					<ul>
 						<li th:text="'모임 기간 : '+
 						${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
@@ -34,35 +36,66 @@ layout:decorate="~{etc/fragments/main_layout}">
 			</form>
 
 <!-- 			<input type="checkbox" onclick="toggleOn(this)"/> -->
-			<a class="btn btn-primary" data-toggle="modal" href="#myModal" th:text="'참가하기'"></a>
-			  <!-- Modal -->
-				  <div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog">
+			<a class="btn btn-success" data-toggle="modal" href="#myModal1" th:text="'참가하기'"></a>
+			  <!-- Modal1 -->
+				  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-sm" role="document">
 				    
 				      <!-- Modal content-->
 				      <div class="modal-content">
 				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">×</button>
-				          <h4 class="modal-title" th:text="'모임에 참가하시겠습니까?"></h4>
+				          <h5 class="modal-title" id="myModalLable" th:text="'모임에 참가하시겠습니까?'"></h5>
+				          <button type="button" class="close" data-dismiss="modal" th:text="'x'"></button>
+				        </div>
+						<div class="modal-body">
+							<form role="form" action='#' method="post">
+								<button type="button" class="btn btn-success" id="signin" th:text="'참가'"></button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" th:text="'취소'"></button>
+							</form>
+						</div>
+					  </div>
+					  
+				    </div>
+				  </div>
+				  
+				  <!-- Modal2 -->
+				  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-sm" role="document">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h4 class="modal-title" id="myModalLable" th:text="'참여 완료되었습니다.'"></h4>
+				          <button type="button" class="close" data-dismiss="modal" th:text="'x'"></button>
 				        </div>
 				        <div class="modal-body">
-				          <a class="btn btn-primary" th:text="'참가'"></a>
-				          <a class="btn btn-default" data-dismiss="modal" th:text="'취소'"></a>
+				          <a class="btn btn-success" th:href="@{/#}" th:text="'신청내역보기'"></a>
+				        </div>
+				        <div class="modal-footer">
+				          <a class="btn btn-default pull-rigth" data-dismiss="modal" id="something" th:text="'확인'"></a>
 				        </div>
 				      </div>
 				      
 				    </div>
 				  </div>
-			<a class="btn btn-primary" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
-			<a class="btn btn-primary" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
-			<a class="btn btn-primary" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a>
+			<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
+			<a class="btn" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
+			<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a>
 		</div>
-	</div>
-
 <script>
-function toggleOn(tog) {
-	tog.classList.toggle("fa-thumbs-down");
-}
+//모달 생성
+$(document).ready(function(){
+	$("#signin").on("click", function(){
+	 	$('#myModal1').modal('hide');
+	});
+	$("#signin").on("click", function(){
+		$('#myModal2').modal('show');
+	});
+	$('#something').click(function() {
+	    location.reload();
+	});
+});
 </script>
+</div>
 </body>
 </html>
