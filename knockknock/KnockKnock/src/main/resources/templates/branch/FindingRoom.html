@@ -98,6 +98,7 @@ $.noConflict();
 
 jQuery(document).ready(function(){
 	jQuery('#roomSearch').on('click',function(){
+		jQuery(".row text-center text-lg-left").hide();
 
 		var address = jQuery("#searchAddress").val();
 		var content="";
