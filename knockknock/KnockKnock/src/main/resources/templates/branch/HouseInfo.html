@@ -568,8 +568,30 @@ img {
 
 
 
+<!-- MyUploadForm -->
+       
+      <form th:object="${myUploadForm}" method="POST"
+         action="" enctype="multipart/form-data">
+         Description:
+         <br>
+         <input th:field="*{description}" style="width:300px;"/>                
+         <br/><br/>  
+         File to upload: <input th:field="*{fileDatas}" type="file"/>
+         <br />  
+         <input type="submit" value="Upload">
+      </form>
 
 
+  <h3>Uploaded Files:</h3>
+       
+      <ul th:each="file : ${uploadedFiles}">
+         <li th:utext="${file}"></li>  
+      </ul>      
+       
+      <h3>Failed:</h3>
+      <ul th:each="file : ${failedFiles}">
+         <li style="color:red;" th:utext="${file}"></li>  
+      </ul>
 
 
 
