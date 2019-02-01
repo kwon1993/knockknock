@@ -17,15 +17,12 @@ import com.knockknock.service.TestService;
 @Controller
 public class MainController {
 
-
 	@Autowired
 	TestService testService;
-	
-
 
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO) {
-		return "home/home";
+		return "home/Home";
 	}
 
 	@RequestMapping("/simpleRoomSearch")

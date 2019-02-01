@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml"
-	layout:decorate="~{etc/fragments/main_layout}">
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <title>지점 상세 정보</title>
 <meta charset="utf-8">
@@ -557,7 +557,7 @@ img {
 
 
 
-
+<!-- 
 MyUploadForm
        
       <form th:object="${myUploadForm}" method="POST"
@@ -600,7 +600,7 @@ MyUploadForm
 		</div>
 
 
-
+ -->
 
 
 
@@ -689,11 +689,7 @@ daum.maps.load(function() {
 });
 
 </script>
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b497e483355c4a6cc558f83dcd637541&libraries=services"></script> 
 
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
