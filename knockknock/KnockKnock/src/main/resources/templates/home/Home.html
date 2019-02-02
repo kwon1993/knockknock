@@ -25,7 +25,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
                       <br> 찾아봐요!</h1>
                     <p class="intro-subtitle intro-price">
                     	<input type='text' name='simpleAddress' placeholder="주소나 위치를 입력하세요">
-                      	<a href='/simpleRoomSearch' name='simpleRoomSearch'><span class="price-a">방찾기</span></a>
+                      	<a href='/simpleRoomSearch' name='simpleRoomSearch'><span class="price-a">검색</span></a>
                     </p>
                   </div>
                 </div>
@@ -693,9 +693,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
     </div>
   </section>
   <!--/ News End /-->
-  </div>
-  <!-- / content replace End / -->
-
 <script>
 //심플방검색 제이쿼리--------------------------------------------------------------------
 $(document).ready(function(){
@@ -703,12 +700,13 @@ $(document).ready(function(){
 	var inputRoom = $("input[name=simpleAddress]");
 	
 	$(simpleSearch).on('click',function(){
+		alert("심플방검색");
 		simpleSearch.attr('href','/simpleRoomSearch?address=' + inputRoom.val());
 	});
 });
 //심플방검색 제이쿼리--------------------------------------------------------------------
-
 </script>
-
+</div>
+<!-- / content replace End / -->
 </body>
 </html>

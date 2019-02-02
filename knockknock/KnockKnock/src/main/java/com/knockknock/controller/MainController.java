@@ -1,78 +1,70 @@
 package com.knockknock.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.knockknock.dto.branch.BranchTestDTO;
+import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.MemberDTO;
-import com.knockknock.service.TestService;
+import com.knockknock.service.BranchService;
 
 @Controller
 public class MainController {
 
 	@Autowired
-	TestService testService;
-
+	BranchService branchService;
+	
+	//메인화면 스타트
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO) {
 		return "home/Home";
 	}
-
-	@RequestMapping("/simpleRoomSearch")
-	public String simpleRoomSearch(Model model, BranchTestDTO branchTestDTO) {
-
-		model.addAttribute("lists", testService.list(branchTestDTO));
+	
+	//메인화면 심플방검색
+	@GetMapping("/simpleRoomSearch")
+	public String simpleRoomSearch(Model model, BranchDetailVDTO branchDetailVDTO) {
+		model.addAttribute("lists", branchService.simpleRoomSearchList(branchDetailVDTO));
+		model.addAttribute("simpleValue",1);
+		System.out.println("강북검색:"+branchService.simpleRoomSearchList(branchDetailVDTO));
 		return "branch/FindingRoom";
 	}
-
-	// AJAX 방리스트받기 테스트
-	@PostMapping("/branch/FindingRoom")
-	@ResponseBody
-	public List<BranchTestDTO>roomSearch(Model model, @ModelAttribute BranchTestDTO branchTestDTO) {
-		System.out.println(branchTestDTO.getAddress());
-		model.addAttribute("list",testService.list(branchTestDTO));
-		return testService.list(branchTestDTO);
+	
+	//네비게이션바 '방찾기'
+	@RequestMapping("/findingRoom")
+	public String toFindingRoom(Model model, BranchDetailVDTO branchDetailVDTO) {
+		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
+		return "branch/FindingRoom";
 	}
-
-	@RequestMapping("b")
-	public String toFindingRoom() {
-
-		return "branch/FindingCategoryRoom";
-	}
-
-	@RequestMapping("c")
+	
+	//네비게이션바 '카테고리로 방찾기'
+	@RequestMapping("/findingCategoryRoom")
 	public String toFindingCategoryRoom() {
 		return "branch/FindingCategoryRoom";
 	}
-
-
+	
+	//네비게이션바 '모임 및 이벤트
 	@RequestMapping("/meetingAndEventMain")
 	public String toMeetingAndEvent() {
 		return "event/MeetingAndEventMain";
 	}
-
-	@RequestMapping("e")
-	public String toTranslatLanguage() {
+	
+	//네비게이션바 '언어변환'
+	@RequestMapping("/toTranslateLanguage")
+	public String toTranslateLanguage() {
 		return "";
 	}
-
-
-	@RequestMapping("f")
+	
+	//네비게이션바 '입주안내'
+	@RequestMapping("/toSharingGuide")
 	public String toSharingGuide() {
 		return "etc/SharingGuide";
 	}
 	
-	@RequestMapping("/FAQ")
+	//네비게이션바 '고객센터'
+	@RequestMapping("/toFAQ")
 	public String toFAQ() {
 		return "etc/FAQ";
 	}
-
-
 }

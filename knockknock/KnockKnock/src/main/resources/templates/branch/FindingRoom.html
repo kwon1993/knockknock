@@ -3,12 +3,14 @@
 <head>
     <title>낙낙-방찾기</title>
 <style>
-#jumbotronId {
+
+#jumbotronId{
     padding: 2rem 1rem;
     margin-bottom: 0rem;
     background-color: white;
     border-radius: 1rem;
 }
+
 </style>
     
 </head>
@@ -42,14 +44,15 @@
 	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery-->
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
-	          <a th:href="@{'/HouseInfo/?branch_number='+${dto.branch_number}}" class='d-block mb-4 h-100' id='gallery'>
+	          <a th:href="@{'/HouseInfo/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
-	          	<span th:text='${dto.branch_number}' id='branch_number'/>
+	          	<span th:text='${dto.branchNumber}' id='branchNumber'/>
 				<span th:text='${dto.address}' name='addressList' id='addressList'/>
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
 	      </div>
+	      <input th:text=${simpleValue} id='simpleSearchValue'>
     </div>
 <!-- /.container -->
 <script>
@@ -74,12 +77,21 @@ var geocoder = new daum.maps.services.Geocoder();
 var addressList = document.getElementsByName("addressList");
 //좌표를 담는 메서드
 var coords;
+//메인메뉴 방검색 여부 확인용 값
+var simpleSearchValue = document.getElementById('simpleSearchValue');
+
+//심플룸검색하면 룸검색값이 생성됨
+//룸검색값으로 조건을 주기
+//룸검색값이 있으면,윈도우 온로드를 실행하지않는다
+
 //갤러리,주소를 지도 위에 띄우기
-window.onload = function(){
-	for(k=0; k<addressList.length; k++){
-   		geocoder.addressSearch(addressList[k].textContent, callback);
+	window.onload = function(){
+		for(k=0; k<addressList.length; k++){
+	   		geocoder.addressSearch(addressList[k].textContent, callback);
+		}
 	}
-}
+
+
 //방검색시 주소를 갤러리,지도 위에 띄우기
 function searchMap(){
 	for(k=0; k<addressList.length; k++){
@@ -96,6 +108,7 @@ var callback = function(result, status){
             map: map,
             position: coords
         });
+        
         //'검색'을 눌렀을 때, 마커 삭제
         jQuery("#roomSearch").on('click',function(){
     		marker.setMap(null);
@@ -115,7 +128,7 @@ jQuery(document).ready(function(){
 		
 		jQuery.ajax({
 			method:'post',
-			url:'/branch/FindingRoom',
+			url:'/roomSearch',
 			data: {"address":address},
 			async : false,
 			success:function(data){
