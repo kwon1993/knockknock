@@ -9,7 +9,6 @@ import com.knockknock.dto.branch.ReviewDTO;
 @Mapper
 public interface ReviewMapper {
 
-	
 	// 리뷰 개수
 	//public int count();
 	
@@ -23,5 +22,7 @@ public interface ReviewMapper {
 	public int update(ReviewDTO reviewDTO);
 	
 	// 리뷰 삭제
-	public int delete();
+
+	public int delete(int writingNumber);
+	
 }

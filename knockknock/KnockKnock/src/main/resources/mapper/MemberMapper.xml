@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="register">
         insert into member(member_number,grade,email,password,nickname,name,birth,gender,join_Time)
 		values
-		(1,#{grade},#{email},#{password},#{nickname},#{name},now(),'남자',now())
+		(0,#{grade},#{email},#{password},#{nickname},#{name},now(),'남자',now())
     </insert>
 
     <select id="findById" resultType="MemberDTO">

@@ -14,7 +14,21 @@ public class BranchService {
 
 	@Autowired
 	public BranchMapper branchMapper;
-
+	
+	//네비게이션바 방찾기검색
+	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO){
+		return branchMapper.findingRoomList(branchDetailVDTO);
+	}
+	
+	//메인화면 심플방검색
+	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO){
+		return branchMapper.simpleRoomSearchList(branchDetailVDTO);
+	}
+	//'방찾기'에서 방검색
+	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO){
+		return branchMapper.roomList(branchDetailVDTO);
+	}
+	
 	public BranchDetailVDTO getDetail(int branchNumber) {
 		return branchMapper.getDetail(branchNumber);
 	}

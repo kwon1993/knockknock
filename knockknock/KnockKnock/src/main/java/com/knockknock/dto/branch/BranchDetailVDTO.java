@@ -25,7 +25,7 @@ public class BranchDetailVDTO {
 	private String imageBathroom;
 	private String imageETC;
 	private int roomNumber;
-	private int allowNuber;
+	private int allowNumber;
 	private String space;
 	private int deposit;
 	private int monthlyRent;
@@ -47,4 +47,5 @@ public class BranchDetailVDTO {
 	private Date birth;
 	private String memberGender;
 	private String introduce;
+
 }

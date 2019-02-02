@@ -16,7 +16,7 @@ public class MemberController {
 
 	@RequestMapping("/register")
 	public String registerStart() {
-		return "member/register";
+		return "member/Register";
 	}
 
 	//1.회원등록
@@ -25,18 +25,18 @@ public class MemberController {
 		//2.memberService의 register호출
 		memberService.register(memberDTO);
 		
-		return "member/registerComplete";
+		return "member/RegisterComplete";
 	}
 	
 	//기본적으로 '로그인'누르면 연결. 그외에 인증처리 안된상태에서 방찾기 등 누르면 로그인으로
 	@RequestMapping("/login")
 	public String login() {
-		return "member/login";
+		return "member/Login";
 	}
 	
 	@PostMapping("/loginComplete")
 	public String loginComplete(MemberDTO memberDTO) {
 		
-		return "etc/fragments/main_layout";
+		return "etc/fragments/Main_layout";
 	}
 }
