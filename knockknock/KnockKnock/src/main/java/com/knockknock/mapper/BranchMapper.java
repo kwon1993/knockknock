@@ -16,10 +16,8 @@ public interface BranchMapper {
 
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber);
 
-<<<<<<< HEAD
+
 //	public Object getPetInfo(int branchNumber);
-	
-=======
->>>>>>> dee268fed05aac1815253b7f7965d08272aa8c99
+
 
 }

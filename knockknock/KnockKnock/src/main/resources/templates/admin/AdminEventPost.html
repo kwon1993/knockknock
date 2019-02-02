@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/main_layout}">
+layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>낙낙-내용입력</title>
+    <title>�굺�굺-�궡�슜�엯�젰</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -18,10 +18,10 @@ layout:decorate="~{etc/fragments/main_layout}">
 
 <table id="table">
 	<tr>
-		<td>글번호</td>
-		<td>타이틀</td>
-		<td>조회수</td>
-        <td>작성시간</td>
+		<td>湲�踰덊샇</td>
+		<td>���씠��</td>
+		<td>議고쉶�닔</td>
+        <td>�옉�꽦�떆媛�</td>
     </tr>
 
     <tr>
@@ -32,28 +32,28 @@ layout:decorate="~{etc/fragments/main_layout}">
     </tr>
     
     <tr>
-    	<td colspan="1">이벤트 시작일</td>
+    	<td colspan="1">�씠踰ㅽ듃 �떆�옉�씪</td>
     	<td colspan="3" th:text=${eventView.eventStartTime}></td>
     </tr>
     <tr>
-    	<td colspan="1">이벤트 종료일</td>
+    	<td colspan="1">�씠踰ㅽ듃 醫낅즺�씪</td>
     	<td colspan="3" th:text=${eventView.eventEndTime}></td>
     </tr>
     <tr>
-    	<td colspan="1">접수 시작일</td>
+    	<td colspan="1">�젒�닔 �떆�옉�씪</td>
     	<td colspan="3" th:text=${eventView.acceptStartTime}></td>
     </tr>
     <tr>
-    	<td colspan="1">접수 종료일</td>
+    	<td colspan="1">�젒�닔 醫낅즺�씪</td>
     	<td colspan="3" th:text=${eventView.acceptEndTime}></td>
     </tr>
     <tr>
-    	<td colspan="1">모집인원</td>
+    	<td colspan="1">紐⑥쭛�씤�썝</td>
     	<td colspan="3" th:text=${eventView.recruitNumber}></td>
     </tr>
     
 	<tr>
-		<td colspan="1">내용</td>
+		<td colspan="1">�궡�슜</td>
 		<td colspan="3" th:text="${eventView.content}"></td>
 	</tr>
 	

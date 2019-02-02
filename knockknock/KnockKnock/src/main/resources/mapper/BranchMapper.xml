@@ -4,6 +4,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.knockknock.mapper.BranchMapper">
+   <select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
+		select * from branch
+		<if test="address!=null">
+			where address like CONCAT('%',#{address},'%')
+		</if>
+   </select>
+   
+   <select id="findingRoomList" resultType="BranchDetailVDTO">
+		select * from branch
+		<if test="address!=null">
+			where address like CONCAT('%',#{address},'%')
+		</if>
+   </select>
+
+   <select id="roomList" resultType="BranchDetailVDTO">
+		select * from branch
+		<if test="address!=null">
+			where address like CONCAT('%',#{address},'%')
+		</if>
+   </select>
+
    <select id="getDetail" resultType="BranchDetailVDTO">
 	   	SELECT 
 	   	B.BRANCH_NUMBER branchNumber,
@@ -42,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		WHERE BRANCH_NUMBER = #{BRANCH_NUMBER}
    </select>
    
- <select id="getMemberInfo" resultType="BranchDetailVDTO">
+   <select id="getMemberInfo" resultType="BranchDetailVDTO">
 		SELECT
 <!-- 		C.MEMBER_NUMBER memberNumber,
 		C.BRANCH_NUMBER branchNumber, -->

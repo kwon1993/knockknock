@@ -14,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.fileUploadTest.FileUploadTestForm;
 import com.knockknock.service.BranchService;
 
@@ -29,6 +32,16 @@ public class BranchController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(BranchController.class);
 	
+	// Ajax 방리스트받기
+	@PostMapping("/roomSearch")
+	@ResponseBody
+	public List<BranchDetailVDTO>roomSearch(Model model, @ModelAttribute BranchDetailVDTO branchDetailVDTO) {
+		System.out.println(branchDetailVDTO.getAddress());
+		//*중복 수정하기*
+		model.addAttribute("list",branchService.roomList(branchDetailVDTO));
+		return branchService.roomList(branchDetailVDTO);
+	}
+	
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branch_number") int branchNumber, Model model) {
@@ -36,7 +49,6 @@ public class BranchController {
 		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
 		logger.info(branchService.getMemberInfo(branchNumber).toString());
-		
 	
 		// 파일 업로드 테스트 메서드
 		FileUploadTestForm fileUploadTestForm = new FileUploadTestForm();
