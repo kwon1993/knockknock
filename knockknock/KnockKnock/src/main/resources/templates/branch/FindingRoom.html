@@ -106,6 +106,8 @@ function searchMap(){
 
 //장소검색이 완료됐을 때 호출되는 콜백함수 
 var callback = function(result, status){
+	// 
+	// alert(result[0].y);
     if (status === daum.maps.services.Status.OK) {
     	coords = new daum.maps.LatLng(result[0].y, result[0].x);
         // 결과값으로 받은 위치를 마커로 표시
@@ -131,8 +133,9 @@ var callback = function(result, status){
 		customOverlay.setMap(map);
 		
     }//if end
-    
-        map.setCenter(coords);
+    	 map.setCenter(coords);
+    }
+
 };
 
 //ajax 방 로딩

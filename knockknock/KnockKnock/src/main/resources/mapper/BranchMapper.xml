@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.BranchMapper">
    <select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
-		select
+		SELECT
 		B.BRANCH_NUMBER branchNumber,
 	   	B.BRANCH_COMMENT branchComment,
 	   	B.ADDRESS,
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <select id="findingRoomList" resultType="BranchDetailVDTO">
-		select
+		SELECT
 		B.BRANCH_NUMBER branchNumber,
 	   	B.BRANCH_COMMENT branchComment,
 	   	B.ADDRESS,
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
 
    <select id="roomList" resultType="BranchDetailVDTO">
-		select
+		SELECT
 		B.BRANCH_NUMBER branchNumber,
 	   	B.BRANCH_COMMENT branchComment,
 	   	B.ADDRESS,
