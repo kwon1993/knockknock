@@ -5,21 +5,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.BranchMapper">
    <select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
-		select * from branch
+		SELECT
+		B.BRANCH_NUMBER branchNumber,
+	   	B.ADDRESS,
+	   	B.ADDRESS_DETAIL addressDetail
+		FROM BRANCH B
 		<if test="address!=null">
 			where address like CONCAT('%',#{address},'%')
 		</if>
    </select>
    
    <select id="findingRoomList" resultType="BranchDetailVDTO">
-		select * from branch
+		SELECT
+		B.BRANCH_NUMBER branchNumber,
+	   	B.ADDRESS,
+	   	B.ADDRESS_DETAIL addressDetail
+		FROM BRANCH B
 		<if test="address!=null">
 			where address like CONCAT('%',#{address},'%')
 		</if>
    </select>
 
    <select id="roomList" resultType="BranchDetailVDTO">
-		select * from branch
+		SELECT
+		B.BRANCH_NUMBER branchNumber,
+	   	B.ADDRESS,
+	   	B.ADDRESS_DETAIL addressDetail
+		FROM BRANCH B
 		<if test="address!=null">
 			where address like CONCAT('%',#{address},'%')
 		</if>
