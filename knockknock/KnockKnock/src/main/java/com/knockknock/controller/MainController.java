@@ -60,5 +60,10 @@ public class MainController {
 	public String toTranslateLanguage() {
 		return "";
 	}
+	
+	@RequestMapping("f")
+	public String toSharingGuide() {
+		return "etc/SharingGuide";
+	}
 
 }

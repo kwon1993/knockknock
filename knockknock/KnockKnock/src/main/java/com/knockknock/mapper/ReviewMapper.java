@@ -23,5 +23,6 @@ public interface ReviewMapper {
 	public int update(ReviewDTO reviewDTO);
 	
 	// 리뷰 삭제
-	public int delete();
+	public int delete(int writingNumber);
+	
 }

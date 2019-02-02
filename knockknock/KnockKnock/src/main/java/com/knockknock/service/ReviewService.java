@@ -2,26 +2,33 @@ package com.knockknock.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.ReviewDTO;
+import com.knockknock.mapper.ReviewMapper;
 
 @Service
 public class ReviewService {
+	
+	@Resource
+	ReviewMapper reviewMapper;
 
 	public List<ReviewDTO> reviewListService() {
-		// TODO Auto-generated method stub
-		return null;
+		return reviewMapper.list();
 	}
 
 	public int reviewInsertService(ReviewDTO reviewDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reviewMapper.insert(reviewDTO);
 	}
 
 	public int reviewUpdateService(ReviewDTO reviewDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reviewMapper.update(reviewDTO);
+	}
+
+	public int reviewDeleteService(int writingNumber) {
+		return reviewMapper.delete(writingNumber);
 	}
 
 }
