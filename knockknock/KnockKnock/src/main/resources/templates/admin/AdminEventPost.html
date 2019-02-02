@@ -59,12 +59,12 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	
     <tr>
         <td colspan="4">
-            <form action="eventDelete">
+            <form action="adminEventDelete">
             	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
                 <input type="submit" value="delete">
             </form>
             
-            <form action="eventModifyView">
+            <form action="adminEventModifyView">
             	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
                 <input type="submit" value="modify">
             </form>
