@@ -10,4 +10,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (#{memberNumber), #{branchNumber},#{content}, now())
 	</insert> -->
 
+	<select id="list" resultType="ReviewDTO">
+		SELECT 
+		M.NICKNAME,
+		R.CONTENT,
+		R.WRITE_TIME writeTime
+		FROM REVIEW R, MEMBER M
+		WHERE R.BRANCH_NUMBER=#{BRANCH_NUMBER}
+		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
+	</select>
+
+
+	<insert id="insert" parameterType="ReviewDTO">
+		INSERT INTO 
+		REVIEW 
+		(MEMBER_NUMBER, 
+		BRANCH_NUMBER, 
+		CONTENT, 
+		WRITE_TIME)
+		VALUES 
+		(#{memberNumber}, 
+		#{branchNumber},
+		#{content}, 
+		now())
+	</insert>
+	
+	<update id="update" parameterType="ReviewDTO">
+		UPDATE
+		CONTENT
+		SET
+		CONTENT=#{CONTENT}
+		WHERE BRANCH_NUMBER=#{BRANCH_NUMBER}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE
+		FROM REVIEW
+		WEHRE BRANCH_NUMBER=#{BRANCH_NUMBER}
+	</delete>
 </mapper>

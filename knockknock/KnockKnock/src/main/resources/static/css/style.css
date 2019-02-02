@@ -1511,8 +1511,8 @@ a:hover {
 ======================================*/
 
 .section-footer {
-  padding-top: 60px;
-  margin-top: 60px;
+  padding-top: 0px;
+  margin-top: 0px;
   background: #f3f3f3;
 }
 

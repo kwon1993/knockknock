@@ -47,5 +47,5 @@ public class BranchDetailVDTO {
 	private Date birth;
 	private String memberGender;
 	private String introduce;
-	
+
 }

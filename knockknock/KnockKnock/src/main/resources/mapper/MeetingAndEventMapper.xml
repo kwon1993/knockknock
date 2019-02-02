@@ -35,12 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="meetingInsert">
     	INSERT INTO MEETING
 	    	(MEMBER_NUMBER, TITLE, MEETING_START_TIME, MEETING_END_TIME,
-	    	ACCEPT_START_TIME, ACCEPT_END_TIME, PLACE, PLACE_DETAIL, RECRUIT_NUMBER,
+	    	ACCEPT_START_TIME, ACCEPT_END_TIME, PLACE, PLACE_DETAIL, RECRUIT_MAX_NUMBER,
 	    	SIMPLE_INTRODUCE, DETAIL_INTRODUCE, HIT, WRITE_TIME)
     	VALUES
 	    	(#{memberNumber},#{title},#{meetingStartTime},#{meetingEndTime},
 	    	#{acceptStartTime},#{acceptEndTime},#{place},#{placeDetail},
-	    	#{recruitNumber},#{simpleIntroduce},#{detailIntroduce},0,NOW())
+	    	#{recruitMaxNumber},#{simpleIntroduce},#{detailIntroduce},0,NOW())
     </insert>
     <update id="meetingViewHit">
 		UPDATE MEETING
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</update>
 	<select id="meetingModifyForm" resultType="MeetingDTO">
-		SELECT WRITING_NUMBER writingNumber, TITLE, MEETING_START_TIME meetingStartTime,
+		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
 		MEETING_END_TIME MEETING_END_TIME, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
 		PLACE, PLACE_DETAIL placeDetail, RECRUIT_NUMBER recruitNumber,
 	    SIMPLE_INTRODUCE simpleIntroduce, DETAIL_INTRODUCE detailIntroduce
@@ -67,5 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="meetingDelete" parameterType="int">
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
-
+	<insert id="participate"> <!-- 참가하기 -->
+		INSERT INTO JOIN_MEETING (WRITING_NUMBER, MEMBER_NUMBER)
+		VALUES (#{writingNumber}, #{memberNumber})
+	</insert>
 </mapper>

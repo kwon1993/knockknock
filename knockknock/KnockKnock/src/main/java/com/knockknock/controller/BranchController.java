@@ -22,17 +22,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.knockknock.fileUploadTest.FileUploadTestForm;
 import com.knockknock.service.BranchService;
 
-
 @Controller
 public class BranchController {
-	
 	@Autowired
 	public BranchService branchService;
 	
 	private static final Logger logger=LoggerFactory.getLogger(BranchController.class);
 	
 	// GET: 파일 업로드 폼이 있는 페이지
-	@RequestMapping(value="/HouseInfo", method=RequestMethod.GET)
+	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branch_number") int branchNumber, Model model) {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
@@ -46,7 +44,6 @@ public class BranchController {
 		
 		return "branch/HouseInfo";
 	}
-	
 
 	   // POST: 진짜 파일 업로드 로직
 	   @RequestMapping(value = "HouseInfo", method = RequestMethod.POST)

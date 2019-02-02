@@ -19,12 +19,12 @@ public class AdminController {
 	@Autowired
 	public AdminService adminService;
 
-	@RequestMapping("adminRoomRegistView")
+	@RequestMapping("adminBranchRegistView")
 	public String adminRoomRegistView() {
 		return "admin/AdminBranchRegist";
 	}
 
-	@RequestMapping("adminRoomRegist")
+	@RequestMapping("adminBranchRegist")
 	public String adminRoomRegist(Model model, BranchDTO branchDTO, ArrayList<RoomDTO> roomDTO) {
 
 		// adminService.branchRegist(branchDTO, roomDTO);
