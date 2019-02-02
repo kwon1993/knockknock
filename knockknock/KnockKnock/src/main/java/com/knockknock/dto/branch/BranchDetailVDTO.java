@@ -21,11 +21,11 @@ public class BranchDetailVDTO {
 	private int maximumResident;
 	private String rule;
 	private String imageLiving;
-	private String imageKitchin;
+	private String imageKitchen;
 	private String imageBathroom;
 	private String imageETC;
 	private int roomNumber;
-	private int allowNuber;
+	private int allowNumber;
 	private String space;
 	private int deposit;
 	private int monthlyRent;
@@ -36,8 +36,16 @@ public class BranchDetailVDTO {
 	private String comment;
 	private Date writeTime;
 	private String image;
-	private String anumal;
-	private int petNumber;
+	private String animal;
+	/* private int petNumber; */
 	private int amount;
 	private int writingNumber;
+	
+	private String favorite1;
+	private String favorite2;
+	private String favorite3;
+	private Date birth;
+	private String memberGender;
+	private String introduce;
+
 }

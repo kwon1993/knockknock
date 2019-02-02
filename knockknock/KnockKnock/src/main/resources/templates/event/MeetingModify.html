@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/main_layout}">
+layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>수정하기</title>
@@ -18,8 +18,8 @@ layout:decorate="~{etc/fragments/main_layout}">
 					<table class="table">
 						<tr>
 							<td>작성자</td>
-							<td><input type="hidden" name="memberNumber" th:value="${meetingModifyForm.memberNumber}"></td>
 							<td><input type="hidden" name="writingNumber" th:value="${meetingModifyForm.writingNumber}"></td>
+							<td><input type="hidden" name="memberNumber" th:value="${meetingModifyForm.memberNumber}"></td>
 						</tr>
 						<tr>
 							<td>모임명</td>
@@ -61,7 +61,8 @@ layout:decorate="~{etc/fragments/main_layout}">
 							<td><textarea name="detailIntroduce" th:value="${meetingModifyForm.detailIntroduce}"></textarea></td>
 						</tr>
 						<tr>
-							<td><input type="submit" name="meetingModify" value="개설완료"></td>
+							<td><input class="btn btn-default" type="submit" name="meetingModify" value="개설완료"></td>
+							<td><input class="btn btn-default" type="submit" name="meetingModify" value="취소"></td>
 						</tr>
 					</table>
 				</form>

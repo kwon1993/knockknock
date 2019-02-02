@@ -3,18 +3,17 @@
 xmlns:th="http://www.w3.org/1999/xhtml">
 <meta charset="utf-8">
 
-
-<div th:replace="etc/fragments/config :: config"></div>
+<div th:replace="etc/fragments/Config :: Config"></div>
 
 <body>
 <!-- / header replace / -->
-<div th:replace="etc/fragments/header :: header"></div>
+<div th:replace="etc/fragments/Header :: Header"></div>
 
 <!-- / content replace start -->
 <div layout:fragment="content"></div>
   
-  <!-- / footer replace / -->
-  <div th:replace="etc/fragments/footer :: footer"></div>
+<!-- / footer replace / -->
+<div th:replace="etc/fragments/Footer :: Footer"></div>
 
  <!-- JavaScript Libraries -->
 <div layout:fragment="script">
@@ -32,6 +31,7 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 	  <!-- about gallery script -->
 	  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
 </div>
 
 <script>

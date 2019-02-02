@@ -19,37 +19,28 @@ public class AdminController {
 	@Autowired
 	public AdminService adminService;
 
-	@RequestMapping("adminRoomRegistView")
-	public String adminRoomRegistView() {
-		return "admin/AdminBranchRegist";
-	}
-
-	@RequestMapping("adminRoomRegist")
-	public String adminRoomRegist(Model model, BranchDTO branchDTO, ArrayList<RoomDTO> roomDTO) {
-
-		// adminService.branchRegist(branchDTO, roomDTO);
-
-		return "admin/AdminBranchRegist";
-	}
-
-	@RequestMapping("eventListView")
+	
+	//event
+	
+	
+	@RequestMapping("adminEventListView")
 	public String eventListView(Model model) {
 		model.addAttribute("eventListView", adminService.eventList());
 		return "admin/AdminEventList";
 	}
 
-	@RequestMapping("eventView")
+	@RequestMapping("adminEventView")
 	public String eventWriteView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventView", adminService.eventView(writingNumber));
 		return "admin/AdminEventPost";
 	}
 
-	@RequestMapping("eventWriteView")
+	@RequestMapping("adminEventWriteView")
 	public String eventWriteView(Model model) {
 		return "admin/AdminEventWrite";
 	}
 
-	@RequestMapping("eventWrite")
+	@RequestMapping("adminEventWrite")
 	public String eventWrite(Model model, @RequestParam("memberNumber") int memberNumber,
 			@RequestParam("title") String title, @RequestParam("content") String content,
 			@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
@@ -60,16 +51,16 @@ public class AdminController {
 				acceptEndTime, recruitNumber);
 //		model.addAttribute("eventView", adminService.eventView(writingNumber));
 //		return "redirect:admin/AdminEventPost";
-		return "redirect:eventListView";
+		return "redirect:adminEventListView";
 	}
 
-	@RequestMapping("eventModifyView")
+	@RequestMapping("adminEventModifyView")
 	public String eventModifyView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventModifyView", adminService.eventModifyView(writingNumber));
 		return "admin/AdminEventModify";
 	}
 
-	@RequestMapping("eventModify")
+	@RequestMapping("adminEventModify")
 	public String eventModify(Model model, @RequestParam("writingNumber") int writingNumber,
 			@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
 			@RequestParam("content") String content, @RequestParam("eventStartTime") Date eventStartTime,
@@ -77,12 +68,56 @@ public class AdminController {
 			@RequestParam("acceptEndTime") Date acceptEndTime, @RequestParam("recruitNumber") int recruitNumber) {
 		adminService.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitNumber);
-		return "redirect:eventListView";
+		return "redirect:adminEventListView";
 	}
 
-	@RequestMapping("eventDelete")
+	@RequestMapping("adminEventDelete")
 	public String eventDelete(Model model, @RequestParam("writingNumber") int writingNumber) {
 		adminService.eventDelete(writingNumber);
-		return "redirect:eventListView";
+		return "redirect:adminEventListView";
+	}
+	
+	
+	//member
+	
+	
+	@RequestMapping("adminMemberSearch")
+	public String memberSearch(Model model) {
+		return "admin/AdminMemberSearch";
+	}
+	
+	
+	//question
+	
+	
+	@RequestMapping("adminQuestionList")
+	public String questionList(Model model) {
+		return "admin/AdminQuestionList";
+	}
+	
+	
+	//visit
+	
+	
+	@RequestMapping("adminVisitList")
+	public String visitList(Model model) {
+		return "admin/AdminVisitList";
+	}
+	
+	
+	//branch
+	
+	
+	@RequestMapping("adminBranchRegistView")
+	public String adminRoomRegistView() {
+		return "admin/AdminBranchRegist";
+	}
+	
+	@RequestMapping("adminBranchRegist")
+	public String adminRoomRegist(Model model, BranchDTO branchDTO, ArrayList<RoomDTO> roomDTO) {
+		
+		// adminService.branchRegist(branchDTO, roomDTO);
+		
+		return "admin/AdminBranchRegist";
 	}
 }

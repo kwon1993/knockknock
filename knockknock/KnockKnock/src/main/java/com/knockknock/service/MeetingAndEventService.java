@@ -16,7 +16,7 @@ public interface MeetingAndEventService {
 			String place, String placeDetail, int recruitNumber) throws Exception; //모임 글쓰기
 	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, 
 			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String simpleIntroduce,
-			String detailIntroduce, String place, String placeDetail, int recruitNumber) throws Exception;
+			String detailIntroduce, String place, String placeDetail, int recruitMaxNumber) throws Exception;
 	public MeetingDTO meetingModifyFormService(int writingNumber) throws Exception;
 	public int meetingDeleteService(int writingNumber) throws Exception;
 	public int meetingSearchService() throws Exception;
@@ -26,7 +26,7 @@ public interface MeetingAndEventService {
 	public int fileUploadService() throws Exception;
 	public int fileDownService() throws Exception;
 	public int likeToggleService() throws Exception;
-	public int participateService() throws Exception;
+	public void participateService(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlaceService() throws Exception;
 	public int meetingPlaceDetailService() throws Exception;
 }

@@ -22,7 +22,7 @@ public interface MeetingAndEventMapper {
 	public MeetingDTO meetingModifyForm(int writingNumber);
 	public void meetingModify(int writingNumber, int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitNumber) throws Exception;
+			String place, String placeDetail, int recruitMaxNumber) throws Exception;
 	public int meetingDelete(int writingNumber) throws Exception;
 	public int meetingSearch() throws Exception;
 	public int eventCount() throws Exception;
@@ -31,7 +31,7 @@ public interface MeetingAndEventMapper {
 	public int fileUpload() throws Exception;
 	public int fileDown() throws Exception;
 	public int likeToggle() throws Exception;
-	public int participate() throws Exception;
+	public void participate(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;
 }
