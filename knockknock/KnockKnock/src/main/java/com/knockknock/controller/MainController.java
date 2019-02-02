@@ -67,4 +67,5 @@ public class MainController {
 	public String toFAQ() {
 		return "etc/FAQ";
 	}
+
 }

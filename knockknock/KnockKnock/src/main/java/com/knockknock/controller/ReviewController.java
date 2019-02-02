@@ -18,47 +18,49 @@ import com.knockknock.service.ReviewService;
 @RequestMapping("/review")
 public class ReviewController {
 
-	/*
-	 * @Resource ReviewService reviewService;
-	 * 
-	 * // 리뷰 목록
-	 * 
-	 * @RequestMapping("/list")
-	 * 
-	 * @ResponseBody private List<ReviewDTO> reviewServiceList(Model model){ return
-	 * reviewService.reviewListService(); }
-	 * 
-	 * // 리뷰 작성
-	 * 
-	 * @RequestMapping("/insert")
-	 * 
-	 * @ResponseBody private int reviewServiceInsert(@RequestParam("branch_number")
-	 * int branchNumber, @RequestParam String content) {
-	 * 
-	 * ReviewDTO reviewDTO = new ReviewDTO();
-	 * reviewDTO.setBranchNumber(branchNumber); reviewDTO.setContent(content);
-	 * 
-	 * return reviewService.reviewInsertService(reviewDTO); }
-	 * 
-	 * // 리뷰 수정
-	 * 
-	 * @RequestMapping("/update")
-	 * 
-	 * @ResponseBody private int reviewServiceUpdate(@RequestParam int
-	 * writingNumber, @RequestParam String content) { ReviewDTO reviewDTO = new
-	 * ReviewDTO(); reviewDTO.setWritingNumber(writingNumber);
-	 * reviewDTO.setContent(content);
-	 * 
-	 * return reviewService.reviewUpdateService(reviewDTO); }
-	 * 
-	 * 
-	 * // 리뷰 삭제
-	 * 
-	 * @RequestMapping("/delete/{writing_number}")
-	 * 
-	 * @ResponseBody private int reviewServiceDelete(@PathVariable int
-	 * writingNumber) {
-	 * 
-	 * }
-	 */
+	
+	  @Resource 
+	  ReviewService reviewService;
+	  
+	  // 리뷰 목록
+	  
+	  @RequestMapping("/list")
+	  @ResponseBody 
+	  private List<ReviewDTO> reviewServiceList(Model model){ 
+		  return reviewService.reviewListService(); }
+	  
+	  // 리뷰 작성
+	  
+	  @RequestMapping("/insert")
+	  @ResponseBody 
+	  private int reviewServiceInsert(@RequestParam("branch_number")
+	  int branchNumber, @RequestParam String content) {
+	  
+	  ReviewDTO reviewDTO = new ReviewDTO();
+	  reviewDTO.setBranchNumber(branchNumber); 
+	  reviewDTO.setContent(content);
+	  
+	  return reviewService.reviewInsertService(reviewDTO); }
+	  
+	  // 리뷰 수정
+	  
+	  @RequestMapping("/update")
+	  @ResponseBody
+	  private int reviewServiceUpdate(@RequestParam("writing_number") int
+	  writingNumber, @RequestParam String content) {
+		  ReviewDTO reviewDTO = new ReviewDTO(); 
+		  reviewDTO.setWritingNumber(writingNumber);
+	  reviewDTO.setContent(content);
+	  
+	  return reviewService.reviewUpdateService(reviewDTO); }
+	  
+	  
+	  // 리뷰 삭제
+	  
+	  @RequestMapping("/delete/{writing_number}")
+	  @ResponseBody 
+	  private int reviewServiceDelete(@PathVariable("writing_number") int writingNumber) {
+	  return reviewService.reviewDeleteService(writingNumber);
+	  }
+	 
 }
