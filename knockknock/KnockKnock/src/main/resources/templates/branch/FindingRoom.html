@@ -2,6 +2,7 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-방찾기</title>
+    
 <style>
 
 #jumbotronId{
@@ -11,7 +12,14 @@
     border-radius: 1rem;
 }
 
+
+.label {margin-bottom: 96px;}
+.label * {display: inline-block;vertical-align: top;}
+.label .left {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+.label .center {background: url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .right {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
 </style>
+
     
 </head>
 <body>
@@ -19,11 +27,11 @@
 <div layout:fragment="content" class="container">
     <div class="jumbotron" id='jumbotronId' style="margin-top:200px">
 		<div class="map_wrap">
-		    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+	    	<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 		</div>
-
+		
 	<!-- 지도 좌표 -->
-	<p><em>지도 중심좌표가 변경되면 지도 정보가 표출됩니다</em></p>	
+	<p><em>지도 중심좌표가z 변경되면 지도 정보가 표출됩니다</em></p>	
 	<p id="result"></p>
 
 		<input type="text" name="address" id='searchAddress'>
@@ -44,17 +52,17 @@
 	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery-->
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
-	          <a th:href="@{'/HouseInfo/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
+	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
-	          	<span th:text='${dto.branchNumber}' id='branchNumber'/>
+	          	<span th:text='${dto.branchNumber}' name='branchNumber' id='branchNumber'/>
 				<span th:text='${dto.address}' name='addressList' id='addressList'/>
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
 	      </div>
-	      <input th:text=${simpleValue} id='simpleSearchValue'>
     </div>
 <!-- /.container -->
+
 <script>
 
 //제이쿼리 충돌방지 문법 체인지
@@ -77,20 +85,17 @@ var geocoder = new daum.maps.services.Geocoder();
 var addressList = document.getElementsByName("addressList");
 //좌표를 담는 메서드
 var coords;
-//메인메뉴 방검색 여부 확인용 값
-var simpleSearchValue = document.getElementById('simpleSearchValue');
-
-//심플룸검색하면 룸검색값이 생성됨
-//룸검색값으로 조건을 주기
-//룸검색값이 있으면,윈도우 온로드를 실행하지않는다
+//호점 배열담기
+var branchNumber = document.getElementsByName('branchNumber');
+//branchNumber 증가 변수
+var i=0;
 
 //갤러리,주소를 지도 위에 띄우기
-	window.onload = function(){
-		for(k=0; k<addressList.length; k++){
-	   		geocoder.addressSearch(addressList[k].textContent, callback);
-		}
+window.onload = function(){
+	for(k=0; k<addressList.length; k++){
+	   	geocoder.addressSearch(addressList[k].textContent, callback);
 	}
-
+}
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
 function searchMap(){
@@ -111,11 +116,23 @@ var callback = function(result, status){
         
         //'검색'을 눌렀을 때, 마커 삭제
         jQuery("#roomSearch").on('click',function(){
+        	i=0;
     		marker.setMap(null);
+    		customOverlay.setMap(null);
         });
         
-    	map.setCenter(coords);
-    }
+    	var customContent = '<div class ="label"><span class="left"></span><span class="center">'+branchNumber[i++].textContent+'호점</span><span class="right"></span></div>';
+    	// 인포윈도우로 장소에 대한 설명을 표시
+    	var customOverlay = new daum.maps.CustomOverlay({
+    	  	position : coords,
+    	 	content : customContent
+    	});
+
+		customOverlay.setMap(map);
+		
+    }//if end
+    
+        map.setCenter(coords);
 };
 
 //ajax 방 로딩
@@ -140,9 +157,10 @@ jQuery(document).ready(function(){
 						content+=
 						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
 						+
-						"<a href='/roomDetailView/?branch_number="+ data[i].branch_number
+						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src='http://placehold.it/400x300' alt=''>" 
-						+"<span name='addressList' id='addressList'>" + data[i].address + "</span></a></div>";
+						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
+						"</span><span name='addressList' id='addressList'>" + data[i].address + "</span></a></div>";
 					}
 					content+="</div>";
 						

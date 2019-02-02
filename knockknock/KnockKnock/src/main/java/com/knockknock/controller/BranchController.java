@@ -44,7 +44,7 @@ public class BranchController {
 	
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
-	public String roomDetailView(@RequestParam("branch_number") int branchNumber, Model model) {
+	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));

@@ -1420,7 +1420,7 @@ img {
 							<div class="form-group">
 								<form name="reviewInsertForm">
 									<div class="input-group">
-										<input type="hidden" name="branch_number"
+										<input type="hidden" name="branchNumber"
 											value="${details.branchNumber}" /> <input type="text"
 											class="form-control" id="content" name="content"
 											placeholder="내용을 입력하세요."> <span
@@ -1699,7 +1699,6 @@ function showSlides(n) {
 
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new daum.maps.services.Geocoder();
-
 			
 			// 태그에 들어 있던 지점 주소를 가지고 와서 변수에 담는다
 			var branchAddress = document.getElementById("branchAddress");
@@ -1735,7 +1734,7 @@ function showSlides(n) {
 											{
 												content : customContent
 											});
-									infowindow.open(map, marker);
+											infowindow.open(map, marker);
 
 									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 									map.setCenter(coords);
