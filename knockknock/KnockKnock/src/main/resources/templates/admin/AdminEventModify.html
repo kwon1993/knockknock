@@ -24,47 +24,56 @@ layout:decorate="~{etc/fragments/main_layout}">
 </ul>
 
 
-<table>
-    <form action="eventModify">
-    	<tr>
-            <td>number</td>
-            <td><input type="hidden" name="writingNumber" th:value="${eventModifyView.writingNumber}"></td>
-            <td><input type="hidden" name="memberNumber" th:value="${eventModifyView.memberNumber}"></td>
-        </tr>
-        <tr>
-            <td>title</td>
-            <td><input type="text" name="title" th:value="${eventModifyView.title}"></td>
-        </tr>
-        <tr>
-            <td>event start time</td>
-            <td><input type="date" name="eventStartTime" th:value="${eventModifyView.eventStartTime}"></td>
-        </tr>
-        <tr>
-            <td>event end time</td>
-            <td><input type="date" name="eventEndTime" th:value="${eventModifyView.eventEndTime}"></td>
-        </tr>
-        <tr>
-            <td>accept start time</td>
-            <td><input type="date" name="acceptStartTime" th:value="${eventModifyView.acceptStartTime}"></td>
-        </tr>
-        <tr>
-            <td>accept end time</td>
-            <td><input type="date" name="acceptEndTime" th:value="${eventModifyView.acceptEndTime}"></td>
-        </tr>
-        <tr>
-        	<td>recruit number</td>
-        	<td><input type="number" name="recruitNumber" th:value="${eventModifyView.recruitNumber}"></td>
-        </tr>
-        <tr>
-            <td>content</td>
-            <td><textarea name="content" th:value="${eventModifyView.content}"></textarea></td>
-        </tr>
-        <tr>
-            <td>send</td>
-            <td><input type="submit" name="eventModify"></td>
-        </tr>
-    </form>
-</table>
+    <form action="adminEventModify">
+			<table>
+				<tr>
+					<td>number</td>
+					<td><input type="hidden" name="writingNumber"
+						th:value="${eventModifyView.writingNumber}"></td>
+					<td><input type="hidden" name="memberNumber"
+						th:value="${eventModifyView.memberNumber}"></td>
+				</tr>
+				<tr>
+					<td>title</td>
+					<td><input type="text" name="title"
+						th:value="${eventModifyView.title}"></td>
+				</tr>
+				<tr>
+					<td>event start time</td>
+					<td><input type="date" name="eventStartTime"
+						th:value="${eventModifyView.eventStartTime}"></td>
+				</tr>
+				<tr>
+					<td>event end time</td>
+					<td><input type="date" name="eventEndTime"
+						th:value="${eventModifyView.eventEndTime}"></td>
+				</tr>
+				<tr>
+					<td>accept start time</td>
+					<td><input type="date" name="acceptStartTime"
+						th:value="${eventModifyView.acceptStartTime}"></td>
+				</tr>
+				<tr>
+					<td>accept end time</td>
+					<td><input type="date" name="acceptEndTime"
+						th:value="${eventModifyView.acceptEndTime}"></td>
+				</tr>
+				<tr>
+					<td>recruit number</td>
+					<td><input type="number" name="recruitNumber"
+						th:value="${eventModifyView.recruitNumber}"></td>
+				</tr>
+				<tr>
+					<td>content</td>
+					<td><textarea name="content"
+							th:value="${eventModifyView.content}"></textarea></td>
+				</tr>
+				<tr>
+					<td>send</td>
+					<td><input type="submit" name="eventModify"></td>
+				</tr>
+			</table>
+		</form>
 </div>
 
 

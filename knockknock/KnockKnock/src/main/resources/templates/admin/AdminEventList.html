@@ -27,7 +27,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 		<td th:text="${list.writingNumber}"></td>
 		<td th:text="${list.nickname}"></td>
 		<td>
-            <a th:href="@{'eventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a>
+            <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a>
         </td>
 		<td th:text="${list.hit}"></td>
 		<td th:text="${list.writeTime}"></td>	
@@ -35,7 +35,7 @@ layout:decorate="~{etc/fragments/main_layout}">
     
     <tr>
         <td colspan="5">
-            <form action="eventWriteView">
+            <form action="adminEventWriteView">
                 <input type="submit" value="Write">
             </form>
         </td>
