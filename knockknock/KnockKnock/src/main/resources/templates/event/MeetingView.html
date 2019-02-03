@@ -30,7 +30,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 						<li th:text="'접수 기간 : '+
 						${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
 						${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
-						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}"></li>
+						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
 					</ul>
 				</div>
 			</form>
