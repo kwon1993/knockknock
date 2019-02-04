@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    MEETING MT, MEMBER MB
 			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
-			LIMIT #{pageStart}, #{amount}
+			LIMIT #{pageStart}, #{perPageNum}
     	]]>
     </select>
     <select id="meetingView" resultType="MeetingVDTO" parameterType="int">

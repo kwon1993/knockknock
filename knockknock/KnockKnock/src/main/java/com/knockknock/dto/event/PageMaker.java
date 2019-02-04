@@ -2,8 +2,10 @@ package com.knockknock.dto.event;
 
 import groovy.transform.ToString;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @ToString
 public class PageMaker {
 	private int totalCount;     // 게시판 전체 데이터 개수
@@ -22,35 +24,15 @@ public class PageMaker {
 	}
 	
 	private void calcData() {
-		endPage = (int) (Math.ceil(cri.getPageNum()/(double)displayPageNum)*displayPageNum);
+		endPage = (int) (Math.ceil(cri.getPage()/(double)displayPageNum)*displayPageNum);
 		startPage = (endPage - displayPageNum)+1;
-		int tempEndPage = (int) (Math.ceil(totalCount/(double)cri.getAmount()));
+		int tempEndPage = (int) (Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		
 		if(endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		prev = startPage == 1 ? false : true;
-		next = endPage * cri.getAmount() >= totalCount ? false : true;
-	}
-	
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-	
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-	
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
-	
-	public void setNext(boolean next) {
-		this.next = next;
-	}
-	
-	public void setDisplayPageNum(int displayPageNum) {
-		this.displayPageNum = displayPageNum;
+		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
 
 	public Criteria getCri() {

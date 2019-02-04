@@ -23,7 +23,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tbody>
 					<tr th:each="mt : ${MeetingList}">
 						<td th:text="${mt.writingNumber}">번호</td>
-						<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber})}" th:text="${mt.title}">제목</a></td>
+						<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber},page=${pageMaker.cri.page},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${mt.title}">제목</a></td>
 						<td th:text="${mt.nickname}">작성자</td>
 						<td th:text="${mt.hit}">조회수</td>
 						<td th:text="${mt.writeTime}">작성일</td>
@@ -31,18 +31,23 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</tbody>
 			</table>
 			<a th:href="@{/writeBoardForm}" class="btn btn-outline-success font-weight-bold pull-right" role="button">모임 만들기</a>
+			
 			<!-- 게시판 하단의 페이징 버튼 -->
-            <div>
-              <ul class="pagination pagination-sm no-margin">
-              <li th:if="${pageMaker.prev} == true">
-              	<a th:href="@{/event/meetingList(pageNum=${pageMaker.startPage}-1,amount=${pageMaker.cri.amount})}">&laquo;</a>
+            <div class="box-footer">
+              <ul class="pagination">
+              
+              <li class="page-item" th:if="${pageMaker.prev} == true">
+              	<a th:href="@{/event/meetingList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
               </li>
-              <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.pageNum} == ${idx} ? active : null">
-                <a th:href="@{/meetingList(pageNum=${idx},amount=${pageMaker.cri.amount})}" th:text="${idx}"></a>
+              
+              <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+                <a th:href="@{/meetingList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
               </li>
-              <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-              	<a th:href="@{/meetingList(pageNum=${pageMaker.endPage}+1,amount=${pageMaker.cri.amount})}">&raquo;</a>
+              
+              <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{/meetingList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
               </li>
+              
               </ul>
             </div>
 		</div>
