@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.fileUploadTest.FileUploadTestForm;
 import com.knockknock.service.BranchService;
 
@@ -48,6 +49,7 @@ public class BranchController {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
+		
 		logger.info(branchService.getMemberInfo(branchNumber).toString());
 	
 		// 파일 업로드 테스트 메서드
@@ -56,16 +58,30 @@ public class BranchController {
 		
 		return "branch/HouseInfo";
 	}
+	
+	// 방문 신청
+	@RequestMapping(value="roomDetailView", method=RequestMethod.POST)
+	public void visitBooking(@ModelAttribute VisitDTO visitDTO) {
+		branchService.visitBooking(visitDTO);
+		logger.info("POST/roomDetailView-visitBooking");
+		
+		
+	}
 
-	   // POST: 진짜 파일 업로드 로직
-	   @RequestMapping(value = "HouseInfo", method = RequestMethod.POST)
-	   public String uploadOneFileHandlerPOST(HttpServletRequest request, //
-	         Model model, //
-	         @ModelAttribute("fileUploadTestForm") FileUploadTestForm fileUploadTestForm) {
-	 
-	      return this.doUpload(request, model, fileUploadTestForm);
-	 
-	   }
+	/*
+	 * // POST: 진짜 파일 업로드 로직
+	 * 
+	 * @RequestMapping(value = "roomDetailView", method = RequestMethod.POST) public
+	 * String uploadOneFileHandlerPOST(HttpServletRequest request, // Model model,
+	 * //
+	 * 
+	 * @ModelAttribute("fileUploadTestForm") FileUploadTestForm fileUploadTestForm)
+	 * {
+	 * 
+	 * return this.doUpload(request, model, fileUploadTestForm);
+	 * 
+	 * }
+	 */
 	   
 	   private String doUpload(HttpServletRequest request, Model model, //
 			   FileUploadTestForm fileUploadTestForm) {

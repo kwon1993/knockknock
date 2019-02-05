@@ -12,10 +12,10 @@ body {
 }
 
 #navbar {
-	
 	overflow: hidden;
 	background-color: black;
-	z-index=1;
+	z-index
+	=1;
 }
 
 #navbar a {
@@ -192,6 +192,10 @@ img {
 #myBtn {
 	padding: 2px;
 }
+
+#myBtn1 {
+	padding: 2px;
+}
 </style>
 
 
@@ -206,11 +210,13 @@ img {
 
 		<br /> <br /> <br />
 
-		<h1 style="float:left">낙낙 셰어 하우스 &nbsp;</h1><h1 th:text="${details.branchNumber}" id='branchNumber' style="float:left"></h1><h1 style="float:left">호점</h1>
+		<h1 style="float: left">낙낙 셰어 하우스 &nbsp;</h1>
+		<h1 th:text="${details.branchNumber}" id='branchNumber'
+			style="float: left"></h1>
+		<h1 style="float: left">호점</h1>
 		<!-- <div th:text="${details.branchNumber}" id='branchNameTest'></div> -->
 
-		<br /> <br /> <br />
-		<br /> <br /> <br />
+		<br /> <br /> <br /> <br /> <br /> <br />
 
 		<!-- <div class="container">
 
@@ -295,50 +301,54 @@ img {
 
 				<div id="myModal" class="modal">
 					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p>방문 신청</p>
-						<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
-						<input type="date" />
-						<textarea class="form-control" id=visitMemo
-							placeholder="간단한 메모를 남겨주세요." rows="3"></textarea>
-						<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
-						<div class="row">
-							<div class="col-md-6">
-								<button class="btn btn-default">취소</button>
+						<form action="roomDetailView" method="post">
+							<span class="close">&times;</span>
+							<h3 style="float: left">낙낙&nbsp;</h3>
+							<h3 th:text="${details.branchNumber}" name="branchNumber"
+								style="float: left"></h3>
+							<h3 style="float: left">호점 방문 신청</h3>
+							<input type="hidden" name="branchNumber"
+								th:value="${details.branchNumber}">
+							<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
+							<input type="date" name="reservationTime" /> <input type="text"
+								class="form-control" name="memo" placeholder="간단한 메모를 남겨주세요." />
+							<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default" id="closeModal">취소</button>
+								</div>
+								<div class="col-md-6">
+									<button type="submit" class="btn btn-default" id="visitBooking"
+										data-dismiss="modal">완료</button>
+								</div>
 							</div>
-							<div class="col-md-6">
-								<button type="submit" class="btn btn-default">완료</button>
-							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 
+
 				<img class="img-fluid img-thumbnail"
-					src="http://placehold.it/700x400" alt="">
-					
-				<br /> <br /> <br />
+					src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
 				<br /> <br /> <br />
 
 				<div id="navbar" class="w3-round-large">
-				
-					<a href="#introduce" class="nb">지점 소개</a>
-					<a href="#locationInfo" class="nb">위치 정보</a>
-					<a href="#roomInfo" class="nb">방 정보</a>
-					<a href="#detailInfo" class="nb">세부 정보</a>
-					<a href="#review" class="nb">리뷰</a>
-				
+
+					<a href="#introduce" class="nb">지점 소개</a> <a href="#locationInfo"
+						class="nb">위치 정보</a> <a href="#roomInfo" class="nb">방 정보</a> <a
+						href="#detailInfo" class="nb">세부 정보</a> <a href="#review"
+						class="nb">리뷰</a>
+
 				</div>
 
-			<script>
-			$('a.nb').on('click',function(){
-				$('a.nb').removeClass('active');
-		        $(this).addClass('active');
-		    });
-			</script>
+				<script>
+					$('a.nb').on('click', function() {
+						$('a.nb').removeClass('active');
+						$(this).addClass('active');
+					});
+				</script>
 
 				<div id="introduce" class="w3-container">
-				<br /> <br /> <br />
-				<br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br />
 					<h2>지점 소개</h2>
 					<br />
 					<p th:text="${details.branchComment}"></p>
@@ -367,10 +377,9 @@ img {
 
 
 				<div id="locationInfo" class="w3-container">
-				
-				<br /> <br /> <br />
-				<br /> <br /> <br />
-				
+
+					<br /> <br /> <br /> <br /> <br /> <br />
+
 					<h2>위치 정보</h2>
 					<br />
 
@@ -442,10 +451,9 @@ img {
 
 
 				<div id="roomInfo" class="w3-container">
-				
-				<br /> <br /> <br />
-				<br /> <br /> <br />
-				
+
+					<br /> <br /> <br /> <br /> <br /> <br />
+
 					<h2>방 정보</h2>
 					<br /> <img class="img-fluid img-thumbnail"
 						src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
@@ -473,10 +481,9 @@ img {
 
 
 				<div id="detailInfo" class="w3-container">
-				
-				<br /> <br /> <br />
-				<br /> <br /> <br />
-				
+
+					<br /> <br /> <br /> <br /> <br /> <br />
+
 					<h2>세부 정보</h2>
 					<br />
 
@@ -561,10 +568,9 @@ img {
 
 
 				<div id="review" class="w3-container">
-				
-				<br /> <br /> <br />
-				<br /> <br /> <br />
-				
+
+					<br /> <br /> <br /> <br /> <br /> <br />
+
 					<h2>리뷰</h2>
 					<br />
 
@@ -581,10 +587,8 @@ img {
 							<div class="form-group">
 								<form name="reviewInsertForm">
 									<div class="input-group">
-										<input type="hidden" name="branchNumber"
-											value="${details.branchNumber}" /> <input type="text"
-											class="form-control" id="content" name="content"
-											placeholder="내용을 입력하세요."> <span
+										<input type="text" class="form-control" id="content"
+											name="content" placeholder="내용을 입력하세요."> <span
 											class="input-group-btn">
 											<button class="btn btn-default" type="button"
 												name="reviewInsertBtn">등록</button>
@@ -593,7 +597,7 @@ img {
 								</form>
 							</div>
 							<div class="container">
-								<div class="reviewList"></div>
+								<div id="reviewList"></div>
 							</div>
 						</div>
 					</div>
@@ -641,12 +645,12 @@ MyUploadForm
 			<div class="col-md-1">
 				<div class="w3-round-Large fixed">
 					<br />
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color:#f2f2f2"></h2>
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
 					<br />
-			
-					<button id="myBtn" class='btn btn-default' onclick="location.href='/toSharingGuide'">입주
-						안내</button>
-				
+
+					<button id="myBtn1" class='btn btn-default'
+						onclick="location.href='/toSharingGuide'">입주 안내</button>
+
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
 					<br />
 				</div>
@@ -657,57 +661,57 @@ MyUploadForm
 
 
 		<!-- 리뷰 Ajax -->
-
-		 <script>
+		<script>
+		/*
 			// 지점 번호
-			var branchNumber = document.getElementById("branchNumber");
-
-			$('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
+			var branchNumber = $('#branchNumber').val();
+			alert(branchNumber);
+			 $('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
 				var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
 				reviewInsert(insertData); // Insert 함수호출(아래)
-			});
-
+			}); */
+			
+			/*
 			// 댓글 목록 
-			function reviewList() {
-				$
-						.ajax({
-							url : '/review/list',
-							type : 'get',
-							data : {
-								'branchNumber' : branchNumber
-							},
-							success : function(data) {
-								var a = '';
-								$
-										.each(
-												data,
-												function(key, value) {
-													a += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-													a += '<div class="reviewInfo'+value.writingNumber+'">'
+			function showReviewList() {
+				alert("리뷰 목록");
+				$.ajax({url : '/review/list',
+						type : 'get',
+						data : {'branchNumber' : branchNumber},
+						processData: false,
+						success : function(data) {
+						 	alert("데이터 함수 실행");
+							var inner = '';
+							$.each(data, function(key, value) {
+													inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+													inner += '<div class="reviewInfo'+value.writingNumber+'">'
 															+ '댓글번호 : '
 															+ value.writingNumber
 															+ ' / 작성자 : '
-															+ value.writer;
-													a += '<a onclick="reviewUpdate('
+															+ value.nickname;
+													inner += '<a onclick="reviewUpdate('
 															+ value.writingNumber
 															+ ',\''
 															+ value.content
 															+ '\');"> 수정 </a>';
-													a += '<a onclick="reviewDelete('
+													inner += '<a onclick="reviewDelete('
 															+ value.writingNumber
 															+ ');"> 삭제 </a> </div>';
-													a += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
+													inner += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
 															+ value.content
 															+ '</p>';
-													a += '</div></div>';
+													inner += '</div></div>';
 												});
-
-								$(".reviewList").html(a);
+								$("#reviewList").html(inner);
 							}
 						});
 			}
 
-			// 리뷰 등록
+			$(document).ready(function() {
+				showReviewList(); //페이지 로딩시 댓글 목록 출력 
+			}); 
+
+			 // 리뷰 등록
 			function reviewInsert(insertData) {
 				$.ajax({
 					url : '/review/insert',
@@ -728,7 +732,7 @@ MyUploadForm
 
 				a += '<div class="input-group">';
 				a += '<input type="text" class="form-control" name="content_'+writingNumber+'" value="'+content+'"/>';
-				a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reviewUpdate('
+				a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reviewUpdateProc('
 						+ writingNumber + ');">수정</button> </span>';
 				a += '</div>';
 
@@ -737,7 +741,7 @@ MyUploadForm
 			}
 
 			// 리뷰 수정
-			function reviewUpdate(writingNumber) {
+			function reviewUpdateProc(writingNumber) {
 				var updateContent = $('[name=content_' + writingNumber + ']').val();
 
 				$.ajax({
@@ -757,23 +761,21 @@ MyUploadForm
 			// 리뷰 삭제 
 			function reviewDelete(writingNumber) {
 				$.ajax({
-					url : '/review/delete/' + cno,
+					url : '/review/delete/' + writingNumber,
 					type : 'post',
 					success : function(data) {
 						if (data == 1)
-							reviewList(branchNumber); //댓글 삭제후 목록 출력 
+							reviewList(branchNumber); //댓글 삭제 후 목록 출력 
 					}
 				});
 			}
 
-			$(document).ready(function() {
-				reviewList(); //페이지 로딩시 댓글 목록 출력 
-			});
-		</script> 
+			*/
+		</script>
 
 
 
-
+		<!-- 방문신청 모달 -->
 		<script>
 			// Get the modal
 			var modal = document.getElementById('myModal');
@@ -783,7 +785,10 @@ MyUploadForm
 
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
-
+			
+			var closeModal = document.getElementById("closeModal");
+			var visitBooking = document.getElementById("visitBooking");
+			
 			// When the user clicks the button, open the modal 
 			btn.onclick = function() {
 				modal.style.display = "block";
@@ -800,6 +805,16 @@ MyUploadForm
 					modal.style.display = "none";
 				}
 			}
+			
+			closeModal.onclick = function(){
+				modal.style.display = "none";
+			}
+			
+	/* 		visitBooking.onclick = function(){
+				modal.style.display = "none";
+			} */
+			
+			
 		</script>
 
 
@@ -836,9 +851,9 @@ function showSlides(n) {
 
 
 
-	
+
 		<!-- 지도 동적 로드 -->
-<!-- 		<script type="text/javascript"
+		<!-- <script type="text/javascript"
 			src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false"></script>
 		<script type="text/javascript">
 			daum.maps.load(function() {
@@ -852,6 +867,9 @@ function showSlides(n) {
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b497e483355c4a6cc558f83dcd637541&libraries=services"></script>
 
 		<script>
+		
+			var markers = [];		
+		
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			
 			mapOption = {
@@ -873,11 +891,6 @@ function showSlides(n) {
 			var branchNumber = document.getElementById("branchNumber");
 			// var branchNameTest = document.getElementById("branchNameTest");
 			
-			// 마우스 클릭 이벤트가 발생할 요소 선택
-			var MT1 = document.getElementById("MT1");
-			var CS2 = document.getElementById("CS2");
-			
-			
 			// 주소로 좌표를 검색합니다
 			geocoder.addressSearch(branchAddress.textContent, function(result, status) {
 
@@ -892,7 +905,7 @@ function showSlides(n) {
 										map : map,
 										position : coords
 									});
-									
+
 									// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element 삽입 가능
 									var customContent = '<div style="width:150px;text-align:center;padding:6px 0;">낙낙 '+branchNumber.textContent+'호점</div>';
 									
@@ -908,18 +921,24 @@ function showSlides(n) {
 								}
 							});
 			
-			 
-			CS2.addEventListener('click', function(){
-				
+			// 마우스 클릭 이벤트가 발생할 요소 선택
+			var MT1 = document.getElementById("MT1");
+			var CS2 = document.getElementById("CS2");
+			var PK6 = document.getElementById("PK6");
+			var SW8 = document.getElementById("SW8");
+			var BK9 = document.getElementById("BK9");
+			var CT1 = document.getElementById("CT1");
+			var FD6 = document.getElementById("FD6");
+			var CE7 = document.getElementById("CE7"); 
+			var HP8 = document.getElementById("HP8");
+			var PM9 = document.getElementById("PM9");
+			
 				// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 				var infowindow1 = new daum.maps.InfoWindow({zIndex:1});
 			
 				// 장소 검색 객체를 생성합니다
 				var ps = new daum.maps.services.Places(map);
-						
-				//카테고리로 대형마트를 검색
-				ps.categorySearch('CS2', placesSearchCB, {useMapBounds:true}); 
-							
+
 				// 키워드 검색 완료 시 호출되는 콜백함수 입니다
 				function placesSearchCB (data, status, pagination) {
 					if (status === daum.maps.services.Status.OK) {
@@ -928,31 +947,160 @@ function showSlides(n) {
 				        }       
 				    }
 				}
-	
+				
 				// 지도에 마커를 표시하는 함수입니다
 				function displayMarker(place) {
+				    // console.log(place);
+
 				    // 마커를 생성하고 지도에 표시합니다
-				    console.log(place);
 				    var marker1 = new daum.maps.Marker({
 				        map: map,
 				        position: new daum.maps.LatLng(place.y, place.x) 
 				    });
+			
+				    // 생성된 마커를 배열에 담는다
+				    markers.push(marker1);
+		
+			// 마커에 마우스 오버 이벤트를 등록합니다
+				daum.maps.event
+						.addListener(
+								marker1,
+								'mouseover',
+								function() {
+									// 마커에 마우스 오버 하면 장소명이 인포윈도우에 표출됩니다
+									infowindow1
+											.setContent('<div style="padding:5px;font-size:12px;">'
+													+ place.place_name
+													+ '</div>');
+									infowindow1.open(map, marker1);
+								});
 
-				    // 마커에 클릭이벤트를 등록합니다
-				    daum.maps.event.addListener(marker1, 'click', function() {
-				        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-				        infowindow1.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-				        infowindow1.open(map, marker1);
-				    });  				   
-				}
+				// 마커에 마우스아웃 이벤트를 등록합니다
+				daum.maps.event.addListener(marker1, 'mouseout', function() {
+					// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+					infowindow1.close();
+				});
+			}
 				
-			});
-			
-			
+				// 이전 마커 지우기
+				function hideMarkers(){
+				for (var i = 0; i < markers.length; i++) {
+					markers[i].setMap(null);
+				}
+				}
 
+			MT1.addEventListener('click', function() {
+
+				hideMarkers();
+
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('MT1', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			CS2.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('CS2', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			PK6.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('PK6', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			SW8.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('SW8', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			BK9.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('BK9', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			CT1.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('CT1', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			FD6.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('FD6', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			CE7.addEventListener('click', function() {
+				
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('CE7', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			HP8.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('HP8', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
+
+			PM9.addEventListener('click', function() {
+
+				hideMarkers();
+				
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('PM9', placesSearchCB, {
+					useMapBounds : true
+				});
+
+			});
 		</script>
 
-
+		<!-- 스티키 내비게이션 바 -->
 		<script>
 			window.onscroll = function() {
 				myFunction()
@@ -970,10 +1118,6 @@ function showSlides(n) {
 			}
 		</script>
 
-
-
-
 	</div>
-
 </body>
 </html>

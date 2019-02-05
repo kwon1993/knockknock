@@ -2,8 +2,7 @@ package com.knockknock.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.ReviewDTO;
@@ -12,23 +11,23 @@ import com.knockknock.mapper.ReviewMapper;
 @Service
 public class ReviewService {
 	
-	@Resource
+	@Autowired
 	ReviewMapper reviewMapper;
 
-	public List<ReviewDTO> reviewListService() {
-		return reviewMapper.list();
+	public List<ReviewDTO> reviewListService(int branchNumber) {
+		return reviewMapper.reviewList(branchNumber);
 	}
 
 	public int reviewInsertService(ReviewDTO reviewDTO) {
-		return reviewMapper.insert(reviewDTO);
+		return reviewMapper.reviewInsert(reviewDTO);
 	}
 
 	public int reviewUpdateService(ReviewDTO reviewDTO) {
-		return reviewMapper.update(reviewDTO);
+		return reviewMapper.reviewUpdate(reviewDTO);
 	}
 
 	public int reviewDeleteService(int writingNumber) {
-		return reviewMapper.delete(writingNumber);
+		return reviewMapper.reviewDelete(writingNumber);
 	}
 
 }

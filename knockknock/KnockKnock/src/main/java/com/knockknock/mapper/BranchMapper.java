@@ -1,11 +1,13 @@
 package com.knockknock.mapper;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
 public interface BranchMapper {
@@ -16,8 +18,10 @@ public interface BranchMapper {
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO);
 	//방찾기의 방검색
 	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO);
-	
+	// 지점 상세 정보
 	public BranchDetailVDTO getDetail(int branchNumber);
+	// 지점 방문 신청
+	public void visitBooking(VisitDTO visitDTO);
 	
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
