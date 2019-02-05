@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void register(MemberDTO memberDTO) {
-		//3.memberDTO의 패스웓를 인코딩처리한다
+		//3.memberDTO의 패스워드를 인코딩처리한다
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 		//4.인코딩 후, memberMapper로 등록을 간다
 		memberMapper.register(memberDTO);

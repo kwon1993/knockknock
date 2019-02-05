@@ -71,6 +71,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					 #{gender}
 				</foreach>
 			</if>	
+			<if test="petList.size!=0">
+				and pet in 
+				<foreach collection="petList" item="pet" open="(" close=")" separator="," index="index">
+					 #{pet}
+				</foreach>
+			</if>	
+			<if test="themeList.size!=0">
+				and theme in 
+				<foreach collection="themeList" item="theme" open="(" close=")" separator="," index="index">
+					 #{theme}
+				</foreach>
+			</if>	
 		</trim>
 		
 		order by branchNumber asc

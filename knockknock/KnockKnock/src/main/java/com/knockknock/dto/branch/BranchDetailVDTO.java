@@ -50,4 +50,6 @@ public class BranchDetailVDTO {
 	private String introduce;
 	
 	private List<String> genderList;
+	private List<String> petList;
+	private List<String> themeList;
 }
