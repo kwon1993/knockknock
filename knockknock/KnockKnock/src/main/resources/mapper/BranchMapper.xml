@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	R.MONTHLY_RENT monthlyRent,
 	   	R.RENTABLE_DATE rentableDate -->
 	   	FROM BRANCH B
-	   	WHERE B.BRANCH_NUMBER = #{BRANCH_NUMBER}
+	   	WHERE B.BRANCH_NUMBER = #{brancnNumber}
    </select>
    
    <select id="getRoomInfo" resultType="RoomDTO">
@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	RENTABLE_DATE rentableDate,
 	   	FACILITY
    		FROM ROOM
-   		WHERE BRANCH_NUMBER = #{BRANCH_NUMBER}
+   		WHERE BRANCH_NUMBER = #{branchNumber}
    </select>
    
    <select id="getMemberInfo" resultType="BranchDetailVDTO">
@@ -114,15 +114,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		P.ANIMAL,
 		P.AMOUNT
 		FROM CONTRACT C, MEMBER M, PET P
-		WHERE C.BRANCH_NUMBER = #{BRANCH_NUMBER}
+		WHERE C.BRANCH_NUMBER = #{branchNumber}
 		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER	
 		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER	
    </select>
    
-<!--    <select id="getPetInfo" resultType="BrancnDetailVDTO">
-   		SELECT
-   		FROM MEMBER M,
-   		WHERE 
-   </select>  -->
+	<insert id="visitBooking">
+		INSERT INTO VISIT
+		(BRANCH_NUMBER, RESERVATION_TIME, MEMO)
+		VALUES
+		(#{branchNumber}, #{reservationTime}, #{memo})
+	</insert>
    
 </mapper>
