@@ -13,7 +13,7 @@ public interface MeetingAndEventService {
 	public MeetingVDTO meetingViewService(int writingNumber) throws Exception; //모임상세보기
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitNumber) throws Exception; //모임 글쓰기
+			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception; //모임 글쓰기
 	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, 
 			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String simpleIntroduce,
 			String detailIntroduce, String place, String placeDetail, int recruitMaxNumber) throws Exception;

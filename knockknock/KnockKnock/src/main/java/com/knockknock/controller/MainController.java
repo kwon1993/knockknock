@@ -26,8 +26,6 @@ public class MainController {
 	@GetMapping("/simpleRoomSearch")
 	public String simpleRoomSearch(Model model, BranchDetailVDTO branchDetailVDTO) {
 		model.addAttribute("lists", branchService.simpleRoomSearchList(branchDetailVDTO));
-		model.addAttribute("simpleValue",1);
-		System.out.println("강북검색:"+branchService.simpleRoomSearchList(branchDetailVDTO));
 		return "branch/FindingRoom";
 	}
 	
@@ -35,6 +33,7 @@ public class MainController {
 	@RequestMapping("/findingRoom")
 	public String toFindingRoom(Model model, BranchDetailVDTO branchDetailVDTO) {
 		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
+		System.out.println(branchDetailVDTO.getTheme());
 		return "branch/FindingRoom";
 	}
 	

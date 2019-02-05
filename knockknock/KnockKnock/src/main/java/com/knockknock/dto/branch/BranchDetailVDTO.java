@@ -1,6 +1,7 @@
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -49,5 +50,6 @@ public class BranchDetailVDTO {
 	private int age;
 	private String memberGender;
 	private String introduce;
-
+	
+	private List<String> genderList;
 }
