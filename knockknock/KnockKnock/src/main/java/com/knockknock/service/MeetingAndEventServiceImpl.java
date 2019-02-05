@@ -37,10 +37,10 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	@Override
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitNumber) throws Exception{ //미팅 작성
+			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception{ //미팅 작성
 		meMapper.meetingInsert( memberNumber,  title,  meetingStartTime,  meetingEndTime,
 			 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
-			 place,  placeDetail,  recruitNumber);
+			 place,  placeDetail,  recruitMaxNumber, gender);
 	}
 	
 	@Override

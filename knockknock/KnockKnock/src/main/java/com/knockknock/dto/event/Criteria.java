@@ -1,30 +1,44 @@
 package com.knockknock.dto.event;
 
 import lombok.Getter;
+/**
+ * 
+ * 게시판 페이징 전용 클래스
+ *
+ */
 
 @Getter
 public class Criteria {
-	private int pageNum; // 보여줄 페이지 번호
-	private int amount;  // 페이지당 보여줄 게시글의 개수
+	private int page; // 보여줄 페이지 번호
+	private int perPageNum;  // 페이지당 보여줄 게시글의 개수
 	
 	public Criteria(){
-		this(1,10);
+		this.page = 1;
+		this.perPageNum = 10;
 	}
 	
-	public Criteria(int pageNum, int amount) {
-		if(pageNum <= 0) {
-			this.pageNum = 1;
+	public void setPage(int page) {
+		if(page <= 0) {
+			this.page = 1;
 			return;
 		}
-		if(amount <= 0 || amount > 100) {
-			this.amount = 10;
+		this.page = page;
+	}
+	
+	public void setPerPageNum(int perPageNum) {
+		if(perPageNum <= 0 || perPageNum > 100) {
+			this.perPageNum = 10;
 			return;
 		}	
-		this.pageNum = pageNum;
-		this.amount = amount;
+		this.perPageNum = perPageNum;
 	}
 	
 	public int getPageStart() {
-		return (this.pageNum -1) * amount;
+		return (this.page -1) * perPageNum;
+	}
+	
+	@Override
+	public String toString() {
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
 }

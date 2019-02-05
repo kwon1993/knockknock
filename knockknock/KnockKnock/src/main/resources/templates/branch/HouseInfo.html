@@ -12,8 +12,10 @@ body {
 }
 
 #navbar {
+	
 	overflow: hidden;
-	background-color: #2056ac;
+	background-color: black;
+	z-index=1;
 }
 
 #navbar a {
@@ -38,9 +40,10 @@ body {
 
 .sticky {
 	position: fixed;
-	top: 200px;
-	width: 100%;
-	z-index=0;
+	top: 92.18px;
+	/* width: 100%; */
+	width: 1015px;
+	z-index: 2;
 }
 
 .sticky+.content {
@@ -49,18 +52,22 @@ body {
 
 .fixed {
 	position: fixed;
-	bottom: 600;
+	border-radius: 25px;
+	color: #f2f2f2;
+	text-align: center;
+	bottom: 800;
 	right: 20px;
 	width: 180px;
-	background-color: #ed871a;
+	height: 150px;
+	background-color: black;
 }
 
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-t op: 100px; /* Location of the box */
+	z-index: 3; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
@@ -77,13 +84,13 @@ body {
 	padding: 20px;
 	border: 1px solid #888;
 	width: 50%;
-	border-top-width: 110px;
+	border-top-width: 0px;
 }
 
 /* The Close Button */
 .close {
 	color: #aaaaaa;
-	float: left;
+	float: right;
 	font-size: 28px;
 	font-weight: bold;
 }
@@ -181,6 +188,10 @@ img {
 .active, .demo:hover {
 	opacity: 1;
 }
+
+#myBtn {
+	padding: 2px;
+}
 </style>
 
 
@@ -198,6 +209,7 @@ img {
 		<h1 style="float:left">낙낙 셰어 하우스 &nbsp;</h1><h1 th:text="${details.branchNumber}" id='branchNumber' style="float:left"></h1><h1 style="float:left">호점</h1>
 		<!-- <div th:text="${details.branchNumber}" id='branchNameTest'></div> -->
 
+		<br /> <br /> <br />
 		<br /> <br /> <br />
 
 		<!-- <div class="container">
@@ -302,17 +314,31 @@ img {
 				</div>
 
 				<img class="img-fluid img-thumbnail"
-					src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
-
-				<div id="navbar" class="w3-round-large">
-					<a class="active" href="#introduce">지점 소개</a> <a
-						href="#locationInfo">위치 정보</a> <a href="#roomInfo">방 정보</a> <a
-						href="#detailInfo">세부 정보</a> <a href="#review">리뷰</a>
-				</div>
-
+					src="http://placehold.it/700x400" alt="">
+					
+				<br /> <br /> <br />
 				<br /> <br /> <br />
 
+				<div id="navbar" class="w3-round-large">
+				
+					<a href="#introduce" class="nb">지점 소개</a>
+					<a href="#locationInfo" class="nb">위치 정보</a>
+					<a href="#roomInfo" class="nb">방 정보</a>
+					<a href="#detailInfo" class="nb">세부 정보</a>
+					<a href="#review" class="nb">리뷰</a>
+				
+				</div>
+
+			<script>
+			$('a.nb').on('click',function(){
+				$('a.nb').removeClass('active');
+		        $(this).addClass('active');
+		    });
+			</script>
+
 				<div id="introduce" class="w3-container">
+				<br /> <br /> <br />
+				<br /> <br /> <br />
 					<h2>지점 소개</h2>
 					<br />
 					<p th:text="${details.branchComment}"></p>
@@ -339,9 +365,12 @@ img {
 					</table>
 				</div>
 
-				<br /> <br /> <br />
 
-				<div id="locationInfo" class="w3-container" style="position:relative; z-index=3">
+				<div id="locationInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
 					<h2>위치 정보</h2>
 					<br />
 
@@ -411,9 +440,12 @@ img {
 					</div>
 				</div>
 
-				<br /> <br /> <br />
 
 				<div id="roomInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
 					<h2>방 정보</h2>
 					<br /> <img class="img-fluid img-thumbnail"
 						src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
@@ -439,9 +471,12 @@ img {
 					</table>
 				</div>
 
-				<br /> <br /> <br />
 
 				<div id="detailInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
 					<h2>세부 정보</h2>
 					<br />
 
@@ -524,13 +559,14 @@ img {
 
 				</div>
 
-				<br /> <br /> <br />
 
 				<div id="review" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
 					<h2>리뷰</h2>
 					<br />
-
-
 
 					<div class="row">
 						<div class="col-md-4">
@@ -604,20 +640,25 @@ MyUploadForm
 
 			<div class="col-md-1">
 				<div class="w3-round-Large fixed">
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|"></h2>
-					<button class='btn btn-default' onclick="location.href='/toSharingGuide'">입주
-						안내</button>
 					<br />
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color:#f2f2f2"></h2>
+					<br />
+			
+					<button id="myBtn" class='btn btn-default' onclick="location.href='/toSharingGuide'">입주
+						안내</button>
+				
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					<br />
 				</div>
 			</div>
 		</div>
 
 
 
+
 		<!-- 리뷰 Ajax -->
 
-		<!-- <script>
+		 <script>
 			// 지점 번호
 			var branchNumber = document.getElementById("branchNumber");
 
@@ -728,7 +769,7 @@ MyUploadForm
 			$(document).ready(function() {
 				reviewList(); //페이지 로딩시 댓글 목록 출력 
 			});
-		</script> -->
+		</script> 
 
 
 
@@ -906,6 +947,8 @@ function showSlides(n) {
 				}
 				
 			});
+			
+			
 
 		</script>
 
