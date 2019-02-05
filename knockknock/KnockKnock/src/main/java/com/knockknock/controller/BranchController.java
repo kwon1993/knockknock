@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,15 +34,26 @@ public class BranchController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(BranchController.class);
 	
-	// Ajax 방리스트받기
+	//Ajax 방리스트받기(체크박스,주소)
 	@PostMapping("/roomSearch")
 	@ResponseBody
-	public List<BranchDetailVDTO>roomSearch(Model model, @ModelAttribute BranchDetailVDTO branchDetailVDTO) {
-		System.out.println(branchDetailVDTO.getAddress());
-		//*중복 수정하기*
+	public List<BranchDetailVDTO>roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
+		
+		System.out.println(branchDetailVDTO.getGenderList());
+		
 		model.addAttribute("list",branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
