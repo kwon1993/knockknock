@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/main_layout}">
+layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>수정하기</title>
@@ -44,14 +44,16 @@ layout:decorate="~{etc/fragments/main_layout}">
 							<td>모집인원</td>
 							<td><input type="number" name="recruitNumber" th:value="${meetingModifyForm.recruitNumber}">명</td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<td>성별</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="checkbox" name="">무관 -->
-<!-- 								<input type="checkbox" name="">남자만 -->
-<!-- 								<input type="checkbox" name="">여자만 -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
+						<tr>
+							<td>성별</td>
+							<td>
+								<select name="gender">
+									<option value="무관">무관</option>
+									<option value="남자만">남자만</option>
+									<option value="여자만">여자만</option>
+								</select>
+							</td>
+						</tr>
 						<tr>
 							<td>간단 모임소개</td>
 							<td><textarea name="simpleIntroduce" th:value="${meetingModifyForm.simpleIntroduce}"></textarea></td>

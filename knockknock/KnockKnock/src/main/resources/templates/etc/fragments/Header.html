@@ -1,4 +1,4 @@
-<header th:fragment="header" 
+<header th:fragment="Header" 
 xmlns:th="http://www.w3.org/1999/xhtml">
 
   <div class="click-closed"></div>
@@ -51,19 +51,19 @@ xmlns:th="http://www.w3.org/1999/xhtml">
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav" id="navbar-nav" style="font-size: 10px">
           <li class="nav-item">
-            <a class="nav-link active" th:href="@{/simpleRoomSearch}">방찾기</a>
+            <a class="nav-link active" th:href="@{/findingRoom}">방찾기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/b">관심사로 방찾기</a>
+            <a class="nav-link" href="/findingCategoryRoom">관심사로 방찾기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="property-grid.html">입주안내</a>
+            <a class="nav-link" href="/toSharingGuide">입주안내</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/meetingAndEventMain">이벤트 및 모임</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">고객센터</a>
+            <a class="nav-link" href="/toFAQ">고객센터</a>
           </li>
           
          <span sec:authorize="isAuthenticated()">

@@ -1,4 +1,4 @@
-<head th:fragment="config" 
+<head th:fragment="Config" 
 xmlns:th="http://www.w3.org/1999/xhtml">
   <meta charset="utf-8">
   <title>KnockKnock 樂樂</title>
@@ -32,7 +32,7 @@ xmlns:th="http://www.w3.org/1999/xhtml">
   <link th:href="@{/css/thumbnail-gallery.css}" rel="stylesheet" type="text/css">
   <!-- Main Stylesheet File -->
   <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
- 
+  
   
 <style>
 	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -73,8 +73,8 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 </style>
- <!-- JavaScript Libraries -->
- <!-- jQuery -->
+<!-- JavaScript Libraries -->
+<!-- jQuery -->
 <!--  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script> -->
 	  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
 	  <script th:src="@{/lib/jquery/jquery-migrate.min.js}"></script>
@@ -90,5 +90,9 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 	  <!-- about gallery script -->
 	  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+      <!-- map -->
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
+	 
+
 
 </head>

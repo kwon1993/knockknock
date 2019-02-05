@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/main_layout}">
+layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임명</title>
@@ -30,7 +30,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 						<li th:text="'접수 기간 : '+
 						${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
 						${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
-						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}"></li>
+						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
 					</ul>
 				</div>
 			</form>
@@ -50,7 +50,7 @@ layout:decorate="~{etc/fragments/main_layout}">
 				        </div>
 						<div class="modal-body">
 							<form id="goform" action="/participate">
-								<input type="number" name="memberNumber">					
+								회원번호:<input type="number" name="memberNumber">					
 								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
 							</form>
 								<button type="submit" class="btn btn-success" id="signin" form="goform" th:text="'참가'"></button>

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml"
-	layout:decorate="~{etc/fragments/main_layout}">
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <title>지점 상세 정보</title>
 <meta charset="utf-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
-
-body{
+body {
 	padding-top: 114px;
 }
+
 #navbar {
+	
 	overflow: hidden;
-	background-color: #2056ac;
+	background-color: black;
+	z-index=1;
 }
 
 #navbar a {
@@ -38,9 +40,10 @@ body{
 
 .sticky {
 	position: fixed;
-	top: 200px;
-	width: 100%;
-	z-index=2;
+	top: 92.18px;
+	/* width: 100%; */
+	width: 1015px;
+	z-index: 2;
 }
 
 .sticky+.content {
@@ -49,18 +52,22 @@ body{
 
 .fixed {
 	position: fixed;
-	bottom: 600;
+	border-radius: 25px;
+	color: #f2f2f2;
+	text-align: center;
+	bottom: 800;
 	right: 20px;
 	width: 180px;
-	background-color: #ed871a;
+	height: 150px;
+	background-color: black;
 }
 
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-t op: 100px; /* Location of the box */
+	z-index: 3; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
@@ -77,13 +84,13 @@ body{
 	padding: 20px;
 	border: 1px solid #888;
 	width: 50%;
-	border-top-width: 110px;
+	border-top-width: 0px;
 }
 
 /* The Close Button */
 .close {
 	color: #aaaaaa;
-	float: left;
+	float: right;
 	font-size: 28px;
 	font-weight: bold;
 }
@@ -181,6 +188,10 @@ img {
 .active, .demo:hover {
 	opacity: 1;
 }
+
+#myBtn {
+	padding: 2px;
+}
 </style>
 
 
@@ -195,8 +206,10 @@ img {
 
 		<br /> <br /> <br />
 
-		<h1 th:text="|낙낙 셰어 하우스 *{details.branchNumber}호점|"></h1>
+		<h1 style="float:left">낙낙 셰어 하우스 &nbsp;</h1><h1 th:text="${details.branchNumber}" id='branchNumber' style="float:left"></h1><h1 style="float:left">호점</h1>
+		<!-- <div th:text="${details.branchNumber}" id='branchNameTest'></div> -->
 
+		<br /> <br /> <br />
 		<br /> <br /> <br />
 
 		<!-- <div class="container">
@@ -279,283 +292,320 @@ img {
 
 		<div class="row">
 			<div class="col-md-11">
-			
-		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p>방문 신청</p>
-				<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
-				<input type="date" />
-				<textarea class="form-control" id=visitMemo
-					placeholder="간단한 메모를 남겨주세요." rows="3"></textarea>
-				<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
-				<div class="row">
-					<div class="col-md-6">
-						<button class="btn btn-default">취소</button>
-					</div>
-					<div class="col-md-6">
-						<button type="submit" class="btn btn-default">완료</button>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<img class="img-fluid img-thumbnail" src="http://placehold.it/700x400"
-			alt=""> <br /> <br /> <br />
-
-		<div id="navbar" class="w3-round-large">
-			<a class="active" href="#introduce">지점 소개</a> <a href="#locationInfo">위치
-				정보</a> <a href="#roomInfo">방 정보</a> <a href="#detailInfo">세부 정보</a> <a
-				href="#review">리뷰</a>
-		</div>
-
-		<br /> <br /> <br />
-
-		<div id="introduce" class="w3-container">
-			<h2>지점 소개</h2>
-			<br />
-			<p th:text="${details.branchComment}"></p>
-			<br />
-			<table class="w3-table-all">
-				<tr>
-					<th>주소</th>
-					<th>최대 거주 인원</th>
-					<th>거주 유형</th>
-					<th>반려동물 동반입주</th>
-					<th>주차장 유무</th>
-					<th>엘리베이터 유무</th>
-				</tr>
-				<tr>
-					<td th:text="|*{details.address} *{details.addressDetail}|">주소</td>
-					<td th:text="${details.maximumResident}"></td>
-					<td th:text="${details.branchType}"></td>
-					<td th:text="${details.pet}"></td>
-					<td th:text="${details.isParking}"></td>
-					<td th:text="${details.isElevator}"></td>
-				</tr>
-				<tr>
-			</table>
-		</div>
-
-		<br /> <br /> <br />
-
-		<div id="locationInfo" class="w3-container">
-			<h2>위치 정보</h2>
-			<br />
-
-			<div id="map" style="width: 700px; height: 500px;"></div>
-			<br />
-			
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<h3 class="MT1">대형마트</h3>
-					</div>
-					<div class="col-md-4">
-						<h3 class="CS2">편의점</h3>
-					</div>
-					<div class="col-md-4">
-						<h3></h3>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<h3 class="PK6">주차장</h3>
-					</div>
-					<div class="col-md-4">
-						<h3 class="SW8">지하철역</h3>
-					</div>
-					<div class="col-md-4">
-						<h3></h3>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<h3 class="BK9">은행</h3>
-					</div>
-					<div class="col-md-4">
-						<h3 class="CT1">문화시설</h3>
-					</div>
-					<div class="col-md-4">
-						<h3></h3>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<h3 class="FD6">음식점</h3>
-					</div>
-					<div class="col-md-4">
-						<h3 class="CE7">카페</h3>
-					</div>
-					<div class="col-md-4">
-						<h3></h3>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<h3 class="HP8">병원</h3>
-					</div>
-					<div class="col-md-4">
-						<h3 class="PM9">약국</h3>
-					</div>
-					<div class="col-md-4">
-						<h3></h3>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<br /> <br /> <br />
-
-		<div id="roomInfo" class="w3-container">
-			<h2>방 정보</h2>
-			<br /> <img class="img-fluid img-thumbnail"
-				src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
-			<table class="w3-table-all">
-				<tr>
-					<th>호수</th>
-					<th>성별</th>
-					<th>정원</th>
-					<th>면적</th>
-					<th>보증금</th>
-					<th>월세</th>
-					<th>입주가능일</th>
-				</tr>
-				<tr th:each="roomInfoList:${roomInfo}">
-					<td th:text="${roomInfoList.roomNumber}"></td>
-					<td th:text="${roomInfoList.gender}"></td>
-					<td th:text="|*{roomInfoList.allowNumber}인실|"></td>
-					<td th:text="${roomInfoList.space}"></td>
-					<td th:text="${roomInfoList.deposit}"></td>
-					<td th:text="${roomInfoList.monthlyRent}"></td>
-					<td th:text="${roomInfoList.rentableDate}"></td>
-				</tr>
-			</table>
-		</div>
-
-		<br /> <br /> <br />
-
-		<div id="detailInfo" class="w3-container">
-			<h2>세부 정보</h2>
-			<br />
-
-			<h3>시설 정보</h3>
-			<br />
-
-			<h4>공용 시설</h4>
-			<br />
-			<p th:text="${details.facility}"></p>
-
-			<br /> <br /> <br />
-
-			<div class="w3-container">
-				<h4>개별 시설</h4>
-				<br />
-				<table class="w3-table-all">
-					<tr>
-						<th>호수</th>
-						<th>시설</th>
-					</tr>
-					<tr th:each="roomInfoList:${roomInfo}">
-						<td th:text="${roomInfoList.roomNumber}"></td>
-						<td th:text="${roomInfoList.facility}"></td>
-					</tr>
-				</table>
-			</div>
-
-
-			<br /> <br /> <br />
-
-			<h3>공동 생활 규칙</h3>
-			<br />
-
-			<h4>기본 생활 규칙</h4>
-			<br />
-			<p>모든 지점에 공통으로 적용되는 생활 규칙</p>
-			<br />
-
-			<h4 th:text="|*{details.branchNumber}호점의 생활 규칙|"></h4>
-			<br />
-			<p th:text="${details.rule}"></p>
-			<br />
-
-			<h3>입주민 정보</h3>
-			<br />
-
-
-			<table class="w3-table-all">
-				<tr>
-					<th>닉네임</th>
-					<th>성별</th>
-					<th>나이</th>
-					<th>관심사</th>
-					<th>소개글</th>
-				</tr>
-				<tr th:each="memberInfoList:${memberInfo}">
-					<td th:text="${memberInfoList.nickname}"></td>
-					<td th:text="${memberInfoList.memberGender}"></td>
-					<td th:text="${memberInfoList.birth}"></td>
-					<td th:text="|*{memberInfoList.favorite1}, *{memberInfoList.favorite2}, *{memberInfoList.favorite3}|"></td>
-					<td th:text="${memberInfoList.introduce}"></td>
-				</tr>
-			</table>
-
-
-
-
-			<br /> <br /> <br />
-
-
-			<h3>반려동물 정보</h3>
-			<br />
-
-			<div th:each="memberInfoList:${memberInfo}">
-			<p th:text="|*{memberInfoList.animal}, *{memberInfoList.amount}마리|"></p>
-			</div>
-
-
-		</div>
-
-		<br /> <br /> <br />
-
-		<div id="review" class="w3-container">
-			<h2>리뷰</h2>
-			<br />
-
-			<form>
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<img class="img-fluid img-thumbnail"
-								src="http://placehold.it/400x300" alt=""> <input
-								type="file" id="imageUpload">
-							<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="form-group">
-							<textarea class="form-control" id=writeReview
-								placeholder="리뷰를 작성해주세요." rows="7"></textarea>
-							<button>수정</button>
-							<button>삭제</button>
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p>방문 신청</p>
+						<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
+						<input type="date" />
+						<textarea class="form-control" id=visitMemo
+							placeholder="간단한 메모를 남겨주세요." rows="3"></textarea>
+						<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
+						<div class="row">
+							<div class="col-md-6">
+								<button class="btn btn-default">취소</button>
+							</div>
+							<div class="col-md-6">
+								<button type="submit" class="btn btn-default">완료</button>
+							</div>
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-default">완료</button>
-			</form>
 
-		</div>
+				<img class="img-fluid img-thumbnail"
+					src="http://placehold.it/700x400" alt="">
+					
+				<br /> <br /> <br />
+				<br /> <br /> <br />
 
-		<br /> <br /> <br />
+				<div id="navbar" class="w3-round-large">
+				
+					<a href="#introduce" class="nb">지점 소개</a>
+					<a href="#locationInfo" class="nb">위치 정보</a>
+					<a href="#roomInfo" class="nb">방 정보</a>
+					<a href="#detailInfo" class="nb">세부 정보</a>
+					<a href="#review" class="nb">리뷰</a>
+				
+				</div>
+
+			<script>
+			$('a.nb').on('click',function(){
+				$('a.nb').removeClass('active');
+		        $(this).addClass('active');
+		    });
+			</script>
+
+				<div id="introduce" class="w3-container">
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+					<h2>지점 소개</h2>
+					<br />
+					<p th:text="${details.branchComment}"></p>
+					<br />
+					<table class="w3-table-all">
+						<tr>
+							<th>주소</th>
+							<th>최대 거주 인원</th>
+							<th>거주 유형</th>
+							<th>반려동물 동반입주</th>
+							<th>주차장 유무</th>
+							<th>엘리베이터 유무</th>
+						</tr>
+						<tr>
+							<td th:text="|*{details.address} *{details.addressDetail}|"
+								id='branchAddress'>주소</td>
+							<td th:text="${details.maximumResident}"></td>
+							<td th:text="${details.branchType}"></td>
+							<td th:text="${details.pet}"></td>
+							<td th:text="${details.isParking}"></td>
+							<td th:text="${details.isElevator}"></td>
+						</tr>
+						<tr>
+					</table>
+				</div>
+
+
+				<div id="locationInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
+					<h2>위치 정보</h2>
+					<br />
+
+					<div id="map" style="width: 700px; height: 500px;"></div>
+					<br />
+
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4">
+								<h3 id="MT1" name="mouseEvent">대형마트</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 id="CS2" name="mouseEvent">편의점</h3>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h3 id="PK6" name="mouseEvent">주차장</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 id="SW8" name="mouseEvent">지하철역</h3>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h3 id="BK9" name="mouseEvent">은행</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 id="CT1" name="mouseEvent">문화시설</h3>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h3 id="FD6" name="mouseEvent">음식점</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 id="CE7" name="mouseEvent">카페</h3>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h3 id="HP8" name="mouseEvent">병원</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 id="PM9" name="mouseEvent">약국</h3>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div id="roomInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
+					<h2>방 정보</h2>
+					<br /> <img class="img-fluid img-thumbnail"
+						src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
+					<table class="w3-table-all">
+						<tr>
+							<th>호수</th>
+							<th>성별</th>
+							<th>정원</th>
+							<th>면적</th>
+							<th>보증금</th>
+							<th>월세</th>
+							<th>입주가능일</th>
+						</tr>
+						<tr th:each="roomInfoList:${roomInfo}">
+							<td th:text="${roomInfoList.roomNumber}"></td>
+							<td th:text="${roomInfoList.gender}"></td>
+							<td th:text="|*{roomInfoList.allowNumber}인실|"></td>
+							<td th:text="${roomInfoList.space}"></td>
+							<td th:text="${roomInfoList.deposit}"></td>
+							<td th:text="${roomInfoList.monthlyRent}"></td>
+							<td th:text="${roomInfoList.rentableDate}"></td>
+						</tr>
+					</table>
+				</div>
+
+
+				<div id="detailInfo" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
+					<h2>세부 정보</h2>
+					<br />
+
+					<h3>시설 정보</h3>
+					<br />
+
+					<h4>공용 시설</h4>
+					<br />
+					<p th:text="${details.facility}"></p>
+
+					<br /> <br /> <br />
+
+					<div class="w3-container">
+						<h4>개별 시설</h4>
+						<br />
+						<table class="w3-table-all">
+							<tr>
+								<th>호수</th>
+								<th>시설</th>
+							</tr>
+							<tr th:each="roomInfoList:${roomInfo}">
+								<td th:text="${roomInfoList.roomNumber}"></td>
+								<td th:text="${roomInfoList.facility}"></td>
+							</tr>
+						</table>
+					</div>
+
+
+					<br /> <br /> <br />
+
+					<h3>공동 생활 규칙</h3>
+					<br />
+
+					<h4>기본 생활 규칙</h4>
+					<br />
+					<p>모든 지점에 공통으로 적용되는 생활 규칙</p>
+					<br />
+
+					<h4 th:text="|*{details.branchNumber}호점의 생활 규칙|"></h4>
+					<br />
+					<p th:text="${details.rule}"></p>
+					<br />
+
+					<h3>입주민 정보</h3>
+					<br />
+
+
+					<table class="w3-table-all">
+						<tr>
+							<th>닉네임</th>
+							<th>성별</th>
+							<th>나이</th>
+							<th>관심사</th>
+							<th>소개글</th>
+						</tr>
+						<tr th:each="memberInfoList:${memberInfo}">
+							<td th:text="${memberInfoList.nickname}"></td>
+							<td th:text="${memberInfoList.memberGender}"></td>
+							<td th:text="${memberInfoList.birth}"></td>
+							<td
+								th:text="|*{memberInfoList.favorite1}, *{memberInfoList.favorite2}, *{memberInfoList.favorite3}|"></td>
+							<td th:text="${memberInfoList.introduce}"></td>
+						</tr>
+					</table>
 
 
 
-<!-- 
+
+					<br /> <br /> <br />
+
+
+					<h3>반려동물 정보</h3>
+					<br />
+
+					<div th:each="memberInfoList:${memberInfo}">
+						<p
+							th:text="|*{memberInfoList.animal}, *{memberInfoList.amount}마리|"></p>
+					</div>
+
+
+				</div>
+
+
+				<div id="review" class="w3-container">
+				
+				<br /> <br /> <br />
+				<br /> <br /> <br />
+				
+					<h2>리뷰</h2>
+					<br />
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<img class="img-fluid img-thumbnail"
+									src="http://placehold.it/400x300" alt=""> <input
+									type="file" id="imageUpload">
+								<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<form name="reviewInsertForm">
+									<div class="input-group">
+										<input type="hidden" name="branchNumber"
+											value="${details.branchNumber}" /> <input type="text"
+											class="form-control" id="content" name="content"
+											placeholder="내용을 입력하세요."> <span
+											class="input-group-btn">
+											<button class="btn btn-default" type="button"
+												name="reviewInsertBtn">등록</button>
+										</span>
+									</div>
+								</form>
+							</div>
+							<div class="container">
+								<div class="reviewList"></div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<br /> <br /> <br />
+
+
+
+				<!-- 
 
 
 MyUploadForm
@@ -585,16 +635,20 @@ MyUploadForm
 
 
  -->
-	
+
 			</div>
 
 			<div class="col-md-1">
 				<div class="w3-round-Large fixed">
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|"></h2>
-					<button class='btn btn-default' onclick="location.href='/f'">입주
-						안내</button>
 					<br />
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color:#f2f2f2"></h2>
+					<br />
+			
+					<button id="myBtn" class='btn btn-default' onclick="location.href='/toSharingGuide'">입주
+						안내</button>
+				
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					<br />
 				</div>
 			</div>
 		</div>
@@ -602,12 +656,120 @@ MyUploadForm
 
 
 
+		<!-- 리뷰 Ajax -->
 
+		 <script>
+			// 지점 번호
+			var branchNumber = document.getElementById("branchNumber");
 
+			$('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
+				var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
+				reviewInsert(insertData); // Insert 함수호출(아래)
+			});
 
+			// 댓글 목록 
+			function reviewList() {
+				$
+						.ajax({
+							url : '/review/list',
+							type : 'get',
+							data : {
+								'branchNumber' : branchNumber
+							},
+							success : function(data) {
+								var a = '';
+								$
+										.each(
+												data,
+												function(key, value) {
+													a += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+													a += '<div class="reviewInfo'+value.writingNumber+'">'
+															+ '댓글번호 : '
+															+ value.writingNumber
+															+ ' / 작성자 : '
+															+ value.writer;
+													a += '<a onclick="reviewUpdate('
+															+ value.writingNumber
+															+ ',\''
+															+ value.content
+															+ '\');"> 수정 </a>';
+													a += '<a onclick="reviewDelete('
+															+ value.writingNumber
+															+ ');"> 삭제 </a> </div>';
+													a += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
+															+ value.content
+															+ '</p>';
+													a += '</div></div>';
+												});
 
+								$(".reviewList").html(a);
+							}
+						});
+			}
 
+			// 리뷰 등록
+			function reviewInsert(insertData) {
+				$.ajax({
+					url : '/review/insert',
+					type : 'post',
+					data : insertData,
+					success : function(data) {
+						if (data == 1) {
+							reviewList(); // 리뷰 작성 후 댓글 목록 reload
+							$('[name=content]').val('');
+						}
+					}
+				});
+			}
 
+			// 리뷰 수정 - 리뷰 내용 출력을 input 폼으로 변경 
+			function reviewUpdate(writingNumber), content) {
+				var a = '';
+
+				a += '<div class="input-group">';
+				a += '<input type="text" class="form-control" name="content_'+writingNumber+'" value="'+content+'"/>';
+				a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reviewUpdate('
+						+ writingNumber + ');">수정</button> </span>';
+				a += '</div>';
+
+				$('.reviewContent' + writingNumber).html(a);
+
+			}
+
+			// 리뷰 수정
+			function reviewUpdate(writingNumber) {
+				var updateContent = $('[name=content_' + writingNumber + ']').val();
+
+				$.ajax({
+					url : '/review/update',
+					type : 'post',
+					data : {
+						'content' : updateContent,
+						'writingNumber' : writingNumber
+					},
+					success : function(data) {
+						if (data == 1)
+							reviewList(branchNumber); //댓글 수정후 목록 출력 
+					}
+				});
+			}
+
+			// 리뷰 삭제 
+			function reviewDelete(writingNumber) {
+				$.ajax({
+					url : '/review/delete/' + cno,
+					type : 'post',
+					success : function(data) {
+						if (data == 1)
+							reviewList(branchNumber); //댓글 삭제후 목록 출력 
+					}
+				});
+			}
+
+			$(document).ready(function() {
+				reviewList(); //페이지 로딩시 댓글 목록 출력 
+			});
+		</script> 
 
 
 
@@ -674,150 +836,120 @@ function showSlides(n) {
 
 
 
-
-
-
-
-
-
-		<script type="text/javascript"
+	
+		<!-- 지도 동적 로드 -->
+<!-- 		<script type="text/javascript"
 			src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false"></script>
 		<script type="text/javascript">
-daum.maps.load(function() {
-    // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-    var map = new daum.maps.Map(node, options);
-});
+			daum.maps.load(function() {
+				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
+				var map = new daum.maps.Map(node, options);
+			});
+		</script>  -->
 
-</script>
-
-
-
-
-
-
-
-
-
+		<!-- 셰어 하우스 위치 표시, 카테고리별 위치 정보 표시 -->
 		<script type="text/javascript"
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b497e483355c4a6cc558f83dcd637541&libraries=services"></script>
 
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
 		<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('${details.address}', function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === daum.maps.services.Status.OK) {
-
-        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new daum.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
-</script>
-
-
-
-		<script>
-			// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-			var infowindow = new daum.maps.InfoWindow({
-				zIndex : 1
-			});
-
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			
 			mapOption = {
-				center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표, 이걸 지점의 주소값으로 바꿔줘야 해!
-				// 주소를 위도, 경도값으로 바꾸는 방법은?
-				level : 3
+				center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 			// 지도의 확대 레벨
-		
+				level : 3
 			};
 
 			// 지도를 생성합니다    
 			var map = new daum.maps.Map(mapContainer, mapOption);
 
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new daum.maps.services.Geocoder();
+			
+			// 태그에 들어 있던 지점 주소를 가지고 와서 변수에 담는다
+			var branchAddress = document.getElementById("branchAddress");
+			
+			// 리터럴로 치환한 th의 text값도 문제 없이 넣을 수 있다
+			var branchNumber = document.getElementById("branchNumber");
+			// var branchNameTest = document.getElementById("branchNameTest");
+			
+			// 마우스 클릭 이벤트가 발생할 요소 선택
+			var MT1 = document.getElementById("MT1");
+			var CS2 = document.getElementById("CS2");
 			
 			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(branchAddress.textContent, function(result, status) {
+
+								// 정상적으로 검색이 완료됐으면 
+								if (status === daum.maps.services.Status.OK) {
+
+									var coords = new daum.maps.LatLng(
+											result[0].y, result[0].x);
+
+									// 결과값으로 받은 위치를 마커로 표시합니다
+									var marker = new daum.maps.Marker({
+										map : map,
+										position : coords
+									});
+									
+									// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element 삽입 가능
+									var customContent = '<div style="width:150px;text-align:center;padding:6px 0;">낙낙 '+branchNumber.textContent+'호점</div>';
+									
+									// 인포윈도우로 장소에 대한 설명을 표시합니다
+									var infowindow = new daum.maps.InfoWindow(
+											{
+												content : customContent
+											});
+											infowindow.open(map, marker);
+
+									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									map.setCenter(coords);
+								}
+							});
 			
-			// 이 부분을 자바스크립트로 마우스 클릭 이벤트로 바꿔줘야 해
-		
+			 
+			CS2.addEventListener('click', function(){
 				
+				// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+				var infowindow1 = new daum.maps.InfoWindow({zIndex:1});
+			
 				// 장소 검색 객체를 생성합니다
 				var ps = new daum.maps.services.Places(map);
-				
-			
-			// 마우스 엔터 이벤트
-			/* $(.MT1).mouseenter(function(){
-				alert("대형마트");
-			}); */
-			
-			
-				// 카테고리로 검색합니다
-				ps.categorySearch('CS2', placesSearchCB, {
-					useMapBounds : true
-				});
-				
-				
-
-			
-			// 키워드 검색 완료 시 호출되는 콜백함수 입니다
-			function placesSearchCB(data, status, pagination) {
-				if (status === daum.maps.services.Status.OK) {
-					for (var i = 0; i < data.length; i++) {
-						displayMarker(data[i]);
-					}
+						
+				//카테고리로 대형마트를 검색
+				ps.categorySearch('CS2', placesSearchCB, {useMapBounds:true}); 
+							
+				// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+				function placesSearchCB (data, status, pagination) {
+					if (status === daum.maps.services.Status.OK) {
+				        for (var i=0; i<data.length; i++) {
+				            displayMarker(data[i]);    
+				        }       
+				    }
 				}
-			}
-			
-			// 지도에 마커를 표시하는 함수입니다
-			function displayMarker(place) {
-				// 마커를 생성하고 지도에 표시합니다
-				var marker = new daum.maps.Marker({
-					map : map,
-					position : new daum.maps.LatLng(place.y, place.x)
-				});
+	
+				// 지도에 마커를 표시하는 함수입니다
+				function displayMarker(place) {
+				    // 마커를 생성하고 지도에 표시합니다
+				    console.log(place);
+				    var marker1 = new daum.maps.Marker({
+				        map: map,
+				        position: new daum.maps.LatLng(place.y, place.x) 
+				    });
 
-				// 마커에 클릭이벤트를 등록합니다
-				daum.maps.event
-						.addListener(
-								marker,
-								'click',
-								function() {
-									// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-									infowindow
-											.setContent('<div style="padding:5px;font-size:12px;">'
-													+ place.place_name
-													+ '</div>');
-									infowindow.open(map, marker);
-								});
-			}
-		
+				    // 마커에 클릭이벤트를 등록합니다
+				    daum.maps.event.addListener(marker1, 'click', function() {
+				        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+				        infowindow1.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+				        infowindow1.open(map, marker1);
+				    });  				   
+				}
+				
+			});
+			
+			
+
 		</script>
 
 
@@ -828,8 +960,6 @@ geocoder.addressSearch('${details.address}', function(result, status) {
 
 			var navbar = document.getElementById("navbar");
 			var sticky = navbar.offsetTop;
-
-			alert(sticky);
 
 			function myFunction() {
 				if (window.pageYOffset >= sticky) {

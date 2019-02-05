@@ -5,6 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.ReviewMapper">
 
+	<!-- <insert id="insert">
+		INSERT INTO REVIEW (MEMBER_NUMBER, BRANCH_NUMBER, CONTENT, WRITE_TIME)
+		VALUES (#{memberNumber), #{branchNumber},#{content}, now())
+	</insert> -->
+
 	<select id="list" resultType="ReviewDTO">
 		SELECT 
 		M.NICKNAME,
@@ -43,6 +48,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM REVIEW
 		WEHRE BRANCH_NUMBER=#{BRANCH_NUMBER}
 	</delete>
-
-
 </mapper>
