@@ -25,7 +25,7 @@
 			<div id="review" class="w3-container">
 				<h2>리뷰</h2>
 				<br />
-				<form>
+				<form action="adminBranchRegist">
 					<div class="row">
 						<div class="col-md-3">
 							<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
@@ -36,8 +36,6 @@
 						</div>
 						<div class="col-md-8">
 							<div class="form-group">
-								<h4>작성자 번호</h4>
-								<input type="number" name="memberNumber">
 								<h4>테마</h4>
 								<input type="text" name="theme">
 								<h4>지점은행</h4>
@@ -54,6 +52,10 @@
 								</select>
 								<h4>소개글</h4>
 								<textarea name="introduce"></textarea>
+								<h4>규칙</h4>
+								<textarea name="rule"></textarea>
+								<h4>거주유형</h4>
+								<input type="text" name="branchType">
 								<h4>주차장</h4>
 								<select name="isParking">
 									<option value="yes">있음</option>
@@ -76,14 +78,14 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="fa fa-address fa" aria-hidden="true"></i></span> <input
-												class='address1' type="text" id="sample4_postcode"
+												class='address1' type="text" name="postNumber" id="sample4_postcode"
 												placeholder="우편번호">
 											<div class="input-group">
-												<input class='address1' type="text" id="sample4_roadAddress"
+												<input class='address1' type="text" name="address" id="sample4_roadAddress"
 													placeholder="도로명주소"> <input class='address1'
-													type="text" id="sample4_detailAddress" placeholder="상세주소">
+													type="text" id="sample4_detailAddress" name="addressDetail" placeholder="상세주소">
 												<input class='address1' type="text"
-													id="sample4_extraAddress" placeholder="참고항목"> <input
+													id="sample4_extraAddress" name="remainAddress" placeholder="참고항목"> <input
 													class='address1' id='addressSearch' type="button"
 													onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 												<span id="guide" style="color: #999; display: none"></span>
@@ -240,6 +242,11 @@
 									</tr>
 
 								</table>
+								
+								<h4>공용 시설</h4>
+								<input type="text" name="publicFacility">
+								<h4>개인 시설</h4>
+								<input type="text" name="privateFacility">
 							</div>
 						</div>
 					</div>

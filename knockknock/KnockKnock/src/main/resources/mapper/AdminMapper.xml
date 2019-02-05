@@ -5,34 +5,6 @@
 <mapper namespace="com.knockknock.mapper.AdminMapper">
 
 
-
-
-	<insert id="branchRegist">
-		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR,
-		BRANCH_ACCOUNT, GENDER,
-		BRANCH_COMMENT, ADDRESS, ADDRESS_DETAIL,
-		BRANCH_TYPE, ISPARKING,
-		ISELEVATOR, FACILITY, PET, MAXIMUM_RESIDENT,
-		RULE, IMAGE_LIVING,
-		IMAGE_KITCHIN, IMAGE_BATHROOM, IMAGE_ETC)
-		VALUES
-		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15},#{param16},#{param17},#{param18},#{param19})
-	</insert>
-	<select id="getBranchNumber" resultType="BranchDTO">
-		SELECT BRANCH_NUMBER
-		branchNumber
-		FROM BRANCH
-	</select>
-	<insert id="roomRegist">
-		INSERT INTO ROOM(ROOM_NUMBER, BRANCH_NUMBER, GENDER,
-		ALLOW_NUMBER, SPACE,
-		DEPOSIT, MINTHLY_RENT, RENTABLE_DATE, FACILITY,
-		IMAGE_ROOM)
-		VALUES()
-	</insert>
-
-
-
 	<select id="eventListView" resultType="EventVDTO">
 		SELECT E.WRITING_NUMBER
 		writingNumber,
@@ -119,5 +91,31 @@
 		DELETE FROM EVENT
 		WHERE WRITING_NUMBER = #{param1}
 	</delete>
+
+
+	<insert id="branchRegist">
+		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR,
+		BRANCH_ACCOUNT, GENDER,
+		BRANCH_COMMENT,
+		BRANCH_TYPE, ISPARKING,
+		ISELEVATOR, PET, ADDRESS, ADDRESS_DETAIL, FACILITY, MAXIMUM_RESIDENT,
+		RULE)
+		VALUES
+		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15})
+	</insert>
+	<select id="getBranchNumber" resultType="Integer">
+		SELECT BRANCH_NUMBER
+		branchNumber
+		FROM BRANCH
+	</select>
+	<insert id="roomRegist">
+		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER,
+		ALLOW_NUMBER, SPACE,
+		DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
+		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
+	</insert>
+
+
+
 
 </mapper>
