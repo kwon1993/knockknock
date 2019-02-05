@@ -1,11 +1,13 @@
 package com.knockknock.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
@@ -33,13 +35,26 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public int meetingInsertService(MeetingDTO meetingBoard) throws Exception{ //미팅 작성
-		return meMapper.meetingInsert(meetingBoard);
+	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
+			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
+			String place, String placeDetail, int recruitNumber) throws Exception{ //미팅 작성
+		meMapper.meetingInsert( memberNumber,  title,  meetingStartTime,  meetingEndTime,
+			 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
+			 place,  placeDetail,  recruitNumber);
 	}
 	
 	@Override
-	public int meetingModifyService(MeetingDTO meetingBoard) throws Exception{ //미팅 수정
-		return meMapper.meetingModify(meetingBoard);
+	public MeetingDTO meetingModifyFormService(int writingNumber) {
+		return meMapper.meetingModifyForm(writingNumber);
+	}
+	
+	@Override
+	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
+			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
+			String place, String placeDetail, int recruitMaxNumber) throws Exception{ //미팅 수정
+		meMapper.meetingModify(writingNumber, memberNumber,  title,  meetingStartTime,  meetingEndTime,
+				 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
+				 place,  placeDetail, recruitMaxNumber);
 	}
 	
 	@Override
@@ -87,14 +102,12 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public int participateService() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public void participateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.participate(writingNumber, memberNumber);
 	}
 
 	@Override
 	public int meetingPlaceService() throws Exception {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

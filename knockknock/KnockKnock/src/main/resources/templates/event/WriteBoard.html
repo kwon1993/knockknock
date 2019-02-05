@@ -13,51 +13,54 @@ layout:decorate="~{etc/fragments/main_layout}">
 
 			<p>대표이미지</p>
 			<input type="file" value="선택">
-				<form action="writeBoard">
+				<form action="/writeBoard">
+<!-- 					<input type="hidden" name="memberNumber"> -->
 					<table class="table">
+						<tr>
+							<td>작성자</td>
+							<td><input type="number" name="memberNumber"></td>
+						</tr>
 						<tr>
 							<td>모임명</td>
 							<td><input type="text" name="title"></td>
 						</tr>
 						<tr>
 							<td>모임기간</td>
-							<td><input type="datetime-local" name="" placeholder="장소명, 주소를 입력해주세요.">부터
-							<input type="datetime-local" name="" placeholder="나머지 주소를 입력하세요.">까지</td>
+							<td><input type="date" name="meetingStartTime">부터
+							<input type="date" name="meetingEndTime">까지</td>
 						</tr>
 						<tr>
 							<td>접수기간</td>
-							<td><input type="datetime-local" name="" value="">부터
-							<input type="datetime-local" name="">까지</td>
+							<td><input type="date" name="acceptStartTime">부터
+							<input type="date" name="acceptEndTime">까지</td>
 						</tr>
 						<tr>
 							<td>모임장소</td>
-							<td><input type="text" name=""></td>
+							<td><input type="text" name="place" placeholder="장소명, 주소를 입력해주세요.">
+							<input th:type="text" name="placeDetail" placeholder="나머지 주소를 입력하세요."></td>
 						</tr>
 						<tr>
 							<td>모집인원</td>
-							<th>최소인원</th>
-							<td><input type="number" name="">명</td>
-							<th>최대인원</th>
-							<td><input type="number" name="">명</td>
+							<td><input type="number" name="recruitMaxNumber">명</td>
 						</tr>
 						<tr>
 							<td>성별</td>
-							<td>
-								<input type="checkbox" name="">무관
-								<input type="checkbox" name="">남자만
-								<input type="checkbox" name="">여자만
-							</td>
+<!-- 							<td> -->
+<!-- 								<input type="checkbox" name="gender1">무관 -->
+<!-- 								<input type="checkbox" name="gender2">남자만 -->
+<!-- 								<input type="checkbox" name="gender3">여자만 -->
+<!-- 							</td> -->
 						</tr>
 						<tr>
 							<td>간단 모임소개</td>
-							<td><textarea name=""></textarea></td>
+							<td><textarea name="simpleIntroduce"></textarea></td>
 						</tr>
 						<tr>
 							<td>상세 모임소개</td>
-							<td><textarea name=""></textarea></td>
+							<td><textarea name="detailIntroduce"></textarea></td>
 						</tr>
 						<tr>
-							<td><input type="submit" name="" value="개설완료"></td>
+							<td><input type="submit" name="writeBoard" value="개설완료"></td>
 						</tr>
 					</table>
 				</form>

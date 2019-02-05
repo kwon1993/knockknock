@@ -1,10 +1,11 @@
 package com.knockknock.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,12 +37,39 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/writeBoardForm") //미팅 글 쓰기
-	private String writeBoardForm() {
+	private String writeBoardForm() throws Exception{
 		return "event/WriteBoard";
 	}
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
-	private String writeBoard() {
+	private String writeBoard(@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
+			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
+			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
+			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
+			@RequestParam("recruitNumber") int recruitNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
+			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
+		
+		meServiceImpl.meetingInsertService(memberNumber, title, meetingStartTime, meetingEndTime, acceptStartTime,
+				acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitNumber);
+		return "redirect:/meetingList";
+	}
+	
+	@RequestMapping("/meetingModifyForm")
+	private String meetingModifyForm(Model model, @RequestParam("writingNumber") int writingNumber) {
+		model.addAttribute("meetingModifyForm", meServiceImpl.meetingModifyFormService(writingNumber));
+		return "event/meetingModify";
+	}
+	
+	@RequestMapping("/meetingModify")
+	private String meetingModify(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
+			@RequestParam("title") String title,
+			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
+			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
+			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
+			@RequestParam("recruitNumber") int recruitNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
+			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
+		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
+				acceptStartTime, acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitNumber);
 		return "redirect:/meetingList";
 	}
 	
@@ -55,5 +83,11 @@ public class MeetingAndEventController {
 	private String eventList(Model model) throws Exception{
 		model.addAttribute("EventList", meServiceImpl.eventListService());
 		return "event/EventList";
+	}
+	
+	@RequestMapping("/participate") //참가하기
+	private String participate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
+		meServiceImpl.participateService(writingNumber, memberNumber);
+		return "redirect:/meetingList";
 	}
 }
