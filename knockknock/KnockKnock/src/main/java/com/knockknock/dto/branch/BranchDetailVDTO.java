@@ -1,6 +1,7 @@
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -45,7 +46,10 @@ public class BranchDetailVDTO {
 	private String favorite2;
 	private String favorite3;
 	private Date birth;
+	// 만 나이 계산 결과를 담을 필드 선언
+	private int age;
 	private String memberGender;
 	private String introduce;
-
+	
+	private List<String> genderList;
 }

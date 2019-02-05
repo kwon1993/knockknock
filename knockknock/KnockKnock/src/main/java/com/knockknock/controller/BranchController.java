@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.fileUploadTest.FileUploadTestForm;
 import com.knockknock.service.BranchService;
 
@@ -32,15 +35,26 @@ public class BranchController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(BranchController.class);
 	
-	// Ajax 방리스트받기
+	//Ajax 방리스트받기(체크박스,주소)
 	@PostMapping("/roomSearch")
 	@ResponseBody
-	public List<BranchDetailVDTO>roomSearch(Model model, @ModelAttribute BranchDetailVDTO branchDetailVDTO) {
-		System.out.println(branchDetailVDTO.getAddress());
-		//*중복 수정하기*
+	public List<BranchDetailVDTO>roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
+		
+		System.out.println(branchDetailVDTO.getGenderList());
+		
 		model.addAttribute("list",branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
@@ -48,6 +62,7 @@ public class BranchController {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
+		
 		logger.info(branchService.getMemberInfo(branchNumber).toString());
 	
 		// 파일 업로드 테스트 메서드
@@ -56,16 +71,30 @@ public class BranchController {
 		
 		return "branch/HouseInfo";
 	}
+	
+	// 방문 신청
+	@RequestMapping(value="roomDetailView", method=RequestMethod.POST)
+	public void visitBooking(@ModelAttribute VisitDTO visitDTO) {
+		branchService.visitBooking(visitDTO);
+		logger.info("POST/roomDetailView-visitBooking");
+		
+		
+	}
 
-	   // POST: 진짜 파일 업로드 로직
-	   @RequestMapping(value = "HouseInfo", method = RequestMethod.POST)
-	   public String uploadOneFileHandlerPOST(HttpServletRequest request, //
-	         Model model, //
-	         @ModelAttribute("fileUploadTestForm") FileUploadTestForm fileUploadTestForm) {
-	 
-	      return this.doUpload(request, model, fileUploadTestForm);
-	 
-	   }
+	/*
+	 * // POST: 진짜 파일 업로드 로직
+	 * 
+	 * @RequestMapping(value = "roomDetailView", method = RequestMethod.POST) public
+	 * String uploadOneFileHandlerPOST(HttpServletRequest request, // Model model,
+	 * //
+	 * 
+	 * @ModelAttribute("fileUploadTestForm") FileUploadTestForm fileUploadTestForm)
+	 * {
+	 * 
+	 * return this.doUpload(request, model, fileUploadTestForm);
+	 * 
+	 * }
+	 */
 	   
 	   private String doUpload(HttpServletRequest request, Model model, //
 			   FileUploadTestForm fileUploadTestForm) {

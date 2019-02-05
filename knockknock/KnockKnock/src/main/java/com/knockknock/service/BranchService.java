@@ -1,5 +1,6 @@
 package com.knockknock.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.BranchMapper;
 
 @Service
@@ -46,6 +48,11 @@ public class BranchService {
 	
 	 public List<BranchDetailVDTO> getMemberInfo(int branchNumber){ 
 		 return branchMapper.getMemberInfo(branchNumber); }
+
+	public void visitBooking(VisitDTO visitDTO) {
+		branchMapper.visitBooking(visitDTO);
+		
+	}
 	 
 
 }
