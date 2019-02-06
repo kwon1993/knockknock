@@ -66,29 +66,27 @@ xmlns:th="http://www.w3.org/1999/xhtml">
             <a class="nav-link" href="/toFAQ">고객센터</a>
           </li>
           
-         <span sec:authorize="isAuthenticated()">
-		   <li class="nav-item" style="margin-left: 80px;">
-		  		 <a class="nav-link" th:href="@{/logout}" style="font-size: 7px">로그아웃</a>
-		   </li>
-		 </span>
-		   <span sec:authorize="isAuthenticated()">
-		   <li class="nav-item">
-		   		<a class="nav-link" th:href="@{/profileMain}" style="font-size: 7px">마이페이지</a>
-		   </li>
-		    </span>
-	     
-          
-	     <span sec:authorize="isAnonymous()">	   
-			 <li class="nav-item" style="margin-left:80px;">
-			 	<a class="nav-link" th:href="@{/login}" style="font-size: 7px">로그인</a>
-			 </li>
-		</span>
-		 <span sec:authorize="isAnonymous()">	   
-			 <li class="nav-item">
-			 	<a class="nav-link" th:href="@{/register}" style="font-size: 7px">회원가입</a>
-			 </li>
-			 </span>
-	     
+	        <span sec:authorize="isAuthenticated()">
+			    <li class="nav-item" style="margin-left:110px; margin-top:9px">
+			  		 <a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 13px">▶Logout</a>
+			    </li>
+			</span>
+			<span sec:authorize="isAuthenticated()">
+				<li class="nav-item" style="margin-top:9px">
+			   		<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 13px">▶MyPage</a>
+				</li>
+			</span>
+	          
+		    <span sec:authorize="isAnonymous()">	   
+				 <li class="nav-item" style="margin-left:110px; margin-top:9px">
+				 	<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 13px">▶Login</a>
+				 </li>
+			</span>
+			<span sec:authorize="isAnonymous()">	   
+				 <li class="nav-item" style="margin-top:9px">
+				 	<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 13px">▶Join</a>
+				 </li>
+			</span>
         </ul>
       </div>
    <!--    <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"

@@ -10,4 +10,5 @@ public interface MemberMapper {
 	public void register(MemberDTO memberDTO);
 	public MemberDTO findById(String id);
 	public MemberDTO findByEmail(MemberDTO memberDTO);
+	public MemberDTO findByName(MemberDTO memberDTO);
 }
