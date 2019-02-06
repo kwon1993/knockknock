@@ -65,9 +65,11 @@ public class BranchController {
 		
 		logger.info(branchService.getMemberInfo(branchNumber).toString());
 	
-		// 파일 업로드 테스트 메서드
-		FileUploadTestForm fileUploadTestForm = new FileUploadTestForm();
-		model.addAttribute("fileUploadTestForm", fileUploadTestForm);
+		/*
+		 * // 파일 업로드 테스트 메서드 FileUploadTestForm fileUploadTestForm = new
+		 * FileUploadTestForm(); model.addAttribute("fileUploadTestForm",
+		 * fileUploadTestForm);
+		 */
 		
 		return "branch/HouseInfo";
 	}
@@ -77,8 +79,6 @@ public class BranchController {
 	public void visitBooking(@ModelAttribute VisitDTO visitDTO) {
 		branchService.visitBooking(visitDTO);
 		logger.info("POST/roomDetailView-visitBooking");
-		
-		
 	}
 
 	/*
@@ -96,52 +96,39 @@ public class BranchController {
 	 * }
 	 */
 	   
-	   private String doUpload(HttpServletRequest request, Model model, //
-			   FileUploadTestForm fileUploadTestForm) {
-		 
-		      String description = fileUploadTestForm.getDescription();
-		      System.out.println("Description: " + description);
-		 
-		      // Root Directory.
-		      String uploadRootPath = request.getServletContext().getRealPath("upload");
-		      System.out.println("uploadRootPath=" + uploadRootPath);
-		 
-		      File uploadRootDir = new File(uploadRootPath);
-		      // Create directory if it not exists.
-		      if (!uploadRootDir.exists()) {
-		         uploadRootDir.mkdirs();
-		      }
-		      MultipartFile[] fileDatas = fileUploadTestForm.getFileDatas();
-		      //
-		      List<File> uploadedFiles = new ArrayList<File>();
-		      List<String> failedFiles = new ArrayList<String>();
-		 
-		      for (MultipartFile fileData : fileDatas) {
-		 
-		         // Client File Name
-		         String name = fileData.getOriginalFilename();
-		         System.out.println("Client File Name = " + name);
-		 
-		         if (name != null && name.length() > 0) {
-		            try {
-		               // Create the file at server
-		               File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
-		 
-		               BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-		               stream.write(fileData.getBytes());
-		               stream.close();
-		               //
-		               uploadedFiles.add(serverFile);
-		               System.out.println("Write file: " + serverFile);
-		            } catch (Exception e) {
-		               System.out.println("Error Write file: " + name);
-		               failedFiles.add(name);
-		            }
-		         }
-		      }
-		      model.addAttribute("description", description);
-		      model.addAttribute("uploadedFiles", uploadedFiles);
-		      model.addAttribute("failedFiles", failedFiles);
-		      return "branch/HouseInfo";
-		   }
+	/*
+	 * private String doUpload(HttpServletRequest request, Model model, //
+	 * FileUploadTestForm fileUploadTestForm) {
+	 * 
+	 * String description = fileUploadTestForm.getDescription();
+	 * System.out.println("Description: " + description);
+	 * 
+	 * // Root Directory. String uploadRootPath =
+	 * request.getServletContext().getRealPath("upload");
+	 * System.out.println("uploadRootPath=" + uploadRootPath);
+	 * 
+	 * File uploadRootDir = new File(uploadRootPath); // Create directory if it not
+	 * exists. if (!uploadRootDir.exists()) { uploadRootDir.mkdirs(); }
+	 * MultipartFile[] fileDatas = fileUploadTestForm.getFileDatas(); // List<File>
+	 * uploadedFiles = new ArrayList<File>(); List<String> failedFiles = new
+	 * ArrayList<String>();
+	 * 
+	 * for (MultipartFile fileData : fileDatas) {
+	 * 
+	 * // Client File Name String name = fileData.getOriginalFilename();
+	 * System.out.println("Client File Name = " + name);
+	 * 
+	 * if (name != null && name.length() > 0) { try { // Create the file at server
+	 * File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator +
+	 * name);
+	 * 
+	 * BufferedOutputStream stream = new BufferedOutputStream(new
+	 * FileOutputStream(serverFile)); stream.write(fileData.getBytes());
+	 * stream.close(); // uploadedFiles.add(serverFile);
+	 * System.out.println("Write file: " + serverFile); } catch (Exception e) {
+	 * System.out.println("Error Write file: " + name); failedFiles.add(name); } } }
+	 * model.addAttribute("description", description);
+	 * model.addAttribute("uploadedFiles", uploadedFiles);
+	 * model.addAttribute("failedFiles", failedFiles); return "branch/HouseInfo"; }
+	 */
 }
