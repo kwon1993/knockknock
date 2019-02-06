@@ -40,22 +40,9 @@ public class BranchController {
 	@ResponseBody
 	public List<BranchDetailVDTO>roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
 		
-		System.out.println(branchDetailVDTO.getGenderList());
-		
 		model.addAttribute("list",branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value="roomDetailView", method=RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {

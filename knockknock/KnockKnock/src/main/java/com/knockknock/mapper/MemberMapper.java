@@ -1,6 +1,7 @@
 package com.knockknock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import com.knockknock.dto.member.MemberDTO;
 
 
@@ -8,4 +9,6 @@ import com.knockknock.dto.member.MemberDTO;
 public interface MemberMapper {
 	public void register(MemberDTO memberDTO);
 	public MemberDTO findById(String id);
+	public MemberDTO findByEmail(MemberDTO memberDTO);
+	public MemberDTO findByName(MemberDTO memberDTO);
 }

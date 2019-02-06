@@ -27,14 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	//요거 추가해주니 로긴 로그아웃창 수정완료
 	@Bean
-	    public SpringSecurityDialect springSecurityDialect(){
-	        return new SpringSecurityDialect();
+	public SpringSecurityDialect springSecurityDialect(){
+		return new SpringSecurityDialect();
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
 		//이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-//		web.ignoring().antMatchers("/**");
+		//web.ignoring().antMatchers("/**");
 	}
 	
 	@Override

@@ -14,4 +14,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select email,password,grade from member 
     	where email = #{id}
     </select>
+    
+    <select id="findByEmail" resultType="MemberDTO">
+    	select email,password,grade from member 
+    	where email = #{email}
+    </select>
+    
+    <select id="findByName" resultType="MemberDTO">
+    	select 
+    	M.EMAIL email,
+    	M.NAME name
+    	from member M
+    	where 
+    	M.NAME = #{name}
+    	AND M.PHONE_NUMBER = #{phoneNumber}
+    </select>
 </mapper>
