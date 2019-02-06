@@ -301,10 +301,10 @@ img {
 
 				<div id="myModal" class="modal">
 					<div class="modal-content">
-						<form method="post" id="modalSubmit">
+						<form action="/visitBooking" method="post">
 							<span class="close">&times;</span>
 							<h3 style="float: left">낙낙&nbsp;</h3>
-							<h3 th:text="${details.branchNumber}" name="branchNumber"
+							<h3 th:text="${details.branchNumber}" 
 								style="float: left"></h3>
 							<h3 style="float: left">호점 방문 신청</h3>
 							<input type="hidden" name="branchNumber"
@@ -320,6 +320,7 @@ img {
 								<div class="col-md-6">
 									<button type="button" class="btn btn-default" id="visitBooking"
 										data-dismiss="modal">완료</button>
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
 								</div>
 							</div>
 						</form>
@@ -585,20 +586,31 @@ img {
 						</div>
 						<div class="col-md-8">
 							<div class="form-group">
+							
+							
+							
+							
 								<form name="reviewInsertForm">
 									<div class="input-group">
-										<input type="text" class="form-control" id="content"
-											name="content" placeholder="내용을 입력하세요."> <span
+										<input type="text" class="form-control" id="reviewContent"
+											name="reviewContent" placeholder="내용을 입력하세요."> <span
 											class="input-group-btn">
 											<button class="btn btn-default" type="button"
 												name="reviewInsertBtn">등록</button>
 										</span>
 									</div>
 								</form>
+								
+								
+								
+								
+								
 							</div>
+							
 							<div class="container">
 								<div id="reviewList"></div>
 							</div>
+							
 						</div>
 					</div>
 
@@ -609,64 +621,15 @@ img {
 
 
 
-				<!-- 
 
-
-MyUploadForm
-       
-      <form th:object="${myUploadForm}" method="POST"
-         action="" enctype="multipart/form-data">
-         Description:
-         <br>
-         <input th:field="*{description}" style="width:300px;"/>                
-         <br/><br/>  
-         File to upload: <input th:field="*{fileDatas}" type="file"/>
-         <br />  
-         <input type="submit" value="Upload">
-      </form>
-
-
-  <h3>Uploaded Files:</h3>
-       
-      <ul th:each="file : ${uploadedFiles}">
-         <li th:utext="${file}"></li>  
-      </ul>      
-       
-      <h3>Failed:</h3>
-      <ul th:each="file : ${failedFiles}">
-         <li style="color:red;" th:utext="${file}"></li>  
-      </ul>
-
-
- -->
-
-			</div>
-
-			<div class="col-md-1">
-				<div class="w3-round-Large fixed">
-					<br />
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
-					<br />
-
-					<button id="myBtn1" class='btn btn-default'
-						onclick="location.href='/toSharingGuide'">입주 안내</button>
-
-					<button id="myBtn" class='btn btn-default'>방문 신청</button>
-					<br />
-				</div>
-			</div>
-		</div>
-
-
-
-
-		<!-- 리뷰 Ajax -->
+<!-- 리뷰 Ajax -->
 		<script>
 		
 			// 지점 번호
-			var branchNumber = $('#branchNumber').val();
-			alert(branchNumber);
+			var branchNumber = '${details.branchNumber}';
+			
 			 $('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
+				alert("리뷰 등록 버튼 클릭");
 				var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
 				reviewInsert(insertData); // Insert 함수호출(아래)
 			}); 
@@ -720,7 +683,7 @@ MyUploadForm
 					success : function(data) {
 						if (data == 1) {
 							reviewList(); // 리뷰 작성 후 댓글 목록 reload
-							$('[name=content]').val('');
+							$('[name=reviewContent]').val('');
 						}
 					}
 				});
@@ -775,7 +738,68 @@ MyUploadForm
 
 
 
-		<!-- 방문신청 모달 -->
+
+
+
+
+
+
+
+
+
+
+
+				<!-- 
+
+
+MyUploadForm
+       
+      <form th:object="${myUploadForm}" method="POST"
+         action="" enctype="multipart/form-data">
+         Description:
+         <br>
+         <input th:field="*{description}" style="width:300px;"/>                
+         <br/><br/>  
+         File to upload: <input th:field="*{fileDatas}" type="file"/>
+         <br />  
+         <input type="submit" value="Upload">
+      </form>
+
+
+  <h3>Uploaded Files:</h3>
+       
+      <ul th:each="file : ${uploadedFiles}">
+         <li th:utext="${file}"></li>  
+      </ul>      
+       
+      <h3>Failed:</h3>
+      <ul th:each="file : ${failedFiles}">
+         <li style="color:red;" th:utext="${file}"></li>  
+      </ul>
+
+
+ -->
+
+			</div>
+
+			<div class="col-md-1">
+				<div class="w3-round-Large fixed">
+					<br />
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
+					<br />
+
+					<button id="myBtn1" class='btn btn-default'
+						onclick="location.href='/toSharingGuide'">입주 안내</button>
+
+					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					<br />
+				</div>
+			</div>
+		</div>
+
+
+
+				<!-- 방문신청 모달 -->
 		<script>
 			// Get the modal
 			var modal = document.getElementById('myModal');
@@ -810,16 +834,40 @@ MyUploadForm
 				modal.style.display = "none";
 			}
 			
-			function modalSubmit(){
-				document.getElimentById("modalSubmit").submit();
-				alert("submit success!");
-			}
-			
-	 		visitBooking.onclick = function(e){
-				e.preventDefault();				
-	 			modal.style.display = "none";
-			}
+	 		visitBooking.onclick = function(){
+				branchNumber= $("input[name='branchNumber']").val();
+				reservationTime = $("input[name='reservationTime']").val();
+				memo = $("input[name='memo']").val();
+				inner ="";
+				
+				$.ajax({
+					method:'post',
+					url: '/visitBooking',
+					data:JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
+						"branchNumber":branchNumber,
+						"reservationTime":reservationTime,
+						"memo":memo
+					}),
+					dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
+					contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
+					success:function(data){
+						inner+="<div class='modal-content'><span class='close'>&times;</span><br /><h3>방문 신청이 완료되었습니다</h3><br /></div>"
+						$("#myModal").html(inner);
+					},
+					error:function(data){ 
+						inner+="<div class='modal-content'><span class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
+						$("#myModal").html(inner);
+					}
+					
+				});
+				
+			};
 		</script>
+		
+
+
+
+		
 
 
 		<!-- 		<script>

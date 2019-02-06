@@ -1,6 +1,5 @@
 package com.knockknock.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class BranchService {
 		 return branchMapper.getMemberInfo(branchNumber); }
 
 	public void visitBooking(VisitDTO visitDTO) {
-		branchMapper.visitBooking(visitDTO);
+		 branchMapper.visitBooking(visitDTO);
 		
 	}
 	 
