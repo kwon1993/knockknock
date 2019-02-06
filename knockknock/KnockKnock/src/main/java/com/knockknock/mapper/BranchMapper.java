@@ -15,6 +15,8 @@ public interface BranchMapper {
 	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO);
 	//네비게이션바 방찾기
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO);
+	//네비게이션바 카테고리로 방찾기
+	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO);
 	//방찾기의 방검색
 	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO);
 	// 지점 상세 정보

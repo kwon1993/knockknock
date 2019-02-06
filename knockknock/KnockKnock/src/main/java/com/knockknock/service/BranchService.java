@@ -20,6 +20,10 @@ public class BranchService {
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO){
 		return branchMapper.findingRoomList(branchDetailVDTO);
 	}
+	//네비게이션바 카테고리로 방찾기검색
+	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO){
+		return branchMapper.findingCategoryRoomList(branchDetailVDTO);
+	}
 	
 	//메인화면 심플방검색
 	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO){

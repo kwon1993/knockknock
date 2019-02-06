@@ -39,7 +39,8 @@ public class MainController {
 	
 	//네비게이션바 '카테고리로 방찾기'
 	@RequestMapping("/findingCategoryRoom")
-	public String toFindingCategoryRoom() {
+	public String toFindingCategoryRoom(Model model, BranchDetailVDTO branchDetailVDTO) {
+		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
 		return "branch/FindingCategoryRoom";
 	}
 	
