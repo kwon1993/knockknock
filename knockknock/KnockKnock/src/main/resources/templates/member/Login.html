@@ -234,7 +234,8 @@ $(document).ready(function(){
 				
 			},
 			error:function(data){ //ajax실패시 이거 호출
-				alert("error");	
+				content+="<div class='modal-content'><span class='close'>&times;</span>"+"아이디가 존재하지 않습니다</div>"
+				$("#myIdModal").html(content);
 			}
 		});
 	});
