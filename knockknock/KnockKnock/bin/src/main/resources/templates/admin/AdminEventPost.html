@@ -1,0 +1,93 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+=======
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/Main_layout}">
+<head>
+    <title>이벤트 글</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+
+<div layout:fragment="content" class="container">
+
+
+
+
+
+<table id="table">
+	<tr>
+		<td>글번호</td>
+		<td>제목</td>
+		<td>조회수</td>
+        <td>작성시간</td>
+    </tr>
+
+    <tr>
+    	<td th:text="${eventView.writingNumber}"></td>
+    	<td th:text="${eventView.title}"></td>
+    	<td th:text="${eventView.hit}"></td>
+    	<td th:text="${eventView.writeTime}"></td>
+    </tr>
+    
+    <tr>
+    	<td colspan="1">�씠踰ㅽ듃 �떆�옉�씪</td>
+    	<td colspan="3" th:text=${eventView.eventStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">�씠踰ㅽ듃 醫낅즺�씪</td>
+    	<td colspan="3" th:text=${eventView.eventEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">�젒�닔 �떆�옉�씪</td>
+    	<td colspan="3" th:text=${eventView.acceptStartTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">�젒�닔 醫낅즺�씪</td>
+    	<td colspan="3" th:text=${eventView.acceptEndTime}></td>
+    </tr>
+    <tr>
+    	<td colspan="1">紐⑥쭛�씤�썝</td>
+    	<td colspan="3" th:text=${eventView.recruitNumber}></td>
+    </tr>
+    
+	<tr>
+		<td colspan="1">�궡�슜</td>
+		<td colspan="3" th:text="${eventView.content}"></td>
+	</tr>
+	
+    <tr>
+        <td colspan="4">
+            <form action="adminEventDelete">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="delete">
+            </form>
+            
+            <form action="adminEventModifyView">
+            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+                <input type="submit" value="modify">
+            </form>
+            
+            <form action="/">
+                <input type="submit" value="main">
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+
+
+>>>>>>> 413138c52e77f8c629036f95f19cf8268d493905
+</body>
+</html>

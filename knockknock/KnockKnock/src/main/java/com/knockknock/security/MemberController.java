@@ -24,12 +24,14 @@ public class MemberController {
 	MemberMapper memberMapper;
 	@Autowired
 	SqlSession sqlsession;
-
+	
+	//회원가입으로 이동
 	@RequestMapping("/register")
 	public String registerStart() {
 		return "member/Register";
 	}
 
+	//회원가입폼
 	//1.회원등록
 	@RequestMapping("/create")
 	public String member(Model model, MemberDTO memberDTO) {
@@ -39,17 +41,27 @@ public class MemberController {
 		return "member/RegisterComplete";
 	}
 	
+	@RequestMapping("/checkEmail")
+	@ResponseBody
+	public MemberDTO checkEmail(Model model, @RequestBody MemberDTO memberDTO) {
+		return memberMapper.checkEmail(memberDTO);
+	
+	}
+	
+	
 	//기본적으로 '로그인'누르면 연결. 그외에 인증처리 안된상태에서 방찾기 등 누르면 로그인으로
 	@RequestMapping("/login")
 	public String login() {
 		return "member/Login";
 	}
 	
+	//로그인완료
 	@PostMapping("/loginComplete")
 	public String loginComplete(MemberDTO memberDTO) {
 		return "etc/fragments/Main_layout";
 	}
 	
+	//아이디찾기
 	@RequestMapping("/findId")
 	@ResponseBody //ajax로 받을때 쓰는 어노테이션
 	public MemberDTO findId(Model model, @RequestBody MemberDTO memberDTO){ //@RequestBody 쓰면 객체로 받을 수 있음(뷰단에서 "name":name 이렇게 쓴게 알아서 name변수에 들어감)
@@ -57,6 +69,7 @@ public class MemberController {
 		return memberMapper.findByName(memberDTO);
 	}
 	
+	//패스워드찾기
 	@RequestMapping(value="/findPass", method = RequestMethod.POST)
     public String findPass(MemberDTO memberDTO,RedirectAttributes redirectattr,Errors errors) {
 		System.out.println("findPass매핑");
