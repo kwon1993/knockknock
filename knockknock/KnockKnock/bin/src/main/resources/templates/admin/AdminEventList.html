@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/Main_layout}">
+<head>
+    <title>이벤트 등록 페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+
+<div class="w3-container">
+<table class="w3-table-all">
+	<tr>
+		<td>글번호</td>
+		<td>닉네임</td>
+		<td>제목</td>
+		<td>조회수</td>
+		<td>작성시간</td>
+	</tr>
+	
+	<tr th:each="list : ${eventListView}">
+		<td th:text="${list.writingNumber}"></td>
+		<td th:text="${list.nickname}"></td>
+		<td>
+            <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a>
+        </td>
+		<td th:text="${list.hit}"></td>
+		<td th:text="${list.writeTime}"></td>	
+    </tr>
+    
+    <tr>
+        <td colspan="5">
+            <form action="adminEventWriteView">
+                <input type="submit" value="Write">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>
+

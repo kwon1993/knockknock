@@ -3,28 +3,68 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
 </head>
 <body>
 
-<!-- / header replace / -->
-<div th:replace="etc/fragments/header :: header">
-<p>header replace</p>
-</div>
-
 <div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <h1>낙낙 관심사로 방찾기 게시판입니다</h1>
-        <p>방을 찾아봐요</p>
-        <p>
-            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-    </div>
+  <div class="w3-container">
+  <div class="jumbotron">
+<table class="w3-table-all">
+	<tr>
+		<td>방번호</td>
+		<td>위치</td>
+		<td>주거유형</td>
+		<td>주거상태</td>
+		<td>보증금</td>
+		<td>월세</td>
+		<td>입주가능날짜</td>
+	</tr>
+	<tr th:each="list : ${lists}">
+		<td th:text="${list.branchNumber}"></td>
+		<td th:text="${list.address}"></td>
+<!-- 		<td> -->
+<!--             <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a> -->
+<!--         </td> -->
+		<td th:text="${list.branchType}"></td>
+		<td th:text="${list.gender}"></td>
+		<td th:text="${list.deposit}"></td>
+		<td th:text="${list.monthlyRent}"></td>
+		<td th:text="${list.rentableDate}"></td>	
+    </tr>
+    
+    <tr>
+        <td colspan="5">
+            <form action="adminEventWriteView">
+                <input type="submit" value="Write">
+            </form>
+        </td>
+    </tr>
+</table>
+	    <div class="box-footer">
+              <ul class="pagination">
+              
+              <li class="page-item" th:if="${pageMaker.prev} == true">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+              </li>
+              
+              <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+                <a th:href="@{/findingCategoryRoom(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+              </li>
+              
+              <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+              </li>
+              
+              </ul>
+            </div>
+     </div>
+
+</div>
+  
 </div>
 
-<!-- / footer replace / -->
-<div th:replace="etc/fragments/footer :: footer">
-<p>header replace</p>
-</div>
 </body>
 </html>
 
