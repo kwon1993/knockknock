@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
@@ -15,6 +16,11 @@ public interface BranchMapper {
 	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO);
 	//네비게이션바 방찾기
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO);
+	//네비게이션바 카테고리로 방찾기
+	public List<BranchDetailVDTO> findingCategoryRoomList(Criteria cri) throws Exception;
+	//카테고리로 방찾기 페이징 처리
+	public int categoryCount(Criteria cri) throws Exception;
+	
 	//방찾기의 방검색
 	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO);
 	// 지점 상세 정보

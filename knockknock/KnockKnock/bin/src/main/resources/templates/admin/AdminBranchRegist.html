@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
+<head>
+<title>이벤트 등록 페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+.roomInfo input {
+	width: 20px;
+}
+</style>
+<body>
+	<div layout:fragment="content" class="container">
+
+
+		<div class="jumbotron">
+			<h1>이벤트 등록 페이지</h1>
+		</div>
+
+		<div>
+			<div></div>
+
+			<div id="review" class="w3-container">
+				<h2>리뷰</h2>
+				<br />
+				<form>
+					<div class="row">
+						<div class="col-md-3">
+							<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+								th:href="@{adminMemberSearch}">회원관리</a><br> <a
+								th:href="@{adminQuestionList}">1:1문의관리</a><br> <a
+								th:href="@{adminVisitList}">방문문의관리</a><br> <a
+								th:href="@{adminBranchRegist}">지점등록</a><br>
+						</div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<h4>작성자 번호</h4>
+								<input type="number" name="memberNumber">
+								<h4>테마</h4>
+								<input type="text" name="theme">
+								<h4>지점은행</h4>
+								<input type="text" name="bankName">
+								<h4>지점은행 예금주</h4>
+								<input type="text" name="depositor">
+								<h4>지점은행 계좌</h4>
+								<input type="text" name="branchAccount">
+								<h4>성별</h4>
+								<select name="gender">
+									<option value="공용">공용</option>
+									<option value="남">남</option>
+									<option value="여">여</option>
+								</select>
+								<h4>소개글</h4>
+								<textarea name="introduce"></textarea>
+								<h4>주차장</h4>
+								<select name="isParking">
+									<option value="yes">있음</option>
+									<option value="no">없음</option>
+								</select>
+								<h4>엘리베이터</h4>
+								<select name="isElevator">
+									<option value="yes">있음</option>
+									<option value="no">없음</option>
+								</select>
+								<h4>반려동물 가능여부</h4>
+								<select name="pet">
+									<option value="yes">가능</option>
+									<option value="no">불가능</option>
+								</select>
+								<h4>주소</h4>
+								<div class="form-group">
+									<label for="confirm" class="cols-sm-2 control-label">주소</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="fa fa-address fa" aria-hidden="true"></i></span> <input
+												class='address1' type="text" id="sample4_postcode"
+												placeholder="우편번호">
+											<div class="input-group">
+												<input class='address1' type="text" id="sample4_roadAddress"
+													placeholder="도로명주소"> <input class='address1'
+													type="text" id="sample4_detailAddress" placeholder="상세주소">
+												<input class='address1' type="text"
+													id="sample4_extraAddress" placeholder="참고항목"> <input
+													class='address1' id='addressSearch' type="button"
+													onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+												<span id="guide" style="color: #999; display: none"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h4>방 정보</h4>
+								<table class="roomInfo">
+									<tr>
+										<td>방 호수</td>
+										<td>성별</td>
+										<td>타입</td>
+										<td>면적</td>
+										<td>보증금</td>
+										<td>월세</td>
+										<td>입주가능일</td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="roomNumber"></td>
+										<td><select name="roomGender">
+												<option value="남">남</option>
+												<option value="여">여</option>
+										</select></td>
+										<td><select name="roomType">
+												<option value="1인실">1인실</option>
+												<option value="2인실">2인실</option>
+												<option value="3인실">3인실</option>
+												<option value="4인실">4인실</option>
+										</select></td>
+										<td><input type="text" name="roomSpace"></td>
+										<td><input type="number" name="roomDeposit"></td>
+										<td><input type="number" name="roomMonthlyRent"></td>
+										<td><input type="date" name="roomRentableDate"></td>
+									</tr>
+
+								</table>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-default">완료</button>
+				</form>
+
+			</div>
+
+
+		</div>
+		
+		
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'block';
+                }
+            }
+        }).open();
+    }
+</script>
+	</div>
+</body>
+</html>
+
