@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE 
 			B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER
 		ORDER BY
-			B.BRANCH_NUMBER DESC, R.RENTABLE_DATE DESC
+			B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC
 		LIMIT #{pageStart}, #{perPageNum}
 	  ]]>   
    </select>
