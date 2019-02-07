@@ -53,4 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where M.EMAIL = #{username}
     	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
     </select>
+
+    <select id="getMML" resultType="MeetingDTO">
+    	SELECT
+    	FROM 
+    	WHERE
+    </select>
 </mapper>

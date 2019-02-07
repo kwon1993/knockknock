@@ -13,7 +13,7 @@ import com.knockknock.security.MemberService;
 
 @Controller
 public class MyPageController {
-	
+
 	@Autowired
 	MemberService memberService;
 	
@@ -31,5 +31,37 @@ public class MyPageController {
 		model.addAttribute("profile", memberService.getProfile(username));
 		return "member/MyProfile";
 	}
+
+	@RequestMapping("/MyEventList")
+	public String myEventList(Model model, ProfileVDTO profileVDTO) {
+
+		return "member/MyEventList";
+	}
+
+	@RequestMapping("/MyVisitList")
+	public String myVisitList(Model model, ProfileVDTO profileVDTO) {
+		return "member/MyVisitList";
+	}
+
+	@RequestMapping("/MyMeetingList")
+	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		System.out.println(user.getUsername());
+		
+		model.addAttribute("MML", memberService.getMML(user.getUsername()));
+
+		return "member/MyMeetingList";
+	}
+
+	@RequestMapping("/MyQuestionList")
+	public String AdminQuestionList(Model model, ProfileVDTO profileVDTO) {
+		return "member/MyQuestionList";
+	}
+
 }
 	

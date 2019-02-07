@@ -484,9 +484,15 @@ mark,
 
 .img-thumbnail {
   padding: 0.25rem;
+<<<<<<< HEAD
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+=======
   background-color: lightgrey;
   border: 1px solid #dee2e6;
   border-radius: 1rem;
+>>>>>>> 413138c52e77f8c629036f95f19cf8268d493905
   max-width: 100%;
   height: auto;
 }

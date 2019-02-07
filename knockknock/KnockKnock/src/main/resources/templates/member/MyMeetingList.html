@@ -4,23 +4,178 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>내 모임 리스트</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 130px;
+  left: 60px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+.main {
+  margin-left: 90px; /* Same width as the sidebar + left position in px */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+/* Fade in tabs */
+@
+-webkit-keyframes fadeEffect {
+	from {opacity: 0;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@
+keyframes fadeEffect {
+	from {opacity: 0;
+}
+
+to {
+	opacity: 1;
+}
+}
+</style>
 </head>
 <body>
-
-
-
 <div layout:fragment="content" class="container">
+<br /><br /><br /> <br /> 
 
-<div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <h1>내 모임 리스트</h1>
-    </div>
+<div class="row">
+			<div class="col-md-11">
+<div class="sidenav">
+  <a th:href="@{/profileMain}">내 프로필</a>
+  <a th:href="@{/MyMeetingList}">내 모임</a>
+  <a th:href="@{/MyEventList}">내 이벤트</a>
+  <a th:href="@{/MyQuestionList}">내 1:1문의</a>
+  <a th:href="@{/MyVisitList}">내 방문신청</a>
+</div>
+</div>
+<div class="col-md-1">
+</div>
 </div>
 
+<div class="main">
+  <h2>내 모임 </h2>
+  <br />
+  <div class="tab">
+			<button class="tablinks" onclick="openCity(event, 'Join')"
+				id="defaultOpen">신청한 모임</button>
+			<button class="tablinks" onclick="openCity(event, 'Make')">개설한 모임
+				</button>
+		</div>
+
+
+		<img src="" />
+
+
+
+		<div id="Join" class="tabcontent">
+			<h3 class="font-weight-bold">신청한 모임</h3>
+			<br /> 
+			
+			<br />
+		</div>
+
+		<div id="Make" class="tabcontent">
+			<h3 class="font-weight-bold">개설한 모임</h3>
+			<br />
+			
+			<br />
+		</div>
+
+		<script>
+			function openCity(evt, cityName) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablinks");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].className = tablinks[i].className.replace(
+							" active", "");
+				}
+				document.getElementById(cityName).style.display = "block";
+				evt.currentTarget.className += " active";
+			}
+
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
+		</script>
+  
+  
+  
+</div>  
+
 </div>
-
-
 </body>
 </html>
+
 

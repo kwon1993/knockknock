@@ -14,13 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		M.NICKNAME,
 		R.CONTENT,
 		R.WRITE_TIME writeTime,
-		R.WRITING_NUMBER writingNumber
+		<!-- R.WRITING_NUMBER writingNumber -->
 		FROM REVIEW R, MEMBER M
 		WHERE R.BRANCH_NUMBER=#{branchNumber}
 		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
 		ORDER BY WRITING_NUMBER ASC
 	</select>
-
 
 	<insert id="reviewInsert" parameterType="ReviewDTO">
 		INSERT INTO 
