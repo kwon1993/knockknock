@@ -56,12 +56,28 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			<button type="submit" value="찾기" name='roomSearch' id='roomSearch'>주소검색</button>
 		</div>
 		
-		<div class="field">
-              <label class="field-title">성별</label>
+		<div class="genderField">
+              <label class="field-title"><strong>성별</strong></label>
               <div name="gender" id="gender">
                 <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="room-table_gender_division_m" name="gender"><label for="room-table_gender_division_m">남성전용</label></div>
                 <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">여성전용</label></div>
               	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">남녀공용</label></div>
+              </div>
+        </div>
+        <br><br><br>
+        <div class="petField">
+              <label class="field-title"><strong>반려동물</strong></label>
+              <div name="pet" id="pet">
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="room-table_gender_division_m" name="pet"><label for="room-table_gender_division_m">가능</label></div>
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="room-table_gender_division_f" name="pet"><label for="room-table_gender_division_f">불가능</label></div>
+              </div>
+        </div>
+        <br>
+        <div class="branchThemeField">
+              <label class="field-title"><strong>테마</strong></label>
+              <div name="branchTheme" id="branchTheme">
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="room-table_gender_division_m" name="branchTheme"><label for="room-table_gender_division_m">있음</label></div>
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="room-table_gender_division_f" name="branchTheme"><label for="room-table_gender_division_f">없음</label></div>
               </div>
         </div>
     </div>
@@ -131,6 +147,7 @@ function searchMap(){
 jQuery('.checkbox').on('click',multiSearch);
 jQuery('#roomSearch').on('click',multiSearch);
 
+
 //장소검색이 완료됐을 때 호출되는 콜백함수 
 var callback = function(result, status){
     if (status === daum.maps.services.Status.OK) {
@@ -172,16 +189,24 @@ var callback = function(result, status){
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
 		var content = "";
-		var checkboxArr = new Array();
-	 	 
+		var genderCheckbox = new Array();
+		var petCheckbox = new Array();
+		var themeCheckbox = new Array();
+	 	  
 		jQuery("input[name='gender']:checked").each(function(i){
-			checkboxArr.push(jQuery(this).val());
+			genderCheckbox.push(jQuery(this).val());
+		});//checked end
+		jQuery("input[name='pet']:checked").each(function(i){
+			petCheckbox.push(jQuery(this).val());
+		});//checked end
+		jQuery("input[name='branchTheme']:checked").each(function(i){
+			themeCheckbox.push(jQuery(this).val());
 		});//checked end
 		
 		jQuery.ajax({
 			method : 'post',
 			url : '/roomSearch',
-			data : JSON.stringify({"address":address,"genderList":checkboxArr}),
+			data : JSON.stringify({"address":address,"genderList":genderCheckbox,"petList":petCheckbox,"themeList":themeCheckbox}),
 			dataType : "json",
 			contentType: 'application/json',
 			async : false,
