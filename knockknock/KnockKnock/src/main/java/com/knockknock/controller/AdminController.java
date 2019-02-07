@@ -176,6 +176,8 @@ public class AdminController {
 			@RequestParam(value = "publicFacility", required = false, defaultValue = "없음") String publicFacility,
 			@RequestParam(value = "privateFacility", required = false, defaultValue = "없음") String privateFacility,
 			@RequestParam(value = "rule") String rule) {
+		
+		//배열로 정리
 		int[] roomNumber = { roomNumber1, roomNumber2, roomNumber3, roomNumber4, roomNumber5, roomNumber6, roomNumber7,
 				roomNumber8 };
 		String[] roomGender = { roomGender1, roomGender2, roomGender3, roomGender4, roomGender5, roomGender6,
@@ -189,6 +191,8 @@ public class AdminController {
 				roomMonthlyRent5, roomMonthlyRent6, roomMonthlyRent7, roomMonthlyRent8 };
 		String[] roomRentableDate = { roomRentableDate1, roomRentableDate2, roomRentableDate3, roomRentableDate4,
 				roomRentableDate5, roomRentableDate6, roomRentableDate7, roomRentableDate8 };
+		
+		//지점 및 방 등록
 		adminService.branchRegist(theme, bankName, depositor, branchAccount, gender, introduce, branchType, isParking,
 				isElevator, pet, address, addressDetail, remainAddress, publicFacility, rule, roomType);
 		int branchNumber = adminService.getBranchNumber();
