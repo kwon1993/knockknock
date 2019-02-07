@@ -28,7 +28,6 @@ public interface MeetingAndEventMapper {
 	public int eventCount() throws Exception;
 	public List<EventVDTO> eventList() throws Exception;
 	public int eventSearch() throws Exception;
-	public int fileUpload() throws Exception;
 	public int fileDown() throws Exception;
 	public int likeToggle() throws Exception;
 	public void participate(int writingNumber, int memberNumber) throws Exception;
