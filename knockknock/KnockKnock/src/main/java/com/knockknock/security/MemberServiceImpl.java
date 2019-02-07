@@ -1,12 +1,11 @@
 package com.knockknock.security;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Service
@@ -49,5 +48,10 @@ public class MemberServiceImpl implements MemberService{
 //		memberDTO.setPassword(passwordEncoder.encode("1233"));
 		
 //		memberMapper.changePassword(memberDTO);
+	}
+	
+	public ProfileVDTO getProfile(String username){
+		return memberMapper.getProfile(username);
+				
 	}
 }

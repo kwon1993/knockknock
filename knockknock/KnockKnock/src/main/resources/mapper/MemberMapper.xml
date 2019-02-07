@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.MemberMapper">
     <insert id="register">
-        insert into member(member_number,grade,email,password,nickname,name,birth,gender,join_Time)
+        insert into member(member_number,grade,email,password,phone_number,nickname,name,birth,gender,join_Time,address,address_Detail)
 		values
-		(0,#{grade},#{email},#{password},#{nickname},#{name},now(),'남자',now())
+		(0, '일반회원', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender}, now(), #{address}, #{addressDetail})
     </insert>
 
 	<select id="checkEmail" resultType="MemberDTO">
@@ -42,4 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set password=#{password}
 		where email=#{email}
     </update>
+    
+    <select id="getProfile" resultType="ProfileVDTO">
+    	SELECT
+    	M.MEMBER_NUMBER memberNumber,
+    	M.NAME,
+    	P.ANIMAL,
+    	P.AMOUNT
+    	FROM MEMBER M, PET P
+    	where M.EMAIL = #{username}
+    	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
+    </select>
 </mapper>

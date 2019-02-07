@@ -17,7 +17,7 @@ import com.knockknock.mapper.MemberMapper;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
 	MemberService memberService;
 	@Autowired
@@ -57,7 +57,7 @@ public class MemberController {
 	
 	//로그인완료
 	@PostMapping("/loginComplete")
-	public String loginComplete(MemberDTO memberDTO) {
+	public String loginComplete(MemberDTO memberDTO){
 		return "etc/fragments/Main_layout";
 	}
 	

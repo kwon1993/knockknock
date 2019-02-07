@@ -3,6 +3,7 @@ package com.knockknock.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.ProfileVDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -12,4 +13,7 @@ public interface MemberMapper {
 	public MemberDTO findByName(MemberDTO memberDTO);
 	public MemberDTO checkEmail(MemberDTO memberDTO);
 	public void changePassword(MemberDTO memberDTO);
+	//마이페이지
+	public ProfileVDTO getProfile(String username);
+	
 }
