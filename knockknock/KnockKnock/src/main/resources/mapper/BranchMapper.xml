@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ROOM R
 		WHERE B.BRANCH_NUMBER = R.BRANCH_NUMBER
 		ORDER BY branchNumber
-		DESC;   
+		DESC   
    </select>
 
    <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
