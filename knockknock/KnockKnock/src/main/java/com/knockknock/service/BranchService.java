@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.BranchMapper;
 
@@ -20,9 +21,14 @@ public class BranchService {
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO){
 		return branchMapper.findingRoomList(branchDetailVDTO);
 	}
+	
 	//네비게이션바 카테고리로 방찾기검색
-	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO){
-		return branchMapper.findingCategoryRoomList(branchDetailVDTO);
+	public List<BranchDetailVDTO> findingCategoryRoomList(Criteria cri) throws Exception{
+		return branchMapper.findingCategoryRoomList(cri);
+	}
+	//카테고리로 방찾기 페이징처리
+	public int categoryCountService(Criteria cri) throws Exception{
+		return branchMapper.categoryCount(cri);
 	}
 	
 	//메인화면 심플방검색

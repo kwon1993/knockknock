@@ -18,7 +18,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		<td>주거상태</td>
 		<td>보증금</td>
 		<td>월세</td>
-		<td>입주가능상태</td>
+		<td>입주가능날짜</td>
 	</tr>
 	<tr th:each="list : ${lists}">
 		<td th:text="${list.branchNumber}"></td>
@@ -41,6 +41,23 @@ layout:decorate="~{etc/fragments/Main_layout}">
         </td>
     </tr>
 </table>
+	    <div class="box-footer">
+              <ul class="pagination">
+              
+              <li class="page-item" th:if="${pageMaker.prev} == true">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+              </li>
+              
+              <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+                <a th:href="@{/findingCategoryRoom(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+              </li>
+              
+              <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+              </li>
+              
+              </ul>
+            </div>
 
 </div>
   
