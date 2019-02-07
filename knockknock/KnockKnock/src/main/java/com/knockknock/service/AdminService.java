@@ -26,11 +26,11 @@ public interface AdminService {
 	// branch
 	public void branchRegist(String theme, String bankName, String depositor, String branchAccount, String gender,
 			String introduce, String branchType, String isParking, String isElevator, String pet, String address,
-			String addressDetail, String remainAddress, String publicFacility, String rule, ArrayList<String> roomType);
+			String addressDetail, String remainAddress, String publicFacility, String rule, String[] roomType);
 
 	public int getBranchNumber();
 
-	public void roomRegist(int branchNumber, ArrayList<Integer> roomNumber, ArrayList<String> roomGender,
-			ArrayList<String> roomType, ArrayList<String> roomSpace, ArrayList<Integer> roomDeposit,
-			ArrayList<Integer> roomMonthlyRent, ArrayList<Date> roomRentableDate, String privateFacility);
+	public void roomRegist(int branchNumber, int[] roomNumber, String[] roomGender,
+			String[] roomType, String[] roomSpace, int[] roomDeposit,
+			int[] roomMonthlyRent, String[] roomRentableDate, String privateFacility);
 }

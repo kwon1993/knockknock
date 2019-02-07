@@ -1,9 +1,12 @@
 package com.knockknock.service;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,24 +67,24 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void branchRegist(String theme, String bankName, String depositor, String branchAccount, String gender,
 			String introduce, String branchType, String isParking, String isElevator, String pet, String address,
-			String addressDetail, String remainAddress, String publicFacility, String rule, ArrayList<String> roomType) {
+			String addressDetail, String remainAddress, String publicFacility, String rule, String[] roomType) {
 		int maximumResident = 0;
 		for (String type : roomType) {
-			switch(type){
-				case "1인실":
-					maximumResident += 1;
-					break;
-				case "2인실":
-					maximumResident += 2;
-					break;
-				case "3인실":
-					maximumResident += 3;
-					break;
-				case "4인실":
-					maximumResident += 4;
-					break;
-				default:
-					break;
+			switch (type) {
+			case "1인실":
+				maximumResident += 1;
+				break;
+			case "2인실":
+				maximumResident += 2;
+				break;
+			case "3인실":
+				maximumResident += 3;
+				break;
+			case "4인실":
+				maximumResident += 4;
+				break;
+			default:
+				break;
 			}
 		}
 		adminMapper.branchRegist(theme, bankName, depositor, branchAccount, gender, introduce, branchType, isParking,
@@ -96,20 +99,33 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void roomRegist(int branchNumber, ArrayList<Integer> roomNumber, ArrayList<String> roomGender,
-			ArrayList<String> roomType, ArrayList<String> roomSpace, ArrayList<Integer> roomDeposit,
-			ArrayList<Integer> roomMonthlyRent, ArrayList<Date> roomRentableDate, String privateFacility) {
-		Iterator<Integer> number = roomNumber.iterator();
-		Iterator<String> gender = roomGender.iterator();
-		Iterator<String> type = roomType.iterator();
-		Iterator<String> space = roomSpace.iterator();
-		Iterator<Integer> deposit = roomDeposit.iterator();
-		Iterator<Integer> monthlyRent = roomMonthlyRent.iterator();
-		Iterator<Date> rentableDate = roomRentableDate.iterator();
-		while(number.hasNext() && gender.hasNext() && type.hasNext() && space.hasNext() && deposit.hasNext() && monthlyRent.hasNext() && rentableDate.hasNext()) {
-			String typeNumber = type.next();
-			int allowNumber = typeNumber == "1인실" ? 1 : typeNumber == "2인실" ? 2 : typeNumber == "3인실" ? 3 : typeNumber == "4인실" ? 4 : 0;
-			adminMapper.roomRegist(branchNumber, number.next(), gender.next(), allowNumber, space.next(), deposit.next(), monthlyRent.next(), rentableDate.next(), privateFacility);
+	public void roomRegist(int branchNumber, int[] roomNumber, String[] roomGender, String[] roomType,
+			String[] roomSpace, int[] roomDeposit, int[] roomMonthlyRent, String[] roomRentableDate,
+			String privateFacility) {
+		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
+		Date[] rentableDate = new Date[roomRentableDate.length];
+		for(int i = 0; i < roomRentableDate.length; i++) {
+			if(Pattern.matches(dateForm, roomRentableDate[i])) {
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					java.util.Date parsed = (java.util.Date) formatter.parse(roomRentableDate[i]);
+					rentableDate[i] = new Date(parsed.getTime());
+				} catch (ParseException e) {
+					rentableDate[i] = null;
+				}
+			} else {
+				rentableDate[i] = null;
+			}
+		}
+		
+		for (int i = 0; i < roomNumber.length
+				&& (roomNumber[i] != 0 && roomGender[i] != "" && roomType[i] != "" && roomSpace[i] != ""
+						&& roomDeposit[i] != 0 && roomMonthlyRent[i] != 0 && !(roomRentableDate[i].equals(null))); i++) {
+
+			int allowNumber = roomType[i] == "1인실" ? 1
+					: roomType[i] == "2인실" ? 2 : roomType[i] == "3인실" ? 3 : roomType[i] == "4인실" ? 4 : 0;
+			adminMapper.roomRegist(branchNumber, roomNumber[i], roomGender[i], allowNumber, roomSpace[i],
+					roomDeposit[i], roomMonthlyRent[i], rentableDate[i], privateFacility);
 		}
 	}
 

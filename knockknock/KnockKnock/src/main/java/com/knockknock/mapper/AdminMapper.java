@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.knockknock.dto.branch.BranchDTO;
-import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
 
