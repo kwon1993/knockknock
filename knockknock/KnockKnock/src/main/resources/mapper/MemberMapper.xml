@@ -29,4 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.NAME = #{name}
     	AND M.PHONE_NUMBER = #{phoneNumber}
     </select>
+    
+    <select id="getMML" resultType="MeetingDTO">
+    	SELECT
+    	FROM 
+    	WHERE
+    	
+    </select>
 </mapper>

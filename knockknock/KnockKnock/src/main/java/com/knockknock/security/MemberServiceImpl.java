@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.mapper.MemberMapper;
 
@@ -31,5 +32,10 @@ public class MemberServiceImpl implements MemberService{
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 		//4.인코딩 후, memberMapper로 등록을 간다
 		memberMapper.register(memberDTO);
+	}
+
+	@Override
+	public MeetingDTO getMML(String email) {
+		return memberMapper.getMML(email);
 	}
 }

@@ -14,8 +14,8 @@ public class ReviewService {
 	@Autowired
 	ReviewMapper reviewMapper;
 
-	public List<ReviewDTO> reviewListService(int branchNumber) {
-		return reviewMapper.reviewList(branchNumber);
+	public List<ReviewDTO> reviewListService(ReviewDTO reviewDTO) {
+		return reviewMapper.reviewList(reviewDTO);
 	}
 
 	public int reviewInsertService(ReviewDTO reviewDTO) {
