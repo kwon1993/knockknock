@@ -27,18 +27,109 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 #theme{
  	position: absolute;
-    top:60%;
+    top:65%;
     left:80%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:2px;
-    font-family:fantasy;
+    font-size:10px;
+    font-family: sans-serif;
     color: white;
     z-index: 2;
-    text-align: right;
-    padding:2%;
+    text-align: center;
+    padding:4px 15px;
     background-color: #2eca6a;
     border-radius: .25rem;
 }
+
+#option_wrap{
+	display:inline;	
+	position:absolute;
+	float:left;
+	padding:45px 14px;
+	border:1px solid  #2eca6a;
+	border-radius: 1rem;
+	 
+}
+#map_wrap{
+	display:inline;
+	float:right;
+	border-bottom:3px solid #2eca6a;
+}
+#map{
+	display:inline;
+	float:right;
+	border-radius: 1rem;
+}
+
+#roomSearch{
+  color: #2eca6a;
+  border: 1px solid #2eca6a;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.030em;
+  background-color:white;
+  font-size:15px;
+}
+
+.field-title{
+ color: #2eca6a;
+  text-transform: uppercase;
+  letter-spacing: 0.030em;
+  background-color:white;
+  font-size:15px;
+}
+
+#bang{
+	font-size:20px;
+}
+
+#container{
+border-top:10px;
+}
+
+/* .checkbox input[type=checkbox] {  
+    display: none;  
+}
+
+input[type=checkbox] + label{
+    display: inline-block;  
+    cursor: pointer;  
+    position: relative;  
+    padding-left: 25px;  
+    margin-right: 15px;  
+    font-size: 13px;
+}
+
+input[type=checkbox]+ label:before {     
+
+    content: "";  
+    display: inline-block;  
+  
+    width: 20px;  
+    height: 20px;  
+  
+    margin-right: 10px;  
+    position: absolute;  
+    left: 0;  
+    bottom: 1px;  
+    background-color: #ccc;  
+    border-radius: 2px; 
+    box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
+}
+input[type=checkbox]:checked + label:before { 
+
+    content: "\2713";
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);  
+    font-size: 18px; 
+    font-weight:800; 
+    color: #fff;  
+    background:#2eca6a;
+    text-align: center;  
+    line-height: 18px;  
+
+} 
+ */
+
+
 
 </style>
     
@@ -46,51 +137,59 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <body>
 <!-- container -->
 <div layout:fragment="content" class="container">
+
+	<!-- 옵션박스 -->
     <div class="jumbotron" id='jumbotronId' style="margin-top:40px;">
-		<div class="map_wrap">
-	    	<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    	
+    	<!-- 맵 -->
+		<div class="map_wrap" id="map_wrap">
+			<div id="map" style="width:70%;height:75%;position:relative;overflow:hidden;margin-left:20px"></div><br>
 		</div>
-	
-		<div>
-			<input type="text" name="address" id='searchAddress'>
-			<button type="submit" value="찾기" name='roomSearch' id='roomSearch'>주소검색</button>
-		</div>
-		
-		<div class="genderField">
-              <label class="field-title"><strong>성별</strong></label>
-              <div name="gender" id="gender">
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="room-table_gender_division_m" name="gender"><label for="room-table_gender_division_m">남성전용</label></div>
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">여성전용</label></div>
-              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">남녀공용</label></div>
-              </div>
-        </div>
-        <br><br><br>
-        <div class="petField">
-              <label class="field-title"><strong>반려동물</strong></label>
-              <div name="pet" id="pet">
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="room-table_gender_division_m" name="pet"><label for="room-table_gender_division_m">가능</label></div>
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="room-table_gender_division_f" name="pet"><label for="room-table_gender_division_f">불가능</label></div>
-              </div>
-        </div>
-        <br>
-        <div class="branchThemeField">
-              <label class="field-title"><strong>테마</strong></label>
-              <div name="branchTheme" id="branchTheme">
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="room-table_gender_division_m" name="branchTheme"><label for="room-table_gender_division_m">있음</label></div>
-                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="room-table_gender_division_f" name="branchTheme"><label for="room-table_gender_division_f">없음</label></div>
-              </div>
+    
+    	<div class="option_wrap" id="option_wrap">
+			<div id="a1">
+				<input type="text" name="address" id='searchAddress'>
+				<input type="submit" value="찾기" name='roomSearch' id='roomSearch'/>
+			</div>
+			<br>
+			<div class="genderField">
+	              <label class="field-title"><strong>성별</strong></label>
+	              <div name="gender" id="gender">
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">남성전용</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="checkbox2" name="gender"><label for="checkbox2">여성전용</label></div>
+	              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="checkbox3" name="gender"><label for="checkbox3">남녀공용</label></div>
+	              </div>
+	        </div>
+	        <br><br><br>
+	        <div class="petField">
+	              <label class="field-title"><strong>반려동물</strong></label>
+	              <div name="pet" id="pet">
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">가능</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="checkbox5" name="pet"><label for="checkbox5">불가능</label></div>
+	              </div>
+	        </div>
+	        <br>
+	        <div class="branchThemeField">
+	              <label class="field-title"><strong>테마</strong></label>
+	              <div name="branchTheme" id="branchTheme">
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="checkbox6" name="branchTheme"><label for="checkbox6">있음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="checkbox7" name="branchTheme"><label for="checkbox7">없음</label></div>
+	              </div>
+	        </div>
         </div>
     </div>
+    
     <br>
+    
 
 	<!-- gallery Page Content -->
     <div class="container" id="container">
     
-      <h1 class="my-4 text-center text-lg-left"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
+      <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
 
 	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery-->
-	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list' style="display: none;">
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
 	          	<span th:text='${dto.branchNumber}' name='branchNumber' id='branchNumber' />
@@ -114,7 +213,7 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 8 // 지도의 확대 레벨
+        level: 9 // 지도의 확대 레벨
     };  
 
 // 지도를 생성
@@ -123,8 +222,8 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 var geocoder = new daum.maps.services.Geocoder();
 //리스트 출력한 name="addressList"를 getElementsByName으로 받아서 addressList 변수에 대입
 var addressList = document.getElementsByName("addressList");
-//좌표를 담는 메서드
-var coords;
+/* //좌표를 담는 메서드
+var coords; */
 //호점 배열담기
 var branchNumber = document.getElementsByName('branchNumber');
 //branchNumber 증가 변수
@@ -132,25 +231,8 @@ var i=0;
 
 //갤러리,주소를 지도 위에 띄우기
 window.onload = function(){
-	for(k=0; k<addressList.length; k++){
-	   	geocoder.addressSearch(addressList[k].textContent, callback);
-	}
-	paging();
-	//4개씩 보여주기로 한다.(함수호출)
-	//나와야하는 갤러리개수 : 4개
-	//전체글개수 : addressList.length;
-	//4*??=addressList.length;
-	//??전체글개수 나누기 4 = 더보기 버튼 몇번 활성화(페이지개수)
-	//전체글개수40개라고 하자. 보여줘야할 개수가 4. 10번을 더보기해줘야 된다.
-	//전체글(40)에서 4로 나눴을 때, 나눠 떨어지면..(나머지 0)
-	//전체글(41)에서 4로 나눴을 때, 나눠 떨어지지않으면..(나머지 not 0)
-	//if(addressList.length%4==0){
-	//	for(i=0;i<)	
-	//}
+	searchMap();
 }
-
-
-
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
 function searchMap(){
@@ -165,7 +247,7 @@ jQuery('#roomSearch').on('click',multiSearch);
 //장소검색이 완료됐을 때 호출되는 콜백함수 
 var callback = function(result, status){
     if (status === daum.maps.services.Status.OK) {
-    	coords = new daum.maps.LatLng(result[0].y, result[0].x);
+    	var coords = new daum.maps.LatLng(result[0].y, result[0].x);
         // 결과값으로 받은 위치를 마커로 표시
         var marker = new daum.maps.Marker({
             map: map,
@@ -173,11 +255,12 @@ var callback = function(result, status){
         });
         
         //'검색'을 눌렀을 때, 마커 삭제
-        jQuery("#roomSearch").on('click',function(){
+       jQuery("#roomSearch").on('click',function(){
         	i=0;
     		marker.setMap(null);
     		customOverlay.setMap(null);
-        });
+        	
+       });
         
         jQuery(".checkbox").on('click',function(){
         	i=0;
@@ -197,6 +280,7 @@ var callback = function(result, status){
     }//if end
     	map.setCenter(coords);
 };
+
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -224,11 +308,9 @@ function multiSearch(){
 			async : false,
 			success : function(data){
 				jQuery("#allGallery").remove();
-				alert("받아온데이터주소:"+data[0].address);
 				//받아오는 주소가 널이 아니라면(값이 있다면)
 				if(data[0].address!=null){
-					console.log(data[0].address);
-					content += "<h1 class='my-4 text-center text-lg-left'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
+					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					for(i=0; i<data.length; i++){
 						content+=
 						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
@@ -241,26 +323,18 @@ function multiSearch(){
 					content += "</div>";
 						
 					jQuery("#container").html(content);
-					searchMap();
-				}
-				else{
-					alert(data[0]);
-					return false;
+				
 				}
 			},
 			error : function(data){
 				alert("error");
 			},
 			complete : function(data){
-				alert("complete");
+				searchMap();
 			}
 		});
 	};
-	
-	//더보기페이징(ajax활용)
-	//띄울 때, 8개가 넘어가면 8개부터 디스플레이를 none처리하고 더보기버튼을 block한다.
-	//
-	
+
 
 </script>
 </div>
