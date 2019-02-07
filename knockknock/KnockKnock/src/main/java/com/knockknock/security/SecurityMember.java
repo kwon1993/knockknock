@@ -17,6 +17,7 @@ public class SecurityMember extends User{
 		super(memberDTO.getEmail(),memberDTO.getPassword(),makeAuth(memberDTO));
 	}
 		
+	
 	private static Collection<GrantedAuthority> makeAuth(MemberDTO memberDTO) {
 		Collection<GrantedAuthority> list = new ArrayList<>();
 		System.out.println("makeAuth 작동");

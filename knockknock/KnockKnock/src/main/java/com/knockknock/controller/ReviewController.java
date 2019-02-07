@@ -2,8 +2,7 @@ package com.knockknock.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,23 +16,22 @@ import com.knockknock.service.ReviewService;
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
-
 	
-	  @Resource 
-	  ReviewService reviewService;
+	@Autowired  
+	ReviewService reviewService;
 	  
 	  // 리뷰 목록
 	  
 	  @RequestMapping("/list")
 	  @ResponseBody 
-	  private List<ReviewDTO> reviewServiceList(Model model){ 
-		  return reviewService.reviewListService(); }
+	  private List<ReviewDTO> reviewServiceList(Model model, @RequestParam("branchNumber") int branchNumber){ 
+		  return reviewService.reviewListService(branchNumber); }
 	  
 	  // 리뷰 작성
 	  
-	  @RequestMapping("/insert")
+	  @RequestMapping("/insert")  
 	  @ResponseBody 
-	  private int reviewServiceInsert(@RequestParam("branch_number")
+	  private int reviewServiceInsert(@RequestParam("branchNumber")
 	  int branchNumber, @RequestParam String content) {
 	  
 	  ReviewDTO reviewDTO = new ReviewDTO();
@@ -46,20 +44,20 @@ public class ReviewController {
 	  
 	  @RequestMapping("/update")
 	  @ResponseBody
-	  private int reviewServiceUpdate(@RequestParam("writing_number") int
+	  private int reviewServiceUpdate(@RequestParam("writingNumber") int
 	  writingNumber, @RequestParam String content) {
 		  ReviewDTO reviewDTO = new ReviewDTO(); 
 		  reviewDTO.setWritingNumber(writingNumber);
-	  reviewDTO.setContent(content);
+		  reviewDTO.setContent(content);
 	  
 	  return reviewService.reviewUpdateService(reviewDTO); }
 	  
 	  
 	  // 리뷰 삭제
 	  
-	  @RequestMapping("/delete/{writing_number}")
+	  @RequestMapping("/delete/{writingNumber}")
 	  @ResponseBody 
-	  private int reviewServiceDelete(@PathVariable("writing_number") int writingNumber) {
+	  private int reviewServiceDelete(@PathVariable("writingNumber") int writingNumber) {
 	  return reviewService.reviewDeleteService(writingNumber);
 	  }
 	 
