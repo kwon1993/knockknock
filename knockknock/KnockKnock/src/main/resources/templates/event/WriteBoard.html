@@ -13,7 +13,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 			<p>대표이미지</p>
 			<input type="file" value="선택">
-				<form action="/writeBoard">
+				<form action="/writeBoard" id="writeBoard">
 <!-- 					<input type="hidden" name="memberNumber"> -->
 					<table class="table">
 						<tr>
@@ -55,18 +55,51 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						</tr>
 						<tr>
 							<td>간단 모임소개</td>
-							<td><textarea name="simpleIntroduce"></textarea></td>
+							<td><textarea name="simpleIntroduce" style="width:700px;"></textarea></td>
 						</tr>
 						<tr>
 							<td>상세 모임소개</td>
-							<td><textarea name="detailIntroduce"></textarea></td>
+							<td><textarea name="detailIntroduce" id="smarteditor" rows="10" cols="100" style="width:700px; height:400px;"></textarea></td>
 						</tr>
 						<tr>
-							<td><input type="submit" name="writeBoard" value="개설완료"></td>
+							<td><input type="button" id="completeBtn" value="개설완료"></td>
 						</tr>
 					</table>
 				</form>
 		</div>
+	<script type="text/javascript" th:src="@{//code.jquery.com/jquery-1.11.0.min.js}"></script>
+	<script type="text/javascript" th:src="@{/smarteditor/js/HuskyEZCreator.js}" charset="UTF-8"></script>
+	<script type="text/javascript">
+	$(function(){
+	    //전역변수선언
+	    var editor_object = [];
+	     
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: editor_object,
+	        elPlaceHolder: "smarteditor",
+	        sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+	        htParams : {
+	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseToolbar : true,            
+	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseVerticalResizer : true,    
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseModeChanger : true,
+	        }
+	    });
+	     
+	    //전송버튼 클릭이벤트
+	    $("#completeBtn").click(function(){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	         
+	        // 이부분에 에디터 validation 검증
+	         
+	        //폼 submit
+	        $("#writeBoard").submit();
+	    })
+	})
+	</script>
 	</div>
 </body>
 </html>
