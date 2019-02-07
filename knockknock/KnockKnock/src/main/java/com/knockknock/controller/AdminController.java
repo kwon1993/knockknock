@@ -99,15 +99,24 @@ public class AdminController {
 	public String adminBranchRegistView() {
 		return "admin/AdminBranchRegist";
 	}
+
 	Date defaultDate = null;
+
 	@RequestMapping("adminBranchRegist")
-	public String adminBranchRegist(Model model, @RequestParam("theme") String theme,
-			@RequestParam("bankName") String bankName, @RequestParam("depositor") String depositor,
-			@RequestParam("branchAccount") String branchAccount, @RequestParam("gender") String gender,
-			@RequestParam("branchType") String branchType, @RequestParam("introduce") String introduce,
-			@RequestParam("isParking") String isParking, @RequestParam("isElevator") String isElevator,
-			@RequestParam("pet") String pet, @RequestParam("address") String address,
-			@RequestParam("addressDetail") String addressDetail, @RequestParam("remainAddress") String remainAddress,
+	public String adminBranchRegist(Model model,
+			@RequestParam(value = "theme", required = true, defaultValue = "없음") String theme,
+			@RequestParam(value = "bankName", required = true) String bankName,
+			@RequestParam(value = "depositor", required = true, defaultValue = "knockknock") String depositor,
+			@RequestParam(value = "branchAccount", required = true) String branchAccount,
+			@RequestParam(value = "gender", required = true, defaultValue = "공용") String gender,
+			@RequestParam(value = "branchType", required = true) String branchType,
+			@RequestParam(value = "introduce", required = true, defaultValue = "") String introduce,
+			@RequestParam(value = "isParking", required = true) String isParking,
+			@RequestParam(value = "isElevator", required = true) String isElevator,
+			@RequestParam(value = "pet", required = true) String pet,
+			@RequestParam(value = "address", required = true) String address,
+			@RequestParam(value = "addressDetail", required = false, defaultValue = "") String addressDetail,
+			@RequestParam(value = "remainAddress", required = true, defaultValue = "") String remainAddress,
 			@RequestParam(value = "roomNumber1", required = true, defaultValue = "0") int roomNumber1,
 			@RequestParam(value = "roomNumber2", required = false, defaultValue = "0") int roomNumber2,
 			@RequestParam(value = "roomNumber3", required = false, defaultValue = "0") int roomNumber3,
@@ -164,8 +173,9 @@ public class AdminController {
 			@RequestParam(value = "roomRentableDate6", required = false) String roomRentableDate6,
 			@RequestParam(value = "roomRentableDate7", required = false) String roomRentableDate7,
 			@RequestParam(value = "roomRentableDate8", required = false) String roomRentableDate8,
-			@RequestParam("publicFacility") String publicFacility,
-			@RequestParam("privateFacility") String privateFacility, @RequestParam("rule") String rule) {
+			@RequestParam(value = "publicFacility", required = false, defaultValue = "없음") String publicFacility,
+			@RequestParam(value = "privateFacility", required = false, defaultValue = "없음") String privateFacility,
+			@RequestParam(value = "rule") String rule) {
 		int[] roomNumber = { roomNumber1, roomNumber2, roomNumber3, roomNumber4, roomNumber5, roomNumber6, roomNumber7,
 				roomNumber8 };
 		String[] roomGender = { roomGender1, roomGender2, roomGender3, roomGender4, roomGender5, roomGender6,
@@ -185,8 +195,6 @@ public class AdminController {
 		adminService.roomRegist(branchNumber, roomNumber, roomGender, roomType, roomSpace, roomDeposit, roomMonthlyRent,
 				roomRentableDate, privateFacility);
 
-		System.out.println(roomRentableDate1);
-		
 		return "home/Home";
 	}
 }
