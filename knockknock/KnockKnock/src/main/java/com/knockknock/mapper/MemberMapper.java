@@ -11,4 +11,5 @@ public interface MemberMapper {
 	public MemberDTO findByEmail(MemberDTO memberDTO);
 	public MemberDTO findByName(MemberDTO memberDTO);
 	public MemberDTO checkEmail(MemberDTO memberDTO);
+	public void changePassword(MemberDTO memberDTO);
 }

@@ -90,12 +90,12 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery-->
-	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list' style="display: none;">
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
-	          	<span th:text='${dto.branchNumber}' name='branchNumber' id='branchNumber'/>
-				<span th:text='${dto.address}' name='addressList' id='addressList'/>
-				<span th:text='${dto.theme}' name='theme' id='theme'/>
+	          	<span th:text='${dto.branchNumber}' name='branchNumber' id='branchNumber' />
+				<span th:text='${dto.address}' name='addressList' id='addressList' />
+				<span th:text='${dto.theme}' name='theme' id='theme' />
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -135,6 +135,17 @@ window.onload = function(){
 	for(k=0; k<addressList.length; k++){
 	   	geocoder.addressSearch(addressList[k].textContent, callback);
 	}
+	paging();
+	//4개씩 보여주기로 한다.(함수호출)
+	//나와야하는 갤러리개수 : 4개
+	//전체글개수 : addressList.length;
+	//4*??=addressList.length;
+	//??전체글개수 나누기 4 = 더보기 버튼 몇번 활성화(페이지개수)
+	
+}
+
+function paging(){
+			
 }
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
@@ -146,7 +157,6 @@ function searchMap(){
 
 jQuery('.checkbox').on('click',multiSearch);
 jQuery('#roomSearch').on('click',multiSearch);
-
 
 //장소검색이 완료됐을 때 호출되는 콜백함수 
 var callback = function(result, status){
@@ -183,8 +193,6 @@ var callback = function(result, status){
     }//if end
     	map.setCenter(coords);
 };
-
-
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -244,6 +252,11 @@ function multiSearch(){
 			}
 		});
 	};
+	
+	//더보기페이징(ajax활용)
+	//띄울 때, 8개가 넘어가면 8개부터 디스플레이를 none처리하고 더보기버튼을 block한다.
+	//
+	
 
 </script>
 </div>

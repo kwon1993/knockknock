@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll();
 		//loginProcessingUrl없애니 됨
 		
+		
 		 http
 	      .csrf()
 	      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

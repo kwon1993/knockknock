@@ -73,18 +73,22 @@ public class MemberController {
 	@RequestMapping(value="/findPass", method = RequestMethod.POST)
     public String findPass(MemberDTO memberDTO,RedirectAttributes redirectattr,Errors errors) {
 		System.out.println("findPass매핑");
+		//1.이메일형식검사
         new FindPassValidator().validate(memberDTO, errors);
+        //2.이메일형식 안 맞으면 로그인 페이지로 돌아감
         if(errors.hasErrors()) {
         	System.out.println("error가 있다");
             return "member/Login";
         }
-        
+        //3.이메일형식이 맞으면 서비스 인스턴스 생성
         FindpassService service = new FindpassService();
         
         try {
         	System.out.println("try시작");
+        	//비번찾기를 위한 excute메서드 실행
         	MemberDTO resultDto = service.execute(sqlsession, memberDTO);
-            redirectattr.addFlashAttribute("resultDto",resultDto); 
+            System.out.println("resultDto"+resultDto);
+        	redirectattr.addFlashAttribute("resultDto",resultDto); 
             System.out.println("try끝");
             return "redirect:/sendpass";
         }catch(Exception e)
