@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
-import com.knockknock.dto.event.photoUploadDTO;
 import com.knockknock.service.MeetingAndEventServiceImpl;
 
 @Controller
