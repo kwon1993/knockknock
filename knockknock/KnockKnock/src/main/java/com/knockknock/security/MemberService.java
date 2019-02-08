@@ -2,6 +2,7 @@ package com.knockknock.security;
 
 import java.util.List;
 
+import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -20,5 +21,8 @@ public interface MemberService{
 	
 	//마이페이지
 	public ProfileVDTO getProfile(String username);
+
+	// 내 이벤트 리스트
+	public List<EventVDTO> getMEL(String email);
 
 }

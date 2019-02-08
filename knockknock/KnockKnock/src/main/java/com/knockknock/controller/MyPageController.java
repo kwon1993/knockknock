@@ -35,6 +35,14 @@ public class MyPageController {
 	@RequestMapping("/MyEventList")
 	public String myEventList(Model model, ProfileVDTO profileVDTO) {
 
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		
+		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
+
 		return "member/MyEventList";
 	}
 

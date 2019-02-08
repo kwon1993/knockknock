@@ -80,5 +80,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where M.EMAIL = #{username}
     	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
     </select>
+    
+    <select id="getMEL" resultType="EventVDTO">
+    	SELECT
+    	E.TITLE,
+    	E.ACCEPT_END_TIME acceptEndTime,
+    	E.EVENT_START_TIME eventStartTime,
+    	E.EVENT_END_TIME eventEndTime
+    	FROM JOIN_EVENT JE, EVENT E
+    	WHERE JE.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+   		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
+    </select>
 
 </mapper>

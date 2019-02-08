@@ -636,22 +636,23 @@ img {
 		function showReviewList(){
 			var branchNumber= $("input[name='branchNumber']").val();
 			inner="";
-			
-			alert("브랜치 넘버는: "+branchNumber);
+	
+
+			alert(branchNumber==6);
 			
 			 $.ajax({
-				method:'post', 
+ 				type:'post',  
 				url:'/reviewList',
-				beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
+			 	beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
                      xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                 },
-				data: JSON.stringify({"branchNumber":branchNumber}), // 값 하나만 받아오기
-                dataType:"json",
+                 }, 
+ 				data: {"branchNumber" : branchNumber}, // 값 하나만 받아오기
+                dataType:"text",
 				contentType: "application/json",
-				processData: false,
 				// async:false, async는 deprecated 되었음
 				 success:function(data){
-					alert(data[0]);
+					 alert(data);
+					/* alert(data[0]);
 					$.each(data, function(key, value) {
 						
 						alert(key +"/"+value);
@@ -676,15 +677,12 @@ img {
 						inner += '</div></div>'; 
 						inner+="<br /><h3>성공</h3><br />"
 					});
-					$("#reviewList").html(inner);
+					$("#reviewList").html(inner); */
 				},
 				error:function(data){
 					alert(data+"실패");
 					inner+="<br /><h3>에러 발생</h3><br />"
 					$("#reviewList").html(inner);
-				},
-				complete:function(data){
-					alert(data[0]);
 				}
 			});
 		}; 
