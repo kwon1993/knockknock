@@ -1,5 +1,7 @@
 package com.knockknock.security;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,24 +33,24 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void changePassword(MemberDTO memberDTO) {
 		System.out.println("랜덤번호:");
-//		int randomInt;
-//		String randomStr="";
-//		String tempPassword="";
-//		Random rnd = new Random();
-//
-//		randomInt = (int)(Math.random()*9)+1;
-//		randomStr = String.valueOf((char) ((int) (rnd.nextInt(26)) + 97));
-//		
-//		
-//		for(int i=0; i<9; i++) {
-//			tempPassword+=randomInt+randomStr;
-//		}
+		int randomInt;
+		String randomStr="";
+		String tempPassword="";
+		Random rnd = new Random();
+
+		randomInt = (int)(Math.random()*9)+1;
+		randomStr = String.valueOf((char) ((int) (rnd.nextInt(26)) + 97));
+		System.out.println("랜덤값:"+randomStr);
 		
-//		System.out.println("임시비번은:"+tempPassword);
+		for(int i=0; i<9; i++) {
+			tempPassword+=randomInt+randomStr;
+		}
 		
-//		memberDTO.setPassword(passwordEncoder.encode("1233"));
+		System.out.println("임시비번은:"+tempPassword);
 		
-//		memberMapper.changePassword(memberDTO);
+		memberDTO.setPassword(passwordEncoder.encode("1233"));
+		
+		memberMapper.changePassword(memberDTO);
 	}
 	
 	public ProfileVDTO getProfile(String username){
