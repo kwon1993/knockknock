@@ -49,7 +49,7 @@ public class BranchController {
 		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
 
-		logger.info(branchService.getMemberInfo(branchNumber).toString());
+		// logger.info(branchService.getMemberInfo(branchNumber).toString());
 
 		/*
 		 * // 파일 업로드 테스트 메서드 FileUploadTestForm fileUploadTestForm = new
