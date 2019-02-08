@@ -117,10 +117,11 @@ to {
 		<div class="row">
 			<div class="col-md-11">
 				<div class="sidenav">
-					<a th:href="@{/profileMain}">내 프로필</a> <a
-						th:href="@{/MyMeetingList}">내 모임</a> <a th:href="@{/MyEventList}">내
-						이벤트</a> <a th:href="@{/MyQuestionList}">내 1:1문의</a> <a
-						th:href="@{/MyVisitList}">내 방문신청</a>
+
+					<a th:href="@{/profileMain}">내 프로필</a> 
+					<a th:href="@{/MyMeetingList}">내 모임</a> 
+					<a th:href="@{/MyEventList}">내 이벤트</a> 
+					<a th:href="@{/MyVisitList}">내 방문신청</a>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -149,10 +150,10 @@ to {
 						<tr>
 							<th>모임 주최자</th>
 							<th>제목</th>
-							<th>모집 마감일</th>
+							<th>신청 마감일</th>
 							<th>모임 시작일</th>
 							<th>모임 종료일</th>
-							<th>승인 상태</th>
+							<th>승인 여부</th>
 							<th></th>
 						</tr>
 						<tr th:each="MMLJ:${MMLJ}">

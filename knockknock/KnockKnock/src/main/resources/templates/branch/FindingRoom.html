@@ -315,7 +315,6 @@ function multiSearch(){
 			contentType: 'application/json',
 			async : false,
 			success : function(data){
-				location.reload();
 				jQuery("#allGallery").remove();
 				//받아오는 주소가 널이 아니라면(값이 있다면)
 				if(data[0].address!=null){

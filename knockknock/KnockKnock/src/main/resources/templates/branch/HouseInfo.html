@@ -466,14 +466,14 @@ img {
 							<th>월세</th>
 							<th>입주가능일</th>
 						</tr>
-						<tr th:each="roomInfoList:${roomInfo}">
-							<td th:text="${roomInfoList.roomNumber}"></td>
-							<td th:text="${roomInfoList.gender}"></td>
-							<td th:text="|*{roomInfoList.allowNumber}인실|"></td>
-							<td th:text="${roomInfoList.space}"></td>
-							<td th:text="${roomInfoList.deposit}"></td>
-							<td th:text="${roomInfoList.monthlyRent}"></td>
-							<td th:text="${roomInfoList.rentableDate}"></td>
+						<tr th:each="roomInfo:${roomInfoList}">
+							<td th:text="${roomInfo.roomNumber}"></td>
+							<td th:text="${roomInfo.gender}"></td>
+							<td th:text="|*{roomInfo.allowNumber}인실|"></td>
+							<td th:text="${roomInfo.space}"></td>
+							<td th:text="${roomInfo.deposit}"></td>
+							<td th:text="${roomInfo.monthlyRent}"></td>
+							<td th:text="${roomInfo.rentableDate}"></td>
 						</tr>
 					</table>
 				</div>
@@ -549,7 +549,7 @@ img {
 					</table>
 
 
-
+  
 
 					<br /> <br /> <br />
 
@@ -637,21 +637,20 @@ img {
 			var branchNumber= $("input[name='branchNumber']").val();
 			inner="";
 	
-
-			alert(branchNumber==6);
+			alert(branchNumber);
 			
 			 $.ajax({
  				type:'post',  
 				url:'/reviewList',
 			 	beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
                      xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                 }, 
- 				data: {"branchNumber" : branchNumber}, // 값 하나만 받아오기
-                dataType:"text",
+                 },
+ 				data: JSON.stringify({"branchNumber" : branchNumber}), // 값 하나만 받아오기
+                dataType:"json",
 				contentType: "application/json",
 				// async:false, async는 deprecated 되었음
-				 success:function(data){
-					 alert(data);
+				 success:function(result){
+					 alert(result);
 					/* alert(data[0]);
 					$.each(data, function(key, value) {
 						

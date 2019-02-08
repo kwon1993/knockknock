@@ -74,11 +74,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT
     	M.MEMBER_NUMBER memberNumber,
     	M.NAME,
-    	P.ANIMAL,
-    	P.AMOUNT
-    	FROM MEMBER M, PET P
+    	P.ANIMAL animal
+    	FROM MEMBER M,PET P
     	where M.EMAIL = #{username}
-    	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
+    	and M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
     
     <select id="getMEL" resultType="EventVDTO">
@@ -91,6 +90,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	WHERE JE.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
    		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
+    </select>
+    
+    <select id="getMVL" resultType="VisitDTO">
+    	SELECT
+    	V.BRANCH_NUMBER branchNumber, 
+    	V.RESERVATION_TIME reservationTime,
+    	V.CONFIRM
+    	FROM VISIT V
+    	WHERE
+    	V.MEMBER_NUMBER
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    	ORDER BY CONFIRM ASC, RESERVATION_TIME DESC
     </select>
 
 </mapper>

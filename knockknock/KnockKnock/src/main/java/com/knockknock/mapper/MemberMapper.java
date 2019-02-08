@@ -9,6 +9,7 @@ import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -24,8 +25,10 @@ public interface MemberMapper {
 
 	public void changePassword(MemberDTO memberDTO);
 	//마이페이지
-	public ProfileVDTO getProfile(String username);
+	public List<ProfileVDTO> getProfile(String username);
 	
 	public List<EventVDTO> getMEL(String email);
+	
+	public List<VisitDTO> getMVL(String email);
 	
 }

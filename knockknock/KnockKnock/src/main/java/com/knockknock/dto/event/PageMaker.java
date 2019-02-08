@@ -1,5 +1,7 @@
 package com.knockknock.dto.event;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,4 +44,17 @@ public class PageMaker {
 	public void setCri(Criteria cri) {
 		this.cri = cri;
 	}
+	public String makeQuery(int page, boolean needSearch) {
+		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+			.queryParam("page", page)
+			.queryParam("perPageNum", this.cri.getPerPageNum());
+		//검색 한 경우		
+		if (this.cri.getSearchType() != null) {
+			uriComponentsBuilder
+				.queryParam("searchType", this.cri.getSearchType())
+				.queryParam("keyword", this.cri.getKeyword());
+		}
+		return uriComponentsBuilder.build().encode().toString();
+	}
+	
 }
