@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.mapper.MemberMapper;
 
@@ -35,7 +36,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MeetingDTO getMML(String email) {
-		return memberMapper.getMML(email);
+	public List<MeetingVDTO> getMMLJ(String email) {
+		return memberMapper.getMMLJ(email);
+	}
+
+	@Override
+	public List<MeetingVDTO> getMMLM(String email) {
+		return memberMapper.getMMLM(email);
 	}
 }

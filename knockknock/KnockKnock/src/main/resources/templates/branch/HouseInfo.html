@@ -879,15 +879,20 @@ function showSlides(n) {
 					dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
 					contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
 					success:function(data){
-						inner+="<div class='modal-content'><span class='close'>&times;</span><br /><h3>방문 신청이 완료되었습니다</h3><br /></div>"
+						inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>방문 신청이 완료되었습니다</h3><br /></div>"
 						$("#myModal").html(inner);
 					},
-					error:function(data){ 
-						inner+="<div class='modal-content'><span class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
+					error:function(data){  
+						inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
 						$("#myModal").html(inner);
 					}
 				});
 			};
+			
+			// 동적으로 생성된 태그에 이벤트 걸기
+			$(document).on("click", "#modalx", function(){
+				modal.style.display = "none";
+			});
 		</script>
 		
 		<!-- 지도 동적 로드 -->
