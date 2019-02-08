@@ -44,6 +44,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where address like CONCAT('%',#{address},'%')
 		</if>
    </select>
+   
+   <select id="categoryCount" resultType="int">
+   		SELECT
+   			COUNT(*)
+   		FROM BRANCH	
+   </select>
+   
+   <select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
+	  <![CDATA[
+		SELECT 
+			B.BRANCH_NUMBER branchNumber,
+			B.ADDRESS, B.BRANCH_TYPE branchType,
+			R.GENDER, R.DEPOSIT, R.MONTHLY_RENT monthlyRent,
+			R.RENTABLE_DATE rentableDate 
+		FROM 
+			BRANCH B, ROOM R
+		WHERE 
+			B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER
+		ORDER BY
+			B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	  ]]>   
+   </select>
 
    <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT

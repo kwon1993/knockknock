@@ -11,36 +11,47 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <div layout:fragment="content" class="container">
   <div class="w3-container">
   <div class="jumbotron">
+	<div>
+		<form action="/categoryRoomSearch">
+		<input type="text" name="address"/>	
+		<button type="submit" name="categoryRoomSearch" id="categoryRoomSearch">관심사 검색</button>	   
+		</form>
+	</div>  
+	
 <table class="w3-table-all">
 	<tr>
 		<td>방번호</td>
 		<td>위치</td>
-		<td>주거유형</td>
-		<td>주거상태</td>
+		<td>방 이름</td>
+		<td>관심사</td>
+		<td>방 타입</td>
 		<td>보증금</td>
 		<td>월세</td>
-		<td>입주가능날짜</td>
+		<td>입주가능일</td>
+		<td>임주가능 인원</td>
 	</tr>
 	<tr th:each="list : ${lists}">
-		<td th:text="${list.branchNumber}"></td>
+		<td th:text="${list.roomNumber}"></td>
 		<td th:text="${list.address}"></td>
 <!-- 		<td> -->
 <!--             <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a> -->
 <!--         </td> -->
-		<td th:text="${list.branchType}"></td>
+		<td th:text="${list.addressDetail}"></td>
+		<td th:text="${list.theme}"></td>
 		<td th:text="${list.gender}"></td>
 		<td th:text="${list.deposit}"></td>
 		<td th:text="${list.monthlyRent}"></td>
-		<td th:text="${list.rentableDate}"></td>	
+		<td th:text="${list.rentableDate}"></td>
+		<td th:text="${list.allowNumber}"></td>	
     </tr>
     
-    <tr>
-        <td colspan="5">
-            <form action="adminEventWriteView">
-                <input type="submit" value="Write">
-            </form>
-        </td>
-    </tr>
+<!--     <tr> -->
+<!--         <td colspan="5"> -->
+<!--             <form action="adminEventWriteView"> -->
+<!--                 <input type="submit" value="Write"> -->
+<!--             </form> -->
+<!--         </td> -->
+<!--     </tr> -->
 </table>
 	    <div class="box-footer">
               <ul class="pagination">
@@ -61,10 +72,39 @@ layout:decorate="~{etc/fragments/Main_layout}">
             </div>
      </div>
 
-</div>
-  
+  </div>  
 </div>
 
+<!-- <script>
+function ajaxExample(){
+	// 사용자 ID를 갖고 온다.
+	var userId = $("#category").val();
+
+	// name이 같은 체크박스의 값들을 배열에 담는다.
+// 	var checkboxValues = [];
+// 	$("input[name='hobby']:checked").each(function(i) {
+// 		checkboxValues.push($(this).val());
+// 	});
+	
+	// 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+	var allData = { "category": category};
+	
+	$.ajax({
+		url:"goUrl.do",
+		type:'GET',
+		data: allData,
+		success:function(data){
+			alert("완료!");
+			window.opener.location.reload();
+			self.close();
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+			self.close();
+		}
+	});
+}
+</script>-->
 </body>
 </html>
 

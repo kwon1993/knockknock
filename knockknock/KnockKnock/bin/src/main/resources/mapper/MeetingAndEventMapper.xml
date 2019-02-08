@@ -8,11 +8,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="meetingCount" resultType="int">
         SELECT
             COUNT(*)
-<<<<<<< HEAD
-        FROM meeting
-    </select>
-
-=======
         FROM MEETING
     </select>
     <select id="meetingList" resultType="MeetingVDTO">
@@ -76,5 +71,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO JOIN_MEETING (WRITING_NUMBER, MEMBER_NUMBER)
 		VALUES (#{writingNumber}, #{memberNumber})
 	</insert>
->>>>>>> 413138c52e77f8c629036f95f19cf8268d493905
 </mapper>

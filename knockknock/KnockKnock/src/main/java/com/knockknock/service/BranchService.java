@@ -22,15 +22,19 @@ public class BranchService {
 		return branchMapper.findingRoomList(branchDetailVDTO);
 	}
 	
-	//네비게이션바 카테고리로 방찾기검색
+	//네비게이션바 관심사로 방찾기검색
 	public List<BranchDetailVDTO> findingCategoryRoomList(Criteria cri) throws Exception{
 		return branchMapper.findingCategoryRoomList(cri);
 	}
-	//카테고리로 방찾기 페이징처리
+	//관심사로 방찾기 페이징처리
 	public int categoryCountService(Criteria cri) throws Exception{
 		return branchMapper.categoryCount(cri);
 	}
-	
+	//'관심사로 방찾기'에서 방검색
+	public List<BranchDetailVDTO> categoryRoomSearch(String address) throws Exception{
+//		branchMapper.categoryRoomSearch(address);
+		return branchMapper.categoryRoomSearch(address);
+	}
 	//메인화면 심플방검색
 	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO){
 		return branchMapper.simpleRoomSearchList(branchDetailVDTO);
