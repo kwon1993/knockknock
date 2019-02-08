@@ -41,17 +41,40 @@ public class MainController {
 	}
 	
 	//네비게이션바 '카테고리로 방찾기'
-	@RequestMapping(value ="/findingCategoryRoom", method=RequestMethod.GET)
-	public String toFindingCategoryRoom(Model model, Criteria cri) throws Exception {
-
-		//model.addAttribute("lists", branchService.findingCategoryRoomList(cri));
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		//pageMaker.setTotalCount(branchService.categoryCountService(cri));
-		
-		model.addAttribute("pageMaker", pageMaker);
+	@RequestMapping("/findingCategoryRoom")
+	public String toFindingCategoryRoom(Model model, BranchDetailVDTO branchDetailVDTO) throws Exception {
+		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(branchService.categoryCountService(cri));
+//		
+//		model.addAttribute("pageMaker", pageMaker);
 		return "branch/FindingCategoryRoom";
 	}
+	
+//	@RequestMapping(value ="/findingCategoryRoom", method=RequestMethod.GET)
+//	public String toFindingCategoryRoom(Model model, Criteria cri) throws Exception {
+//		model.addAttribute("lists", branchService.findingCategoryRoomList(cri));
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(branchService.categoryCountService(cri));
+//		
+//		model.addAttribute("pageMaker", pageMaker);
+//		return "branch/FindingCategoryRoom";
+//	}
+	
+
+//	@RequestMapping(value ="/findingCategoryRoom", method=RequestMethod.GET)
+//	public String toFindingCategoryRoom(Model model, Criteria cri) throws Exception {
+//
+//		//model.addAttribute("lists", branchService.findingCategoryRoomList(cri));
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		//pageMaker.setTotalCount(branchService.categoryCountService(cri));
+//		
+//		model.addAttribute("pageMaker", pageMaker);
+//		return "branch/FindingCategoryRoom";
+//	}
 	
 	//네비게이션바 '모임 및 이벤트
 	@RequestMapping("/meetingAndEventMain")

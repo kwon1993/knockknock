@@ -18,7 +18,7 @@ public interface BranchMapper {
 	//네비게이션바 방찾기
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO);
 	//네비게이션바 관심사로 방찾기
-	public List<BranchDetailVDTO> findingCategoryRoomList(Criteria cri) throws Exception;
+	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO) throws Exception;
 	//관심사로 방찾기 페이징 처리
 	public int categoryCount(Criteria cri) throws Exception;
 	//관심사로 찾기의 방검색
