@@ -4,6 +4,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임 만들기</title>
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">  -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  
+<!-- include summernote css/js-->
+<link href="/summernote/summernote.css" rel="stylesheet">
+<script src="/summernote/summernote.js"></script>
+<script src="/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
 
@@ -59,7 +67,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						</tr>
 						<tr>
 							<td>상세 모임소개</td>
-							<td><textarea name="detailIntroduce" id="smarteditor" rows="10" cols="100" style="width:700px; height:400px;"></textarea></td>
+<!-- 							<td><textarea name="detailIntroduce" id="summernote" rows="10" cols="100" style="width:700px; height:400px;"></textarea></td> -->
+								<td><div id="summernote">hello!</div></td>
 						</tr>
 						<tr>
 							<td><input type="button" id="completeBtn" value="개설완료"></td>
@@ -67,39 +76,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					</table>
 				</form>
 		</div>
-	<script type="text/javascript" th:src="@{//code.jquery.com/jquery-1.11.0.min.js}"></script>
-	<script type="text/javascript" th:src="@{/smarteditor/js/HuskyEZCreator.js}" charset="UTF-8"></script>
-	<script type="text/javascript">
-	$(function(){
-	    //전역변수선언
-	    var editor_object = [];
-	     
-	    nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: editor_object,
-	        elPlaceHolder: "smarteditor",
-	        sSkinURI: "/smarteditor/SmartEditor2Skin.html",
-	        htParams : {
-	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseToolbar : true,            
-	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseVerticalResizer : true,    
-	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseModeChanger : true,
-	        }
-	    });
-	     
-	    //전송버튼 클릭이벤트
-	    $("#completeBtn").click(function(){
-	        //id가 smarteditor인 textarea에 에디터에서 대입
-	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-	         
-	        // 이부분에 에디터 validation 검증
-	         
-	        //폼 submit
-	        $("#writeBoard").submit();
-	    })
-	})
-	</script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//아이디가 content 에 서머노트를 적용 한다.
+			  $('#summernote').summernote({
+			      height: 300,          // 기본 높이값
+			      minHeight: null,      // 최소 높이값(null은 제한 없음)
+			      maxHeight: null,      // 최대 높이값(null은 제한 없음)
+			      focus: true,          // 페이지가 열릴때 포커스를 지정함
+			      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+			  });
+			});
+								
+		</script>
 	</div>
 </body>
 </html>

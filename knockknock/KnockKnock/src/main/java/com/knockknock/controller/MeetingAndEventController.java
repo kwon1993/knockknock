@@ -1,6 +1,5 @@
 package com.knockknock.controller;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,7 +7,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -137,38 +135,38 @@ public class MeetingAndEventController {
 //	}
 	
 	//다중 파일업로드
-	@RequestMapping("/multiplePhotoUpload")
-	@ResponseBody
-	public String multiplePhotoUpload(HttpServletRequest request) {
-		//파일정보
-		StringBuffer sb = new StringBuffer();
-		try {
-			//파일명을 받는다 - 일반 원본파일명
-			String oldName = request.getHeader("file-name");
-			//파일 기본경로_상세경로
-			String filePath = "D:/gitKonckpro/knockknock/KnockKnock/src/main/resources/static/images/event/";
-			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
-                    .format(System.currentTimeMillis()))
-                    .append(oldName.substring(oldName.lastIndexOf("."))).toString();
-			InputStream is = request.getInputStream();
-			OutputStream os = new FileOutputStream(filePath + saveName);
-			int numRead;
-			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
-			while((numRead = is.read(b,0,b.length))!=-1) {
-				os.write(b,0,numRead);
-			}
-			os.flush();
-			os.close();
-			//정보출력
-			sb = new StringBuffer();
-            sb.append("&bNewLine=true")
-            .append("&sFileName=").append(oldName)
-            .append("&sFileURL=").append("http://localhost:1234/writeBoardForm")
-            .append(saveName);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sb.toString();
-	}
+//	@RequestMapping("/multiplePhotoUpload")
+//	@ResponseBody
+//	public String multiplePhotoUpload(HttpServletRequest request) {
+//		//파일정보
+//		StringBuffer sb = new StringBuffer();
+//		try {
+//			//파일명을 받는다 - 일반 원본파일명
+//			String oldName = request.getHeader("file-name");
+//			//파일 기본경로_상세경로
+//			String filePath = "D:/gitKonckpro/knockknock/KnockKnock/src/main/resources/static/images/event/";
+//			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
+//                    .format(System.currentTimeMillis()))
+//                    .append(oldName.substring(oldName.lastIndexOf("."))).toString();
+//			InputStream is = request.getInputStream();
+//			OutputStream os = new FileOutputStream(filePath + saveName);
+//			int numRead;
+//			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+//			while((numRead = is.read(b,0,b.length))!=-1) {
+//				os.write(b,0,numRead);
+//			}
+//			os.flush();
+//			os.close();
+//			//정보출력
+//			sb = new StringBuffer();
+//            sb.append("&bNewLine=true")
+//            .append("&sFileName=").append(oldName)
+//            .append("&sFileURL=").append("http://localhost:1234/writeBoardForm")
+//            .append(saveName);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return sb.toString();
+//	}
 
 }
