@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.MemberMapper">
     <insert id="register">
-        insert into member(member_number,grade,email,password,nickname,name,birth,gender,join_Time)
+        insert into member(member_number,grade,email,password,phone_number,nickname,name,birth,gender,join_Time,address,address_Detail)
 		values
-		(0,#{grade},#{email},#{password},#{nickname},#{name},now(),'남자',now())
+		(0, '일반회원', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender}, now(), #{address}, #{addressDetail})
     </insert>
 
 	<select id="checkEmail" resultType="MemberDTO">
@@ -18,12 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
     <select id="findById" resultType="MemberDTO">
-    	select email,password,grade from member 
+    	select email,password,grade,name from member 
     	where email = #{id}
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	select email, password, grade from member 
+    	select email, password, grade, name from member 
     	where email = #{email}
     </select>
     
@@ -36,4 +36,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.NAME = #{name}
     	AND M.PHONE_NUMBER = #{phoneNumber}
     </select>
+    
+
+    <select id="getMMLJ" resultType="MeetingVDTO">
+    	SELECT
+    	(SELECT M.NICKNAME FROM MEMBER M WHERE MT.MEMBER_NUMBER=M.MEMBER_NUMBER) AS NICKNAME,
+    	MT.TITLE,
+		MT.ACCEPT_END_TIME acceptEndTime,
+    	MT.MEETING_START_TIME meetingStartTime,
+    	MT.MEETING_END_TIME meetingEndTime,
+    	JM.MEETING_STATUS meetingStatus
+    	FROM MEMBER M, MEETING MT, JOIN_MEETING JM 
+    	WHERE JM.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    	AND M.MEMBER_NUMBER = JM.MEMBER_NUMBER
+    	AND JM.WRITING_NUMBER = MT.WRITING_NUMBER
+    </select>
+    
+    <select id="getMMLM" resultType="MeetingVDTO">
+    	SELECT
+    	MT.TITLE,
+    	MT.ACCEPT_END_TIME acceptEndTime,
+    	MT.MEETING_START_TIME meetingStartTime,
+    	MT.MEETING_END_TIME meetingEndTime
+    	FROM MEETING MT
+    	WHERE MT.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    </select>
+
+    <update id="changePassword">
+    	update member 
+		set password=#{password}
+		where email=#{email}
+    </update>
+    
+    <select id="getProfile" resultType="ProfileVDTO">
+    	SELECT
+    	M.MEMBER_NUMBER memberNumber,
+    	M.NAME,
+    	P.ANIMAL,
+    	P.AMOUNT
+    	FROM MEMBER M, PET P
+    	where M.EMAIL = #{username}
+    	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
+    </select>
+    
+    <select id="getMEL" resultType="EventVDTO">
+    	SELECT
+    	E.TITLE,
+    	E.ACCEPT_END_TIME acceptEndTime,
+    	E.EVENT_START_TIME eventStartTime,
+    	E.EVENT_END_TIME eventEndTime
+    	FROM JOIN_EVENT JE, EVENT E
+    	WHERE JE.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+   		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
+    </select>
+
 </mapper>

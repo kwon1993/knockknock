@@ -24,6 +24,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<div>
 					<span>모임정보</span>
 					<ul>
+						<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
 						<li th:text="'모임 기간 : '+
 						${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
 						${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>

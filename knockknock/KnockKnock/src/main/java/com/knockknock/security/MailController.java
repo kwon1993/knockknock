@@ -27,12 +27,14 @@ public class MailController {
       Map<String, Object> map = model.asMap();
       MemberDTO memberDTO = (MemberDTO)map.get("resultDto");
         
+      System.out.println("이름은: "+memberDTO.getName());
+      
       String setfrom = "springteam11@gmail.com";         
       String tomail  = memberDTO.getEmail();     // 받는 사람 이메일
-      String title   = memberDTO.getNickname() + "님의 아이디와 비밀번호 입니다.";      // 제목
-      String content = memberDTO.getNickname() + "님의 아이디는 " 
+      String title   = memberDTO.getName() + "님의 아이디와 비밀번호 입니다.";      // 제목
+      String content = memberDTO.getName() + "님의 아이디는 " 
                           + memberDTO.getEmail()
-                          + " 비밀번호는 "
+                          + " 임시비밀번호는 "
                           + memberDTO.getPassword()
                           + " 입니다.";    // 내용
        

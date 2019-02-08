@@ -18,7 +18,7 @@ public interface MeetingAndEventMapper {
 	public void meetignViewHit(int writingNumber); //조회수
 	public void meetingInsert(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception; //모임 글쓰기
+			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception; //모임 글쓰기
 	public MeetingDTO meetingModifyForm(int writingNumber);
 	public void meetingModify(int writingNumber, int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
@@ -28,7 +28,6 @@ public interface MeetingAndEventMapper {
 	public int eventCount() throws Exception;
 	public List<EventVDTO> eventList() throws Exception;
 	public int eventSearch() throws Exception;
-	public int fileUpload() throws Exception;
 	public int fileDown() throws Exception;
 	public int likeToggle() throws Exception;
 	public void participate(int writingNumber, int memberNumber) throws Exception;

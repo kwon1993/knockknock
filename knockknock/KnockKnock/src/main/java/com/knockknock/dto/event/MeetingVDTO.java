@@ -26,4 +26,6 @@ public class MeetingVDTO {
 	private int like; //좋아요
 	private String nickname;
 	private String gender; //성별
+	private String favorite; //관심사
+	private String meetingStatus;//모임 승인 상태
 }

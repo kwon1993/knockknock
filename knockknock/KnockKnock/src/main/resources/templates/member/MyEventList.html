@@ -4,23 +4,97 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>내 이벤트 리스트</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 130px;
+  left: 60px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+.main {
+  margin-left: 90px; /* Same width as the sidebar + left position in px */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
 </head>
 <body>
-
-
-
 <div layout:fragment="content" class="container">
+<br /><br /><br /> <br /> 
 
-<div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <h1>내 이벤트 리스트</h1>
-    </div>
+<div class="row">
+			<div class="col-md-11">
+<div class="sidenav">
+  <a th:href="@{/profileMain}">내 프로필</a>
+  <a th:href="@{/MyMeetingList}">내 모임</a>
+  <a th:href="@{/MyEventList}">내 이벤트</a>
+  <a th:href="@{/MyQuestionList}">내 1:1문의</a>
+  <a th:href="@{/MyVisitList}">내 방문신청</a>
+</div>
+</div>
+<div class="col-md-1">
+</div>
 </div>
 
+<div class="main">
+<div id="Join" class="tabcontent">
+				<h3 class="font-weight-bold">참가한 이벤트</h3>
+				<br />
+				<div class="w3-container">
+					<table class="w3-table-all">
+						<tr>
+							<th>모임 주최자</th>
+							<th>제목</th>
+							<th>모집 마감일</th>
+							<th>모임 시작일</th>
+							<th>모임 종료일</th>
+							<th>승인 상태</th>
+							<th></th>
+						</tr>
+						<tr th:each="MMLJ:${MMLJ}">
+							<td th:text="${MMLJ.nickname}"></td>
+							<td th:text="${MMLJ.title}"></td>
+							<td th:text="${MMLJ.acceptEndTime}"></td>
+							<td th:text="${MMLJ.meetingStartTime}"></td>
+							<td th:text="${MMLJ.meetingEndTime}"></td>
+							<td th:text="${MMLJ.meetingStatus}"></td>
+							<td><button class="btn btn-default" id="out">신청 취소</button></td>
+						</tr>
+					</table>
+				</div>
+				<br />
+			</div>
+
+
+</div>  
 </div>
-
-
 </body>
 </html>
+
 
