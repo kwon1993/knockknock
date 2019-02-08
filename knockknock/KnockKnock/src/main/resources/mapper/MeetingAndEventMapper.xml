@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	SIMPLE_INTRODUCE = #{simpleIntroduce}, DETAIL_INTRODUCE = #{detailIntroduce}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
-    <delete id="meetingDelete" parameterType="int">
+    <delete id="meetingDelete" parameterType="int">     
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
 	<insert id="participate"> <!-- 참가하기 -->
