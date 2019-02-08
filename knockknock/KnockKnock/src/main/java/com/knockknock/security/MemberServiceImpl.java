@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -65,6 +66,10 @@ public class MemberServiceImpl implements MemberService{
 	public ProfileVDTO getProfile(String username){
 		return memberMapper.getProfile(username);
 	}		
+
+	public List<EventVDTO> getMEL(String email){
+		return memberMapper.getMEL(email);
+	}
 
 
 }
