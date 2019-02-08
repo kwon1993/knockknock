@@ -18,7 +18,7 @@ public interface MeetingAndEventMapper {
 	public void meetignViewHit(int writingNumber); //조회수
 	public void meetingInsert(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception; //모임 글쓰기
+			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception; //모임 글쓰기
 	public MeetingDTO meetingModifyForm(int writingNumber);
 	public void meetingModify(int writingNumber, int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
