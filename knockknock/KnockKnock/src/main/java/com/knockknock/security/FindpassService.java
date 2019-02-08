@@ -16,10 +16,11 @@ public class FindpassService {
     public MemberDTO execute(SqlSession sqlsession, MemberDTO memberDTO) throws Exception {
            	System.out.println("FindpassService의 execute");
             MemberMapper memberMapper = sqlsession.getMapper(MemberMapper.class);
-            System.out.println("이메일"+memberDTO.getEmail());
+            //System.out.println("이메일"+memberDTO.getEmail());
             //4.이메일 비밀번호를 랜덤하게 변경(업데이트 쿼리)**********
-            memberService.changePassword(memberDTO);
-         	System.out.println("패스워드 변경 완료");
+            //memberService.changePassword(memberDTO);
+            //System.out.println();
+         	//System.out.println("패스워드 변경 완료");
             //5.이메일로 비번 찾아와서 담기(업데이트된 쿼리가 담긴다)
             MemberDTO resultdto = memberMapper.findByEmail(memberDTO);
             System.out.println(resultdto);
