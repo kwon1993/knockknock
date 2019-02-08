@@ -37,6 +37,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	AND M.PHONE_NUMBER = #{phoneNumber}
     </select>
     
+
+    <select id="getMMLJ" resultType="MeetingVDTO">
+    	SELECT
+    	(SELECT M.NICKNAME FROM MEMBER M WHERE MT.MEMBER_NUMBER=M.MEMBER_NUMBER) AS NICKNAME,
+    	MT.TITLE,
+		MT.ACCEPT_END_TIME acceptEndTime,
+    	MT.MEETING_START_TIME meetingStartTime,
+    	MT.MEETING_END_TIME meetingEndTime,
+    	JM.MEETING_STATUS meetingStatus
+    	FROM MEMBER M, MEETING MT, JOIN_MEETING JM 
+    	WHERE JM.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    	AND M.MEMBER_NUMBER = JM.MEMBER_NUMBER
+    	AND JM.WRITING_NUMBER = MT.WRITING_NUMBER
+    </select>
+    
+    <select id="getMMLM" resultType="MeetingVDTO">
+    	SELECT
+    	MT.TITLE,
+    	MT.ACCEPT_END_TIME acceptEndTime,
+    	MT.MEETING_START_TIME meetingStartTime,
+    	MT.MEETING_END_TIME meetingEndTime
+    	FROM MEETING MT
+    	WHERE MT.MEMBER_NUMBER 
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    </select>
+
     <update id="changePassword">
     	update member 
 		set password=#{password}
@@ -54,9 +81,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
     </select>
 
-    <select id="getMML" resultType="MeetingDTO">
-    	SELECT
-    	FROM 
-    	WHERE
-    </select>
 </mapper>

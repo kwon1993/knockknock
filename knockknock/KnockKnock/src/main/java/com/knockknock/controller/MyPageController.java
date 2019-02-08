@@ -53,7 +53,8 @@ public class MyPageController {
 		model.addAttribute("user", user.getUsername());
 		System.out.println(user.getUsername());
 		
-		model.addAttribute("MML", memberService.getMML(user.getUsername()));
+		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 
 		return "member/MyMeetingList";
 	}

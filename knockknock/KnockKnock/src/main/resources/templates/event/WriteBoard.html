@@ -25,6 +25,41 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							<td><input type="text" name="title"></td>
 						</tr>
 						<tr>
+							<td>모임테마</td>
+							<td>
+								<select name=favorite>
+									<option value="없음">없음</option>
+									<option value="IT">IT</option>
+									<option value="컴퓨터">컴퓨터</option>
+									<option value="음악">음악</option>
+									<option value="요리">요리</option>
+									<option value="제과/제빵">제과/제빵</option>
+									<option value="공연">공연</option>
+									<option value="커피">커피</option>
+									<option value="전시">전시</option>
+									<option value="드로잉">드로잉</option>
+									<option value="영화">영화</option>
+									<option value="어학">어학</option>
+									<option value="패션">패션</option>
+									<option value="운동">운동</option>
+									<option value="게임">게임</option>
+									<option value="사진">사진</option>
+									<option value="댄스">댄스</option>
+									<option value="자동차">자동차</option>
+									<option value="독서">독서</option>
+									<option value="여행">여행</option>
+									<option value="와인">와인</option>
+									<option value="낚시">낚시</option>
+									<option value="인문학">인문학</option>
+									<option value="천문학">천문학</option>
+									<option value="꽃꽃이">꽃꽃이</option>
+									<option value="가드닝">가드닝</option>
+									<option value="캘리그라피">캘리그라피</option>
+									<option value="스터디">스터디</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
 							<td>모임기간</td>
 							<td><input type="date" name="meetingStartTime">부터
 							<input type="date" name="meetingEndTime">까지</td>
@@ -59,17 +94,17 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						</tr>
 						<tr>
 							<td>상세 모임소개</td>
-							<td><textarea name="detailIntroduce" id="smarteditor" rows="10" cols="100" style="width:700px; height:400px;"></textarea></td>
+							<td><textarea name="detailIntroduce" rows="10" cols="100" style="width:700px; height:400px;"></textarea></td>
 						</tr>
 						<tr>
-							<td><input type="button" id="completeBtn" value="개설완료"></td>
+							<td><input type="submit" id="completeBtn" value="개설완료"></td>
 						</tr>
 					</table>
 				</form>
 		</div>
-	<script type="text/javascript" th:src="@{//code.jquery.com/jquery-1.11.0.min.js}"></script>
-	<script type="text/javascript" th:src="@{/smarteditor/js/HuskyEZCreator.js}" charset="UTF-8"></script>
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript" th:src="@{//code.jquery.com/jquery-1.11.0.min.js}"></script> -->
+<!-- 	<script type="text/javascript" th:src="@{/smarteditor/js/HuskyEZCreator.js}" charset="UTF-8"></script> -->
+	<!-- <script type="text/javascript">
 	$(function(){
 	    //전역변수선언
 	    var editor_object = [];
@@ -100,6 +135,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	    })
 	})
 	</script>
+	 -->
 	</div>
 </body>
 </html>

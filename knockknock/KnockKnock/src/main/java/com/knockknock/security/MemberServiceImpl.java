@@ -1,12 +1,14 @@
 package com.knockknock.security;
 
+
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.mapper.MemberMapper;
@@ -31,6 +33,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public List<MeetingVDTO> getMMLJ(String email) {
+		return memberMapper.getMMLJ(email);
+	}
+
+	@Override
+	public List<MeetingVDTO> getMMLM(String email) {
+		return memberMapper.getMMLM(email);
+	}
+
 	public void changePassword(MemberDTO memberDTO) {
 		System.out.println("랜덤번호:");
 		int randomInt;
@@ -57,7 +68,5 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.getProfile(username);
 	}		
 
-	public MeetingDTO getMML(String email) {
-		return memberMapper.getMML(email);
-	}
+
 }
