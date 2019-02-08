@@ -19,6 +19,7 @@ body {
   background: #eee;
   overflow-x: hidden;
   padding: 8px 0;
+  margin-right:30px
 }
 
 .sidenav a {
@@ -42,6 +43,13 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+#profileContainer{
+	margin-left:400px;
+	
+}
+
+
 </style>
 
 </head>
@@ -51,27 +59,41 @@ body {
 <br /><br /><br /> <br /> 
 
 <div class="row">
-			<div class="col-md-11">
-<div class="sidenav">
-  <a th:href="@{/profileMain}">내 프로필</a>
-  <a th:href="@{/MyMeetingList}">내 모임</a>
-  <a th:href="@{/MyEventList}">내 이벤트</a>
-  <a th:href="@{/MyQuestionList}">내 1:1문의</a>
-  <a th:href="@{/MyVisitList}">내 방문신청</a>
-</div>
-</div>
-<div class="col-md-1">
-</div>
+	<div class="col-md-11">
+		<div class="sidenav">
+		  <a th:href="@{/profileMain}">내 프로필</a>
+		  <a th:href="@{/MyMeetingList}">내 모임</a>
+		  <a th:href="@{/MyEventList}">내 이벤트</a>
+		  <a th:href="@{/MyVisitList}">내 방문신청</a>
+		</div>
+	</div>
 </div>
 
 <div class="main">
   <h2>내 프로필</h2>
-  <p>This sidebar is as tall as its content (the links), and is always shown.</p>
-  <p>Scroll down the page to see the result.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+	<div class="container" id="profileContainer">
+		<div class='row text-center text-lg-left' id='allGallery'>
+			<a class='d-block mb-4 h-100' id='gallery'>
+		        <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'><br>
+			</a>
+		</div>
+		<div>
+			<div th:each="profile:${profile}"> 
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label>
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label>
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label>
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label>
+			
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		</div>
+		<div>
+			<div th:each="profile:${profile}"> 
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label>
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		</div>
+	</div>
 </div>  
 
 

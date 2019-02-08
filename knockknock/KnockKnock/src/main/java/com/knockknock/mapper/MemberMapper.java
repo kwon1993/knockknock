@@ -23,6 +23,6 @@ public interface MemberMapper {
 
 	public void changePassword(MemberDTO memberDTO);
 	//마이페이지
-	public ProfileVDTO getProfile(String username);
+	public List<ProfileVDTO> getProfile(String username);
 	
 }
