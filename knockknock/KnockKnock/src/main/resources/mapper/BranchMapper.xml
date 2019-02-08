@@ -47,27 +47,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <select id="categoryCount" resultType="int">
    		SELECT
-   			COUNT(*)
-   		FROM BRANCH	
+   			COUNT(BRANCH_NUMBER)
+   		FROM BRANCH	WHERE BRANCH_NUMBER > 0
    </select>
    
    <select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
-	  <![CDATA[
-		SELECT 
-			B.BRANCH_NUMBER branchNumber,
-			B.ADDRESS, B.BRANCH_TYPE branchType,
-			R.GENDER, R.DEPOSIT, R.MONTHLY_RENT monthlyRent,
-			R.RENTABLE_DATE rentableDate 
-		FROM 
-			BRANCH B, ROOM R
-		WHERE 
-			B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER
-		ORDER BY
-			B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC
-		LIMIT #{pageStart}, #{perPageNum}
-	  ]]>   
+  	SELECT
+ 			R.ROOM_NUMBER roomNumber, B.ADDRESS,
+			B.ADDRESS_DETAIL addressDetail,B.THEME,
+ 			R.GENDER, R.DEPOSIT,
+ 			R.MONTHLY_RENT monthlyRent,
+ 			R.RENTABLE_DATE rentableDate,
+			R.ALLOW_NUMBER allowNumber
+   	FROM 	ROOM R, BRANCH B
+   	WHERE 	R.BRANCH_NUMBER = B.BRANCH_NUMBER
+    ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC
+   	LIMIT 	#{pageStart}, #{perPageNum}
+   		
+<!-- 	  <![CDATA[ -->
+<!-- 		SELECT  -->
+<!-- 			B.BRANCH_NUMBER branchNumber, -->
+<!-- 			B.ADDRESS, B.BRANCH_TYPE branchType, -->
+<!-- 			R.GENDER, R.DEPOSIT, R.MONTHLY_RENT monthlyRent, -->
+<!-- 			R.RENTABLE_DATE rentableDate  -->
+<!-- 		FROM  -->
+<!-- 			BRANCH B, ROOM R -->
+<!-- 		WHERE  -->
+<!-- 			B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER -->
+<!-- 		ORDER BY -->
+<!-- 			B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC -->
+<!-- 		LIMIT #{pageStart}, #{perPageNum} -->
+<!-- 	  ]]>    -->
    </select>
-
+   <select id="categoryRoomSearch" resultType="BranchDetailVDTO">
+   		SELECT
+ 			R.ROOM_NUMBER roomNumber, B.ADDRESS,
+			B.ADDRESS_DETAIL addressDetail,B.THEME,
+ 			R.GENDER, R.DEPOSIT,
+ 			R.MONTHLY_RENT monthlyRent,
+ 			R.RENTABLE_DATE rentableDate,
+			R.ALLOW_NUMBER allowNumber
+		FROM BRANCH B, ROOM R
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+ 			<if test="address!=null">
+			where R.BRANCH_NUMBER = B.BRANCH_NUMBER 
+			AND address like CONCAT('%',#{address},'%')
+ 			</if>
+<!-- 		</trim> -->
+		ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC	
+   </select>
+   
    <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,

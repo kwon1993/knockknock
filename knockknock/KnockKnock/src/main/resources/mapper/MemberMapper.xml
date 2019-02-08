@@ -74,11 +74,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT
     	M.MEMBER_NUMBER memberNumber,
     	M.NAME,
-    	P.ANIMAL,
-    	P.AMOUNT
-    	FROM MEMBER M, PET P
+    	P.ANIMAL animal
+    	FROM MEMBER M,PET P
     	where M.EMAIL = #{username}
-    	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER 
+    	and M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
     
     <select id="getMEL" resultType="EventVDTO">

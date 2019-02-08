@@ -22,7 +22,7 @@ public interface MemberService{
 	public void changePassword(MemberDTO memberDTO);
 	
 	//마이페이지
-	public ProfileVDTO getProfile(String username);
+	public List<ProfileVDTO> getProfile(String username);
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);

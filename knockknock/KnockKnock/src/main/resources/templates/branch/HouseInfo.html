@@ -466,14 +466,14 @@ img {
 							<th>월세</th>
 							<th>입주가능일</th>
 						</tr>
-						<tr th:each="roomInfoList:${roomInfo}">
-							<td th:text="${roomInfoList.roomNumber}"></td>
-							<td th:text="${roomInfoList.gender}"></td>
-							<td th:text="|*{roomInfoList.allowNumber}인실|"></td>
-							<td th:text="${roomInfoList.space}"></td>
-							<td th:text="${roomInfoList.deposit}"></td>
-							<td th:text="${roomInfoList.monthlyRent}"></td>
-							<td th:text="${roomInfoList.rentableDate}"></td>
+						<tr th:each="roomInfo:${roomInfoList}">
+							<td th:text="${roomInfo.roomNumber}"></td>
+							<td th:text="${roomInfo.gender}"></td>
+							<td th:text="|*{roomInfo.allowNumber}인실|"></td>
+							<td th:text="${roomInfo.space}"></td>
+							<td th:text="${roomInfo.deposit}"></td>
+							<td th:text="${roomInfo.monthlyRent}"></td>
+							<td th:text="${roomInfo.rentableDate}"></td>
 						</tr>
 					</table>
 				</div>

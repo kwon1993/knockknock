@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.changePassword(memberDTO);
 	}
 	
-	public ProfileVDTO getProfile(String username){
+	public List<ProfileVDTO> getProfile(String username){
 		return memberMapper.getProfile(username);
 	}		
 

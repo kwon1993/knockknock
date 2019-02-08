@@ -1,81 +1,117 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/Main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>마이페이지-프로필</title>
+<title>마이페이지-프로필</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
-  font-family: "Lato", sans-serif;
+	font-family: "Lato", sans-serif;
 }
 
 .sidenav {
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 130px;
-  left: 60px;
-  background: #eee;
-  overflow-x: hidden;
-  padding: 8px 0;
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 130px;
+	left: 60px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
+	margin-right: 30px
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #2196F3;
-  display: block;
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #2196F3;
+	display: block;
 }
 
 .sidenav a:hover {
-  color: #064579;
+	color: #064579;
 }
 
 .main {
-  margin-left: 90px; /* Same width as the sidebar + left position in px */
-  padding: 0px 10px;
+	margin-left: 90px; /* Same width as the sidebar + left position in px */
+	padding: 0px 10px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+#profileContainer {
+	margin-left: 400px;
 }
 </style>
 
 </head>
 
 <body>
-<div layout:fragment="content" class="container">
-<br /><br /><br /> <br /> 
+	<div layout:fragment="content" class="container">
+		<br />
+		<br />
+		<br /> <br />
 
-<div class="row">
+		<div class="row">
 			<div class="col-md-11">
-<div class="sidenav">
-  <a th:href="@{/profileMain}">내 프로필</a>
-  <a th:href="@{/MyMeetingList}">내 모임</a>
-  <a th:href="@{/MyEventList}">내 이벤트</a>
-  <a th:href="@{/MyVisitList}">내 방문신청</a>
-</div>
-</div>
-<div class="col-md-1">
-</div>
-</div>
+				<div class="sidenav">
+					<a th:href="@{/profileMain}">내 프로필</a> <a
+						th:href="@{/MyMeetingList}">내 모임</a> <a th:href="@{/MyEventList}">내
+						이벤트</a> <a th:href="@{/MyVisitList}">내 방문신청</a>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
 
-<div class="main">
-  <h2>내 프로필</h2>
-  <p>This sidebar is as tall as its content (the links), and is always shown.</p>
-  <p>Scroll down the page to see the result.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-</div>  
+		</div>
+
+		<div class="main">
+			<h2>내 프로필</h2>
+			<div class="container" id="profileContainer">
+				<div class='row text-center text-lg-left' id='allGallery'>
+					<a class='d-block mb-4 h-100' id='gallery'> <img
+						class='img-fluid img-thumbnail' src="http://placehold.it/400x300"
+						alt="" id='img'><br>
+					</a>
+				</div>
+				<div>
+					<div th:each="profile:${profile}">
+						<label for="name">이름: <span th:text='${profile.name}'
+							name='name' id='name' />
+						</label> <label for="name">이름: <span th:text='${profile.name}'
+							name='name' id='name' />
+						</label> <label for="name">이름: <span th:text='${profile.name}'
+							name='name' id='name' />
+						</label> <label for="name">이름: <span th:text='${profile.name}'
+							name='name' id='name' />
+						</label>
+					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+				<div>
+					<div th:each="profile:${profile}">
+						<label for="name">이름: <span th:text='${profile.name}'
+							name='name' id='name' />
+						</label>
+					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+			</div>
+		</div>
 
 
 
-</div>
+	</div>
 
 </body>
 </html>

@@ -29,16 +29,24 @@ public class BranchController {
 	@PostMapping("/roomSearch")
 	@ResponseBody
 	public List<BranchDetailVDTO> roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
-
 		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
+	}
+	//관심사로 방찾기의 방검색
+	@RequestMapping("/categoryRoomSearch")
+	public String categoryRoomSearch(@RequestParam("address") String address, Model model) throws Exception {
+		System.out.println(address);
+		
+		//model.addAttribute("lists", branchService.categoryRoomSearch(address));
+		
+		return "branch/FindingCategoryRoom";
 	}
 
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
-		model.addAttribute("roomInfo", branchService.getRoomInfo(branchNumber));
+		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
 
 		// logger.info(branchService.getMemberInfo(branchNumber).toString());
