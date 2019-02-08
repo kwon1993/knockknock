@@ -1,17 +1,12 @@
 package com.knockknock.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Service
@@ -31,5 +26,36 @@ public class MemberServiceImpl implements MemberService{
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 		//4.인코딩 후, memberMapper로 등록을 간다
 		memberMapper.register(memberDTO);
+	}
+
+	@Override
+	public void changePassword(MemberDTO memberDTO) {
+		System.out.println("랜덤번호:");
+//		int randomInt;
+//		String randomStr="";
+//		String tempPassword="";
+//		Random rnd = new Random();
+//
+//		randomInt = (int)(Math.random()*9)+1;
+//		randomStr = String.valueOf((char) ((int) (rnd.nextInt(26)) + 97));
+//		
+//		
+//		for(int i=0; i<9; i++) {
+//			tempPassword+=randomInt+randomStr;
+//		}
+		
+//		System.out.println("임시비번은:"+tempPassword);
+		
+//		memberDTO.setPassword(passwordEncoder.encode("1233"));
+		
+//		memberMapper.changePassword(memberDTO);
+	}
+	
+	public ProfileVDTO getProfile(String username){
+		return memberMapper.getProfile(username);
+	}		
+
+	public MeetingDTO getMML(String email) {
+		return memberMapper.getMML(email);
 	}
 }
