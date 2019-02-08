@@ -24,5 +24,4 @@ public interface MemberService{
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);
-
 }
