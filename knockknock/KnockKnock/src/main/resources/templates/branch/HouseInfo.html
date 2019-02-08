@@ -549,7 +549,7 @@ img {
 					</table>
 
 
-
+  
 
 					<br /> <br /> <br />
 
@@ -637,21 +637,20 @@ img {
 			var branchNumber= $("input[name='branchNumber']").val();
 			inner="";
 	
-
-			alert(branchNumber==6);
+			alert(branchNumber);
 			
 			 $.ajax({
  				type:'post',  
 				url:'/reviewList',
 			 	beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
                      xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                 }, 
- 				data: {"branchNumber" : branchNumber}, // 값 하나만 받아오기
-                dataType:"text",
+                 },
+ 				data: JSON.stringify({"branchNumber" : branchNumber}), // 값 하나만 받아오기
+                dataType:"json",
 				contentType: "application/json",
 				// async:false, async는 deprecated 되었음
-				 success:function(data){
-					 alert(data);
+				 success:function(result){
+					 alert(result);
 					/* alert(data[0]);
 					$.each(data, function(key, value) {
 						

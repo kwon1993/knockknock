@@ -12,6 +12,7 @@ import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Service
@@ -73,5 +74,8 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.getMEL(email);
 	}
 
+	public List<VisitDTO> getMVL(String email){
+		return memberMapper.getMVL(email);
+	}
 
 }

@@ -40,8 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/**").permitAll()
+		http.csrf().disable().
+		authorizeRequests()
+		.antMatchers("/**","/reviewList").permitAll()
 		.and()
 		.formLogin()
 		.loginPage("/login")
@@ -56,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		
 		 http
-	      .csrf()
-	      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+	     .csrf()
+	     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 		
 		//스마트에디터 관련 설정
 	    http.headers().frameOptions().disable();	

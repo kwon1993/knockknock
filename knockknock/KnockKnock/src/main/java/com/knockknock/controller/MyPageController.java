@@ -16,17 +16,17 @@ public class MyPageController {
 
 	@Autowired
 	MemberService memberService;
-	
+
 	@RequestMapping("/profileMain")
-	public String profileMain(Model model,ProfileVDTO profileVDTO,Authentication authentication){
+	public String profileMain(Model model, ProfileVDTO profileVDTO, Authentication authentication) {
 		// 현재 로그인 사용자 정보에 접근
-		authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
-	
+
 		model.addAttribute("user", user.getUsername());
 		String username = user.getUsername();
-		System.out.println("유저아이디:"+user.getUsername());
-	      
+		System.out.println("유저아이디:" + user.getUsername());
+
 		System.out.println(memberService.getProfile(username));
 		model.addAttribute("profile", memberService.getProfile(username));
 		return "member/MyProfile";
@@ -40,15 +40,10 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
-		
+
 		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
 
 		return "member/MyEventList";
-	}
-
-	@RequestMapping("/MyVisitList")
-	public String myVisitList(Model model, ProfileVDTO profileVDTO) {
-		return "member/MyVisitList";
 	}
 
 	@RequestMapping("/MyMeetingList")
@@ -60,17 +55,24 @@ public class MyPageController {
 
 		model.addAttribute("user", user.getUsername());
 		System.out.println(user.getUsername());
-		
+
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 
 		return "member/MyMeetingList";
 	}
 
-	@RequestMapping("/MyQuestionList")
-	public String AdminQuestionList(Model model, ProfileVDTO profileVDTO) {
-		return "member/MyQuestionList";
+	@RequestMapping("/MyVisitList")
+	public String myVisitList(Model model, ProfileVDTO profileVDTO) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+
+		model.addAttribute("MVL", memberService.getMVL(user.getUsername()));
+		return "member/MyVisitList";
 	}
 
 }
-	

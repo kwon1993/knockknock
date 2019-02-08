@@ -36,7 +36,7 @@ public class MainController {
 	@RequestMapping("/findingRoom")
 	public String toFindingRoom(Model model, BranchDetailVDTO branchDetailVDTO) {
 		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
-		System.out.println(branchDetailVDTO.getTheme());
+		//System.out.println(branchDetailVDTO.getTheme());
 		return "branch/FindingRoom";
 	}
 	

@@ -6,8 +6,10 @@ import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.dto.member.VisitDTO;
 
 public interface MemberService{
+
 	public void register(MemberDTO memberDTO);
 	
 	// 내 모임 리스트 - 신청
@@ -24,5 +26,8 @@ public interface MemberService{
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);
+	
+	// 내 방문 신청 리스트
+	public List<VisitDTO> getMVL(String email);
 
 }
