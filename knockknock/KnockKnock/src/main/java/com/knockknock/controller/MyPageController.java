@@ -18,15 +18,17 @@ public class MyPageController {
 	MemberService memberService;
 	
 	@RequestMapping("/profileMain")
-	public String profileMain(Model model, ProfileVDTO profileVDTO) {
-
+	public String profileMain(Model model,ProfileVDTO profileVDTO,Authentication authentication){
 		// 현재 로그인 사용자 정보에 접근
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		authentication = SecurityContextHolder.getContext().getAuthentication(); 
 		User user = (User) authentication.getPrincipal();
-
+	
 		model.addAttribute("user", user.getUsername());
-		System.out.println(user.getUsername());
-
+		String username = user.getUsername();
+		System.out.println("유저아이디:"+user.getUsername());
+	      
+		System.out.println(memberService.getProfile(username));
+		model.addAttribute("profile", memberService.getProfile(username));
 		return "member/MyProfile";
 	}
 
@@ -61,4 +63,6 @@ public class MyPageController {
 	public String AdminQuestionList(Model model, ProfileVDTO profileVDTO) {
 		return "member/MyQuestionList";
 	}
+
 }
+	
