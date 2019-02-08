@@ -62,7 +62,33 @@ body {
 </div>
 
 <div class="main">
-
+<div id="Join" class="tabcontent">
+				<h3 class="font-weight-bold">참가한 이벤트</h3>
+				<br />
+				<div class="w3-container">
+					<table class="w3-table-all">
+						<tr>
+							<th>모임 주최자</th>
+							<th>제목</th>
+							<th>모집 마감일</th>
+							<th>모임 시작일</th>
+							<th>모임 종료일</th>
+							<th>승인 상태</th>
+							<th></th>
+						</tr>
+						<tr th:each="MMLJ:${MMLJ}">
+							<td th:text="${MMLJ.nickname}"></td>
+							<td th:text="${MMLJ.title}"></td>
+							<td th:text="${MMLJ.acceptEndTime}"></td>
+							<td th:text="${MMLJ.meetingStartTime}"></td>
+							<td th:text="${MMLJ.meetingEndTime}"></td>
+							<td th:text="${MMLJ.meetingStatus}"></td>
+							<td><button class="btn btn-default" id="out">신청 취소</button></td>
+						</tr>
+					</table>
+				</div>
+				<br />
+			</div>
 
 
 </div>  
