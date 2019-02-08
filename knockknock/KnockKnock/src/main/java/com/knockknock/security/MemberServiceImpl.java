@@ -38,6 +38,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MeetingVDTO> getMMLM(String email) {
 		return memberMapper.getMMLM(email);
+	}
 
 	public void changePassword(MemberDTO memberDTO) {
 		System.out.println("랜덤번호:");
