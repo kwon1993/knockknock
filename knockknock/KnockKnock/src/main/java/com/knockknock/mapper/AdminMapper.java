@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.VisitVDTO;
 
 @Mapper
 public interface AdminMapper {
@@ -31,6 +32,14 @@ public interface AdminMapper {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
 
 	public void eventDelete(int writingNumber);
+	
+	//visit
+	
+	public ArrayList<VisitVDTO> visitListView();
+	
+	public VisitVDTO visitView(int writingNumber);
+	
+	public void visitCheck(int writingNumber);
 
 	// branch
 

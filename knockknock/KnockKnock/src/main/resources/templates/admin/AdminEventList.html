@@ -7,46 +7,51 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-
 	<div layout:fragment="content" class="container">
-
 		<div class="jumbotron">
 			<h1>이벤트 등록 페이지</h1>
 		</div>
-
-		<div class="w3-container">
-			<table class="w3-table-all">
-				<tr>
-					<td>글번호</td>
-					<td>닉네임</td>
-					<td>제목</td>
-					<td>조회수</td>
-					<td>작성시간</td>
-				</tr>
-
-				<tr th:each="list : ${eventListView}">
-					<td th:text="${list.writingNumber}"></td>
-					<td th:text="${list.nickname}"></td>
-					<td><a
-						th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p
-								th:text="${list.title}"></p></a></td>
-					<td th:text="${list.hit}"></td>
-					<td th:text="${list.writeTime}"></td>
-				</tr>
-
-				<tr>
-					<td colspan="5">
-						<form action="adminEventWriteView">
-							<input type="submit" value="Write">
-						</form>
-					</td>
-				</tr>
-			</table>
-
+		<div class="row">
+			<div class="col-md-2">
+				<h3>관리 메뉴</h3>
+				<div class="sidenav">
+					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+						th:href="@{adminMemberSearch}">회원관리</a><br> <a
+						th:href="@{adminVisitList}">방문문의관리</a><br> <a
+						th:href="@{adminBranchRegistView}">지점등록</a><br>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="w3-container">
+					<table class="w3-table-all">
+						<tr>
+							<td>글번호</td>
+							<td>닉네임</td>
+							<td>제목</td>
+							<td>조회수</td>
+							<td>작성시간</td>
+						</tr>
+						<tr th:each="list : ${eventListView}">
+							<td th:text="${list.writingNumber}"></td>
+							<td th:text="${list.nickname}"></td>
+							<td><a
+								th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p
+										th:text="${list.title}"></p></a></td>
+							<td th:text="${list.hit}"></td>
+							<td th:text="${list.writeTime}"></td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<form action="adminEventWriteView">
+									<input type="submit" value="Write">
+								</form>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
-
 	</div>
-
 </body>
 </html>
 

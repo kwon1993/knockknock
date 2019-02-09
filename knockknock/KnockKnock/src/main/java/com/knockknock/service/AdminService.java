@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.VisitVDTO;
 
 public interface AdminService {
 
@@ -22,6 +23,13 @@ public interface AdminService {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
 
 	public void eventDelete(int writingNumber);
+	
+	//visit
+	public ArrayList<VisitVDTO> visitList();
+	
+	public VisitVDTO visitView(int writingNumber);
+	
+	public void visitCheck(int writingNumber);
 
 	// branch
 	public void branchRegist(String theme, String bankName, String depositor, String branchAccount, String gender,
