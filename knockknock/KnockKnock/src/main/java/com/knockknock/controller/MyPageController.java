@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
@@ -25,10 +26,9 @@ public class MyPageController {
 	
 		model.addAttribute("user", user.getUsername());
 		String username = user.getUsername();
-		System.out.println("유저아이디:"+user.getUsername());
 	      
-		System.out.println(memberService.getProfile(username));
 		model.addAttribute("profile", memberService.getProfile(username));
+		model.addAttribute("getPet",memberService.getPet(username));
 		return "member/MyProfile";
 	}
 
@@ -46,10 +46,14 @@ public class MyPageController {
 		return "member/MyEventList";
 	}
 
-	@RequestMapping("/MyVisitList")
-	public String myVisitList(Model model, ProfileVDTO profileVDTO) {
-		return "member/MyVisitList";
-	}
+	/*ash
+	 * @RequestMapping("/MyVisitList") public String myVisitList(Model
+	 * model, @RequestParam("memberNumber") int memberNumber) {
+	 * System.out.println(memberNumber);
+	 * model.addAttribute("myVisitLists",memberService.myVisitList(memberNumber));
+	 * 
+	 * return "member/MyVisitList"; }
+	 */
 
 	@RequestMapping("/MyMeetingList")
 	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {

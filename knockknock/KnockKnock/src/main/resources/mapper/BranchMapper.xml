@@ -200,9 +200,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
 	<insert id="visitBooking">
 		INSERT INTO VISIT
-		(BRANCH_NUMBER, RESERVATION_TIME, MEMO)
+		(BRANCH_NUMBER, MEMBER_NUMBER, RESERVATION_TIME, MEMO)
 		VALUES
-		(#{branchNumber}, #{reservationTime}, #{memo})
+		(#{branchNumber}, #{memberNumber}, #{reservationTime}, #{memo})
 	</insert>
    
 </mapper>

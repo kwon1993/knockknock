@@ -5,7 +5,7 @@ import java.util.List;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
-import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.dto.member.VisitVDTO;
 
 public interface MemberService{
 	public void register(MemberDTO memberDTO);
@@ -20,8 +20,13 @@ public interface MemberService{
 	public void changePassword(MemberDTO memberDTO);
 	
 	//마이페이지
-	public List<ProfileVDTO> getProfile(String username);
+	public List<MemberDTO> getProfile(String username);
+	
+	//겟펫
+	public List<MemberDTO> getPet(String username);
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);
+
+	public List<VisitVDTO> myVisitList(int memberNumber);
 }
