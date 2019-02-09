@@ -51,47 +51,7 @@ body {
 	margin-left:400px;
 }
 
-#defaultbox {
-	margin: 0;
-	padding: 10px 300px 5px;
-}
 
-.accordion {
-	background-color: #eee;
-	color: #444;
-	cursor: pointer;
-	padding: 18px;
-	width: 100%;
-	border: none;
-	text-align: left;
-	outline: none;
-	font-size: 15px;
-	transition: 0.4s;
-}
-
-.active, .accordion:hover {
-	background-color: #ccc;
-}
-
-/* .accordion:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
-.active:after {
-  content: "\2212";
-} */
-
-.panel {
-	padding: 0 18px;
-	background-color: white;
-	max-height: 0;
-	overflow: hidden;
-	transition: max-height 0.2s ease-out;
-}
 </style>
 </head>
 <body>
@@ -112,75 +72,25 @@ body {
 		<div class="main">
 			<h2>내 방문 신청</h2>
 
-
-
 			<br />
-
-			<button class="accordion">Section 1</button>
-			<div class="panel">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-					enim ad minim veniam, quis nostrud exercitation ullamco laboris
-					nisi ut aliquip ex ea commodo consequat.</p>
-			</div>
-
-			<button class="accordion">Section 2</button>
-			<div class="panel">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-					enim ad minim veniam, quis nostrud exercitation ullamco laboris
-					nisi ut aliquip ex ea commodo consequat.</p>
-			</div>
-
-			<button class="accordion">Section 3</button>
-			<div class="panel">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-					enim ad minim veniam, quis nostrud exercitation ullamco laboris
-					nisi ut aliquip ex ea commodo consequat.</p>
-			</div>
-
-			<script>
-			var acc = document.getElementsByClassName("accordion");
-			var i;
-
-			for (i = 0; i < acc.length; i++) {
-				acc[i].addEventListener("click", function() {
-					this.classList.toggle("active");
-					var panel = this.nextElementSibling;
-					if (panel.style.maxHeight) {
-						panel.style.maxHeight = null;
-					} else {
-						panel.style.maxHeight = panel.scrollHeight + "px";
-					}
-				});
-			}
-		</script>
-
-
-
-
-
-
-
-
-			
+	
 			<div class="w3-container">
 				<table class="w3-table-all">
 					<tr>
+						<th><input type='checkbox' name='selectAll' /></th>
 						<th>방문 신청 지점</th>
 						<th>예약 시간</th>
 						<th>승인 여부</th>
-						<th></th>
 					</tr>
 					<tr th:each="MVL:${MVL}">
+						<td><input type='checkbox' name='MVL' /></td>
 						<td><a
 							th:href="@{'/MyVisitView/?writingNumber='+${MVL.writingNumber}}"
 							th:text="|낙낙 *{MVL.branchNumber}호점|"></a></td>
 						<td th:text="${MVL.reservationTime}"></td>
 						<!-- <td th:text="${MVL.confirm}"></td> -->
 						<td><a role="button" class="btn btn-default"
-							th:href="@{'/deleteE/?writingNumber='+${MVL.writingNumber}}">신청
+							th:href="@{'/deleteV/?writingNumber='+${MVL.writingNumber}}">신청
 								취소</a></td>
 						<input type="hidden" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}">

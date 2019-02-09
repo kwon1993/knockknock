@@ -43,4 +43,6 @@ public interface MemberMapper {
 	public int deleteMM(int writingNumber, String email);
 	
 	public int deleteJE(int writingNumber, String email);
+	
+	public int deleteV(int writingNumber, String email);
 }

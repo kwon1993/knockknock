@@ -165,5 +165,22 @@ public class MyPageController {
 		
 		return "member/MyEventList";
 	}
+	
+	// 방문 신청 취소
+	@RequestMapping("/deleteV")
+	public String deleteV(Model model, @RequestParam("writingNumber") int writingNumber) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		memberService.deleteV(writingNumber, user.getUsername());
+		
+		// 방문 신청 리스트 다시 받아오기
+		model.addAttribute("MVL", memberService.getMVL(user.getUsername()));
+		
+		return "member/MyVisitList";
+	}
 
 }

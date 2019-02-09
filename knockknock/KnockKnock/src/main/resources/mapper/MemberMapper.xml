@@ -53,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
     	AND M.MEMBER_NUMBER = JM.MEMBER_NUMBER
     	AND JM.WRITING_NUMBER = MT.WRITING_NUMBER
+    	ORDER BY MEETING_STATUS ASC, ACCEPT_END_TIME DESC
     </select>
     
     <select id="getMMLM" resultType="MeetingVDTO">
@@ -151,7 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
-		AND WRITING_NUMBER=#{writingNumber};
+		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 	
 	<delete id="deleteMM">
@@ -159,7 +160,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
-		AND WRITING_NUMBER=#{writingNumber};
+		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 	
 	<delete id="deleteJE">
@@ -167,6 +168,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
-		AND WRITING_NUMBER=#{writingNumber};
+		AND WRITING_NUMBER=#{writingNumber}
+	</delete>
+	
+	<delete id="deleteV">
+		DELETE FROM VISIT
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 </mapper>

@@ -50,4 +50,8 @@ public interface MemberService{
 	
 	// 이벤트 참가 취소
 	public int deleteJE(int writingNumber, String email);
+
+	// 방문 신청 취소
+	public int deleteV(int writingNumber, String email);
+
 }

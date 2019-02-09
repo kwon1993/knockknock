@@ -114,4 +114,10 @@ public class MemberServiceImpl implements MemberService{
 		return 1;
 	}
 
+	@Override
+	public int deleteV(int writingNumber, String email) {
+		memberMapper.deleteV(writingNumber, email);
+		return 1;
+	}
+
 }
