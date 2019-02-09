@@ -77,7 +77,7 @@ body {
 						</tr>
 						<tr th:each="MEL:${MEL}">
 							<td><input type='checkbox' name='MEL' /></td>
-							<td><a th:href="@{'/EventView/?writingNumber='+${MEL.writingNumber}}" th:text="${MEL.title}"></a></td>
+							<td><a th:href="@{'/eventView/?writingNumber='+${MEL.writingNumber}}" th:text="${MEL.title}"></a></td>
 							<td th:text="${MEL.acceptEndTime}"></td>
 							<td th:text="${MEL.eventStartTime}"></td>
 							<td th:text="${MEL.eventEndTime}"></td>
