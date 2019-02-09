@@ -1,14 +1,6 @@
 package com.knockknock.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
@@ -90,9 +81,20 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/eventList") //이벤트 리스트
-	private String eventList(Model model) throws Exception{
-		model.addAttribute("EventList", meServiceImpl.eventListService());
+	private String eventList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception{
+		model.addAttribute("EventList", meServiceImpl.eventListService(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(meServiceImpl.meetingCountService(cri));
+		
+		model.addAttribute("pageMaker", pageMaker);
 		return "event/EventList";
+	}
+	
+	@RequestMapping("/eventView") //미팅 상세보기
+	private String eventView(@RequestParam("writingNumber") int writingNumber, Model model) throws Exception {
+		model.addAttribute("EventView", meServiceImpl.even(writingNumber));
+		return "event/EventView";
 	}
 	
 	@RequestMapping("/participate") //참가하기
