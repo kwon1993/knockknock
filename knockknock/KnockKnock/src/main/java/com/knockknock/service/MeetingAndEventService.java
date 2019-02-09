@@ -20,8 +20,9 @@ public interface MeetingAndEventService {
 	public MeetingDTO meetingModifyFormService(int writingNumber) throws Exception;
 	public int meetingDeleteService(int writingNumber) throws Exception;
 	public int meetingSearchService() throws Exception;
-	public int eventCountService() throws Exception;
-	public List<EventVDTO> eventListService() throws Exception;
+	public int eventCountService(Criteria cri) throws Exception;
+	public List<EventVDTO> eventListService(Criteria cri) throws Exception;
+	public EventVDTO eventViewService(int writingNumber) throws Exception;
 	public int eventSearchService() throws Exception;
 	public int fileUploadService() throws Exception;
 	public int fileDownService() throws Exception;
