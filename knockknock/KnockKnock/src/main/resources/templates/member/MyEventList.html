@@ -68,6 +68,7 @@ body {
 				<div class="w3-container">
 					<table class="w3-table-all">
 						<tr>
+							<th><input type='checkbox' name='selectAll' /></th>
 							<th>제목</th>
 							<th>신청 마감일</th>
 							<th>이벤트 시작일</th>
@@ -75,7 +76,8 @@ body {
 							<th></th>
 						</tr>
 						<tr th:each="MEL:${MEL}">
-							<td th:text="${MEL.title}"></td>
+							<td><input type='checkbox' name='MEL' /></td>
+							<td><a th:href="@{'/EventView/?writingNumber='+${MEL.writingNumber}}" th:text="${MEL.title}"></a></td>
 							<td th:text="${MEL.acceptEndTime}"></td>
 							<td th:text="${MEL.eventStartTime}"></td>
 							<td th:text="${MEL.eventEndTime}"></td>

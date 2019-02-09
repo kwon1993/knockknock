@@ -106,6 +106,46 @@ to {
 	opacity: 1;
 }
 }
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 3; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	border-top-width: 0px;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -148,6 +188,7 @@ to {
 				<div class="w3-container">
 					<table class="w3-table-all">
 						<tr>
+							<th><input type='checkbox' name='selectAll' /></th>
 							<th>모임 주최자</th>
 							<th>제목</th>
 							<th>신청 마감일</th>
@@ -157,13 +198,14 @@ to {
 							<th></th>
 						</tr>
 						<tr th:each="MMLJ:${MMLJ}">
+							<td><input type='checkbox' name='MMLJ' /></td>
 							<td th:text="${MMLJ.nickname}"></td>
-							<td th:text="${MMLJ.title}"></td>
+							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLJ.writingNumber}}" th:text="${MMLJ.title}"></a></td>
 							<td th:text="${MMLJ.acceptEndTime}"></td>
 							<td th:text="${MMLJ.meetingStartTime}"></td>
 							<td th:text="${MMLJ.meetingEndTime}"></td>
 							<td th:text="${MMLJ.meetingStatus}"></td>
-							<td><button class="btn btn-default" id="out">신청 취소</button></td>
+							<td><button id="myBtnJM" name= "myBtnJM" class="btn btn-default">신청 취소</button></td>
 						</tr>
 					</table>
 				</div>
@@ -183,18 +225,44 @@ to {
 							<th></th>
 						</tr>
 						<tr th:each="MMLM:${MMLM}">
-							<td th:text="${MMLM.title}"></td>
+						<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
 							<td th:text="${MMLM.acceptEndTime}"></td>
 							<td th:text="${MMLM.meetingStartTime}"></td>
 							<td th:text="${MMLM.meetingEndTime}"></td>
-							<td><button class="btn btn-default" id="cancle">개설 취소</button></td>
+							<td><button id="myBtnMM" name="myBtnMM" class="btn btn-default">개설 취소</button></td>
 						</tr>
 					</table>
 				</div>
 				
 				<br />
 			</div>
+			
+			<!-- 모임 신청 취소 모달 -->
+			<div id="myModalJM" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>모임 신청이 취소되었습니다</h3>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+			</div>
+			
+			<!-- 모임 개설 취소 모달 -->
+			<div id="myModalMM" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>모임 개설이 취소되었습니다</h3>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+			</div>
+			
+			<!-- 모달 -->
+			<script>
+				
+			</script>
 
+			<!-- 탭 -->
 			<script>
 				function openCity(evt, cityName) {
 					var i, tabcontent, tablinks;

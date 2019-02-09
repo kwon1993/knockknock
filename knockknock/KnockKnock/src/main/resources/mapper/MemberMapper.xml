@@ -42,6 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT
     	(SELECT M.NICKNAME FROM MEMBER M WHERE MT.MEMBER_NUMBER=M.MEMBER_NUMBER) AS NICKNAME,
     	MT.TITLE,
+    	MT.WRITING_NUMBER writingNumber,
 		MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
     	MT.MEETING_END_TIME meetingEndTime,
@@ -56,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getMMLM" resultType="MeetingVDTO">
     	SELECT
     	MT.TITLE,
+    	MT.WRITING_NUMBER writingNumber,
     	MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
     	MT.MEETING_END_TIME meetingEndTime
@@ -110,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getMEL" resultType="EventVDTO">
     	SELECT
     	E.TITLE,
+    	E.WRITING_NUMBER writingNumber,
     	E.ACCEPT_END_TIME acceptEndTime,
     	E.EVENT_START_TIME eventStartTime,
     	E.EVENT_END_TIME eventEndTime
@@ -132,7 +135,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getMVL" resultType="VisitDTO">
     	SELECT
     	V.BRANCH_NUMBER branchNumber, 
-    	V.RESERVATION_TIME reservationTime
+    	V.WRITING_NUMBER writingNumber,
+    	V.RESERVATION_TIME reservationTime,
+    	V.CONFIRM
     	FROM VISIT V
     	WHERE
     	V.MEMBER_NUMBER
