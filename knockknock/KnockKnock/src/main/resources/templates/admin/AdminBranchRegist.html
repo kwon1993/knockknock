@@ -65,7 +65,7 @@ body {
 		<br />
 		<form action="adminBranchRegist">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<h3>관리 메뉴</h3>
 					<div class="sidenav">
 						<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
@@ -74,16 +74,16 @@ body {
 							th:href="@{adminBranchRegistView}">지점등록</a><br>
 					</div>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-10">
 					<div class="form-group">
 						<h4>테마</h4>
-						<input type="text" name="theme">
+						<input type="text" name="theme" class="form-control" placeholder="테마">
 						<h4>지점은행</h4>
-						<input type="text" name="bankName">
+						<input type="text" name="bankName" class="form-control" placeholder="지점 은행 이름">
 						<h4>지점은행 예금주</h4>
-						<input type="text" name="depositor">
+						<input type="text" name="depositor" class="form-control" placeholder="예금주">
 						<h4>지점은행 계좌</h4>
-						<input type="text" name="branchAccount">
+						<input type="text" name="branchAccount" class="form-control" placeholder="계좌번호">
 						<h4>성별</h4>
 						<select name="gender">
 							<option value="공용">공용</option>
@@ -95,7 +95,7 @@ body {
 						<h4>규칙</h4>
 						<textarea name="rule"></textarea>
 						<h4>거주유형</h4>
-						<input type="text" name="branchType">
+						<input type="text" name="branchType" class="form-control" placeholder="예)아파트">
 						<h4>주차장</h4>
 						<select name="isParking">
 							<option value="yes">있음</option>
@@ -146,21 +146,21 @@ body {
 								<td>입주가능일</td>
 							</tr>
 							<tr>
-								<td><input type="number" name="roomNumber1"></td>
-								<td><select name="roomGender1">
+								<td><input type="number" name="roomNumber1" class="form-control" placeholder="예)101""></td>
+								<td><select name="roomGender1" class="form-control">
 										<option value="남">남</option>
 										<option value="여">여</option>
 								</select></td>
-								<td><select name="roomType1">
+								<td><select name="roomType1" class="form-control">
 										<option value="1인실">1인실</option>
 										<option value="2인실">2인실</option>
 										<option value="3인실">3인실</option>
 										<option value="4인실">4인실</option>
 								</select></td>
-								<td><input type="text" name="roomSpace1"></td>
-								<td><input type="number" name="roomDeposit1"></td>
-								<td><input type="number" name="roomMonthlyRent1"></td>
-								<td><input type="date" name="roomRentableDate1"></td>
+								<td><input type="text" name="roomSpace1" class="form-control" placeholder="예)12mx12m"></td>
+								<td><input type="number" name="roomDeposit1" class="form-control" placeholder="보증금"></td>
+								<td><input type="number" name="roomMonthlyRent1" class="form-control" placeholder="월세"></td>
+								<td><input type="date" name="roomRentableDate1" class="form-control"></td>
 							</tr>
 							<tr>
 								<td><input type="number" name="roomNumber2"></td>
