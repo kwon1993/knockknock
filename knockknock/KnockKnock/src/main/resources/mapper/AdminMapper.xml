@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.knockknock.mapper.AdminMapper">
 
-
+	<!-- event -->
+	
 	<select id="eventListView" resultType="EventVDTO">
 		SELECT E.WRITING_NUMBER
 		writingNumber,
@@ -92,7 +93,48 @@
 		WHERE WRITING_NUMBER = #{param1}
 	</delete>
 
+	<!-- visit -->
+	
+	<select id="visitListView" resultType="VisitVDTO">
+		SELECT V.WRITING_NUMBER writingNumber,
+		V.MEMBER_NUMBER memberNumber,
+		V.BRANCH_NUMBER branchNumber,
+		V.WRITE_TIME writeTime,
+		V.RESERVATION_TIME reservationTime,
+		V.MEMO,
+		V.CONFIRM,
+		M.NICKNAME,
+		M.NAME,
+		M.PHONE_NUMBER phoneNumber
+		FROM VISIT V, MEMBER M
+		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		ORDER BY writingNumber DESC
+	</select>
+	
+	<select id="visitView" resultType="VisitVDTO">
+		SELECT V.WRITING_NUMBER writingNumber,
+		V.MEMBER_NUMBER memberNumber,
+		V.BRANCH_NUMBER branchNumber,
+		V.WRITE_TIME writeTime,
+		V.RESERVATION_TIME reservationTime,
+		V.MEMO,
+		V.CONFIRM,
+		M.NICKNAME,
+		M.NAME,
+		M.PHONE_NUMBER phoneNumber
+		FROM VISIT V, MEMBER M
+		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		AND V.WRITING_NUMBER = #{param1}
+	</select>
+	
+	<update id="visitCheck">
+		UPDATE VISIT
+		SET CONFIRM = '완료'
+		WHERE WRITING_NUMBER = #{param1}
+	</update>
 
+	<!-- branch -->
+	
 	<insert id="branchRegist">
 		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR,
 		BRANCH_ACCOUNT, GENDER,

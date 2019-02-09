@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.VisitVDTO;
 import com.knockknock.mapper.AdminMapper;
 
 @Service
@@ -60,6 +61,23 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void eventDelete(int writingNumber) {
 		adminMapper.eventDelete(writingNumber);
+	}
+	
+	//visit
+	
+	@Override
+	public ArrayList<VisitVDTO> visitList(){
+		return adminMapper.visitListView();
+	}
+	
+	@Override
+	public VisitVDTO visitView(int writingNumber) {
+		return adminMapper.visitView(writingNumber);
+	}
+	
+	@Override
+	public void visitCheck(int writingNumber) {
+		adminMapper.visitCheck(writingNumber);
 	}
 
 	// Branch
