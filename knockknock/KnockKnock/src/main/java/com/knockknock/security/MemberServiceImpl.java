@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
-import com.knockknock.dto.member.VisitVDTO;
+import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Service
@@ -68,6 +69,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> getProfile(String username){
 		return memberMapper.getProfile(username);
 	}		
+	
+	public void profileUpdate(ProfileVDTO profileVDTO) {
+	 memberMapper.profileUpdate(profileVDTO);
+	}
 
 	public List<EventVDTO> getMEL(String email){
 		return memberMapper.getMEL(email);
@@ -78,10 +83,13 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.getPet(username);
 	}
 
-	@Override
-	public List<VisitVDTO> myVisitList(int memberNumber) {
-		return memberMapper.myVisitList(memberNumber);
-	}
+	/*ash
+	 * @Override public List<VisitVDTO> myVisitList(int memberNumber) { return
+	 * memberMapper.myVisitList(memberNumber); }
+	 */
 	
+	public List<VisitDTO> getMVL(String email){
+		return memberMapper.getMVL(email);
+	}
 
 }

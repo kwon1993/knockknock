@@ -94,6 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where M.EMAIL = #{username}
     </select>
     
+    <update id="profileUpdate">
+	   update member m,pet p
+	   set m.nickname=#{nickname},m.introduce= #{introduce}, p.animal=#{animal}
+	   where m.MEMBER_NUMBER = p.MEMBER_NUMBER
+	   AND m.member_number = #{memberNumber}
+    </update>
+    
     <select id="getMEL" resultType="EventVDTO">
     	SELECT
     	E.TITLE,
@@ -106,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
     </select>
     
-    <select id="myVisitList" resultType="VisitVDTO">
+  <!--   <select id="myVisitList" resultType="VisitVDTO">
     	SELECT
     	M.NICKNAME nickname,
     	V.WRITING_NUMBER writingNumber,
@@ -114,6 +121,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	FROM MEMBER M, VISIT V
     	WHERE M.MEMBER_NUMBER = #{memberNumber}
     	AND M.MEMBER_NUMBER = V.MEMBER_NUMBER
-    </select>
+    </select> -->
     
+    <select id="getMVL" resultType="VisitDTO">
+    	SELECT
+    	V.BRANCH_NUMBER branchNumber, 
+    	V.RESERVATION_TIME reservationTime
+    	FROM VISIT V
+    	WHERE
+    	V.MEMBER_NUMBER
+    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    	ORDER BY CONFIRM ASC, RESERVATION_TIME DESC
+    </select>
 </mapper>
