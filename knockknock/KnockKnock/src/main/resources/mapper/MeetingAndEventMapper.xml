@@ -10,10 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             COUNT(*)
         FROM MEETING
     </select>
+    <select id="eventCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM EVENT
+    </select>
     <select id="meetingList" resultType="MeetingVDTO">
     	<![CDATA[
 			SELECT
-			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MB.NICKNAME
+			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MT.FAVORITE, MB.NICKNAME
 			FROM
 			    MEETING MT, MEMBER MB
 			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
@@ -65,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	SIMPLE_INTRODUCE = #{simpleIntroduce}, DETAIL_INTRODUCE = #{detailIntroduce}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
-    <delete id="meetingDelete" parameterType="int">
+    <delete id="meetingDelete" parameterType="int">     
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
 	<insert id="participate"> <!-- 참가하기 -->
