@@ -205,7 +205,9 @@ to {
 							<td th:text="${MMLJ.meetingStartTime}"></td>
 							<td th:text="${MMLJ.meetingEndTime}"></td>
 							<td th:text="${MMLJ.meetingStatus}"></td>
-							<td><button id="myBtnJM" name= "myBtnJM" class="btn btn-default">신청 취소</button></td>
+							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
+							<td><a id="myBtnJM" role="button" name= "myBtnJM" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
 				</div>
@@ -229,7 +231,8 @@ to {
 							<td th:text="${MMLM.acceptEndTime}"></td>
 							<td th:text="${MMLM.meetingStartTime}"></td>
 							<td th:text="${MMLM.meetingEndTime}"></td>
-							<td><button id="myBtnMM" name="myBtnMM" class="btn btn-default">개설 취소</button></td>
+							<td><a role="button" id="myBtnMM" name="myBtnMM" class="btn btn-default" th:href="@{'/deleteMM/?writingNumber='+${MMLM.writingNumber}}">개설 취소</a></td>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
 				</div>
@@ -237,7 +240,7 @@ to {
 				<br />
 			</div>
 			
-			<!-- 모임 신청 취소 모달 -->
+			<!-- 모임 신청 취소 완료 모달 -->
 			<div id="myModalJM" class="modal">
 				<div class="modal-content">
 					<span class="close">&times;</span>
@@ -247,7 +250,7 @@ to {
 				</div>
 			</div>
 			
-			<!-- 모임 개설 취소 모달 -->
+			<!-- 모임 개설 취소 완료 모달 -->
 			<div id="myModalMM" class="modal">
 				<div class="modal-content">
 					<span class="close">&times;</span>
@@ -256,6 +259,16 @@ to {
 						th:value="${_csrf.token}">
 				</div>
 			</div>
+			
+			<!-- 신청 모임 취소 -->
+			<script>
+				var myBtnJM = document.getElementById('myBtnJM');
+				
+				
+				
+			</script>
+			
+			<!-- 개설 모임 취소 -->
 			
 			<!-- 모달 -->
 			<script>
@@ -281,6 +294,8 @@ to {
 
 				// Get the element with id="defaultOpen" and click on it
 				document.getElementById("defaultOpen").click();
+				
+				
 			</script>
 
 

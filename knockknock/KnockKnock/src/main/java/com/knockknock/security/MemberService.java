@@ -3,6 +3,8 @@ package com.knockknock.security;
 import java.util.List;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.JoinMeetingDTO;
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -37,5 +39,13 @@ public interface MemberService{
 	
 	// 내 방문 신청 리스트
 	public List<VisitDTO> getMVL(String email);
+	
+	// 모임 신청 취소
+	public int deleteJM(int writingNumber, String email);
 
+	// 모임 개설 취소
+	public int deleteMM(int writingNumber, String email);
+	
+	// 이벤트 참가 취소
+	public int deleteJE(int writingNumber, String email);
 }

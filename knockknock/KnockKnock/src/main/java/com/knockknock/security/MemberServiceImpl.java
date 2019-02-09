@@ -92,4 +92,22 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.getMVL(email);
 	}
 
+	@Override
+	public int deleteJM(int writingNumber, String email) {
+		memberMapper.deleteJM(writingNumber, email);
+		return 1;
+	}
+
+	@Override
+	public int deleteMM(int writingNumber, String email) {
+		memberMapper.deleteMM(writingNumber, email);
+		return 1;
+	}
+	
+	@Override
+	public int deleteJE(int writingNumber, String email) {
+		memberMapper.deleteJE(writingNumber, email);
+		return 1;
+	}
+
 }
