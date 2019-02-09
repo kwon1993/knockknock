@@ -76,7 +76,7 @@ body {
 						<th></th>
 					</tr>
 					<tr th:each="MVL:${MVL}">
-						<td th:text="|낙낙 *{MVL.branchNumber}호점|"></td>
+					<td><a th:href="@{'/MyVisitView/?writingNumber='+${MVL.writingNumber}}" th:text="|낙낙 *{MVL.branchNumber}호점|"></a></td>
 						<td th:text="${MVL.reservationTime}"></td>
 						<td th:text="${MVL.confirm}"></td>
 						<td><button class="btn btn-default" id="out">신청 취소</button></td>
@@ -84,9 +84,6 @@ body {
 				</table>
 			</div>
 			<br />
-
-
-
 		</div>
 	</div>
 </body>
