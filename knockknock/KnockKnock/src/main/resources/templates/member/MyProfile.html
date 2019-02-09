@@ -51,67 +51,211 @@ body {
 #profileContainer {
 	margin-left: 400px;
 }
+
+
+/* 모달창  */
+/* The Modal (background) */
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+    
+/* Modal Content/Box */
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 50%; /* Could be more or less, depending on screen size */                          
+}
+/* The Close Button */
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
 </style>
 
 </head>
 
 <body>
-	<div layout:fragment="content" class="container">
-		<br />
-		<br />
-		<br /> <br />
 
-		<div class="row">
-			<div class="col-md-11">
-				<div class="sidenav">
-					<a th:href="@{/profileMain}">내 프로필</a> <a
-						th:href="@{/MyMeetingList}">내 모임</a> <a th:href="@{/MyEventList}">내
-						이벤트</a> <a th:href="@{/MyVisitList}">내 방문신청</a>
-				</div>
-			</div>
-			<div class="col-md-1"></div>
+<div layout:fragment="content" class="container">
+<br /><br /><br /> <br /> 
 
+<div class="row">
+	<div class="col-md-11">
+		<div class="sidenav">
+		  <a th:href="@{/profileMain}">내 프로필</a>
+		  <a th:href="@{/MyMeetingList}">내 모임</a>
+		  <a th:href="@{/MyEventList}">내 이벤트</a>
+		  <a th:href="@{/MyVisitList}">내 방문신청</a>
+		  <!--<a th:href="@{'/MyVisitList/?memberNumber=}" id="href4">내 방문신청</a>  -->
 		</div>
-
-		<div class="main">
-			<h2>내 프로필</h2>
-			<div class="container" id="profileContainer">
-				<div class='row text-center text-lg-left' id='allGallery'>
-					<a class='d-block mb-4 h-100' id='gallery'> <img
-						class='img-fluid img-thumbnail' src="http://placehold.it/400x300"
-						alt="" id='img'><br>
-					</a>
-				</div>
-				<div>
-					<div th:each="profile:${profile}">
-						<label for="name">이름: <span th:text='${profile.name}'
-							name='name' id='name' />
-						</label> <label for="name">이름: <span th:text='${profile.name}'
-							name='name' id='name' />
-						</label> <label for="name">이름: <span th:text='${profile.name}'
-							name='name' id='name' />
-						</label> <label for="name">이름: <span th:text='${profile.name}'
-							name='name' id='name' />
-						</label>
-					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
-				</div>
-				<div>
-					<div th:each="profile:${profile}">
-						<label for="name">이름: <span th:text='${profile.name}'
-							name='name' id='name' />
-						</label>
-					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
-				</div>
-			</div>
-		</div>
-
-
-
 	</div>
+</div>
+
+<div class="main">
+  <h2>내 프로필</h2>
+	<div class="container" id="profileContainer">
+		<div class='row text-center text-lg-left' id='allGallery'>
+			<a class='d-block mb-4 h-100' id='gallery'>
+		        <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'><br>
+			</a>
+		</div>
+		<div>
+			<div th:each="profile:${profile}">
+				<input type="hidden" th:value="${profile.memberNumber}" id="hidden">
+				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label><br>
+				<label for="id">아이디(이메일): <span th:text='${profile.email}' name='email' id='email'/> </label><br>
+				<label for="nickname">닉네임: <span th:text='${profile.nickname}' name='nickname' id='nickname'/> </label><br>
+				<label for="introduce">자기소개: <span th:text='${profile.introduce}' name='introduce' id='introduce'/> </label><br>
+				<label for="grade">회원등급: <span th:text='${profile.grade}' name='grade' id='grade'/> </label><br>
+			</div>
+		</div>
+		<div>
+			<div th:each="getPet:${getPet}"> 
+				<label for="animal">반려동물: <span th:text='${getPet.animal}' name='animal' id='animal'/> </label><br>
+				<label for="amount">마리수: <span th:text='${getPet.amount}' name='amount' id='amount'/> </label><br>
+			</div>
+		</div>
+		<div>
+			<input type="button" value="프로필 수정" id="popupButton"> 			
+		</div>
+	</div>
+	
+				<!-- modal modal modal modal modal(profileUpdate) -->		
+			    <!-- The Modal -->
+			    <div id="myProfileModal" class="modal">
+				    <!-- Modal content -->
+				    <div class="modal-content">
+				    	<span class="close">&times;</span>  
+				    	<form action="/updateProfileComplete" method="post" id="form">                                                             
+				    		<div class="form-group">
+								<label for="nickname" class="cols-sm-2 control-label">닉네임</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
+										<input type="text" name="nickname" class="form-control"><br>
+									</div>
+								</div>
+								<label for="introduce" class="cols-sm-2 control-label">자기소개</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
+										<input type="text" name="introduce" class="form-control"><br>
+									</div>
+								</div>
+								<label for="animal" class="cols-sm-2 control-label">반려동물</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
+										<input type="text" name="animal" class="form-control"><br>
+									</div>
+								</div>
+								<label for="animal" class="cols-sm-2 control-label">※반려동물이 없을 시 공백으로 해주세요</label>
+							</div>
+							
+							<div class="form-group">
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<input type="button" name='updateProfileComplete' id="updateProfileComplete" value="수정완료" class="form-control">
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+									</div>
+								</div>
+							</div>
+						</form>
+				    </div>
+			    </div>
+				<!-- modal modal modal modal modal(profileUpdate) -->
+	
+	
+	
+</div>
+<script>
+
+/* var memberNumber= document.getElementById('hidden').value;
+$("#href4").on('click',function(){
+	$("#href4").prop('href','/MyVisitList/?memberNumber='+memberNumber);
+}); */
+
+//프로필 수정을 누르면,수정할 수 있는 모달창이 뜬다.
+//모달창이 뜨면, 모달창에 값을 입력한다.
+//입력한 값을 에이젝스로 보내고, 다시 프로필리스트 불러오기를 하면 업데이트가 된다.
+
+//Get the modal
+var profileModal = document.getElementById('myProfileModal');
+var modalButton = document.getElementById('popupButton');
+var updateProfile = document.getElementById('updateProfileComplete');
+
+$(modalButton).on('click',function(){
+	profileModal.style.display = "block";
+});
+
+//Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];                                          
+
+//When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    profileModal.style.display = "none";
+}
+
+//When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == profileModal) {
+        profileModal.style.display = "none";
+    }
+}
+
+
+$(updateProfile).on('click',function(){
+	memberNumber = $("#hidden").val();
+	nickname = $("input[name='nickname']").val();
+	introduce = $("input[name='introduce']").val();
+	animal = $("input[name='animal']").val();
+	
+	$.ajax({
+		method:'post',
+		url:'/updateProfileComplete',
+		data:JSON.stringify({'nickname':nickname,'introduce':introduce,'animal':animal,"memberNumber":memberNumber}),
+		dataType:"json",
+		contentType:"application/json",
+		success:function(data){
+			location.reload();
+		},
+		error:function(data){
+			alerT("error");			
+		}
+	});
+})
+
+
+
+
+
+
+
+
+
+</script>
+</div>
+
 
 </body>
 </html>

@@ -63,8 +63,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public List<EventVDTO> eventListService() throws Exception{
-		return meMapper.eventList();
+	public List<EventVDTO> eventListService(Criteria cri) throws Exception{
+		return meMapper.eventList(cri);
+	}
+	
+	@Override
+	public EventVDTO eventViewService(int writingNumber) throws Exception{ //미팅상세보기
+		return meMapper.eventView(writingNumber);
 	}
 
 	@Override
@@ -73,8 +78,8 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public int eventCountService() throws Exception {
-		return 0;
+	public int eventCountService(Criteria cri) throws Exception {
+		return meMapper.eventCount(cri);
 	}
 
 	@Override
