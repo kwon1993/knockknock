@@ -68,7 +68,7 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public EventVDTO eventViewService(int writingNumber) throws Exception{ //미팅상세보기
+	public EventVDTO eventViewService(int writingNumber) throws Exception{ //이벤트 상세보기
 		return meMapper.eventView(writingNumber);
 	}
 
@@ -107,8 +107,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public void participateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.participate(writingNumber, memberNumber);
+	public void mparticipateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.mparticipate(writingNumber, memberNumber);
+	}
+	
+	@Override
+	public void eparticipateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.eparticipate(writingNumber, memberNumber);
 	}
 
 	@Override

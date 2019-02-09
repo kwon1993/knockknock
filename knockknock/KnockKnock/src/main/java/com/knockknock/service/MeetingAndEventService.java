@@ -27,7 +27,8 @@ public interface MeetingAndEventService {
 	public int fileUploadService() throws Exception;
 	public int fileDownService() throws Exception;
 	public int likeToggleService() throws Exception;
-	public void participateService(int writingNumber, int memberNumber) throws Exception;
+	public void mparticipateService(int writingNumber, int memberNumber) throws Exception;
+	public void eparticipateService(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlaceService() throws Exception;
 	public int meetingPlaceDetailService() throws Exception;
 }
