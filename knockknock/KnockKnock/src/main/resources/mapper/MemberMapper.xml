@@ -95,10 +95,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id="profileUpdate">
-	   update member m,pet p
-	   set m.nickname=#{nickname},m.introduce= #{introduce}, p.animal=#{animal}
-	   where m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	   AND m.member_number = #{memberNumber}
+			   update member m,pet p
+			   set m.nickname=#{nickname},m.introduce= #{introduce}, p.animal=#{animal}
+			   where m.MEMBER_NUMBER = p.MEMBER_NUMBER
+			   AND m.member_number = #{memberNumber}
+    </update>
+    
+    <update id="profileUpdate2">
+	   		   update member m,pet p
+			   set m.nickname=#{nickname}, m.introduce= #{introduce}, p.animal=#{animal}
+			   where m.member_number = #{memberNumber}
     </update>
     
     <select id="getMEL" resultType="EventVDTO">

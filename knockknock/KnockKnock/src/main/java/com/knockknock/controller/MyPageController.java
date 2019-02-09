@@ -43,9 +43,13 @@ public class MyPageController {
 		String username = user.getUsername();
 		//업데이트매퍼 실행->업데이트
 		//셀렉트매퍼 실행->셀렉트
-		System.out.println(profileVDTO.getMemberNumber());
-		memberService.profileUpdate(profileVDTO);
-		
+		if(profileVDTO.getAnimal().length()>0) {
+			System.out.println("Animal이 있다");
+			memberService.profileUpdate(profileVDTO);
+		}else {
+			System.out.println("Animal이 없다");
+			memberService.profileUpdate2(profileVDTO);
+		}
 		return memberService.getProfile(username);
 		
 	}

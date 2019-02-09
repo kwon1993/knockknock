@@ -30,6 +30,8 @@ public interface MemberMapper {
 	public List<MemberDTO> getPet(String username);
 	//마이페이지-프로필수정
 	public void profileUpdate(ProfileVDTO profileVDTO);
+	//마이페이지-프로필수정(강아지없을때)
+	public void profileUpdate2(ProfileVDTO profileVDTO);
 	
 	public List<EventVDTO> getMEL(String email);
 	

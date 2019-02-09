@@ -73,6 +73,10 @@ public class MemberServiceImpl implements MemberService{
 	public void profileUpdate(ProfileVDTO profileVDTO) {
 	 memberMapper.profileUpdate(profileVDTO);
 	}
+	
+	public void profileUpdate2(ProfileVDTO profileVDTO) {
+		 memberMapper.profileUpdate2(profileVDTO);
+	}
 
 	public List<EventVDTO> getMEL(String email){
 		return memberMapper.getMEL(email);
