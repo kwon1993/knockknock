@@ -1,13 +1,18 @@
 package com.knockknock.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
 
@@ -25,12 +30,26 @@ public class MyPageController {
 
 		model.addAttribute("user", user.getUsername());
 		String username = user.getUsername();
-		System.out.println("유저아이디:" + user.getUsername());
-
-		System.out.println(memberService.getProfile(username));
 		model.addAttribute("profile", memberService.getProfile(username));
+		model.addAttribute("getPet",memberService.getPet(username));
 		return "member/MyProfile";
 	}
+	
+	@RequestMapping("/updateProfileComplete")
+	@ResponseBody
+	public List<MemberDTO> profileUpdate(Model model, @RequestBody ProfileVDTO profileVDTO, Authentication authentication) {
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String username = user.getUsername();
+		//업데이트매퍼 실행->업데이트
+		//셀렉트매퍼 실행->셀렉트
+		System.out.println(profileVDTO.getMemberNumber());
+		memberService.profileUpdate(profileVDTO);
+		
+		return memberService.getProfile(username);
+		
+	}
+
 
 	@RequestMapping("/MyEventList")
 	public String myEventList(Model model, ProfileVDTO profileVDTO) {
@@ -45,6 +64,16 @@ public class MyPageController {
 
 		return "member/MyEventList";
 	}
+
+	
+	/*ash
+	 * @RequestMapping("/MyVisitList") public String myVisitList(Model
+	 * model, @RequestParam("memberNumber") int memberNumber) {
+	 * System.out.println(memberNumber);
+	 * model.addAttribute("myVisitLists",memberService.myVisitList(memberNumber));
+	 * 
+	 * return "member/MyVisitList"; }
+	 */
 
 	@RequestMapping("/MyMeetingList")
 	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {
@@ -74,5 +103,6 @@ public class MyPageController {
 		model.addAttribute("MVL", memberService.getMVL(user.getUsername()));
 		return "member/MyVisitList";
 	}
-
+	
+	
 }

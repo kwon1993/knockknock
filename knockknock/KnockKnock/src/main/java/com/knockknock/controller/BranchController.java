@@ -64,6 +64,8 @@ public class BranchController {
 	@RequestMapping(value = "/visitBooking", method = RequestMethod.POST)
 	@ResponseBody
 	public void visitBooking(@RequestBody VisitDTO visitDTO) {
+		
+		
 		logger.info("POST/visitBooking");
 		branchService.visitBooking(visitDTO);
 	}

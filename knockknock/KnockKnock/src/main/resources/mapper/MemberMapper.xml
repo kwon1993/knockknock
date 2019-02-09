@@ -70,17 +70,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	update member 
 		set password=#{password}
 		where email=#{email}
-    </update>
+	</update>    
     
-    <select id="getProfile" resultType="ProfileVDTO">
+    <select id="getPet" resultType="ProfileVDTO">
     	SELECT
-    	M.MEMBER_NUMBER memberNumber,
-    	M.NAME,
-    	P.ANIMAL animal
+    	P.ANIMAL animal,
+    	P.AMOUNT amount
     	FROM MEMBER M,PET P
     	where M.EMAIL = #{username}
     	and M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
+    
+    <select id="getProfile" resultType="memberDTO">
+    	SELECT
+    	M.MEMBER_NUMBER memberNumber,
+    	M.NAME,
+    	M.GRADE grade,
+    	M.FAVORITE1 favorite1,
+    	M.FAVORITE1 favorite2,
+    	M.FAVORITE1 favorite3,
+    	M.EMAIL email,
+    	M.NICKNAME nickname,
+    	M.INTRODUCE introduce
+    	FROM MEMBER M
+    	where M.EMAIL = #{username}
+    </select>
+    
+    <update id="profileUpdate">
+	   update member m,pet p
+	   set m.nickname=#{nickname},m.introduce= #{introduce}, p.animal=#{animal}
+	   where m.MEMBER_NUMBER = p.MEMBER_NUMBER
+	   AND m.member_number = #{memberNumber}
+    </update>
     
     <select id="getMEL" resultType="EventVDTO">
     	SELECT
@@ -95,6 +116,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
     </select>
     
+  <!--   <select id="myVisitList" resultType="VisitVDTO">
+    	SELECT
+    	M.NICKNAME nickname,
+    	V.WRITING_NUMBER writingNumber,
+    	V.BRANCH_NUMBER branchNumber
+    	FROM MEMBER M, VISIT V
+    	WHERE M.MEMBER_NUMBER = #{memberNumber}
+    	AND M.MEMBER_NUMBER = V.MEMBER_NUMBER
+    </select> -->
+    
     <select id="getMVL" resultType="VisitDTO">
     	SELECT
     	V.BRANCH_NUMBER branchNumber, 
@@ -107,5 +138,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
     	ORDER BY CONFIRM ASC, RESERVATION_TIME DESC
     </select>
-
 </mapper>

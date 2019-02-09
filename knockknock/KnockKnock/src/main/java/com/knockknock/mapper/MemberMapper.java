@@ -25,10 +25,13 @@ public interface MemberMapper {
 
 	public void changePassword(MemberDTO memberDTO);
 	//마이페이지
-	public List<ProfileVDTO> getProfile(String username);
+	public List<MemberDTO> getProfile(String username);
+	//마이페이지
+	public List<MemberDTO> getPet(String username);
+	//마이페이지-프로필수정
+	public void profileUpdate(ProfileVDTO profileVDTO);
 	
 	public List<EventVDTO> getMEL(String email);
 	
 	public List<VisitDTO> getMVL(String email);
-	
 }

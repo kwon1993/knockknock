@@ -66,14 +66,28 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.changePassword(memberDTO);
 	}
 	
-	public List<ProfileVDTO> getProfile(String username){
+	public List<MemberDTO> getProfile(String username){
 		return memberMapper.getProfile(username);
 	}		
+	
+	public void profileUpdate(ProfileVDTO profileVDTO) {
+	 memberMapper.profileUpdate(profileVDTO);
+	}
 
 	public List<EventVDTO> getMEL(String email){
 		return memberMapper.getMEL(email);
 	}
 
+	@Override
+	public List<MemberDTO> getPet(String username) {
+		return memberMapper.getPet(username);
+	}
+
+	/*ash
+	 * @Override public List<VisitVDTO> myVisitList(int memberNumber) { return
+	 * memberMapper.myVisitList(memberNumber); }
+	 */
+	
 	public List<VisitDTO> getMVL(String email){
 		return memberMapper.getMVL(email);
 	}
