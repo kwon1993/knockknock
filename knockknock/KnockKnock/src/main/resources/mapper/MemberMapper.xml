@@ -42,6 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT
     	(SELECT M.NICKNAME FROM MEMBER M WHERE MT.MEMBER_NUMBER=M.MEMBER_NUMBER) AS NICKNAME,
     	MT.TITLE,
+    	JM.MEMBER_NUMBER memberNumber,
     	MT.WRITING_NUMBER writingNumber,
 		MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
@@ -144,4 +145,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
     	ORDER BY CONFIRM ASC, RESERVATION_TIME DESC
     </select>
+
+	<delete id="deleteJM">
+		DELETE FROM JOIN_MEETING
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND WRITING_NUMBER=#{writingNumber};
+	</delete>
+	
+	<delete id="deleteMM">
+		DELETE FROM MEETING
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND WRITING_NUMBER=#{writingNumber};
+	</delete>
+	
+	<delete id="deleteJE">
+		DELETE FROM JOIN_EVENT
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND WRITING_NUMBER=#{writingNumber};
+	</delete>
 </mapper>

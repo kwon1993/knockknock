@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.JoinMeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -36,4 +37,10 @@ public interface MemberMapper {
 	public List<EventVDTO> getMEL(String email);
 	
 	public List<VisitDTO> getMVL(String email);
+	
+	public int deleteJM(int writingNumber, String email);
+	
+	public int deleteMM(int writingNumber, String email);
+	
+	public int deleteJE(int writingNumber, String email);
 }

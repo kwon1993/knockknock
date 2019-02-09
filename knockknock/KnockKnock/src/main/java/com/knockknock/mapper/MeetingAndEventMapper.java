@@ -31,7 +31,8 @@ public interface MeetingAndEventMapper {
 	public int eventSearch() throws Exception;
 	public int fileDown() throws Exception;
 	public int likeToggle() throws Exception;
-	public void participate(int writingNumber, int memberNumber) throws Exception;
+	public void mparticipate(int writingNumber, int memberNumber) throws Exception;
+	public void eparticipate(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;
 }

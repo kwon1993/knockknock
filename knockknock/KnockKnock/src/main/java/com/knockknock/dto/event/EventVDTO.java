@@ -14,7 +14,8 @@ public class EventVDTO {
 	private String content;
 	private Date acceptStartTime; //모임 모집시작시간
 	private Date acceptEndTime; //모임 모집마감시간
-	private int recruitNumber; //모집인원
+	private int recruitMaxNumber; //모집정원
+	private int recruitNumber; //현제인원
 	private Date eventStartTime; //모임 시작시간
 	private Date eventEndTime; //모임 종료시간
 	private String image; //이미지

@@ -85,7 +85,7 @@ public class MeetingAndEventController {
 		model.addAttribute("EventList", meServiceImpl.eventListService(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(meServiceImpl.meetingCountService(cri));
+		pageMaker.setTotalCount(meServiceImpl.eventCountService(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);
 		return "event/EventList";
@@ -93,14 +93,21 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/eventView") //미팅 상세보기
 	private String eventView(@RequestParam("writingNumber") int writingNumber, Model model) throws Exception {
-		//model.addAttribute("EventView", meServiceImpl.even(writingNumber));
+		model.addAttribute("EventView", meServiceImpl.eventViewService(writingNumber));
+
 		return "event/EventView";
 	}
 	
-	@RequestMapping("/participate") //참가하기
-	private String participate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
-		meServiceImpl.participateService(writingNumber, memberNumber);
+	@RequestMapping("/mparticipate") //참가하기
+	private String mparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
+		meServiceImpl.mparticipateService(writingNumber, memberNumber);
 		return "redirect:/meetingList";
+	}
+	
+	@RequestMapping("/eparticipate") //참가하기
+	private String eparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
+		meServiceImpl.eparticipateService(writingNumber, memberNumber);
+		return "redirect:/eventList";
 	}
 	
 	//단일 파일 업로드

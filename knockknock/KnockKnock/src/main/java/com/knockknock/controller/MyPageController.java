@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.knockknock.dto.event.JoinMeetingDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
@@ -107,6 +109,61 @@ public class MyPageController {
 		model.addAttribute("MVL", memberService.getMVL(user.getUsername()));
 		return "member/MyVisitList";
 	}
+
+	// 신청한 모임 취소
+	@RequestMapping("/deleteJM")
+	public String deleteJM(Model model, @RequestParam("writingNumber") int writingNumber) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		memberService.deleteJM(writingNumber, user.getUsername());
+		
+		// 신청, 개설한 모임 리스트 다시 받아오기
+		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		
+		
+		return "member/MyMeetingList";
+	}
 	
+	// 개설한 모임 취소
+	@RequestMapping("/deleteMM")
+	public String deleteMM(Model model, @RequestParam("writingNumber") int writingNumber) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		memberService.deleteMM(writingNumber, user.getUsername());
+		
+		// 신청, 개설한 모임 리스트 다시 받아오기
+		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		
+		
+		return "member/MyMeetingList";
+	}
 	
+	// 참가한 이벤트 취소
+	@RequestMapping("/deleteJE")
+	public String deleteJE(Model model, @RequestParam("writingNumber") int writingNumber) {
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		memberService.deleteJE(writingNumber, user.getUsername());
+		
+		// 참가한 모임 리스트 다시 받아오기
+		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
+		
+		
+		return "member/MyEventList";
+	}
+
 }
