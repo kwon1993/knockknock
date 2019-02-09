@@ -93,7 +93,7 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/eventView") //미팅 상세보기
 	private String eventView(@RequestParam("writingNumber") int writingNumber, Model model) throws Exception {
-		model.addAttribute("EventView", meServiceImpl.even(writingNumber));
+		//model.addAttribute("EventView", meServiceImpl.even(writingNumber));
 		return "event/EventView";
 	}
 	
