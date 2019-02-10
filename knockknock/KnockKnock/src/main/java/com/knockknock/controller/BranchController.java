@@ -47,7 +47,7 @@ public class BranchController {
 	public String categoryRoomSearch(@RequestParam("address") String address, Model model) throws Exception {
 		System.out.println(address);
 		
-		//model.addAttribute("lists", branchService.categoryRoomSearch(address));
+		model.addAttribute("lists", branchService.categoryRoomSearch(address));
 		
 		return "branch/FindingCategoryRoom";
 	}

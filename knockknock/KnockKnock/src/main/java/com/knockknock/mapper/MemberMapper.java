@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.event.EventVDTO;
-import com.knockknock.dto.event.JoinMeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -33,6 +32,8 @@ public interface MemberMapper {
 	public void profileUpdate(ProfileVDTO profileVDTO);
 	//마이페이지-프로필수정(강아지없을때)
 	public void profileUpdate2(ProfileVDTO profileVDTO);
+	//마이페이지-프로필사진겟
+	public MemberDTO getImageDir(String username);
 	
 	public List<EventVDTO> getMEL(String email);
 	
@@ -45,4 +46,6 @@ public interface MemberMapper {
 	public int deleteJE(int writingNumber, String email);
 	
 	public int deleteV(int writingNumber, String email);
+	
+	public void saveImageDir(String finalImage, String username);
 }
