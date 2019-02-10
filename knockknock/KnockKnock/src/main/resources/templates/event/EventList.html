@@ -6,12 +6,45 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <title>이벤트 게시판</title>
 </head>
 <body>
-
-<div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <p>이벤트 게시판 입니다.</p>
-    </div>
-</div>
-
+	<div layout:fragment="content" class="container">
+	    <div class="jumbotron">
+	        <h1>이벤트게시판</h1>
+		        <table class="table table-hover">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>조회수</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="et : ${EventList}">
+							<td th:text="${et.writingNumber}">번호</td>
+							<td><a th:href="@{/eventView(writingNumber=${et.writingNumber},page=${pageMaker.cri.page},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${et.title}">제목</a></td>
+							<td th:text="${et.hit}">조회수</td>
+							<td th:text="${et.writeTime}">작성일</td>
+						</tr>
+					</tbody>
+				</table>
+	 			<!-- 게시판 하단의 페이징 버튼 -->
+	          <div class="box-footer">
+	            <ul class="pagination">
+	            
+	            <li class="page-item" th:if="${pageMaker.prev} == true">
+	            	<a th:href="@{/event/eventList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+	            </li>
+	            
+	            <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+	              <a th:href="@{/eventList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+	            </li>
+	            
+	            <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+	            	<a th:href="@{/eventList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+	            </li>
+	            </ul>
+	          </div>
+	    </div>
+	</div>
 </body>
 </html>

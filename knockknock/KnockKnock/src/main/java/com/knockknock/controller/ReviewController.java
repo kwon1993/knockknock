@@ -1,66 +1,76 @@
 package com.knockknock.controller;
 
+
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.ReviewDTO;
 import com.knockknock.service.ReviewService;
 
 @Controller
-@RequestMapping("/review")
 public class ReviewController {
 
+	@Autowired
+	ReviewService reviewService;
 	
-	  @Resource 
-	  ReviewService reviewService;
-	  
-	  // 리뷰 목록
-	  
-	  @RequestMapping("/list")
-	  @ResponseBody 
-	  private List<ReviewDTO> reviewServiceList(Model model){ 
-		  return reviewService.reviewListService(); }
-	  
-	  // 리뷰 작성
-	  
-	  @RequestMapping("/insert")
-	  @ResponseBody 
-	  private int reviewServiceInsert(@RequestParam("branch_number")
-	  int branchNumber, @RequestParam String content) {
-	  
-	  ReviewDTO reviewDTO = new ReviewDTO();
-	  reviewDTO.setBranchNumber(branchNumber); 
-	  reviewDTO.setContent(content);
-	  
-	  return reviewService.reviewInsertService(reviewDTO); }
-	  
-	  // 리뷰 수정
-	  
-	  @RequestMapping("/update")
-	  @ResponseBody
-	  private int reviewServiceUpdate(@RequestParam("writing_number") int
-	  writingNumber, @RequestParam String content) {
-		  ReviewDTO reviewDTO = new ReviewDTO(); 
-		  reviewDTO.setWritingNumber(writingNumber);
-	  reviewDTO.setContent(content);
-	  
-	  return reviewService.reviewUpdateService(reviewDTO); }
-	  
-	  
-	  // 리뷰 삭제
-	  
-	  @RequestMapping("/delete/{writing_number}")
-	  @ResponseBody 
-	  private int reviewServiceDelete(@PathVariable("writing_number") int writingNumber) {
-	  return reviewService.reviewDeleteService(writingNumber);
-	  }
-	 
+	private static final Logger logger = LoggerFactory.getLogger(BranchController.class);
+
+	// 리뷰 목록
+	@GetMapping("/reviewList")
+	@ResponseBody
+	public List<ReviewDTO> reviewServiceList(Model model, @RequestBody String branchNumber1) {
+		System.out.println("응?");
+		logger.info("제발되라");
+		
+		int branchNumber = Integer.parseInt(branchNumber1);
+		
+		/*
+		 * logger.info(branchNumber+"");
+		 * logger.info(reviewService.reviewListService(branchNumber).toString());
+		 */
+		return reviewService.reviewListService(branchNumber);
+		// return "test";
+	}
+
+	// 리뷰 작성
+	@RequestMapping("/reviewInsert")
+	@ResponseBody
+	private int reviewServiceInsert(@RequestBody ReviewDTO reviewDTO) {
+
+		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
+		// ReviewDTO reviewDTO = new ReviewDTO();
+		// reviewDTO.setBranchNumber(branchNumber);
+		// reviewDTO.setContent(content);
+
+		return reviewService.reviewInsertService(reviewDTO);
+	}
+
+	// 리뷰 수정
+	@RequestMapping("/reviewUpdate")
+	@ResponseBody
+	private int reviewServiceUpdate(@RequestBody ReviewDTO reviewDTO) {
+
+		// ReviewDTO reviewDTO = new ReviewDTO();
+		// reviewDTO.setWritingNumber(writingNumber);
+		// reviewDTO.setContent(content);
+		return reviewService.reviewUpdateService(reviewDTO);
+	}
+
+	// 리뷰 삭제
+	@RequestMapping("/reviewDelete/{writingNumber}")
+	@ResponseBody
+	private int reviewServiceDelete(@PathVariable("writingNumber") int writingNumber) {
+		return reviewService.reviewDeleteService(writingNumber);
+	}
+
 }

@@ -7,55 +7,64 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-
-
-
-	<div layout:fragment="content" class="container" style="margin-top:7em;">
-
-
-		<form action="adminEventWrite">
-			<table>
-
-				<tr>
-					<td>writer number</td>
-					<td><input type="number" name="memberNumber"></td>
-				</tr>
-				<tr>
-					<td>title</td>
-					<td><input type="text" name="title"></td>
-				</tr>
-				<tr>
-					<td>event start time</td>
-					<td><input type="date" name="eventStartTime"></td>
-				</tr>
-				<tr>
-					<td>event end time</td>
-					<td><input type="date" name="eventEndTime"></td>
-				</tr>
-				<tr>
-					<td>accept start time</td>
-					<td><input type="date" name="acceptStartTime"></td>
-				</tr>
-				<tr>
-					<td>accept end time</td>
-					<td><input type="date" name="acceptEndTime"></td>
-				</tr>
-				<tr>
-					<td>recruit number</td>
-					<td><input type="number" name="recruitNumber"></td>
-				</tr>
-				<tr>
-					<td>content</td>
-					<td><textarea name="content"></textarea></td>
-				</tr>
-				<tr>
-					<td>send</td>
-					<td><input type="submit" name="eventWrite"></td>
-				</tr>
-			</table>
-		</form>
+	<div layout:fragment="content" class="container"
+		style="margin-top: 7em;">
+		<div class="jumbotron">
+			<h1>이벤트 작성 페이지</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<h3>관리 메뉴</h3>
+				<div class="sidenav">
+					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
+						th:href="@{adminVisitList}">방문문의관리</a><br> <a
+						th:href="@{adminBranchRegistView}">지점등록</a><br>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<form action="adminEventWrite">
+					<table>
+						<tr>
+							<td>writer number</td>
+							<td><input type="number" name="memberNumber"></td>
+						</tr>
+						<tr>
+							<td>title</td>
+							<td><input type="text" name="title"></td>
+						</tr>
+						<tr>
+							<td>event start time</td>
+							<td><input type="date" name="eventStartTime"></td>
+						</tr>
+						<tr>
+							<td>event end time</td>
+							<td><input type="date" name="eventEndTime"></td>
+						</tr>
+						<tr>
+							<td>accept start time</td>
+							<td><input type="date" name="acceptStartTime"></td>
+						</tr>
+						<tr>
+							<td>accept end time</td>
+							<td><input type="date" name="acceptEndTime"></td>
+						</tr>
+						<tr>
+							<td>recruit number</td>
+							<td><input type="number" name="recruitNumber"></td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td><textarea name="content"></textarea></td>
+						</tr>
+						<tr>
+							<td>send</td>
+							<td><input type="submit" name="eventWrite"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
 	</div>
-
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 <head th:fragment="Config" 
-xmlns:th="http://www.w3.org/1999/xhtml">
+xmlns:th="http://www.w3.org/1999/xhtml"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <meta charset="utf-8">
   <title>KnockKnock 樂樂</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -72,6 +73,11 @@ xmlns:th="http://www.w3.org/1999/xhtml">
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
 
+	/*로그인,회원가입 버튼*/
+	#nav-log{
+		font-size:20px;
+		color:black;
+	}
 </style>
 <!-- JavaScript Libraries -->
 <!-- jQuery -->
@@ -92,7 +98,4 @@ xmlns:th="http://www.w3.org/1999/xhtml">
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
       <!-- map -->
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
-	 
-
-
 </head>

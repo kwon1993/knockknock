@@ -3,9 +3,12 @@ package com.knockknock.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
 public interface BranchMapper {
@@ -14,15 +17,25 @@ public interface BranchMapper {
 	public List<BranchDetailVDTO> simpleRoomSearchList(BranchDetailVDTO branchDetailVDTO);
 	//네비게이션바 방찾기
 	public List<BranchDetailVDTO> findingRoomList(BranchDetailVDTO branchDetailVDTO);
+	//네비게이션바 관심사로 방찾기
+	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO) throws Exception;
+	//관심사로 방찾기 페이징 처리
+	public int categoryCount(Criteria cri) throws Exception;
+	//관심사로 찾기의 방검색
+	public  List<BranchDetailVDTO> categoryRoomSearch(@Param("address") String address) throws Exception;
+
 	//방찾기의 방검색
 	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO);
-	
+	// 지점 상세 정보
 	public BranchDetailVDTO getDetail(int branchNumber);
+	// 지점 방문 신청
+	public void visitBooking(VisitDTO visitDTO);
 	
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber);
-
+	
+	
 
 //	public Object getPetInfo(int branchNumber);
 

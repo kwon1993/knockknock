@@ -37,10 +37,10 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	@Override
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception{ //미팅 작성
+			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception{ //미팅 작성
 		meMapper.meetingInsert( memberNumber,  title,  meetingStartTime,  meetingEndTime,
 			 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
-			 place,  placeDetail,  recruitMaxNumber, gender);
+			 place,  placeDetail,  recruitMaxNumber, gender, favorite);
 	}
 	
 	@Override
@@ -63,8 +63,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public List<EventVDTO> eventListService() throws Exception{
-		return meMapper.eventList();
+	public List<EventVDTO> eventListService(Criteria cri) throws Exception{
+		return meMapper.eventList(cri);
+	}
+	
+	@Override
+	public EventVDTO eventViewService(int writingNumber) throws Exception{ //이벤트 상세보기
+		return meMapper.eventView(writingNumber);
 	}
 
 	@Override
@@ -73,8 +78,8 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public int eventCountService() throws Exception {
-		return 0;
+	public int eventCountService(Criteria cri) throws Exception {
+		return meMapper.eventCount(cri);
 	}
 
 	@Override
@@ -102,8 +107,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public void participateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.participate(writingNumber, memberNumber);
+	public void mparticipateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.mparticipate(writingNumber, memberNumber);
+	}
+	
+	@Override
+	public void eparticipateService(int writingNumber, int memberNumber) throws Exception {
+		meMapper.eparticipate(writingNumber, memberNumber);
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ProfileVDTO {
-
 	private int memberNumber;
 	private String favorite1;
 	private String favorite2;
@@ -19,5 +18,7 @@ public class ProfileVDTO {
 	private int petNumber;
 	private String animal;
 	private int amount;
+	//
+	private String introduce;
 
 }

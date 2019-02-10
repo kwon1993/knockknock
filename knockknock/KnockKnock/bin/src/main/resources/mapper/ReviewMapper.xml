@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.knockknock.mapper.ReviewMapper">
+
+	<!-- <select id="reviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+	</select> -->
+
+	<select id="reviewList" resultType="ReviewDTO">
+		SELECT 
+		M.NICKNAME,
+		R.CONTENT,
+		R.WRITE_TIME writeTime,
+		R.WRITING_NUMBER writingNumber
+		FROM REVIEW R, MEMBER M
+		WHERE R.BRANCH_NUMBER=#{branchNumber}
+		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
+		ORDER BY WRITING_NUMBER ASC
+	</select>
+
+
+	<insert id="reviewInsert" parameterType="ReviewDTO">
+		INSERT INTO 
+		REVIEW 
+		(MEMBER_NUMBER, 
+		BRANCH_NUMBER, 
+		CONTENT, 
+		WRITE_TIME)
+		VALUES 
+		(#{MEMBER_NUMBER}, 
+		#{branchNumber},
+		#{CONTENT}, 
+		now())
+	</insert>
+	
+	<update id="reviewUpdate" parameterType="ReviewDTO">
+		UPDATE
+		REVIEW
+		SET
+		CONTENT=#{CONTENT}
+		WHERE WRITING_NUMBER=#{writingNumber}
+	</update>
+
+	<delete id="reviewDelete" parameterType="int">
+		DELETE
+		FROM REVIEW
+		WHERE WRITING_NUMBER=#{writingNumber}
+	</delete>
+</mapper>

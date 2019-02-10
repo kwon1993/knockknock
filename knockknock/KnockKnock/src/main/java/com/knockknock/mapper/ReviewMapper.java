@@ -9,20 +9,18 @@ import com.knockknock.dto.branch.ReviewDTO;
 @Mapper
 public interface ReviewMapper {
 
-	// 리뷰 개수
-	//public int count();
+	// 리뷰 개수 카운트 for 페이징 처리
+	//public int reviewCount();
 	
 	// 리뷰 목록
-	public List<ReviewDTO> list();
+	public List<ReviewDTO> reviewList(int branchNumber);
 	
 	// 리뷰 작성
-	public int insert(ReviewDTO reviewDTO);
+	public int reviewInsert(ReviewDTO reviewDTO);
 	
 	// 리뷰 수정
-	public int update(ReviewDTO reviewDTO);
+	public int reviewUpdate(ReviewDTO reviewDTO);
 	
 	// 리뷰 삭제
-
-	public int delete(int writingNumber);
-	
+	public int reviewDelete(int writingNumber);
 }

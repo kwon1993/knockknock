@@ -13,20 +13,22 @@ public interface MeetingAndEventService {
 	public MeetingVDTO meetingViewService(int writingNumber) throws Exception; //모임상세보기
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
 			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender) throws Exception; //모임 글쓰기
+			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception; //모임 글쓰기
 	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, 
 			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String simpleIntroduce,
 			String detailIntroduce, String place, String placeDetail, int recruitMaxNumber) throws Exception;
 	public MeetingDTO meetingModifyFormService(int writingNumber) throws Exception;
 	public int meetingDeleteService(int writingNumber) throws Exception;
 	public int meetingSearchService() throws Exception;
-	public int eventCountService() throws Exception;
-	public List<EventVDTO> eventListService() throws Exception;
+	public int eventCountService(Criteria cri) throws Exception;
+	public List<EventVDTO> eventListService(Criteria cri) throws Exception;
+	public EventVDTO eventViewService(int writingNumber) throws Exception;
 	public int eventSearchService() throws Exception;
 	public int fileUploadService() throws Exception;
 	public int fileDownService() throws Exception;
 	public int likeToggleService() throws Exception;
-	public void participateService(int writingNumber, int memberNumber) throws Exception;
+	public void mparticipateService(int writingNumber, int memberNumber) throws Exception;
+	public void eparticipateService(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlaceService() throws Exception;
 	public int meetingPlaceDetailService() throws Exception;
 }

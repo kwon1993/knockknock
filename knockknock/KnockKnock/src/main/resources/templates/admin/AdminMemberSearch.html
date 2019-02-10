@@ -1,26 +1,54 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/Main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>회원 찾기</title>
+<title>회원 찾기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-
-
-
-<div layout:fragment="content" class="container">
-
-<div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <h1>회원 찾기 페이지</h1>
-    </div>
-</div>
-
-</div>
-
-
+	<div layout:fragment="content" class="container">
+		<div class="jumbotron">
+			<h1>회원 검색 페이지</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<h3>관리 메뉴</h3>
+				<div class="sidenav">
+					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
+						th:href="@{adminVisitList}">방문문의관리</a><br> <a
+						th:href="@{adminBranchRegistView}">지점등록</a><br>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="w3-container">
+					<form action="adminMemberSearch">
+						<input type="text" name="keyword" class="form-control" placeholder="검색할 키워드">
+						<input type="submit" value="찾기">
+					</form>
+					<table class="w3-table-all">
+						<tr>
+							<td>회원번호</td>
+							<td>이메일</td>
+							<td>닉네임</td>
+							<td>이름</td>
+							<td>가입일</td>
+						</tr>
+						<tr th:each="list : ${memberListView}">
+							<td th:text="${list.memberNumber}"></td>
+							<td><a
+								th:href="@{'adminMemberView?memberNumber=' + ${list.memberNumber}}"><p
+										th:text="${list.email}"></p></a></td>
+							<td th:text="${list.nickname}"></td>
+							<td th:text="${list.name}"></td>
+							<td th:text="${list.joinTime}"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 

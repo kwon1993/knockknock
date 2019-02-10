@@ -14,6 +14,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<thead>
 					<tr>
 						<th>번호</th>
+						<th>관심사</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>조회수</th>
@@ -23,6 +24,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tbody>
 					<tr th:each="mt : ${MeetingList}">
 						<td th:text="${mt.writingNumber}">번호</td>
+						<td th:text="${mt.favorite}">관심사</td>
 						<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber},page=${pageMaker.cri.page},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${mt.title}">제목</a></td>
 						<td th:text="${mt.nickname}">작성자</td>
 						<td th:text="${mt.hit}">조회수</td>

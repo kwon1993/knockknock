@@ -5,23 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.ReviewMapper">
 
-	<!-- <insert id="insert">
-		INSERT INTO REVIEW (MEMBER_NUMBER, BRANCH_NUMBER, CONTENT, WRITE_TIME)
-		VALUES (#{memberNumber), #{branchNumber},#{content}, now())
-	</insert> -->
+	<!-- <select id="reviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+	</select> -->
 
-	<select id="list" resultType="ReviewDTO">
+	<select id="reviewList" resultType="ReviewDTO">
 		SELECT 
 		M.NICKNAME,
 		R.CONTENT,
-		R.WRITE_TIME writeTime
+		R.WRITE_TIME writeTime,
+		<!-- R.WRITING_NUMBER writingNumber -->
 		FROM REVIEW R, MEMBER M
-		WHERE R.BRANCH_NUMBER=#{BRANCH_NUMBER}
+		WHERE R.BRANCH_NUMBER=#{branchNumber}
 		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
+		ORDER BY WRITING_NUMBER ASC
 	</select>
 
-
-	<insert id="insert" parameterType="ReviewDTO">
+	<insert id="reviewInsert" parameterType="ReviewDTO">
 		INSERT INTO 
 		REVIEW 
 		(MEMBER_NUMBER, 
@@ -29,23 +29,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		CONTENT, 
 		WRITE_TIME)
 		VALUES 
-		(#{memberNumber}, 
+		(#{MEMBER_NUMBER}, 
 		#{branchNumber},
-		#{content}, 
+		#{CONTENT}, 
 		now())
 	</insert>
 	
-	<update id="update" parameterType="ReviewDTO">
+	<update id="reviewUpdate" parameterType="ReviewDTO">
 		UPDATE
-		CONTENT
+		REVIEW
 		SET
 		CONTENT=#{CONTENT}
-		WHERE BRANCH_NUMBER=#{BRANCH_NUMBER}
+		WHERE WRITING_NUMBER=#{writingNumber}
 	</update>
 
-	<delete id="delete" parameterType="int">
+	<delete id="reviewDelete" parameterType="int">
 		DELETE
 		FROM REVIEW
-		WEHRE BRANCH_NUMBER=#{BRANCH_NUMBER}
+		WHERE WRITING_NUMBER=#{writingNumber}
 	</delete>
 </mapper>

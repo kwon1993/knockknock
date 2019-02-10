@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/Main_layout}">
+<head>
+
+<title>낙낙-방찾기</title>
+
+<style>
+
+#jumbotronId{
+    padding: 2rem 1rem;
+    margin-bottom: 0rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.label {margin-bottom: 96px;}
+.label * {display: inline-block;vertical-align: top;}
+.label .left {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+.label .center {background: url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .right {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
+
+.img-fluid img-thumbnail{
+  	position: relative;
+    height: 100vh;
+}
+
+#theme{
+ 	position: absolute;
+    top:60%;
+    left:80%;
+    transform: translate(-50%, -50%);                                                                   
+    font-size:2px;
+    font-family:fantasy;
+    color: white;
+    z-index: 2;
+    text-align: right;
+    padding:2%;
+    background-color: #2eca6a;
+    border-radius: .25rem;
+}
+
+</style>
+    
+</head>
+<body>
+<!-- container -->
+<div layout:fragment="content" class="container">
+    <div class="jumbotron" id='jumbotronId' style="margin-top:40px;">
+		<div class="map_wrap">
+	    	<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+		</div>
+	
+		<div>
+			<input type="text" name="address" id='searchAddress'>
+			<button type="submit" value="찾기" name='roomSearch' id='roomSearch'>주소검색</button>
+		</div>
+		
+		<div class="genderField">
+              <label class="field-title"><strong>성별</strong></label>
+              <div name="gender" id="gender">
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="room-table_gender_division_m" name="gender"><label for="room-table_gender_division_m">남성전용</label></div>
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">여성전용</label></div>
+              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="room-table_gender_division_f" name="gender"><label for="room-table_gender_division_f">남녀공용</label></div>
+              </div>
+        </div>
+        <br><br><br>
+        <div class="petField">
+              <label class="field-title"><strong>반려동물</strong></label>
+              <div name="pet" id="pet">
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="room-table_gender_division_m" name="pet"><label for="room-table_gender_division_m">가능</label></div>
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="room-table_gender_division_f" name="pet"><label for="room-table_gender_division_f">불가능</label></div>
+              </div>
+        </div>
+        <br>
+        <div class="branchThemeField">
+              <label class="field-title"><strong>테마</strong></label>
+              <div name="branchTheme" id="branchTheme">
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="room-table_gender_division_m" name="branchTheme"><label for="room-table_gender_division_m">있음</label></div>
+                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="room-table_gender_division_f" name="branchTheme"><label for="room-table_gender_division_f">없음</label></div>
+              </div>
+        </div>
+    </div>
+    <br>
+
+	<!-- gallery Page Content -->
+    <div class="container" id="container">
+    
+      <h1 class="my-4 text-center text-lg-left"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
+
+	      <div class='row text-center text-lg-left' id='allGallery'>
+	      	<!-- thymeleaf gallery-->
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
+	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
+	            <img class='img-fluid img-thumbnail' src="http://placehold.it/400x300" alt="" id='img'>
+	          	<span th:text='${dto.branchNumber}' name='branchNumber' id='branchNumber'/>
+				<span th:text='${dto.address}' name='addressList' id='addressList'/>
+				<span th:text='${dto.theme}' name='theme' id='theme'/>
+	          </a>
+	        </div>
+	        <!-- /.thymeleaf gallery-->
+	      </div>
+    </div>
+<!-- /.container -->
+
+<script>
+
+//제이쿼리 충돌방지 문법 체인지
+$.noConflict();
+
+//마커를 담을 배열 
+var markers = [];
+//맵생성 컨테이너
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 8 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성
+var map = new daum.maps.Map(mapContainer, mapOption); 
+//주소->좌표변환 객체 생성
+var geocoder = new daum.maps.services.Geocoder();
+//리스트 출력한 name="addressList"를 getElementsByName으로 받아서 addressList 변수에 대입
+var addressList = document.getElementsByName("addressList");
+//좌표를 담는 메서드
+var coords;
+//호점 배열담기
+var branchNumber = document.getElementsByName('branchNumber');
+//branchNumber 증가 변수
+var i=0;
+
+//갤러리,주소를 지도 위에 띄우기
+window.onload = function(){
+	for(k=0; k<addressList.length; k++){
+	   	geocoder.addressSearch(addressList[k].textContent, callback);
+	}
+}
+
+//방검색시 주소를 갤러리,지도 위에 띄우기
+function searchMap(){
+	for(k=0; k<addressList.length; k++){
+		geocoder.addressSearch(addressList[k].textContent, callback);
+	}
+}
+
+jQuery('.checkbox').on('click',multiSearch);
+jQuery('#roomSearch').on('click',multiSearch);
+
+
+//장소검색이 완료됐을 때 호출되는 콜백함수 
+var callback = function(result, status){
+    if (status === daum.maps.services.Status.OK) {
+    	coords = new daum.maps.LatLng(result[0].y, result[0].x);
+        // 결과값으로 받은 위치를 마커로 표시
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+        
+        //'검색'을 눌렀을 때, 마커 삭제
+        jQuery("#roomSearch").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+        });
+        
+        jQuery(".checkbox").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+        });
+        
+    	var customContent = '<div class ="label"><span class="left"></span><span class="center">'+branchNumber[i++].textContent+'호점</span><span class="right"></span></div>';
+    	// 인포윈도우로 장소에 대한 설명을 표시
+    	var customOverlay = new daum.maps.CustomOverlay({
+    	  	position : coords,
+    	 	content : customContent
+    	});
+
+		customOverlay.setMap(map);
+		
+    }//if end
+    	map.setCenter(coords);
+};
+
+
+
+function multiSearch(){
+		var address = jQuery("#searchAddress").val();
+		var content = "";
+		var genderCheckbox = new Array();
+		var petCheckbox = new Array();
+		var themeCheckbox = new Array();
+	 	  
+		jQuery("input[name='gender']:checked").each(function(i){
+			genderCheckbox.push(jQuery(this).val());
+		});//checked end
+		jQuery("input[name='pet']:checked").each(function(i){
+			petCheckbox.push(jQuery(this).val());
+		});//checked end
+		jQuery("input[name='branchTheme']:checked").each(function(i){
+			themeCheckbox.push(jQuery(this).val());
+		});//checked end
+		
+		jQuery.ajax({
+			method : 'post',
+			url : '/roomSearch',
+			data : JSON.stringify({"address":address,"genderList":genderCheckbox,"petList":petCheckbox,"themeList":themeCheckbox}),
+			dataType : "json",
+			contentType: 'application/json',
+			async : false,
+			success : function(data){
+				jQuery("#allGallery").remove();
+				alert("받아온데이터주소:"+data[0].address);
+				//받아오는 주소가 널이 아니라면(값이 있다면)
+				if(data[0].address!=null){
+					console.log(data[0].address);
+					content += "<h1 class='my-4 text-center text-lg-left'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
+					for(i=0; i<data.length; i++){
+						content+=
+						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
+						+
+						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
+						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src='http://placehold.it/400x300' alt=''>" 
+						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
+						"</span><span name='addressList' id='addressList'>" + data[i].address + "</span><span name='theme' id='theme'>"+data[i].theme+"</span></a></div>";
+					}
+					content += "</div>";
+						
+					jQuery("#container").html(content);
+					searchMap();
+				}
+				else{
+					alert(data[0]);
+					return false;
+				}
+			},
+			error : function(data){
+				alert("error");
+			},
+			complete : function(data){
+				alert("complete");
+			}
+		});
+	};
+
+</script>
+</div>
+</body>
+</html>
