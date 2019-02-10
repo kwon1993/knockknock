@@ -5,6 +5,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <meta charset="UTF-8">
 <title>모임 및 이벤트</title>
     <script language="javascript">
+    $(document).ready(function(){
        var today = new Date();
        var year = today.getFullYear();
        var month = today.getMonth();
@@ -30,7 +31,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
            }
            
        } 
-       function prevmonth(){ //이전 월로 가는 함수
+       $("#prevmonth").on("click",function(){
        var ymda = document.getElementById("prev");
        var yg = document.getElementById("Ymd");
 
@@ -48,9 +49,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
        var ymda = year + "년" + (month)+"월";
        present();
-       } 
+       });
 
-       function nextmonth(){  //다음 월로 가는 함수
+       
+       $("#nextmonth").on("click",function(){ //다음 월로 가는 함수
              
        var ymda = document.getElementById("next");
        var yg = document.getElementById("Ymd");
@@ -64,11 +66,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
        var ymda = year + "년" + month+"월";
    
        present(); //present()함수를 호출하여 다시 찍어줌
+		
+       });
 
-       }
-
-       function present(){
        
+       function present(){
        var start = new Date(year, month-1, 1);
        var ymda = document.getElementById("Ymd");
        var Tab = document.getElementById("tab");
@@ -83,7 +85,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
        while(tab.rows.length >2){     //테이블의 행의 길이가 2보다 크면 테이블의 행 제거함.
            tab.deleteRow(tab.rows.length -1);
        }
-
        row = Tab.insertRow();
 
        for(var j = 0; j<start.getDay(); j++){ //달력의 시작 일 구함
@@ -97,11 +98,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
        cnt += 1;
 
        if(cnt%7 ==0){ //cnt가 7이면 행을 늘려줌
-           row = tab.insertRow();
-           
-       }
+           row = tab.insertRow(); 
+       	}
+   	   }
    	}
-   }
+    });
    </script>
 </head>
 <body id="body">
@@ -111,9 +112,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		<img th:src="@{/images/event/test.jpg}" class="img-fluid">
 		<table class="table" border="1" id="tab">
 	        <tr>
-	            <td align="center" id="prev"><label onclick="prevmonth()">≤</td>
+	            <td align="center"><input type="button" id="prevmonth" value="<"></input></td>
 	            <td colspan="5" align="center" id="Ymd"></td>
-	            <td align="center" id="next"><label onclick="nextmonth()">≥</td>
+	            <td align="center"><input type="button" id="nextmonth" value=">"></td>
 	        </tr>
 	
 	        <tr align="center">
