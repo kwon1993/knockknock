@@ -1,82 +1,89 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/Main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>이벤트 글</title>
+<title>이벤트 글</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-
-
-
-<div layout:fragment="content" class="container">
-
-
-
-
-
-<table id="table">
-	<tr>
-		<td>글번호</td>
-		<td>제목</td>
-		<td>조회수</td>
-        <td>작성시간</td>
-    </tr>
-
-    <tr>
-    	<td th:text="${eventView.writingNumber}"></td>
-    	<td th:text="${eventView.title}"></td>
-    	<td th:text="${eventView.hit}"></td>
-    	<td th:text="${eventView.writeTime}"></td>
-    </tr>
-    
-    <tr>
-    	<td colspan="1">�씠踰ㅽ듃 �떆�옉�씪</td>
-    	<td colspan="3" th:text=${eventView.eventStartTime}></td>
-    </tr>
-    <tr>
-    	<td colspan="1">�씠踰ㅽ듃 醫낅즺�씪</td>
-    	<td colspan="3" th:text=${eventView.eventEndTime}></td>
-    </tr>
-    <tr>
-    	<td colspan="1">�젒�닔 �떆�옉�씪</td>
-    	<td colspan="3" th:text=${eventView.acceptStartTime}></td>
-    </tr>
-    <tr>
-    	<td colspan="1">�젒�닔 醫낅즺�씪</td>
-    	<td colspan="3" th:text=${eventView.acceptEndTime}></td>
-    </tr>
-    <tr>
-    	<td colspan="1">紐⑥쭛�씤�썝</td>
-    	<td colspan="3" th:text=${eventView.recruitNumber}></td>
-    </tr>
-    
-	<tr>
-		<td colspan="1">�궡�슜</td>
-		<td colspan="3" th:text="${eventView.content}"></td>
-	</tr>
-	
-    <tr>
-        <td colspan="4">
-            <form action="adminEventDelete">
-            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
-                <input type="submit" value="delete">
-            </form>
-            
-            <form action="adminEventModifyView">
-            	<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
-                <input type="submit" value="modify">
-            </form>
-            
-            <form action="/">
-                <input type="submit" value="main">
-            </form>
-        </td>
-    </tr>
-</table>
-</div>
-
-
+	<div layout:fragment="content" class="container">
+		<div class="jumbotron">
+			<h1>이벤트 글 페이지</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<h3>관리 메뉴</h3>
+				<div class="sidenav">
+					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
+						th:href="@{adminVisitList}">방문문의관리</a><br> <a
+						th:href="@{adminBranchRegistView}">지점등록</a><br>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<table id="table" class="w3-table-all">
+					<tr>
+						<td>글번호</td>
+						<td>제목</td>
+						<td>조회수</td>
+						<td>작성시간</td>
+					</tr>
+					<tr>
+						<td th:text="${eventView.writingNumber}"></td>
+						<td th:text="${eventView.title}"></td>
+						<td th:text="${eventView.hit}"></td>
+						<td th:text="${eventView.writeTime}"></td>
+					</tr>
+					<tr>
+						<td colspan="1">이벤트 시작 시간</td>
+						<td colspan="3" th:text=${eventView.eventStartTime}></td>
+					</tr>
+					<tr>
+						<td colspan="1">에빈트 종료 시간</td>
+						<td colspan="3" th:text=${eventView.eventEndTime}></td>
+					</tr>
+					<tr>
+						<td colspan="1">모집 시작 시간</td>
+						<td colspan="3" th:text=${eventView.acceptStartTime}></td>
+					</tr>
+					<tr>
+						<td colspan="1">모집 종료 시간</td>
+						<td colspan="3" th:text=${eventView.acceptEndTime}></td>
+					</tr>
+					<tr>
+						<td colspan="1">모집 인원</td>
+						<td colspan="3" th:text=${eventView.recruitNumber}></td>
+					</tr>
+					<tr>
+						<td colspan="1">내용</td>
+						<td colspan="3" th:text="${eventView.content}"></td>
+					</tr>
+					<tr>
+						<td colspan="1"></td>
+						<td colspan="1">
+							<form action="adminEventDelete">
+								<input type="hidden" name="writingNumber"
+									th:value="${eventView.writingNumber}"> <input
+									type="submit" value="delete">
+							</form>
+						</td>
+						<td colspan="1">
+							<form action="adminEventModifyView">
+								<input type="hidden" name="writingNumber"
+									th:value="${eventView.writingNumber}"> <input
+									type="submit" value="modify">
+							</form>
+						</td>
+						<td colspan="1">
+							<form action="/">
+								<input type="submit" value="main">
+							</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

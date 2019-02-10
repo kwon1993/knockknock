@@ -25,12 +25,14 @@ public interface MeetingAndEventMapper {
 			String place, String placeDetail, int recruitMaxNumber) throws Exception;
 	public int meetingDelete(int writingNumber) throws Exception;
 	public int meetingSearch() throws Exception;
-	public int eventCount() throws Exception;
-	public List<EventVDTO> eventList() throws Exception;
+	public int eventCount(Criteria cri) throws Exception;
+	public List<EventVDTO> eventList(Criteria cri) throws Exception;
+	public EventVDTO eventView(int writingNumber) throws Exception;
 	public int eventSearch() throws Exception;
 	public int fileDown() throws Exception;
 	public int likeToggle() throws Exception;
-	public void participate(int writingNumber, int memberNumber) throws Exception;
+	public void mparticipate(int writingNumber, int memberNumber) throws Exception;
+	public void eparticipate(int writingNumber, int memberNumber) throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;
 }

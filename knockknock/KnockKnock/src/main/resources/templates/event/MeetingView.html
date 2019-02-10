@@ -3,7 +3,7 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
-<title>모임명</title>
+<title th:text="${MeetingView.title}"></title>
 </head>
 <body>
 	<div layout:fragment="content" class="container">
@@ -26,11 +26,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					<ul>
 						<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
 						<li th:text="'모임 기간 : '+
-						${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-						${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
-						<li th:text="'접수 기간 : '+
 						${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
 						${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
+						<li th:text="'접수 기간 : '+
+						${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
+						${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
 						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
 					</ul>
 				</div>
@@ -50,7 +50,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				          <button type="button" class="close" data-dismiss="modal" th:text="'x'"></button>
 				        </div>
 						<div class="modal-body">
-							<form id="goform" action="/participate">
+							<form id="goform" action="/mparticipate">
 								회원번호:<input type="number" name="memberNumber">					
 								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
 							</form>

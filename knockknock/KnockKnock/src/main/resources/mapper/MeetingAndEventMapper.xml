@@ -10,13 +10,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             COUNT(*)
         FROM MEETING
     </select>
+    <select id="eventCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM EVENT
+    </select>
     <select id="meetingList" resultType="MeetingVDTO">
     	<![CDATA[
 			SELECT
-			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MB.NICKNAME
+			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MT.FAVORITE, MB.NICKNAME
 			FROM
 			    MEETING MT, MEMBER MB
 			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
+			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
+			LIMIT #{pageStart}, #{perPageNum}
+    	]]>
+    </select>
+    <select id="eventList" resultType="EventVDTO">
+    	<![CDATA[
+			SELECT
+			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime, HIT 
+			FROM
+			    EVENT
+			WHERE WRITING_NUMBER > 0
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT #{pageStart}, #{perPageNum}
     	]]>
@@ -32,6 +48,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             MT.FAVORITE, MB.NICKNAME
         FROM MEETING MT, MEMBER MB
         WHERE MT.MEMBER_NUMBER=MB.MEMBER_NUMBER AND WRITING_NUMBER = #{writingNumber}
+    </select>
+    <select id="eventView" resultType="EventVDTO" parameterType="int">
+        SELECT
+            WRITING_NUMBER writingNumber, TITLE, HIT, IMAGE, WRITE_TIME writeTime,
+            ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
+            EVENT_START_TIME eventStartTime, EVENT_END_TIME eventEndTime,
+            RECRUIT_NUMBER recruitNumber, RECRUIT_MAX_NUMBER recruitMaxNumber,
+            CONTENT content
+        FROM EVENT
+        WHERE WRITING_NUMBER = #{writingNumber}
     </select>
     <insert id="meetingInsert">
     	INSERT INTO MEETING
@@ -65,11 +91,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	SIMPLE_INTRODUCE = #{simpleIntroduce}, DETAIL_INTRODUCE = #{detailIntroduce}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
-    <delete id="meetingDelete" parameterType="int">
+    <delete id="meetingDelete" parameterType="int">     
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
-	<insert id="participate"> <!-- 참가하기 -->
+	<insert id="mparticipate"> <!-- 참가하기 -->
 		INSERT INTO JOIN_MEETING (WRITING_NUMBER, MEMBER_NUMBER)
+		VALUES (#{writingNumber}, #{memberNumber})
+	</insert>
+	<insert id="eparticipate"> <!-- 참가하기 -->
+		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)
 		VALUES (#{writingNumber}, #{memberNumber})
 	</insert>
 </mapper>

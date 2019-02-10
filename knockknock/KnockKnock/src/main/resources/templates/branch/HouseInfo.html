@@ -36,6 +36,15 @@ body {
 	color: white;
 }
 
+
+.recentView {
+ width: 150px;
+ height: 200px;
+ border:2px solid red;
+ padding:10px;
+ text-align: center;
+}
+
 .sticky {
 	position: fixed;
 	top: 92.18px;
@@ -215,7 +224,11 @@ img {
 		<!-- <div th:text="${details.branchNumber}" id='branchNameTest'></div> -->
 
 		<br /> <br /> <br /> <br /> <br /> <br />
-
+		
+		<div class="resentView">
+			<h3>최근 본 지점</h3>
+		</div>
+		
 		<!-- <div class="container">
 
 			<div class="mySlides">
@@ -330,7 +343,7 @@ img {
 					src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
 				<br /> <br /> <br />
 
-				<div id="navbar" class="w3-round-large">
+				<div id="navbar" name="navbar" class="w3-round-large">
 
 					<a href="#introduce" class="nb">지점 소개</a> <a href="#locationInfo"
 						class="nb">위치 정보</a> <a href="#roomInfo" class="nb">방 정보</a> <a
@@ -808,7 +821,7 @@ function showSlides(n) {
 			</div>
 
 			<div class="col-md-1">
-				<div class="w3-round-Large fixed">
+				<div name="navbar" class="w3-round-large fixed">
 					<br />
 					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
 					<br />
@@ -820,6 +833,9 @@ function showSlides(n) {
 					<br />
 				</div>
 			</div>
+			
+			
+			
 		</div>
 
 
@@ -1147,10 +1163,10 @@ function showSlides(n) {
 			};
 
 			var navbar = document.getElementById("navbar");
-			var sticky = navbar.offsetTop;
+			var sticky = navbar.offsetTop; // 92
 
 			function myFunction() {
-				if (window.pageYOffset >= sticky) {
+				if (window.pageYOffset >= 792.799) { 
 					navbar.classList.add("sticky")
 				} else {
 					navbar.classList.remove("sticky");

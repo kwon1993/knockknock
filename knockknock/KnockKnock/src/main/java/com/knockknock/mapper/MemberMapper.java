@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.JoinMeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -25,10 +26,23 @@ public interface MemberMapper {
 
 	public void changePassword(MemberDTO memberDTO);
 	//마이페이지
-	public List<ProfileVDTO> getProfile(String username);
+	public List<MemberDTO> getProfile(String username);
+	//마이페이지
+	public List<MemberDTO> getPet(String username);
+	//마이페이지-프로필수정
+	public void profileUpdate(ProfileVDTO profileVDTO);
+	//마이페이지-프로필수정(강아지없을때)
+	public void profileUpdate2(ProfileVDTO profileVDTO);
 	
 	public List<EventVDTO> getMEL(String email);
 	
 	public List<VisitDTO> getMVL(String email);
 	
+	public int deleteJM(int writingNumber, String email);
+	
+	public int deleteMM(int writingNumber, String email);
+	
+	public int deleteJE(int writingNumber, String email);
+	
+	public int deleteV(int writingNumber, String email);
 }

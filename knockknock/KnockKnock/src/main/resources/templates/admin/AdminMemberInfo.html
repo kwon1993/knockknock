@@ -1,26 +1,138 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/Main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>회원 정보</title>
+<title>회원 정보</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-
-
-
-<div layout:fragment="content" class="container">
-
-<div layout:fragment="content" class="container">
-    <div class="jumbotron">
-        <h1>회원 정보 페이지</h1>
-    </div>
-</div>
-
-</div>
-
-
+	<div layout:fragment="content" class="container">
+		<div class="jumbotron">
+			<h1>회원 정보</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<h3>관리 메뉴</h3>
+				<div class="sidenav">
+					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
+						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
+						th:href="@{adminVisitList}">방문문의관리</a><br> <a
+						th:href="@{adminBranchRegistView}">지점등록</a><br>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="w3-container">
+					<table class="w3-table-all">
+						<tr>
+							<td colspan="1">회원번호</td>
+							<td colspan="3" th:text=${memberView.memberNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">권한</td>
+							<td colspan="3" th:text=${memberView.grade}></td>
+						</tr>
+						<tr>
+							<td colspan="1">이메일</td>
+							<td colspan="3" th:text=${memberView.email}></td>
+						</tr>
+						<tr>
+							<td colspan="1">닉네임</td>
+							<td colspan="3" th:text=${memberView.nickname}></td>
+						</tr>
+						<tr>
+							<td colspan="1">이름</td>
+							<td colspan="3" th:text=${memberView.name}></td>
+						</tr>
+						<tr>
+							<td colspan="1">가입일</td>
+							<td colspan="3" th:text=${memberView.joinTime}></td>
+						</tr>
+						<tr>
+							<td colspan="1">생일</td>
+							<td colspan="3" th:text=${memberView.birth}></td>
+						</tr>
+						<tr>
+							<td colspan="1">성별</td>
+							<td colspan="3" th:text=${memberView.gender}></td>
+						</tr>
+						<tr>
+							<td colspan="1">주소</td>
+							<td colspan="3" th:text=${memberView.address}></td>
+						</tr>
+						<tr>
+							<td colspan="1">상세주소</td>
+							<td colspan="3" th:text=${memberView.addressDetail}></td>
+						</tr>
+						<tr>
+							<td colspan="1">주소지 이름</td>
+							<td colspan="3" th:text=${memberView.addressName}></td>
+						</tr>
+						<tr>
+							<td colspan="1">휴대폰 번호</td>
+							<td colspan="3" th:text=${memberView.phoneNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">계약번호</td>
+							<td colspan="3" th:text=${memberView.contractNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">거주중인 지점 호수</td>
+							<td colspan="3" th:text=${memberView.branchNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">거주중인 방 호수</td>
+							<td colspan="3" th:text=${memberView.roomNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">반려동물 보유 여부</td>
+							<td colspan="3" th:text=${memberView.isPet}></td>
+						</tr>
+						<tr>
+							<td colspan="1">비상연락번호</td>
+							<td colspan="3" th:text=${memberView.emergencyNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">회원 은행명</td>
+							<td colspan="3" th:text=${memberView.bankName}></td>
+						</tr>
+						<tr>
+							<td colspan="1">회원 예금주</td>
+							<td colspan="3" th:text=${memberView.depositor}></td>
+						</tr>
+						<tr>
+							<td colspan="1">회원 계좌번호</td>
+							<td colspan="3" th:text=${memberView.memberAccount}></td>
+						</tr>
+						<tr>
+							<td colspan="1">계약일</td>
+							<td colspan="3" th:text=${memberView.contractDate}></td>
+						</tr>
+						<tr>
+							<td colspan="1">계약기간(개월)</td>
+							<td colspan="3" th:text=${memberView.period}></td>
+						</tr>
+						<tr>
+							<td colspan="1">주민등록번호</td>
+							<td colspan="3" th:text=${memberView.idNumber}></td>
+						</tr>
+						<tr>
+							<td colspan="1">체납금액</td>
+							<td colspan="3" th:text=${memberView.payDelayAmount}></td>
+						</tr>
+						<tr>
+							<td colspan="1">패널티금액</td>
+							<td colspan="3" th:text=${memberView.paneltyAmount}></td>
+						</tr>
+						<tr>
+							<td colspan="1">메모</td>
+							<td colspan="3" th:text=${memberView.memo}></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 

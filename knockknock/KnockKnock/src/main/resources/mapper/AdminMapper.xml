@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.knockknock.mapper.AdminMapper">
 
-
+	<!-- event -->
+	
 	<select id="eventListView" resultType="EventVDTO">
 		SELECT E.WRITING_NUMBER
 		writingNumber,
@@ -92,7 +93,98 @@
 		WHERE WRITING_NUMBER = #{param1}
 	</delete>
 
+	<!-- member -->
+	
+	<select id="memberListView" resultType="MemberDTO">
+		SELECT MEMBER_NUMBER memberNumber,
+		EMAIL,
+		NAME,
+		NICKNAME,
+		JOIN_TIME joinTime
+		FROM MEMBER
+		WHERE EMAIL LIKE CONCAT('%', #{param1}, '%') OR
+		NAME LIKE CONCAT('%', #{param1}, '%') OR
+		NICKNAME LIKE CONCAT('%', #{param1}, '%')
+		ORDER BY memberNumber ASC
+	</select>
+	<select id="memberView" resultType="MemberContractVDTO">
+		SELECT M.MEMBER_NUMBER memberNumber,
+		M.GRADE,
+		M.FAVORITE1,
+		M.FAVORITE2,
+		M.FAVORITE3,
+		M.EMAIL,
+		M.NAME,
+		M.NICKNAME,
+		M.BIRTH,
+		M.GENDER,
+		M.ADDRESS,
+		M.ADDRESS_DETAIL addressDetail,
+		M.ADDRESS_NAME addressName,
+		M.PHONE_NUMBER phoneNumber,
+		M.JOIN_TIME joinTime,
+		C.CONTRACT_NUMBER contractNumber,
+		C.BRANCH_NUMBER branchNumber,
+		C.ROOM_NUMBER roomNumber,
+		C.ISPET,
+		C.EMERGENCY_NUMBER emergencyNumber,
+		C.BANK_NAME bankName,
+		C.DEPOSITOR,
+		C.MEMBER_ACCOUNT memberAccount,
+		C.CONTRACT_DATE contractDate,
+		C.PERIOD,
+		C.ID_NUMBER idNumber,
+		C.PAY_DELAY_AMOUNT payDelayAmount,
+		C.PANELTY_AMOUNT paneltyAmount,
+		C.RETURN_AMOUNT returnAmount,
+		C.MEMO
+		FROM MEMBER M
+		LEFT OUTER JOIN CONTRACT C ON M.MEMBER_NUMBER = C.MEMBER_NUMBER
+		WHERE M.MEMBER_NUMBER = #{param1}
+	</select>
 
+	<!-- visit -->
+	
+	<select id="visitListView" resultType="VisitVDTO">
+		SELECT V.WRITING_NUMBER writingNumber,
+		V.MEMBER_NUMBER memberNumber,
+		V.BRANCH_NUMBER branchNumber,
+		V.WRITE_TIME writeTime,
+		V.RESERVATION_TIME reservationTime,
+		V.MEMO,
+		V.CONFIRM,
+		M.NICKNAME,
+		M.NAME,
+		M.PHONE_NUMBER phoneNumber
+		FROM VISIT V, MEMBER M
+		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		ORDER BY writingNumber DESC
+	</select>
+	
+	<select id="visitView" resultType="VisitVDTO">
+		SELECT V.WRITING_NUMBER writingNumber,
+		V.MEMBER_NUMBER memberNumber,
+		V.BRANCH_NUMBER branchNumber,
+		V.WRITE_TIME writeTime,
+		V.RESERVATION_TIME reservationTime,
+		V.MEMO,
+		V.CONFIRM,
+		M.NICKNAME,
+		M.NAME,
+		M.PHONE_NUMBER phoneNumber
+		FROM VISIT V, MEMBER M
+		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		AND V.WRITING_NUMBER = #{param1}
+	</select>
+	
+	<update id="visitCheck">
+		UPDATE VISIT
+		SET CONFIRM = '완료'
+		WHERE WRITING_NUMBER = #{param1}
+	</update>
+
+	<!-- branch -->
+	
 	<insert id="branchRegist">
 		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR,
 		BRANCH_ACCOUNT, GENDER,

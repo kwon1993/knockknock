@@ -31,9 +31,10 @@ public class MemberContractVDTO {
 	private String isPet;
 	private String emergencyNumber;
 	private String bankName;
-	private String deposit;
+	private String depositor;
 	private String memberAccount;
 	private Date contractDate;
+	private int period;
 	private String idNumber;
 	private int payDelayAmount;
 	private int paneltyAmount;
