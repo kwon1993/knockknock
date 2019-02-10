@@ -93,7 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.FAVORITE1 favorite3,
     	M.EMAIL email,
     	M.NICKNAME nickname,
-    	M.INTRODUCE introduce
+    	M.INTRODUCE introduce,
+    	M.IMAGE_PROFILE imageProfile
     	FROM MEMBER M
     	where M.EMAIL = #{username}
     </select>
@@ -110,6 +111,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   set m.nickname=#{nickname}, m.introduce= #{introduce}, p.animal=#{animal}
 			   where m.member_number = #{memberNumber}
     </update>
+    
+    <update id="saveImageDir">
+	   		   update member
+			   set IMAGE_PROFILE = #{finalImage}
+			   where email = #{username}
+    </update>
+    
+    <select id="getImageDir" resultType="MemberDTO">
+	   		   select image_profile imageProfile
+			   from member
+			   where email = #{username}
+    </select>
+    
+    
     
     <select id="getMEL" resultType="EventVDTO">
     	SELECT

@@ -1,5 +1,6 @@
 <header th:fragment="Header" 
-xmlns:th="http://www.w3.org/1999/xhtml">
+xmlns:th="http://www.w3.org/1999/xhtml"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
@@ -44,10 +45,14 @@ xmlns:th="http://www.w3.org/1999/xhtml">
         <span></span>
       </button>
       <a class="navbar-brand text-brand" href="/">KnockKnock<span class="color-b">樂樂</span></a>
+      
+      <!-- 제목 -->
       <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false">
         <span class="fa fa-search" aria-hidden="true"></span>
       </button>
+      
+      <!-- 카테고리바 -->
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav" id="navbar-nav" style="font-size: 10px">
           <li class="nav-item">
@@ -65,36 +70,51 @@ xmlns:th="http://www.w3.org/1999/xhtml">
           <li class="nav-item">
             <a class="nav-link" href="/toFAQ">고객센터</a>
           </li>
-          
-	        <span sec:authorize="isAuthenticated()">
-			    <li class="nav-item" style="margin-left:110px; margin-top:9px; color:#2eca6a;">
-			  		 <a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 13px">▶Logout</a>
-			    </li>
-			</span>
-			<span sec:authorize="isAuthenticated()">
-				<li class="nav-item" style="margin-top:9px">
-			   		<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 13px">▶MyPage</a>
-				</li>
-			</span>
-	          
-		    <span sec:authorize="isAnonymous()">	   
-				 <li class="nav-item" style="margin-left:110px; margin-top:9px">
-				 	<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 13px">▶Login</a>
-				 </li>
-			</span>
-			<span sec:authorize="isAnonymous()">	   
-				 <li class="nav-item" style="margin-top:9px">
-				 	<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 13px">▶Join</a>
-				 </li>
-			</span>
         </ul>
       </div>
-   <!--    <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+      
+      <!-- 로긴,권한 등 버튼 관련 -->
+      <div>
+      	<span sec:authorize="isAuthenticated()">
+			<th:block class="nav-item" style="margin-left:110px; margin-top:9px; color:#2eca6a;">
+				<a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 13px">▶Logout</a>
+	  		</th:block>
+	  	</span>
+		
+			
+		<span sec:authorize = "hasAuthority('ADMIN')">
+			<th:block class="nav-item" style="margin-top:9px">
+		    	<a class="nav-log" id="nav-log" th:href="@{/adminEventListView}" style="font-size: 13px">&nbsp;▶AdminPage</a>
+			</th:block>
+	    </span>
+				
+		<span sec:authorize = "hasAuthority('NORMAL')">
+			<th:block class="nav-item" style="margin-top:9px">
+		    	<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 13px">&nbsp;▶MyPage</a>
+			</th:block>
+		</span>
+				
+		<span sec:authorize="isAnonymous()">	   
+			<th:block class="nav-item" style="margin-left:110px; margin-top:9px">
+				<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 13px">▶Login</a>
+			</th:block>
+	    </span>
+	    
+		<span sec:authorize="isAnonymous()">	   
+			<th:block class="nav-item" style="margin-top:9px">
+				<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 13px">▶Join</a>
+			</th:block>
+		</span>
+      </div>
+      
+   	  <!--    
+   	  <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false">
         <span class="fa fa-user" aria-hidden="true"></span>
-      </button> -->
+      </button> 
+      -->
+      
     </div>
   </nav>
   <!--/ Nav End /-->
-  
  </header>

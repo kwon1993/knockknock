@@ -77,6 +77,17 @@ public class MemberServiceImpl implements MemberService{
 	public void profileUpdate2(ProfileVDTO profileVDTO) {
 		 memberMapper.profileUpdate2(profileVDTO);
 	}
+	
+	//이미지경로 업로드
+	public void saveImageDir(String finalImage, String username) {
+		memberMapper.saveImageDir(finalImage, username);
+	}
+	
+	public MemberDTO getImageDir(String username){
+		return memberMapper.getImageDir(username);
+	}
+	
+	
 
 	public List<EventVDTO> getMEL(String email){
 		return memberMapper.getMEL(email);
@@ -119,5 +130,6 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.deleteV(writingNumber, email);
 		return 1;
 	}
+
 
 }
