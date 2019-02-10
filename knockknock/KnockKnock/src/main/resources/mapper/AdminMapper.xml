@@ -93,6 +93,56 @@
 		WHERE WRITING_NUMBER = #{param1}
 	</delete>
 
+	<!-- member -->
+	
+	<select id="memberListView" resultType="MemberDTO">
+		SELECT MEMBER_NUMBER memberNumber,
+		EMAIL,
+		NAME,
+		NICKNAME,
+		JOIN_TIME joinTime
+		FROM MEMBER
+		WHERE EMAIL LIKE CONCAT('%', #{param1}, '%') OR
+		NAME LIKE CONCAT('%', #{param1}, '%') OR
+		NICKNAME LIKE CONCAT('%', #{param1}, '%')
+		ORDER BY memberNumber ASC
+	</select>
+	<select id="memberView" resultType="MemberContractVDTO">
+		SELECT M.MEMBER_NUMBER memberNumber,
+		M.GRADE,
+		M.FAVORITE1,
+		M.FAVORITE2,
+		M.FAVORITE3,
+		M.EMAIL,
+		M.NAME,
+		M.NICKNAME,
+		M.BIRTH,
+		M.GENDER,
+		M.ADDRESS,
+		M.ADDRESS_DETAIL addressDetail,
+		M.ADDRESS_NAME addressName,
+		M.PHONE_NUMBER phoneNumber,
+		M.JOIN_TIME joinTime,
+		C.CONTRACT_NUMBER contractNumber,
+		C.BRANCH_NUMBER branchNumber,
+		C.ROOM_NUMBER roomNumber,
+		C.ISPET,
+		C.EMERGENCY_NUMBER emergencyNumber,
+		C.BANK_NAME bankName,
+		C.DEPOSITOR,
+		C.MEMBER_ACCOUNT memberAccount,
+		C.CONTRACT_DATE contractDate,
+		C.PERIOD,
+		C.ID_NUMBER idNumber,
+		C.PAY_DELAY_AMOUNT payDelayAmount,
+		C.PANELTY_AMOUNT paneltyAmount,
+		C.RETURN_AMOUNT returnAmount,
+		C.MEMO
+		FROM MEMBER M
+		LEFT OUTER JOIN CONTRACT C ON M.MEMBER_NUMBER = C.MEMBER_NUMBER
+		WHERE M.MEMBER_NUMBER = #{param1}
+	</select>
+
 	<!-- visit -->
 	
 	<select id="visitListView" resultType="VisitVDTO">

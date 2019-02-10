@@ -81,9 +81,21 @@ public class AdminController {
 
 	// member
 
-	@RequestMapping("adminMemberSearch")
-	public String memberSearch(Model model) {
+	@RequestMapping("adminMemberSearchView")
+	public String memberSearchView(Model model) {
 		return "admin/AdminMemberSearch";
+	}
+	
+	@RequestMapping("adminMemberSearch")
+	public String memberSearch(Model model, @RequestParam("keyword") String keyword) {
+		model.addAttribute("memberListView", adminService.memberListView(keyword));
+		return "admin/AdminMemberSearch";
+	}
+	
+	@RequestMapping("adminMemberView")
+	public String memberView(Model model, @RequestParam("memberNumber") int memberNumber) {
+		model.addAttribute("memberView", adminService.memberView(memberNumber));
+		return "admin/AdminMemberInfo";
 	}
 
 	// question

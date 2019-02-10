@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.MemberContractVDTO;
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitVDTO;
 import com.knockknock.mapper.AdminMapper;
 
@@ -61,6 +63,18 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void eventDelete(int writingNumber) {
 		adminMapper.eventDelete(writingNumber);
+	}
+	
+	//member
+	
+	@Override
+	public ArrayList<MemberDTO> memberListView(String keyword){
+		return adminMapper.memberListView(keyword);
+	}
+	
+	@Override
+	public MemberContractVDTO memberView(int memberNumber) {
+		return adminMapper.memberView(memberNumber);
 	}
 	
 	//visit
