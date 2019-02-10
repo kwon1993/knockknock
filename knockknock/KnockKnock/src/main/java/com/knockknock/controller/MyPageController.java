@@ -1,8 +1,10 @@
 package com.knockknock.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.knockknock.dto.event.JoinMeetingDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
@@ -31,9 +33,15 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
+		
 		String username = user.getUsername();
+		
+		//프로필정보를 불러오기 위한 모델
 		model.addAttribute("profile", memberService.getProfile(username));
 		model.addAttribute("getPet",memberService.getPet(username));
+		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
+		model.addAttribute("image",memberService.getImageDir(username));
+		
 		return "member/MyProfile";
 	}
 	
@@ -55,7 +63,56 @@ public class MyPageController {
 		return memberService.getProfile(username);
 		
 	}
-
+	
+	//프로필사진업로드
+	@RequestMapping(value="/profileUpdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public String uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO, Authentication authentication) {
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String username = user.getUsername();
+		
+		//업로드할 절대경로1
+		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
+		//업로드할 절대경로2
+		String uploadFolderPath = "\\profile";
+		//DB에 저장할 상대경로
+		String uploadRelativeDirectory = "\\images\\profile\\";
+		
+		//절대경로1,2를 합쳐서 실제 업로드 경로를 만든다.(2를 1에 함께 써도 무관)
+		File uploadPath = new File(uploadFolder,uploadFolderPath);
+		
+		//업로드 경로가 존재하지않으면 폴더를 만든다.
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+		
+		//다중파일의 경우를 위해 포문으로 파일들을 가져온다(프로필사진 1개니까 상관없음)
+		for(MultipartFile multipartFile : uploadFile) {
+			
+			String uploadFileName = username+"@"+multipartFile.getOriginalFilename(); //유저아이디+파일명
+			
+			//IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			
+			try {
+				File saveFile = new File(uploadPath, uploadFileName);
+				//경로를 파일화시킨다.(실제파일생성)
+				multipartFile.transferTo(saveFile);
+				//DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
+				String finalImage = uploadRelativeDirectory+uploadFileName;
+				
+				//이미지경로를 저장한다.
+				memberService.saveImageDir(finalImage,username);
+				//이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
+				model.addAttribute("image",memberService.getImageDir(username));
+				
+			}catch(Exception e) {
+				e.getMessage();
+			}//end catch
+		}
+		return "hi";
+	} 
 
 	@RequestMapping("/MyEventList")
 	public String myEventList(Model model, ProfileVDTO profileVDTO) {
