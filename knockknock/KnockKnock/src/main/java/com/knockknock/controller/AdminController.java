@@ -18,27 +18,27 @@ public class AdminController {
 
 	// event
 
-	//이벤트 리스트 페이지
+	// 이벤트 리스트 페이지
 	@RequestMapping("adminEventListView")
 	public String eventListView(Model model) {
 		model.addAttribute("eventListView", adminService.eventList());
 		return "admin/AdminEventList";
 	}
 
-	//이벤트 글 보기
+	// 이벤트 글 보기
 	@RequestMapping("adminEventView")
 	public String eventView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventView", adminService.eventView(writingNumber));
 		return "admin/AdminEventPost";
 	}
 
-	//이벤트 작성 페이지
+	// 이벤트 작성 페이지
 	@RequestMapping("adminEventWriteView")
 	public String eventWriteView(Model model) {
 		return "admin/AdminEventWrite";
 	}
 
-	//이벤트 등록
+	// 이벤트 등록
 	@RequestMapping("adminEventWrite")
 	public String eventWrite(Model model, @RequestParam("memberNumber") int memberNumber,
 			@RequestParam("title") String title, @RequestParam("content") String content,
@@ -53,14 +53,14 @@ public class AdminController {
 		return "redirect:adminEventListView";
 	}
 
-	//이벤트 수정 페이지
+	// 이벤트 수정 페이지
 	@RequestMapping("adminEventModifyView")
 	public String eventModifyView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventModifyView", adminService.eventModifyView(writingNumber));
 		return "admin/AdminEventModify";
 	}
 
-	//이벤트 수정
+	// 이벤트 수정
 	@RequestMapping("adminEventModify")
 	public String eventModify(Model model, @RequestParam("writingNumber") int writingNumber,
 			@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
@@ -72,7 +72,7 @@ public class AdminController {
 		return "redirect:adminEventListView";
 	}
 
-	//이벤트 삭제
+	// 이벤트 삭제
 	@RequestMapping("adminEventDelete")
 	public String eventDelete(Model model, @RequestParam("writingNumber") int writingNumber) {
 		adminService.eventDelete(writingNumber);
@@ -85,17 +85,38 @@ public class AdminController {
 	public String memberSearchView(Model model) {
 		return "admin/AdminMemberSearch";
 	}
-	
+
 	@RequestMapping("adminMemberSearch")
 	public String memberSearch(Model model, @RequestParam("keyword") String keyword) {
 		model.addAttribute("memberListView", adminService.memberListView(keyword));
 		return "admin/AdminMemberSearch";
 	}
-	
+
 	@RequestMapping("adminMemberView")
 	public String memberView(Model model, @RequestParam("memberNumber") int memberNumber) {
 		model.addAttribute("memberView", adminService.memberView(memberNumber));
 		return "admin/AdminMemberInfo";
+	}
+
+	@RequestMapping("adminContractRegistView")
+	public String contractRegistView(Model model, @RequestParam("memberNumber") int memberNumber) {
+		model.addAttribute("memberNumber", memberNumber);
+		return "admin/AdminContractRegist";
+	}
+
+	@RequestMapping("adminContractRegist")
+	public String contractRegist(Model model, @RequestParam("memberNumber") int memberNumber,
+			@RequestParam("branchNumber") int branchNumber, @RequestParam("roomNumber") int roomNumber,
+			@RequestParam("period") int period, @RequestParam("isPet") String isPet,
+			@RequestParam("emergencyNumber") String emergencyNumber, @RequestParam("bankName") String bankName,
+			@RequestParam("depositor") String depositor, @RequestParam("memberAccount") String memberAccount,
+			@RequestParam("contractDate") Date contractDate, @RequestParam("idNumber") String idNumber,
+			@RequestParam("memo") String memo) {
+		adminService.contractRegist(memberNumber, branchNumber, roomNumber, period, isPet, emergencyNumber, bankName,
+				depositor, memberAccount, contractDate, idNumber, memo);
+		adminService.setReturnAmount(adminService.getContractNumber(),
+				adminService.getDeposit(roomNumber, branchNumber));
+		return "redirect:/";
 	}
 
 	// question
@@ -107,37 +128,36 @@ public class AdminController {
 
 	// visit
 
-	//방문신청 리스트 페이지
+	// 방문신청 리스트 페이지
 	@RequestMapping("adminVisitList")
 	public String visitList(Model model) {
 		model.addAttribute("visitListView", adminService.visitList());
 		return "admin/AdminVisitList";
 	}
-	
-	//방문신청 글 보기
+
+	// 방문신청 글 보기
 	@RequestMapping("adminVisitView")
 	public String adminVisitView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("visitView", adminService.visitView(writingNumber));
 		return "admin/AdminVisitCheck";
 	}
-	
-	//방문신청 확인 체크
+
+	// 방문신청 확인 체크
 	@RequestMapping("adminVisitCheck")
 	public String adminVisitCheck(Model model, @RequestParam("writingNumber") int writingNumber) {
 		adminService.visitCheck(writingNumber);
 		return "redirect:adminVisitList";
 	}
-	
 
 	// branch
 
-	//지점 및 방 정보 작성 페이지
+	// 지점 및 방 정보 작성 페이지
 	@RequestMapping("adminBranchRegistView")
 	public String adminBranchRegistView() {
 		return "admin/AdminBranchRegist";
 	}
 
-	//지점 등록
+	// 지점 등록
 	@RequestMapping("adminBranchRegist")
 	public String adminBranchRegist(Model model,
 			@RequestParam(value = "theme", required = true, defaultValue = "없음") String theme,
@@ -212,8 +232,8 @@ public class AdminController {
 			@RequestParam(value = "publicFacility", required = false, defaultValue = "없음") String publicFacility,
 			@RequestParam(value = "privateFacility", required = false, defaultValue = "없음") String privateFacility,
 			@RequestParam(value = "rule") String rule) {
-		
-		//배열로 정리
+
+		// 배열로 정리
 		int[] roomNumber = { roomNumber1, roomNumber2, roomNumber3, roomNumber4, roomNumber5, roomNumber6, roomNumber7,
 				roomNumber8 };
 		String[] roomGender = { roomGender1, roomGender2, roomGender3, roomGender4, roomGender5, roomGender6,
@@ -227,8 +247,8 @@ public class AdminController {
 				roomMonthlyRent5, roomMonthlyRent6, roomMonthlyRent7, roomMonthlyRent8 };
 		String[] roomRentableDate = { roomRentableDate1, roomRentableDate2, roomRentableDate3, roomRentableDate4,
 				roomRentableDate5, roomRentableDate6, roomRentableDate7, roomRentableDate8 };
-		
-		//지점 및 방 등록
+
+		// 지점 및 방 등록
 		adminService.branchRegist(theme, bankName, depositor, branchAccount, gender, introduce, branchType, isParking,
 				isElevator, pet, address, addressDetail, remainAddress, publicFacility, rule, roomType);
 		int branchNumber = adminService.getBranchNumber();
@@ -237,14 +257,14 @@ public class AdminController {
 
 		return "home/Home";
 	}
-	
-	//지점 정보 수정 페이지
+
+	// 지점 정보 수정 페이지
 	@RequestMapping("adminBranchModifyView")
 	public String adminBranchModifyView(Model model) {
 		return "";
 	}
-	
-	//지점 정보 수정
+
+	// 지점 정보 수정
 	@RequestMapping("adminBranchModify")
 	public String adminBranchModify(Model model) {
 		return "";
