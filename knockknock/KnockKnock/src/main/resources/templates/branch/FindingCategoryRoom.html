@@ -96,24 +96,24 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 	</div>  
 </div>
-
-<!-- <script>
-function ajaxExample(){
-	// 사용자 ID를 갖고 온다.
+<!--  
+<script>
+ function Categorycheckbox(){
+	
 	var userId = $("#category").val();
 
-	// name이 같은 체크박스의 값들을 배열에 담는다.
-// 	var checkboxValues = [];
-// 	$("input[name='hobby']:checked").each(function(i) {
-// 		checkboxValues.push($(this).val());
-// 	});
+	 name이 같은 체크박스의 값들을 배열에 담는다.
+ 	var checkboxValues = [];
+ 	$("input[name='hobby']:checked").each(function(i) {
+ 		checkboxValues.push($(this).val());
+ 	});
 	
 	// 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
 	var allData = { "category": category};
 	
 	$.ajax({
-		url:"goUrl.do",
-		type:'GET',
+ 		url:"",
+		type:'post',
 		data: allData,
 		success:function(data){
 			alert("완료!");
@@ -126,7 +126,8 @@ function ajaxExample(){
 		}
 	});
 }
-</script>-->
+</script>
+-->
 </body>
 </html>
 
