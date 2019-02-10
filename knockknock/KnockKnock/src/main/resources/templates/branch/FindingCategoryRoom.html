@@ -8,93 +8,71 @@ layout:decorate="~{etc/fragments/Main_layout}">
 </head>
 <body>
 
-	<div layout:fragment="content" class="container">
-		<div class="w3-container">
-			<div class="jumbotron" id="jumbotronId" style="margin-top: 40px;">
-				<!-- 주소 검색 -->
-				<div>
-					<form action="/categoryRoomSearch">
-						<label class="field-title"><strong>주소검색</strong></label>
-						<input type="text" name="address" />
-						<button type="submit" name="categoryRoomSearch"
-							id="categoryRoomSearch">주소 검색</button>
-					</form>
-					<!-- 체크박스 -->
-						<div class="favoriteCheckbox">
-							<label class="field-title"><strong>관심사</strong></label>
-							<div name="favorite" id="favorite">
-								<div class="checkbox">
-									<input type="checkbox" value="IT" id="favorite1" name="IT"><label
-										for="favorite1">IT</label>
-								</div>
-							</div>
-						</div>
-				</div>
-
-			</div>
-		</div>
-
-		<table class="w3-table-all">
-			<tr>
-				<td>방번호</td>
-				<td>위치</td>
-				<td>방 이름</td>
-				<td>관심사</td>
-				<td>방 타입</td>
-				<td>보증금</td>
-				<td>월세</td>
-				<td>입주가능일</td>
-				<td>임주가능 인원</td>
-			</tr>
-			<tr th:each="list : ${lists}">
-				<td th:text="${list.roomNumber}"></td>
-				<td th:text="${list.address}"></td>
-				<!-- 		<td> -->
-				<!--             <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a> -->
-				<!--         </td> -->
-				<td th:text="${list.addressDetail}"></td>
-				<td th:text="${list.theme}"></td>
-				<td th:text="${list.gender}"></td>
-				<td th:text="${list.deposit}"></td>
-				<td th:text="${list.monthlyRent}"></td>
-				<td th:text="${list.rentableDate}"></td>
-				<td th:text="${list.allowNumber}"></td>
-			</tr>
-
-			<!--     <tr> -->
-			<!--         <td colspan="5"> -->
-			<!--             <form action="adminEventWriteView"> -->
-			<!--                 <input type="submit" value="Write"> -->
-			<!--             </form> -->
-			<!--         </td> -->
-			<!--     </tr> -->
-		</table>
-		<div class="box-footer">
-			<ul class="pagination">
-
-				<li class="page-item" th:if="${pageMaker.prev} == true"><a
-					th:href="@{/findingCategoryRoom(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
-				</li>
-
-				<li class="page-item"
-					th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"
-					th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-					<a
-					th:href="@{/findingCategoryRoom(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}"
-					th:text="${idx}"></a>
-				</li>
-
-				<li class="page-item"
-					th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-					<a
-					th:href="@{/findingCategoryRoom(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
-				</li>
-
-			</ul>
-		</div>
-	</div>
-
+<div layout:fragment="content" class="container">
+  <div class="w3-container">
+  <div class="jumbotron">
+	<div>
+		<form action="/categoryRoomSearch">
+		<input type="text" name="address"/>	
+		<button type="submit" name="categoryRoomSearch" id="categoryRoomSearch">관심사 검색</button>	   
+		</form>
 	</div>  
+	
+<table class="w3-table-all">
+	<tr>
+		<td>방번호</td>
+		<td>위치</td>
+		<td>방 이름</td>
+		<td>관심사</td>
+		<td>방 타입</td>
+		<td>보증금</td>
+		<td>월세</td>
+		<td>입주가능일</td>
+		<td>임주가능 인원</td>
+	</tr>
+	<tr th:each="list : ${lists}">
+		<td th:text="${list.roomNumber}"></td>
+		<td th:text="${list.address}"></td>
+<!-- 		<td> -->
+<!--             <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a> -->
+<!--         </td> -->
+		<td th:text="${list.addressDetail}"></td>
+		<td th:text="${list.theme}"></td>
+		<td th:text="${list.gender}"></td>
+		<td th:text="${list.deposit}"></td>
+		<td th:text="${list.monthlyRent}"></td>
+		<td th:text="${list.rentableDate}"></td>
+		<td th:text="${list.allowNumber}"></td>	
+    </tr>
+    
+<!--     <tr> -->
+<!--         <td colspan="5"> -->
+<!--             <form action="adminEventWriteView"> -->
+<!--                 <input type="submit" value="Write"> -->
+<!--             </form> -->
+<!--         </td> -->
+<!--     </tr> -->
+</table>
+	    <div class="box-footer">
+              <ul class="pagination">
+              
+              <li class="page-item" th:if="${pageMaker.prev} == true">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+              </li>
+              
+              <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+                <a th:href="@{/findingCategoryRoom(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+              </li>
+              
+              <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{/findingCategoryRoom(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+              </li>
+              
+              </ul>
+            </div>
+     </div>
+
+  </div>  
 </div>
 
 <!-- <script>
