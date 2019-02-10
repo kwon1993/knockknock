@@ -62,7 +62,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	FROM 	ROOM R, BRANCH B
    	WHERE 	R.BRANCH_NUMBER = B.BRANCH_NUMBER
     ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC
-   	LIMIT 	#{pageStart}, #{perPageNum}
    		
 <!-- 	  <![CDATA[ -->
 <!-- 		SELECT  -->

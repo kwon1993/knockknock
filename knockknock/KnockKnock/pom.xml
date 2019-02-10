@@ -109,14 +109,30 @@
             <artifactId>commons-io</artifactId>
             <version>2.5</version>
         </dependency>
-  <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-mapper-asl</artifactId>
-    <version>1.9.13</version>
-</dependency>
-  
+        
+		  <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
 		
+		<!-- 섬네일 생성을 위한 라이브러리 -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+		
+		<!-- 업로드된 파일 정보 처리를 위한 라이브러리 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
 		
 	</dependencies>
 

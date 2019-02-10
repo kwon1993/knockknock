@@ -2,6 +2,7 @@ package com.knockknock.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +35,18 @@ public class BranchService {
 	}
 
 	//네비게이션바 관심사로 방찾기검색
-	public List<BranchDetailVDTO> findingCategoryRoomList(Criteria cri) throws Exception{
-		return branchMapper.findingCategoryRoomList(cri);
+	public List<BranchDetailVDTO> findingCategoryRoomList(BranchDetailVDTO branchDetailVDTO) throws Exception{
+		return branchMapper.findingCategoryRoomList(branchDetailVDTO);
 	}
 	
 	//관심사로 방찾기 페이징처리
 	public int categoryCountService(Criteria cri) throws Exception{
 		return branchMapper.categoryCount(cri);
 	}
+	//관심사로 찾기의 방검색
+		public  List<BranchDetailVDTO> categoryRoomSearch(String address) throws Exception{
+			return branchMapper.categoryRoomSearch(address);
+		}
 	
 	// 지점 상세 정보 - 상세
 	public BranchDetailVDTO getDetail(int branchNumber) {

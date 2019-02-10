@@ -1,6 +1,13 @@
 package com.knockknock.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.service.BranchService;
+
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 public class BranchController {
@@ -37,7 +47,7 @@ public class BranchController {
 	public String categoryRoomSearch(@RequestParam("address") String address, Model model) throws Exception {
 		System.out.println(address);
 		
-		//model.addAttribute("lists", branchService.categoryRoomSearch(address));
+		model.addAttribute("lists", branchService.categoryRoomSearch(address));
 		
 		return "branch/FindingCategoryRoom";
 	}
@@ -47,17 +57,82 @@ public class BranchController {
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
-		model.addAttribute("memberInfo", branchService.getMemberInfo(branchNumber));
-
-		// logger.info(branchService.getMemberInfo(branchNumber).toString());
-
-		/*
-		 * // 파일 업로드 테스트 메서드 FileUploadTestForm fileUploadTestForm = new
-		 * FileUploadTestForm(); model.addAttribute("fileUploadTestForm",
-		 * fileUploadTestForm);
-		 */
+		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
 
 		return "branch/HouseInfo";
+	}
+	
+	// 업로드 폴더 생성 메서드
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String str=sdf.format(date);
+		return str.replace("-", File.separator);
+	}
+	
+	// 업로드 파일이 이미지 타입인지 체크하는 메서드
+	private boolean checkImageType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	@PostMapping("/uploadAjaxAction")
+	@ResponseBody
+	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+		
+		// 지점 번호 받아서 경로에 넣어주기!
+		String uploadFolder="C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch";
+
+		// 폴더 생성
+		File uploadPath = new File(uploadFolder, getFolder());
+		logger.info("upload path: "+uploadPath);
+		
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+		
+		for(MultipartFile multipartFile:uploadFile) {
+			logger.info("-------------------------------");
+			logger.info("Upload File Name: " +multipartFile.getOriginalFilename());
+			logger.info("Upload File Size: " +multipartFile.getSize());
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			
+			// IE has file path
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			logger.info("only file name: " + uploadFileName);
+
+			// 중복 파일 구분을 위한 랜덤 문자열 생성
+			UUID uuid = UUID.randomUUID();
+			
+			// 언더바로 랜덤 문자열과 본래의 파일명 구분
+			uploadFileName = uuid.toString() + "_" + uploadFileName; 
+					
+			
+			try {
+				File saveFile = new File(uploadPath, uploadFileName);
+				multipartFile.transferTo(saveFile);
+				
+				// 업로드 파일 타입 체크
+/*				if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
+					
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
+					
+					thumbnail.close();
+				}*/
+				
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+			} 
+		}
 	}
 
 	// 방문 신청
@@ -69,53 +144,8 @@ public class BranchController {
 		logger.info("POST/visitBooking");
 		branchService.visitBooking(visitDTO);
 	}
+	
 
-	/*
-	 * // POST: 진짜 파일 업로드 로직
-	 * 
-	 * @RequestMapping(value = "roomDetailView", method = RequestMethod.POST) public
-	 * String uploadOneFileHandlerPOST(HttpServletRequest request, // Model model,
-	 * //
-	 * 
-	 * @ModelAttribute("fileUploadTestForm") FileUploadTestForm fileUploadTestForm)
-	 * {
-	 * 
-	 * return this.doUpload(request, model, fileUploadTestForm);
-	 * 
-	 * }
-	 * 
-	 * private String doUpload(HttpServletRequest request, Model model, //
-	 * FileUploadTestForm fileUploadTestForm) {
-	 * 
-	 * String description = fileUploadTestForm.getDescription();
-	 * System.out.println("Description: " + description);
-	 * 
-	 * // Root Directory. String uploadRootPath =
-	 * request.getServletContext().getRealPath("upload");
-	 * System.out.println("uploadRootPath=" + uploadRootPath);
-	 * 
-	 * File uploadRootDir = new File(uploadRootPath); // Create directory if it not
-	 * exists. if (!uploadRootDir.exists()) { uploadRootDir.mkdirs(); }
-	 * MultipartFile[] fileDatas = fileUploadTestForm.getFileDatas(); // List<File>
-	 * uploadedFiles = new ArrayList<File>(); List<String> failedFiles = new
-	 * ArrayList<String>();
-	 * 
-	 * for (MultipartFile fileData : fileDatas) {
-	 * 
-	 * // Client File Name String name = fileData.getOriginalFilename();
-	 * System.out.println("Client File Name = " + name);
-	 * 
-	 * if (name != null && name.length() > 0) { try { // Create the file at server
-	 * File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator +
-	 * name);
-	 * 
-	 * BufferedOutputStream stream = new BufferedOutputStream(new
-	 * FileOutputStream(serverFile)); stream.write(fileData.getBytes());
-	 * stream.close(); // uploadedFiles.add(serverFile);
-	 * System.out.println("Write file: " + serverFile); } catch (Exception e) {
-	 * System.out.println("Error Write file: " + name); failedFiles.add(name); } } }
-	 * model.addAttribute("description", description);
-	 * model.addAttribute("uploadedFiles", uploadedFiles);
-	 * model.addAttribute("failedFiles", failedFiles); return "branch/HouseInfo"; }
-	 */
+
+	
 }

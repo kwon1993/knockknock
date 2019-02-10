@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -40,28 +39,62 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().
-		authorizeRequests()
-		.antMatchers("/**","/reviewList").permitAll()
-		.and()
+		//기존설정----------------------------------------------------------
+//		http.csrf().disable().
+//		authorizeRequests()
+//			.antMatchers("/**","/reviewList").permitAll()
+//			.antMatchers("/admin").hasRole("A")
+//			.anyRequest().authenticated()
+//			.and()
+//		.formLogin()
+//			.loginPage("/login")
+//			.defaultSuccessUrl("/")
+//			.failureUrl("/login")
+//			.and()
+//		.logout()
+//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//			.logoutSuccessUrl("/")
+//			.permitAll();
+//		//loginProcessingUrl없애니 됨
+//		
+//		http
+//	    	.csrf()
+//	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//		
+//		//스마트에디터 관련 설정
+//	    http
+//		    .headers()
+//		    .frameOptions()
+//		    .disable();	
+	    
+	    //실제필요설정------------------------------------------------------------
+//	    http.csrf().disable().
+		http
+		.authorizeRequests()
+			
+			.antMatchers("/**","/reviewList").permitAll()
+			.anyRequest().authenticated()
+			.and()
 		.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/")
-		.failureUrl("/login")
-		.and()
+			.loginPage("/login")
+			.defaultSuccessUrl("/")
+			.failureUrl("/login")
+			.and()
 		.logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/")
-		.permitAll();
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/")
+			.permitAll();
 		//loginProcessingUrl없애니 됨
 		
-		
-		 http
-	     .csrf()
-	     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		http
+	    	.csrf()
+	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 		
 		//스마트에디터 관련 설정
-	    http.headers().frameOptions().disable();	
+	    http
+		    .headers()
+		    .frameOptions()
+		    .disable();	
 	}
 
 	//로그인 처리 시, 인증에 대한 처리.
@@ -75,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 
 			
 }

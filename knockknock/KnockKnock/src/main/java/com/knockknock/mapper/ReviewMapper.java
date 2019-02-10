@@ -13,7 +13,7 @@ public interface ReviewMapper {
 	//public int reviewCount();
 	
 	// 리뷰 목록
-	public List<ReviewDTO> reviewList(ReviewDTO reviewDTO);
+	public List<ReviewDTO> reviewList(int branchNumber);
 	
 	// 리뷰 작성
 	public int reviewInsert(ReviewDTO reviewDTO);
