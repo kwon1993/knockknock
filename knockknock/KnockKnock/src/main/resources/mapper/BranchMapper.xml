@@ -205,4 +205,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		MEMO=#{visitDTO.memo}
 	</insert>
    
+   <!-- 테마 체크박스 -->
+   <select id="getThemeLists" resultType="String">
+   	select distinct theme  from branch
+   </select>
 </mapper>

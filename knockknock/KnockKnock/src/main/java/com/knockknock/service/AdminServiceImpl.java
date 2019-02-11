@@ -64,31 +64,60 @@ public class AdminServiceImpl implements AdminService {
 	public void eventDelete(int writingNumber) {
 		adminMapper.eventDelete(writingNumber);
 	}
-	
-	//member
-	
+
+	// member
+
 	@Override
-	public ArrayList<MemberDTO> memberListView(String keyword){
+	public ArrayList<MemberDTO> memberListView(String keyword) {
 		return adminMapper.memberListView(keyword);
 	}
-	
+
 	@Override
 	public MemberContractVDTO memberView(int memberNumber) {
 		return adminMapper.memberView(memberNumber);
 	}
-	
-	//visit
-	
+
 	@Override
-	public ArrayList<VisitVDTO> visitList(){
-		return adminMapper.visitListView();
+	public void contractRegist(int memberNumber, int branchNumber, int roomNumber, int period, String isPet,
+			String emergencyNumber, String bankName, String depositor, String memberAccount, Date contractDate,
+			String idNumber, String memo) {
+		int payDelayAmount = 0;
+		int paneltyAmount = 0;
+		int returnAmount = 0;
+		adminMapper.contractRegist(memberNumber, branchNumber, roomNumber, period, isPet, emergencyNumber, bankName,
+				depositor, memberAccount, contractDate, idNumber, payDelayAmount, paneltyAmount, returnAmount, memo);
 	}
 	
+	@Override
+	public int getContractNumber() {
+		ArrayList<Integer> contractNumber = adminMapper.getContractNumber();
+		int maxContractNumber = Collections.max(contractNumber);
+		return maxContractNumber;
+	}
+	
+	@Override
+	public int getDeposit(int roomNumber, int branchNumber) {
+		int deposit = adminMapper.getDeposit(roomNumber, branchNumber);
+		return deposit;
+	}
+	
+	@Override
+	public void setReturnAmount(int contractNumber, int returnAmount) {
+		adminMapper.setReturnAmount(contractNumber, returnAmount);
+	}
+
+	// visit
+
+	@Override
+	public ArrayList<VisitVDTO> visitList() {
+		return adminMapper.visitListView();
+	}
+
 	@Override
 	public VisitVDTO visitView(int writingNumber) {
 		return adminMapper.visitView(writingNumber);
 	}
-	
+
 	@Override
 	public void visitCheck(int writingNumber) {
 		adminMapper.visitCheck(writingNumber);
@@ -136,8 +165,8 @@ public class AdminServiceImpl implements AdminService {
 			String privateFacility) {
 		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
 		Date[] rentableDate = new Date[roomRentableDate.length];
-		for(int i = 0; i < roomRentableDate.length; i++) {
-			if(Pattern.matches(dateForm, roomRentableDate[i])) {
+		for (int i = 0; i < roomRentableDate.length; i++) {
+			if (Pattern.matches(dateForm, roomRentableDate[i])) {
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					java.util.Date parsed = (java.util.Date) formatter.parse(roomRentableDate[i]);
@@ -149,10 +178,10 @@ public class AdminServiceImpl implements AdminService {
 				rentableDate[i] = null;
 			}
 		}
-		
-		for (int i = 0; i < roomNumber.length
-				&& (roomNumber[i] != 0 && roomGender[i] != "" && roomType[i] != "" && roomSpace[i] != ""
-						&& roomDeposit[i] != 0 && roomMonthlyRent[i] != 0 && !(roomRentableDate[i].equals(null))); i++) {
+
+		for (int i = 0; i < roomNumber.length && (roomNumber[i] != 0 && roomGender[i] != "" && roomType[i] != ""
+				&& roomSpace[i] != "" && roomDeposit[i] != 0 && roomMonthlyRent[i] != 0
+				&& !(roomRentableDate[i].equals(null))); i++) {
 
 			int allowNumber = roomType[i] == "1인실" ? 1
 					: roomType[i] == "2인실" ? 2 : roomType[i] == "3인실" ? 3 : roomType[i] == "4인실" ? 4 : 0;

@@ -5,7 +5,7 @@
 <mapper namespace="com.knockknock.mapper.AdminMapper">
 
 	<!-- event -->
-	
+
 	<select id="eventListView" resultType="EventVDTO">
 		SELECT E.WRITING_NUMBER
 		writingNumber,
@@ -80,7 +80,8 @@
 	<update id="eventModify">
 		UPDATE EVENT
 		SET TITLE = #{param3},
-		CONTENT = #{param4},
+		CONTENT =
+		#{param4},
 		EVENT_START_TIME = #{param5},
 		EVENT_END_TIME = #{param6},
 		ACCEPT_START_TIME = #{param7},
@@ -94,21 +95,26 @@
 	</delete>
 
 	<!-- member -->
-	
+
 	<select id="memberListView" resultType="MemberDTO">
-		SELECT MEMBER_NUMBER memberNumber,
+		SELECT MEMBER_NUMBER
+		memberNumber,
 		EMAIL,
 		NAME,
 		NICKNAME,
 		JOIN_TIME joinTime
 		FROM MEMBER
-		WHERE EMAIL LIKE CONCAT('%', #{param1}, '%') OR
-		NAME LIKE CONCAT('%', #{param1}, '%') OR
+		WHERE
+		EMAIL LIKE CONCAT('%', #{param1}, '%') OR
+		NAME LIKE CONCAT('%',
+		#{param1}, '%') OR
 		NICKNAME LIKE CONCAT('%', #{param1}, '%')
-		ORDER BY memberNumber ASC
+		ORDER BY
+		memberNumber ASC
 	</select>
 	<select id="memberView" resultType="MemberContractVDTO">
-		SELECT M.MEMBER_NUMBER memberNumber,
+		SELECT M.MEMBER_NUMBER
+		memberNumber,
 		M.GRADE,
 		M.FAVORITE1,
 		M.FAVORITE2,
@@ -119,72 +125,115 @@
 		M.BIRTH,
 		M.GENDER,
 		M.ADDRESS,
-		M.ADDRESS_DETAIL addressDetail,
+		M.ADDRESS_DETAIL
+		addressDetail,
 		M.ADDRESS_NAME addressName,
 		M.PHONE_NUMBER phoneNumber,
 		M.JOIN_TIME joinTime,
 		C.CONTRACT_NUMBER contractNumber,
-		C.BRANCH_NUMBER branchNumber,
+		C.BRANCH_NUMBER
+		branchNumber,
 		C.ROOM_NUMBER roomNumber,
 		C.ISPET,
-		C.EMERGENCY_NUMBER emergencyNumber,
+		C.EMERGENCY_NUMBER
+		emergencyNumber,
 		C.BANK_NAME bankName,
 		C.DEPOSITOR,
-		C.MEMBER_ACCOUNT memberAccount,
+		C.MEMBER_ACCOUNT
+		memberAccount,
 		C.CONTRACT_DATE contractDate,
 		C.PERIOD,
-		C.ID_NUMBER idNumber,
+		C.ID_NUMBER
+		idNumber,
 		C.PAY_DELAY_AMOUNT payDelayAmount,
-		C.PANELTY_AMOUNT paneltyAmount,
+		C.PANELTY_AMOUNT
+		paneltyAmount,
 		C.RETURN_AMOUNT returnAmount,
 		C.MEMO
 		FROM MEMBER M
-		LEFT OUTER JOIN CONTRACT C ON M.MEMBER_NUMBER = C.MEMBER_NUMBER
-		WHERE M.MEMBER_NUMBER = #{param1}
+		LEFT
+		OUTER JOIN CONTRACT C ON M.MEMBER_NUMBER = C.MEMBER_NUMBER
+		WHERE
+		M.MEMBER_NUMBER = #{param1}
 	</select>
+	<insert id="contractRegist">
+		INSERT INTO CONTRACT (
+		MEMBER_NUMBER, BRANCH_NUMBER,
+		ROOM_NUMBER, PERIOD, ISPET, EMERGENCY_NUMBER, BANK_NAME, DEPOSITOR,
+		MEMBER_ACCOUNT,
+		CONTRACT_DATE, ID_NUMBER, PAY_DELAY_AMOUNT,
+		PANELTY_AMOUNT, RETURN_AMOUNT, MEMO)
+		VALUES
+		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15})
+	</insert>
+	<select id="getContractNumber" resultType="Integer">
+		SELECT CONTRACT_NUMBER contractNumber
+		FROM CONTRACT
+	</select>
+	<select id="getDeposit" resultType="Integer">
+		SELECT DEPOSIT
+		FROM ROOM
+		WHERE ROOM_NUMBER = #{param1} AND BRANCH_NUMBER = #{param2}
+	</select>
+	<update id="setReturnAmount">
+		UPDATE CONTRACT
+		SET RETURN_AMOUNT = #{param2}
+		WHERE CONTRACT_NUMBER = #{param1}
+	</update>
 
 	<!-- visit -->
-	
+
 	<select id="visitListView" resultType="VisitVDTO">
-		SELECT V.WRITING_NUMBER writingNumber,
+		SELECT V.WRITING_NUMBER
+		writingNumber,
 		V.MEMBER_NUMBER memberNumber,
-		V.BRANCH_NUMBER branchNumber,
+		V.BRANCH_NUMBER
+		branchNumber,
 		V.WRITE_TIME writeTime,
-		V.RESERVATION_TIME reservationTime,
+		V.RESERVATION_TIME
+		reservationTime,
 		V.MEMO,
-		V.CONFIRM,
+		V.CONFIRM‎,
 		M.NICKNAME,
 		M.NAME,
-		M.PHONE_NUMBER phoneNumber
+		M.PHONE_NUMBER
+		phoneNumber
 		FROM VISIT V, MEMBER M
-		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		WHERE V.MEMBER_NUMBER =
+		M.MEMBER_NUMBER
 		ORDER BY writingNumber DESC
 	</select>
-	
+
 	<select id="visitView" resultType="VisitVDTO">
-		SELECT V.WRITING_NUMBER writingNumber,
+		SELECT V.WRITING_NUMBER
+		writingNumber,
 		V.MEMBER_NUMBER memberNumber,
-		V.BRANCH_NUMBER branchNumber,
+		V.BRANCH_NUMBER
+		branchNumber,
 		V.WRITE_TIME writeTime,
-		V.RESERVATION_TIME reservationTime,
+		V.RESERVATION_TIME
+		reservationTime,
 		V.MEMO,
 		V.CONFIRM,
 		M.NICKNAME,
 		M.NAME,
-		M.PHONE_NUMBER phoneNumber
+		M.PHONE_NUMBER
+		phoneNumber
 		FROM VISIT V, MEMBER M
-		WHERE V.MEMBER_NUMBER = M.MEMBER_NUMBER
+		WHERE V.MEMBER_NUMBER =
+		M.MEMBER_NUMBER
 		AND V.WRITING_NUMBER = #{param1}
 	</select>
-	
+
 	<update id="visitCheck">
 		UPDATE VISIT
 		SET CONFIRM = '완료'
-		WHERE WRITING_NUMBER = #{param1}
+		WHERE WRITING_NUMBER =
+		#{param1}
 	</update>
 
 	<!-- branch -->
-	
+
 	<insert id="branchRegist">
 		INSERT INTO BRANCH (THEME, BANK_NAME, DEPOSITOR,
 		BRANCH_ACCOUNT, GENDER,

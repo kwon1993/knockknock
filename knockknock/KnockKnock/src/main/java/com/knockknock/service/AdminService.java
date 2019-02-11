@@ -2,6 +2,7 @@ package com.knockknock.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
@@ -30,6 +31,16 @@ public interface AdminService {
 	public ArrayList<MemberDTO> memberListView(String keyword);
 	
 	public MemberContractVDTO memberView(int memberNumber);
+	
+	public void contractRegist(int memberNumber, int branchNumber, int roomNumber, int period, String isPet,
+			String emergencyNumber, String bankName, String depositor, String memberAccount, Date contractDate,
+			String idNumber, String memo);
+	
+	public int getContractNumber();
+	
+	public int getDeposit(int roomNumber, int branchNumber);
+	
+	public void setReturnAmount(int contractNumber, int returnAmount);
 	
 	//visit
 	public ArrayList<VisitVDTO> visitList();

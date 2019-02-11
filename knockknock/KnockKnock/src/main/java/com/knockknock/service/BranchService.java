@@ -39,13 +39,14 @@ public class BranchService {
 	}
 	
 	//관심사로 방찾기 페이징처리
-	public int categoryCountService(Criteria cri) throws Exception{
-		return branchMapper.categoryCount(cri);
-	}
+	//public int categoryCountService(Criteria cri) throws Exception{
+	//	return branchMapper.categoryCount(cri);
+	//}
+	
 	//관심사로 찾기의 방검색
-		public  List<BranchDetailVDTO> categoryRoomSearch(String address) throws Exception{
-			return branchMapper.categoryRoomSearch(address);
-		}
+	 public List<BranchDetailVDTO> categoryRoomSearch(String address) throws
+	  Exception{ return branchMapper.categoryRoomSearch(address);
+	 }
 	
 	// 지점 상세 정보 - 상세
 	public BranchDetailVDTO getDetail(int branchNumber) {
@@ -69,4 +70,8 @@ public class BranchService {
 		 branchMapper.visitBooking(visitDTO, email);
 	}
 
+	//테마 검색
+	public List<String> getThemeLists(){
+		return branchMapper.getThemeLists();
+	}
 }
