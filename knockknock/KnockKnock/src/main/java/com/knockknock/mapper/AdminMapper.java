@@ -34,19 +34,29 @@ public interface AdminMapper {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
 
 	public void eventDelete(int writingNumber);
-	
-	//member
-	
+
+	// member
+
 	public ArrayList<MemberDTO> memberListView(String keyword);
-	
+
 	public MemberContractVDTO memberView(int memberNumber);
+
+	public void contractRegist(int memberNumber, int branchNumber, int roomNumber, int period, String isPet,
+			String emergencyNumber, String bankName, String depositor, String memberAccount, Date contractDate,
+			String idNumber, int payDelayAmount, int paneltyAmount, int returnAmount, String memo);
 	
-	//visit
+	public ArrayList<Integer> getContractNumber();
 	
+	public Integer getDeposit(int roomNumber, int branchNumber);
+	
+	public void setReturnAmount(int contractNumber, int returnAmount);
+
+	// visit
+
 	public ArrayList<VisitVDTO> visitListView();
-	
+
 	public VisitVDTO visitView(int writingNumber);
-	
+
 	public void visitCheck(int writingNumber);
 
 	// branch

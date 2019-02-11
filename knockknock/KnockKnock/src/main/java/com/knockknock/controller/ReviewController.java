@@ -1,6 +1,8 @@
 package com.knockknock.controller;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,18 @@ public class ReviewController {
 	// 리뷰 목록
 	@GetMapping("/reviewList")
 	@ResponseBody
-	public String reviewServiceList(Model model, @RequestBody String branchNumber) {
+	public List<ReviewDTO> reviewServiceList(Model model, @RequestBody String branchNumber1) {
 		System.out.println("응?");
 		logger.info("제발되라");
+		
+		int branchNumber = Integer.parseInt(branchNumber1);
+		
 		/*
 		 * logger.info(branchNumber+"");
 		 * logger.info(reviewService.reviewListService(branchNumber).toString());
 		 */
-		//return reviewService.reviewListService(branchNumber);
-		return "test";
+		return reviewService.reviewListService(branchNumber);
+		// return "test";
 	}
 
 	// 리뷰 작성

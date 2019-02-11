@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+"src/main/resources/templates/member/MyMeetingList.html"<!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml"
 	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
@@ -13,7 +13,7 @@ body {
 } 
 
 .sidenav {
-	width: 200px;
+	width: 300px;
 	position: fixed;
 	z-index: 1;
 	top: 130px;
@@ -21,13 +21,14 @@ body {
 	background: #eee;
 	overflow-x: hidden;
 	padding: 8px 0;
+	margin-right: 40px;
 }
 
 .sidenav a {
-	padding: 6px 8px 6px 16px;
+	padding:10px 10px 10px 16px;
 	text-decoration: none;
-	font-size: 25px;
-	color: #2196F3;
+	font-size: 30px;
+	color: #2eca6a;
 	display: block;
 }
 
@@ -45,7 +46,7 @@ body {
 		padding-top: 15px;
 	}
 	.sidenav a {
-		font-size: 18px;
+		font-size: 30px;
 	}
 }
 
@@ -144,6 +145,22 @@ text-decoration: none;
 cursor: pointer;
 }
 
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-left:20%;
+}
+
 </style>
 </head>
 <body>
@@ -152,21 +169,21 @@ cursor: pointer;
 		<br />
 		<br /> <br />
 
-		<div class="row">
+		<div class="row" id='categoryBar'>
 			<div class="col-md-11">
-				<div class="sidenav">
+				<div class="sidenav" id='sidenav'>
 
-					<a th:href="@{/profileMain}">내 프로필</a> 
-					<a th:href="@{/MyMeetingList}">내 모임</a> 
-					<a th:href="@{/MyEventList}">내 이벤트</a> 
-					<a th:href="@{/MyVisitList}">내 방문신청</a>
+					<a th:href="@{/profileMain}">내 프로필</a><br>
+					<a th:href="@{/MyMeetingList}">내 모임</a><br>
+					<a th:href="@{/MyEventList}">내 이벤트</a><br>
+					<a th:href="@{/MyVisitList}">내 방문신청</a><br>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
 		</div>
 
 		<div class="main">
-			<h2>내 모임</h2>
+			<h2 id='title'>내 모임</h2>
 			<br />
 			<div class="tab">
 				<button class="tablinks" onclick="openCity(event, 'Join')"
