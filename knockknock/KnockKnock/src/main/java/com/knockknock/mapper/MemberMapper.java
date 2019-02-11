@@ -38,7 +38,7 @@ public interface MemberMapper {
 	public List<EventVDTO> getMEL(String email);
 	
 	public List<VisitDTO> getMVL(String email);
-	
+
 	public int deleteJM(int writingNumber, String email);
 	
 	public int deleteMM(int writingNumber, String email);

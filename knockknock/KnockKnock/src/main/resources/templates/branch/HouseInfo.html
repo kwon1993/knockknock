@@ -4,6 +4,11 @@
 <head>
 <title>지점 상세 정보</title>
 <meta charset="utf-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
@@ -317,7 +322,7 @@ img {
 
 				<div id="myModal" class="modal">
 					<div class="modal-content">
-						<form action="/visitBooking" method="post">
+						<form action="/visitBooking" method="post" id="visitBookingForm">
 							<span class="close">&times;</span>
 							<h3 style="float: left">낙낙&nbsp;</h3>
 							<h3 th:text="${details.branchNumber}" 
@@ -750,7 +755,15 @@ img {
 				var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
 				reviewInsert(insertData); // Insert 함수호출(아래)
 			});  */	
-			
+
+			<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(function() {
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+			});
 		function showReviewList(){
 			var branchNumber1= $("input[name='branchNumber']").val();
 			inner="";
@@ -760,19 +773,13 @@ img {
 			 $.ajax({
  				type:'post',  
 				url:'/reviewList',
-			 	beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
-                     xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                 },
-                processData: false,
-				contentType: false,
- 				data: JSON.stringify({"branchNumber1" : branchNumber1}), // 값 하나만 받아오기
-                dataType:"json",
+ 				data: branchNumber1, // 값 하나만 받아오기
+                dataType:"text",
 				contentType: "application/json",
 				// async:false, async는 deprecated 되었음
 				 success:function(result){
 					 alert(result);
-					/* alert(data[0]);
-					$.each(data, function(key, value) {
+					$.each(result, function(key, value) {
 						
 						alert(key +"/"+value);
 						
@@ -796,10 +803,10 @@ img {
 						inner += '</div></div>'; 
 						inner+="<br /><h3>성공</h3><br />"
 					});
-					$("#reviewList").html(inner); */
+					$("#reviewList").html(inner);
 				},
 				error:function(result){
-					alert(result+"실패");
+					console.log(result);
 					inner+="<br /><h3>에러 발생</h3><br />"
 					$("#reviewList").html(inner);
 				}
@@ -911,14 +918,9 @@ function showSlides(n) {
 					<br />
 				</div>
 			</div>
-			
-			
-			
 		</div>
 
-
-
-				<!-- 방문신청 모달 -->
+		<!-- 방문신청 모달 -->
 		<script>
 			// Get the modal
 			var modal = document.getElementById('myModal');
@@ -948,7 +950,7 @@ function showSlides(n) {
 					modal.style.display = "none";
 				}
 			}
-			
+		
 			closeModal.onclick = function(){
 				modal.style.display = "none";
 			}
@@ -957,15 +959,18 @@ function showSlides(n) {
 				branchNumber= $("input[name='branchNumber']").val();
 				reservationTime = $("input[name='reservationTime']").val();
 				memo = $("input[name='memo']").val();
-				inner ="";
+				
+				// var ss = $("#visitBookingForm").serialize();
+				 inner ="";
 				
 				$.ajax({
 					method:'post',
 					url: '/visitBooking',
-					data:JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
+					data:
+						JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
 						"branchNumber":branchNumber,
 						"reservationTime":reservationTime,
-						"memo":memo
+						"memo":memo 
 					}),
 					dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
 					contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생

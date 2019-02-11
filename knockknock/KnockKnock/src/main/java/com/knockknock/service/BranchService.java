@@ -2,7 +2,6 @@ package com.knockknock.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +64,10 @@ public class BranchService {
 	}
 	
 	// 방문 신청
-	public void visitBooking(VisitDTO visitDTO) {
-		branchMapper.visitBooking(visitDTO);
+	//public void visitBooking(VisitDTO visitDTO) {
+	 public void visitBooking(VisitDTO visitDTO, String email) {
+	//	branchMapper.visitBooking(visitDTO);
+		 branchMapper.visitBooking(visitDTO, email);
 	}
 
 	//테마 검색

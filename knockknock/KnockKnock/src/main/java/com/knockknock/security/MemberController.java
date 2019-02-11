@@ -48,7 +48,7 @@ public class MemberController {
 	
 	}
 	
-	
+
 	//기본적으로 '로그인'누르면 연결. 그외에 인증처리 안된상태에서 방찾기 등 누르면 로그인으로
 	@RequestMapping("/login")
 	public String login() {
