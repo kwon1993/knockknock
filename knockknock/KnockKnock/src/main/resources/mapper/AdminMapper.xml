@@ -193,7 +193,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		V.CONFIRM,
+		V.CONFIRM‎,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
