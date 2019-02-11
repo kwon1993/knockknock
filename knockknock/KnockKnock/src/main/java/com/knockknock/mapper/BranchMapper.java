@@ -29,15 +29,11 @@ public interface BranchMapper {
 	// 지점 상세 정보
 	public BranchDetailVDTO getDetail(int branchNumber);
 	// 지점 방문 신청
-	public void visitBooking(VisitDTO visitDTO);
-	
+	//public void visitBooking(VisitDTO visitDTO);
+	 public void visitBooking(@Param("visitDTO") VisitDTO visitDTO, String email);
+
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber);
-	
-	
-
-//	public Object getPetInfo(int branchNumber);
-
 
 }

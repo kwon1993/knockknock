@@ -198,10 +198,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
 	<insert id="visitBooking">
-		INSERT INTO VISIT
-		(BRANCH_NUMBER, MEMBER_NUMBER, RESERVATION_TIME, MEMO)
-		VALUES
-		(#{branchNumber}, #{memberNumber}, #{reservationTime}, #{memo})
+		INSERT INTO VISIT SET 
+		BRANCH_NUMBER=#{visitDTO.branchNumber},
+		MEMBER_NUMBER=(SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}),
+		RESERVATION_TIME=#{visitDTO.reservationTime},
+		MEMO=#{visitDTO.memo}
 	</insert>
    
 </mapper>
