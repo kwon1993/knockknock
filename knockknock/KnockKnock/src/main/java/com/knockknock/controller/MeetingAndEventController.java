@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -163,6 +164,11 @@ public class MeetingAndEventController {
 	private String eparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
 		meServiceImpl.eparticipateService(writingNumber, memberNumber);
 		return "redirect:/eventList";
+	}
+	
+	@GetMapping("/uploadAjax")
+	private void uploadAjax() {
+		System.err.println("upload ajax");
 	}
 	
 	//단일 파일 업로드
