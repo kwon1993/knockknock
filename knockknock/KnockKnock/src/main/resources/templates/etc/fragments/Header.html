@@ -36,8 +36,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 
   <!--/ Nav Star /-->
-  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-    <div class="container">
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top" >
+    <div class="container" id='navAll'>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
         aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span></span>
@@ -72,40 +72,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
           </li>
         </ul>
       </div>
-      
-      <!-- 로긴,권한 등 버튼 관련 -->
-      <div>
-      	<span sec:authorize="isAuthenticated()">
-			<th:block class="nav-item" style="margin-left:110px; margin-top:9px; color:#2eca6a;">
-				<a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 13px">▶Logout</a>
-	  		</th:block>
-	  	</span>
-		
-			
-		<span sec:authorize = "hasAuthority('ADMIN')">
-			<th:block class="nav-item" style="margin-top:9px">
-		    	<a class="nav-log" id="nav-log" th:href="@{/adminEventListView}" style="font-size: 13px">&nbsp;▶AdminPage</a>
-			</th:block>
-	    </span>
-				
-		<span sec:authorize = "hasAuthority('NORMAL')">
-			<th:block class="nav-item" style="margin-top:9px">
-		    	<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 13px">&nbsp;▶MyPage</a>
-			</th:block>
-		</span>
-				
-		<span sec:authorize="isAnonymous()">	   
-			<th:block class="nav-item" style="margin-left:110px; margin-top:9px">
-				<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 13px">▶Login</a>
-			</th:block>
-	    </span>
-	    
-		<span sec:authorize="isAnonymous()">	   
-			<th:block class="nav-item" style="margin-top:9px">
-				<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 13px">▶Join</a>
-			</th:block>
-		</span>
-      </div>
+ 
       
    	  <!--    
    	  <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
@@ -114,7 +81,40 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
       </button> 
       -->
       
-    </div>
+      <!-- 로긴,권한 등 버튼 관련 -->
+      <div id='suvNav'>
+      	<span sec:authorize="isAuthenticated()">
+			<th:block class="nav-item">
+				<a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 13px">▶Logout&nbsp;&nbsp;&nbsp;</a>
+	  		</th:block>
+	  	</span>
+		
+		<span sec:authorize = "hasAuthority('ADMIN')">
+			<th:block class="nav-item">
+		    	<a class="nav-log" id="nav-log" th:href="@{/adminEventListView}" style="font-size: 13px">&nbsp;&nbsp;&nbsp;▶AdminPage</a>
+			</th:block>
+	    </span>
+				
+		<span sec:authorize = "hasAuthority('NORMAL')">
+			<th:block class="nav-item">
+		    	<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 13px">&nbsp;&nbsp;&nbsp;▶MyPage</a>
+			</th:block>
+		</span>
+				
+		<span sec:authorize="isAnonymous()">	   
+			<th:block class="nav-item">
+				<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 13px">▶Login&nbsp;&nbsp;&nbsp;</a>
+			</th:block>
+	    </span>
+	    
+		<span sec:authorize="isAnonymous()">	   
+			<th:block class="nav-item" >
+				<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 13px">&nbsp;&nbsp;&nbsp;▶Join</a>
+			</th:block>
+		</span>
+      </div>
+    
+    
   </nav>
   <!--/ Nav End /-->
  </header>

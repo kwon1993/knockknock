@@ -11,7 +11,7 @@ body {
 }
 
 .sidenav {
-  width: 200px;
+  width: 300px;
   position: fixed;
   z-index: 1;
   top: 130px;
@@ -19,13 +19,14 @@ body {
   background: #eee;
   overflow-x: hidden;
   padding: 8px 0;
+  margin-right: 40px;
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
+  padding: 10px 10px 10px 16px;
   text-decoration: none;
-  font-size: 25px;
-  color: #2196F3;
+  font-size: 30px;
+  color: #2eca6a;
   display: block;
 }
 
@@ -40,7 +41,23 @@ body {
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 30px;}
+}
+
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-left:20%;
 }
 </style>
 </head>
@@ -48,13 +65,13 @@ body {
 <div layout:fragment="content" class="container">
 <br /><br /><br /> <br /> 
 
-<div class="row">
+<div class="row" id='categoryBar'>
 			<div class="col-md-11">
-<div class="sidenav">
-  <a th:href="@{/profileMain}">내 프로필</a>
-  <a th:href="@{/MyMeetingList}">내 모임</a>
-  <a th:href="@{/MyEventList}">내 이벤트</a>
-  <a th:href="@{/MyVisitList}">내 방문신청</a>
+<div class="sidenav" id='sidenav'>
+  <a th:href="@{/profileMain}">내 프로필</a><br>
+  <a th:href="@{/MyMeetingList}">내 모임</a><br>
+  <a th:href="@{/MyEventList}">내 이벤트</a><br>
+  <a th:href="@{/MyVisitList}">내 방문신청</a><br>
 </div>
 </div>
 <div class="col-md-1">
@@ -63,7 +80,7 @@ body {
 
 <div class="main">
 <div id="Join" class="tabcontent">
-				<h3 class="font-weight-bold">참가한 이벤트</h3>
+				<h3 class="font-weight-bold" id='title'>참가한 이벤트</h3>
 				<br />
 				<div class="w3-container">
 					<table class="w3-table-all">
