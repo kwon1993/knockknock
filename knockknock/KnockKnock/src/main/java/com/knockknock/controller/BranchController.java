@@ -46,7 +46,7 @@ public class BranchController {
 	  //관심사로 방찾기의 방검색
 	  @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
 	  @ResponseBody
-	  public String categoryRoomSearch(@RequestParam("address") String address,Model model,@RequestParam List<String>themeCheckboxList)
+	  public String categoryRoomSearch(@RequestParam("address") String address, Model model,@RequestParam List<String>themeCheckboxList)
 	  throws Exception { 
       
 	  System.out.println(address+"   "+themeCheckboxList);
