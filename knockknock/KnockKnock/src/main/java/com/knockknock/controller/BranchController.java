@@ -44,13 +44,13 @@ public class BranchController {
 	}
   
 	  //관심사로 방찾기의 방검색
-	 @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.POST) 
+	 @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
 	 @ResponseBody
-	 public String categoryRoomSearch(@RequestParam("address") String address, Model model,@RequestParam List<String>themeCheckboxList)
+	 public String categoryRoomSearch(Model model,@RequestParam List<String>searchKeyWord)
 	 throws Exception { 
 	  
-		 System.out.println(address+"   "+themeCheckboxList);
-		 model.addAttribute("lists", branchService.categoryRoomSearch(address));
+		 System.out.println(searchKeyWord);
+		 model.addAttribute("lists", branchService.categoryRoomSearch(searchKeyWord));
 	  
 	 return "branch/FindingCategoryRoom";
 	 }
