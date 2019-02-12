@@ -9,14 +9,16 @@ import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 public interface MeetingAndEventService {
 	public int meetingCountService(Criteria cri) throws Exception; //모임글 수
+	public List<MeetingVDTO> mMainListService() throws Exception; //모임글 리스트
+	public List<MeetingVDTO> eMainListService() throws Exception; //모임글 리스트
 	public List<MeetingVDTO> meetingListService(Criteria cri) throws Exception; //모임글 리스트
 	public MeetingVDTO meetingViewService(int writingNumber) throws Exception; //모임상세보기
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
-			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception; //모임 글쓰기
+			Date acceptStartTime, Date acceptEndTime, String detailIntroduce, String place, String placeDetail,
+			int recruitMaxNumber, String gender, String favorite) throws Exception; //모임 글쓰기
 	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, 
-			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String simpleIntroduce,
-			String detailIntroduce, String place, String placeDetail, int recruitMaxNumber) throws Exception;
+			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String detailIntroduce,
+			String place, String placeDetail, int recruitMaxNumber, String favorite) throws Exception;
 	public MeetingDTO meetingModifyFormService(int writingNumber) throws Exception;
 	public int meetingDeleteService(int writingNumber) throws Exception;
 	public int meetingSearchService() throws Exception;
