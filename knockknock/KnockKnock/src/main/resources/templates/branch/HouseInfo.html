@@ -213,6 +213,16 @@ img {
 #myBtn1 {
 	padding: 2px;
 }
+
+.uploadResult ul li{
+list-style: none;
+padding: 10px;
+}
+
+.uploadResult ul li img{
+width:300px;
+}
+
 </style>
 
 
@@ -604,21 +614,22 @@ img {
 									src="http://placehold.it/400x300" alt=""> <input
 									type="file" id="imageUpload"> -->
 									
-									<div class='uploadDiv'>
-										<input type='file' name='uploadFile' multiple>
-									</div>
-									
 									<div class='uploadResult'>
 										<ul>
 										
 										</ul>
 									</div> 
+
+								<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
+
+									<div class='uploadDiv'>
+										<input type='file' name='uploadFile'>
+									</div>
 									
 									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									<button id='uploadBtn'>Upload</button>
 									
 									
-								<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
 							</div>
 						</div>
 						<div class="col-md-8">
@@ -652,15 +663,41 @@ img {
 				// 파일 목록
  				var uploadResult = $(".uploadResult ul");
 				
+				// 파일 삭제
+				$(".uploadResult").on("click", "span", function(e){
+					
+					var targetFile = $(this).data("file");
+					var type = $(this).data("type");
+					console.log(targetFile);
+					
+					$.ajax({
+						url: '/deleteFile',
+						data: {fileName: targetFile, type:type},
+						dataType: 'text',
+						type: 'POST',
+						success: function(result){
+							alert(result);
+						}
+					});
+				});
+				
 				function showUploadedFile(uploadResultArr){
 					var str="";
 					
 					$(uploadResultArr).each(function(i, obj){
+					
+						var fileCallPath = encodeURIComponent("/"+obj.uploadPath+"/"+
+								obj.uuid+"_"+obj.fileName);
 						
-						str += "<li>"+obj.fileName+"</li>";
+						var originPath = obj.uploadPath +"\\"+obj.uuid+"_"+obj.fileName;
+						originPath = originPath.replace(new RegExp(/\\/g), "/"); 
+						
+						 str += "<li><img src='/display?fileName="+fileCallPath+"'><span data-file=\'"+fileCallPath+"\' data-type='image'>x</span></li>"; 
+						
 					});
 					
 					uploadResult.append(str);
+					alert("이미지 가져오기");
 				} 
 				
 				$("#uploadBtn").on("click", function(e){
@@ -685,13 +722,13 @@ img {
 						contentType: false,
 						data: formData,
 						type: 'POST',
-						// dataType: 'json',
+						dataType: 'json',
 						success: function(result){
 							
 							alert("uploaded!");
 							console.log(result);
 							
-							// showUploadedFile(result);
+							showUploadedFile(result);
 							
 							// 복사해두었던 폼 다시 생성
 							$(".uploadDiv").html(cloneObj.html());
@@ -701,23 +738,12 @@ img {
 			});
 		</script>
 
-
-
-
-
-
-
-
-
-
-
-
 								<form name="reviewInsertForm">
 									<div class="input-group">
 										<input type="hidden" name="memberNumber" th:value="303">
 										<input type="hidden" name="branchNumber"
 											th:value="${details.branchNumber}"> <input
-											type="text" class="form-control" id="content" name="content"
+											type="text" style="width:400px" class="form-control" id="content" name="content"
 											placeholder="내용을 입력하세요."> <span
 											class="input-group-btn">
 											<button class="btn btn-default" type="button"
@@ -764,6 +790,7 @@ img {
 					xhr.setRequestHeader(header, token);
 				});
 			});
+			
 		function showReviewList(){
 			var branchNumber1= $("input[name='branchNumber']").val();
 			inner="";
@@ -779,7 +806,7 @@ img {
 				// async:false, async는 deprecated 되었음
 				 success:function(result){
 					 alert(result);
-					$.each(result, function(key, value) {
+					$.each(JSON.parse(result), function(key, value) {
 						
 						alert(key +"/"+value);
 						

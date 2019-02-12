@@ -207,6 +207,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!-- 테마 체크박스 -->
    <select id="getThemeLists" resultType="String">
-   	select distinct theme  from branch
+   	select distinct theme from BRANCH
    </select>
 </mapper>

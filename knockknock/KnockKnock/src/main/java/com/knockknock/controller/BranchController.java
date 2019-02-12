@@ -2,8 +2,11 @@ package com.knockknock.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,11 +14,19 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.branch.AttachFileDTO;
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.service.BranchService;
@@ -44,7 +56,7 @@ public class BranchController {
 	}
   
 	  //관심사로 방찾기의 방검색
-	  @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
+	  @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.POST) 
 	  @ResponseBody
 	  public String categoryRoomSearch(@RequestParam("address") String address,Model model,@RequestParam List<String>themeCheckboxList)
 	  throws Exception { 
@@ -86,15 +98,18 @@ public class BranchController {
 		return false;
 	}
 
-	@PostMapping("/uploadAjaxAction")
+	@PostMapping(value="/uploadAjaxAction", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 
+		List<AttachFileDTO> list = new ArrayList<>();
+		
 		// 지점 번호 받아서 경로에 넣어주기!
 		String uploadFolder = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch";
 
 		// 폴더 생성
-		File uploadPath = new File(uploadFolder, getFolder());
+		String uploadFolderPath = getFolder();
+		File uploadPath = new File(uploadFolder, uploadFolderPath);
 		logger.info("upload path: " + uploadPath);
 
 		if (uploadPath.exists() == false) {
@@ -102,6 +117,9 @@ public class BranchController {
 		}
 
 		for (MultipartFile multipartFile : uploadFile) {
+			
+			AttachFileDTO attachDTO = new AttachFileDTO();
+			
 			logger.info("-------------------------------");
 			logger.info("Upload File Name: " + multipartFile.getOriginalFilename());
 			logger.info("Upload File Size: " + multipartFile.getSize());
@@ -111,7 +129,8 @@ public class BranchController {
 			// IE has file path
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 			logger.info("only file name: " + uploadFileName);
-
+			attachDTO.setFileName(uploadFileName);
+	
 			// 중복 파일 구분을 위한 랜덤 문자열 생성
 			UUID uuid = UUID.randomUUID();
 
@@ -121,20 +140,32 @@ public class BranchController {
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
+				
+				attachDTO.setUuid(uuid.toString());
+				attachDTO.setUploadPath(uploadFolderPath);
 
 				// 업로드 파일 타입 체크
-				/* if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
+				 if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
+				
+					 attachDTO.setImage(true);
+					 
+					 /*	FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
 					
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
 					
-					thumbnail.close();
-				}*/
+					thumbnail.close(); */
+				}
+				 
+				 list.add(attachDTO);
 				
 			} catch (Exception e) {
 				logger.error(e.getMessage());
+				e.printStackTrace();
 			}
 		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+		
 	}
 
 	// 방문 신청
@@ -150,8 +181,78 @@ public class BranchController {
 		logger.info(visitDTO.toString());
 
 		logger.info("POST/visitBooking");
-		//branchService.visitBooking(visitDTO);
-		 branchService.visitBooking(visitDTO, username);
+		
+		branchService.visitBooking(visitDTO, username);
+	}
+	
+	// 업로드 파일 보여주기
+	@GetMapping("/display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(String fileName){
+		logger.info("fileName: "+fileName);
+		
+		File file = new File("C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch"+fileName);
+		
+		logger.info("file: "+file);
+		
+		ResponseEntity<byte[]> result=null;
+		
+		try {
+			
+			HttpHeaders header = new HttpHeaders();
+			
+			header.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
+	// 업로드 파일 다운로드
+	/*
+	 * @GetMapping(value="/download", produces =
+	 * MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	 * 
+	 * @ResponseBody public ResponseEntity<Resource> downloadFile(String fileName){
+	 * logger.info("download file: " + fileName); Resource resource = new
+	 * FileSystemResource(
+	 * "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"
+	 * +fileName); logger.info("resource: " + resource);
+	 * 
+	 * String resourceName = resource.getFilename();
+	 * 
+	 * HttpHeaders headers = new HttpHeaders();
+	 * 
+	 * try { headers.add("Content-Disposition", "attachment; filename=" + new
+	 * String(resourceName.getBytes("UTF-8"), "ISO-8859-1")); } catch
+	 * (UnsupportedEncodingException e){ e.printStackTrace(); } return new
+	 * ResponseEntity<Resource>(resource, headers, HttpStatus.OK); }
+	 */
+	
+	// 파일 삭제
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type){
+		logger.info("deleteFile:" +fileName);
+		
+		File file;
+		
+		try {
+			file = new File("C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+URLDecoder.decode(fileName, "UTF-8"));
+			
+			file.delete();
+			
+			if(type.equals("image")) {
+				String largeFileName=file.getAbsolutePath().replace("s_", "");
+				logger.info("largeFileName: " + largeFileName);
+				file= new File(largeFileName);
+				file.delete();
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
 }

@@ -13,17 +13,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkEmail" resultType="MemberDTO">
 		select
 		M.EMAIL email
-		from member M
+		from MEMBER M
 		where email = #{email}
 	</select>
 	
     <select id="findById" resultType="MemberDTO">
-    	select email,password,grade,name from member 
+    	select email,password,grade,name from MEMBER 
     	where email = #{id}
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	select email, password, grade, name from member 
+    	select email, password, grade, name from MEMBER 
     	where email = #{email}
     </select>
     
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select 
     	M.EMAIL email,
     	M.NAME name
-    	from member M
+    	from MEMBER M
     	where 
     	M.NAME = #{name}
     	AND M.PHONE_NUMBER = #{phoneNumber}

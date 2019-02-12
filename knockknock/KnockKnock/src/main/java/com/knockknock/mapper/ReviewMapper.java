@@ -16,7 +16,7 @@ public interface ReviewMapper {
 	public List<ReviewDTO> reviewList(int branchNumber);
 	
 	// 리뷰 작성
-	public int reviewInsert(ReviewDTO reviewDTO);
+	public int reviewInsert(ReviewDTO reviewDTO, String email);
 	
 	// 리뷰 수정
 	public int reviewUpdate(ReviewDTO reviewDTO);

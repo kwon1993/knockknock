@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.branch.ReviewDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.member.VisitDTO;
@@ -29,8 +30,7 @@ public interface BranchMapper {
 	// 지점 상세 정보
 	public BranchDetailVDTO getDetail(int branchNumber);
 	// 지점 방문 신청
-	//public void visitBooking(VisitDTO visitDTO);
-	 public void visitBooking(@Param("visitDTO") VisitDTO visitDTO, String email);
+	public void visitBooking(@Param("visitDTO") VisitDTO visitDTO, String email);
 
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
