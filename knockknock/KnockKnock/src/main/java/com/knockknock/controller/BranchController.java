@@ -58,7 +58,7 @@ public class BranchController {
 	  //관심사로 방찾기의 방검색
 	  @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.POST) 
 	  @ResponseBody
-	  public String categoryRoomSearch(@RequestParam("address") String address,Model model,@RequestParam List<String>themeCheckboxList)
+	  public String categoryRoomSearch(@RequestParam("address") String address, Model model,@RequestParam List<String>themeCheckboxList)
 	  throws Exception { 
       
 	  System.out.println(address+"   "+themeCheckboxList);
@@ -145,6 +145,7 @@ public class BranchController {
 				attachDTO.setUploadPath(uploadFolderPath);
 
 				// 업로드 파일 타입 체크
+
 				 if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
 				
 					 attachDTO.setImage(true);
@@ -179,7 +180,6 @@ public class BranchController {
 		String username = user.getUsername();
 		
 		logger.info(visitDTO.toString());
-
 		logger.info("POST/visitBooking");
 		
 		branchService.visitBooking(visitDTO, username);

@@ -1,13 +1,18 @@
 package com.knockknock.controller;
 
+import java.io.File;
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.branch.BranchDTO;
+import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.service.AdminService;
 
 @Controller
@@ -254,10 +259,87 @@ public class AdminController {
 		int branchNumber = adminService.getBranchNumber();
 		adminService.roomRegist(branchNumber, roomNumber, roomGender, roomType, roomSpace, roomDeposit, roomMonthlyRent,
 				roomRentableDate, privateFacility);
+		
+		model.addAttribute("branchNumber",branchNumber);
+		//이미지 업로드 하기(지점이미지는 거실,부엌,화장실,기타 / 방이미지는 방마다 이미지 1개)
+		//1.완료버튼을 누르면 브랜치넘버를 다음 페이지로 보내고, 그 브랜치넘버를 다음페이지 뷰에 넣어둔다.
+		//2.브랜치넘버에 따라 룸 셀렉트를 하고, 뷰에서 포이치로 생성한다.
 
+		return "admin/AdminBranchRegist2";
+	}
+	
+	//지점등록(이미지)
+	@RequestMapping("branchRegistComplete")
+	public String branchImage(List<MultipartFile> imageBranch, List<MultipartFile> imageRoom){
+		
+		//브랜치넘버가져오기
+		int branchNumber = adminService.getBranchNumber(); 
+		
+		//지점업로드 절대경로,상대경로
+		String BranchUploadFolder1 = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch";
+		String BranchUploadFolder2 = "\\images\\branch";
+		//룸업로드 절대경로,상대경로
+		String RoomUploadFolder1 = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\room";
+		String RoomUploadFolder2 = "\\images\\room";
+		//경로생성
+		File BranchUploadPath = new File(BranchUploadFolder1);
+		File RoomUploadPath = new File(RoomUploadFolder1);
+		
+		if(BranchUploadPath.exists() == false) {
+			BranchUploadPath.mkdirs();
+		}
+		if(RoomUploadPath.exists()==false) {
+			RoomUploadPath.mkdirs();
+		}
+		
+		//지점사진 업로드---
+		for(MultipartFile multipartFile : imageBranch) {
+			String uploadFileName = branchNumber+"BRANCH@"+multipartFile.getOriginalFilename(); //브랜치넘버+파일명
+			//IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			int idx = uploadFileName.indexOf("@");
+			uploadFileName = uploadFileName.substring(0,idx);
+			
+			
+			try {
+				File saveFile = new File(BranchUploadPath, uploadFileName);
+				//경로를 파일화시킨다.(실제파일생성)
+				multipartFile.transferTo(saveFile);
+				//DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
+				String finalImage = BranchUploadFolder2+uploadFileName;
+				//이미지경로를 저장한다.
+//				memberService.saveImageDir(finalImage,username);
+				//이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
+//				model.addAttribute("image",memberService.getImageDir(username));
+			}catch(Exception e) {
+				e.getMessage();
+			}//end catch
+		}
+		
+		//방사진 업로드---
+		for(MultipartFile multipartFile : imageRoom) {
+			String uploadFileName = branchNumber+"호점@"+multipartFile.getOriginalFilename(); //브랜치넘버+파일명
+			//IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			
+			try {
+				File saveFile = new File(RoomUploadPath, uploadFileName);
+				//경로를 파일화시킨다.(실제파일생성)
+				multipartFile.transferTo(saveFile);
+				//DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
+				String finalImage = RoomUploadFolder2+uploadFileName;
+				//이미지경로를 저장한다.
+//				memberService.saveImageDir(finalImage,username);
+				//이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
+//				model.addAttribute("image",memberService.getImageDir(username));
+			}catch(Exception e) {
+				e.getMessage();
+			}//end catch
+		}
+		
 		return "home/Home";
 	}
-
+	
 	// 지점 정보 수정 페이지
 	@RequestMapping("adminBranchModifyView")
 	public String adminBranchModifyView(Model model) {
@@ -269,4 +351,11 @@ public class AdminController {
 	public String adminBranchModify(Model model) {
 		return "";
 	}
+	
+	//등록테스트
+	@RequestMapping("registTest")
+	public String test(BranchDTO branchDTO, RoomDTO roomDTO){
+		return "/admin/AdminTest";
+	}
+
 }

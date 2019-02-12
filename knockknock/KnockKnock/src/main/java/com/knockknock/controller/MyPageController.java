@@ -71,7 +71,7 @@ public class MyPageController {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
-		System.out.println("스타트:"+uploadFile[0]);
+		
 		//업로드할 절대경로1
 		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
 		//업로드할 절대경로2
@@ -101,12 +101,10 @@ public class MyPageController {
 				multipartFile.transferTo(saveFile);
 				//DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
 				String finalImage = uploadRelativeDirectory+uploadFileName;
-				
 				//이미지경로를 저장한다.
 				memberService.saveImageDir(finalImage,username);
 				//이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
 				model.addAttribute("image",memberService.getImageDir(username));
-				
 			}catch(Exception e) {
 				e.getMessage();
 			}//end catch

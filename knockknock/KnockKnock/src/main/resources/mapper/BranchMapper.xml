@@ -4,183 +4,183 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.knockknock.mapper.BranchMapper">
-   <select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
+	<select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
-	   	B.BRANCH_COMMENT branchComment,
-	   	B.ADDRESS,
-	   	B.ADDRESS_DETAIL addressDetail,
-	   	B.MAXIMUM_RESIDENT maximumResident,
-	   	B.BRANCH_TYPE branchType,
-	   	B.PET,
-	   	B.ISPARKING isParking,
-	   	B.ISELEVATOR isElevator,
-	   	B.FACILITY,
-	   	B.RULE,
-	   	B.THEME theme
+		B.BRANCH_COMMENT branchComment,
+		B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.BRANCH_TYPE branchType,
+		B.PET,
+		B.ISPARKING isParking,
+		B.ISELEVATOR isElevator,
+		B.FACILITY,
+		B.RULE,
+		B.THEME theme
 		FROM BRANCH B
 		<if test="address!=null">
 			where address like CONCAT('%',#{address},'%')
 		</if>
-		
-   </select>
-   
-   <select id="findingRoomList" resultType="BranchDetailVDTO">
+
+	</select>
+
+	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
-		B.BRANCH_NUMBER branchNumber,
-	   	B.BRANCH_COMMENT branchComment,
-	   	B.ADDRESS,
-	   	B.ADDRESS_DETAIL addressDetail,
-	   	B.MAXIMUM_RESIDENT maximumResident,
-	   	B.BRANCH_TYPE branchType,
-	   	B.PET,
-	   	B.ISPARKING isParking,
-	   	B.ISELEVATOR isElevator,
-	   	B.FACILITY,
-	   	B.RULE,
-	   	B.THEME theme
-		FROM BRANCH B
+		BRANCH_NUMBER branchNumber,
+		BRANCH_COMMENT branchComment,
+		ADDRESS,
+		ADDRESS_DETAIL addressDetail,
+		MAXIMUM_RESIDENT maximumResident,
+		BRANCH_TYPE branchType,
+		PET,
+		ISPARKING,
+		ISELEVATOR,
+		FACILITY,
+		RULE,
+		THEME
+		FROM BRANCH
 		<if test="address!=null">
-			where address like CONCAT('%',#{address},'%')
+			WHERE ADDRESS LIKE CONCAT('%',#{address},'%')
 		</if>
-   </select>
-   
-   <select id="categoryCount" resultType="int">
-   		SELECT
-   			COUNT(BRANCH_NUMBER)
-   		FROM BRANCH	WHERE BRANCH_NUMBER > 0
-   </select>
-   
-   <select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
-  	SELECT
- 			R.ROOM_NUMBER roomNumber, B.ADDRESS,
-			B.ADDRESS_DETAIL addressDetail,B.THEME,
- 			R.GENDER, R.DEPOSIT,
- 			R.MONTHLY_RENT monthlyRent,
- 			R.RENTABLE_DATE rentableDate,
-			R.ALLOW_NUMBER allowNumber
-   	FROM 	ROOM R, BRANCH B
-   	WHERE 	R.BRANCH_NUMBER = B.BRANCH_NUMBER
-    ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC
-   		
-<!-- 	  <![CDATA[ -->
-<!-- 		SELECT  -->
-<!-- 			B.BRANCH_NUMBER branchNumber, -->
-<!-- 			B.ADDRESS, B.BRANCH_TYPE branchType, -->
-<!-- 			R.GENDER, R.DEPOSIT, R.MONTHLY_RENT monthlyRent, -->
-<!-- 			R.RENTABLE_DATE rentableDate  -->
-<!-- 		FROM  -->
-<!-- 			BRANCH B, ROOM R -->
-<!-- 		WHERE  -->
-<!-- 			B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER -->
-<!-- 		ORDER BY -->
-<!-- 			B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC -->
-<!-- 		LIMIT #{pageStart}, #{perPageNum} -->
-<!-- 	  ]]>    -->
-   </select>
-   <select id="categoryRoomSearch" resultType="BranchDetailVDTO">
-   		SELECT
- 			R.ROOM_NUMBER roomNumber, B.ADDRESS,
-			B.ADDRESS_DETAIL addressDetail,B.THEME,
- 			R.GENDER, R.DEPOSIT,
- 			R.MONTHLY_RENT monthlyRent,
- 			R.RENTABLE_DATE rentableDate,
-			R.ALLOW_NUMBER allowNumber
+	</select>
+
+	<select id="categoryCount" resultType="int">
+		SELECT
+		COUNT(BRANCH_NUMBER)
+		FROM BRANCH WHERE BRANCH_NUMBER > 0
+	</select>
+
+	<select id="findingCategoryRoomList"
+		resultType="BranchDetailVDTO">
+		SELECT
+		R.ROOM_NUMBER roomNumber, B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,B.THEME,
+		R.GENDER, R.DEPOSIT,
+		R.MONTHLY_RENT monthlyRent,
+		R.RENTABLE_DATE rentableDate,
+		R.ALLOW_NUMBER allowNumber
 		FROM BRANCH B, ROOM R
-<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
- 			<if test="address!=null">
-			where R.BRANCH_NUMBER = B.BRANCH_NUMBER 
+		WHERE R.BRANCH_NUMBER = B.BRANCH_NUMBER
+		ORDER BY roomNumber ASC, rentableDate ASC
+	</select>
+
+		<!-- <![CDATA[ -->
+		<!-- SELECT -->
+		<!-- B.BRANCH_NUMBER branchNumber, -->
+		<!-- B.ADDRESS, B.BRANCH_TYPE branchType, -->
+		<!-- R.GENDER, R.DEPOSIT, R.MONTHLY_RENT monthlyRent, -->
+		<!-- R.RENTABLE_DATE rentableDate -->
+		<!-- FROM -->
+		<!-- BRANCH B, ROOM R -->
+		<!-- WHERE -->
+		<!-- B.BRANCH_NUMBER >0 AND B.BRANCH_NUMBER = R.BRANCH_NUMBER -->
+		<!-- ORDER BY -->
+		<!-- B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC -->
+		<!-- LIMIT #{pageStart}, #{perPageNum} -->
+		<!-- ]]> -->
+	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
+		SELECT
+		R.ROOM_NUMBER roomNumber, B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,B.THEME,
+		R.GENDER, R.DEPOSIT,
+		R.MONTHLY_RENT monthlyRent,
+		R.RENTABLE_DATE rentableDate,
+		R.ALLOW_NUMBER allowNumber
+		FROM BRANCH B, ROOM R
+		<!-- <trim prefix="where" prefixOverrides="AND|OR"> -->
+		<if test="address!=null">
+			where R.BRANCH_NUMBER = B.BRANCH_NUMBER
 			AND address like CONCAT('%',#{address},'%')
- 			</if>
-<!-- 		</trim> -->
-		ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC	
-   </select>
-   
-   <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
+		</if>
+		<!-- </trim> -->
+		ORDER BY R.room_number ASC, R.RENTABLE_DATE ASC
+	</select>
+
+	<select id="roomList" resultType="BranchDetailVDTO"
+		parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
-	   	B.BRANCH_COMMENT branchComment,
-	   	B.ADDRESS address,
-	   	B.ADDRESS_DETAIL addressDetail,
-	   	B.MAXIMUM_RESIDENT maximumResident,
-	   	B.BRANCH_TYPE branchType,
-	   	B.PET pet,
-	   	B.ISPARKING isParking,
-	   	B.ISELEVATOR isElevator,
-	   	B.FACILITY,
-	   	B.RULE,
-	   	B.THEME theme,
-	   	B.GENDER gender
+		B.BRANCH_COMMENT branchComment,
+		B.ADDRESS address,
+		B.ADDRESS_DETAIL addressDetail,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.BRANCH_TYPE branchType,
+		B.PET pet,
+		B.ISPARKING isParking,
+		B.ISELEVATOR isElevator,
+		B.FACILITY,
+		B.RULE,
+		B.THEME theme,
+		B.GENDER gender
 		FROM BRANCH B
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="address!=null">
 				address like CONCAT('%',#{address},'%')
 			</if>
 			<if test="genderList.size!=0">
-				and gender in 
-				<foreach collection="genderList" item="gender" open="(" close=")" separator="," index="index">
-					 #{gender}
+				and gender in
+				<foreach collection="genderList" item="gender" open="("
+					close=")" separator="," index="index">
+					#{gender}
 				</foreach>
-			</if>	
+			</if>
 			<if test="petList.size!=0">
-				and pet in 
-				<foreach collection="petList" item="pet" open="(" close=")" separator="," index="index">
-					 #{pet}
+				and pet in
+				<foreach collection="petList" item="pet" open="(" close=")"
+					separator="," index="index">
+					#{pet}
 				</foreach>
-			</if>	
+			</if>
 			<if test="themeList.size!=0">
-				and theme in 
-				<foreach collection="themeList" item="theme" open="(" close=")" separator="," index="index">
-					 #{theme}
+				and theme in
+				<foreach collection="themeList" item="theme" open="("
+					close=")" separator="," index="index">
+					#{theme}
 				</foreach>
-			</if>	
+			</if>
 		</trim>
-		
-		order by branchNumber asc
-   </select>
 
-   <select id="getDetail" resultType="BranchDetailVDTO">
-	   	SELECT 
-	   	B.BRANCH_NUMBER branchNumber,
-	   	B.BRANCH_COMMENT branchComment,
-	   	B.ADDRESS,
-	   	B.ADDRESS_DETAIL addressDetail,
-	   	B.MAXIMUM_RESIDENT maximumResident,
-	   	B.BRANCH_TYPE branchType,
-	   	B.PET,
-	   	B.ISPARKING isParking,
-	   	B.ISELEVATOR isElevator,
-	   	B.FACILITY,
-	   	B.RULE
-	   	<!-- R.ROOM_NUMBER roomNumber,
-	   	R.GENDER gender,
-	   	R.ALLOW_NUMBER allowNumber,
-	   	R.SPACE space,
-	   	R.DEPOSIT deposit,
-	   	R.MONTHLY_RENT monthlyRent,
-	   	R.RENTABLE_DATE rentableDate -->
-	   	FROM BRANCH B
-	   	WHERE B.BRANCH_NUMBER = #{brancnNumber}
-   </select>
-   
-   <select id="getRoomInfo" resultType="RoomDTO">
-   		SELECT
-   		ROOM_NUMBER roomNumber,
-   		GENDER,
-   		ALLOW_NUMBER allowNumber,
-	   	SPACE,
-	   	DEPOSIT,
-	   	MONTHLY_RENT monthlyRent,
-	   	RENTABLE_DATE rentableDate,
-	   	FACILITY
-   		FROM ROOM
-   		WHERE BRANCH_NUMBER = #{branchNumber}
-   </select>
-   
-   <select id="getMemberInfo" resultType="BranchDetailVDTO">
+		order by branchNumber asc
+	</select>
+
+	<select id="getDetail" resultType="BranchDetailVDTO">
 		SELECT
-<!-- 		C.MEMBER_NUMBER memberNumber,
-		C.BRANCH_NUMBER branchNumber, -->
+		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_COMMENT branchComment,
+		B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.BRANCH_TYPE branchType,
+		B.PET,
+		B.ISPARKING isParking,
+		B.ISELEVATOR isElevator,
+		B.FACILITY,
+		B.RULE
+		<!-- R.ROOM_NUMBER roomNumber, R.GENDER gender, R.ALLOW_NUMBER allowNumber, 
+			R.SPACE space, R.DEPOSIT deposit, R.MONTHLY_RENT monthlyRent, R.RENTABLE_DATE 
+			rentableDate -->
+		FROM BRANCH B
+		WHERE B.BRANCH_NUMBER = #{brancnNumber}
+	</select>
+
+	<select id="getRoomInfo" resultType="RoomDTO">
+		SELECT
+		ROOM_NUMBER roomNumber,
+		GENDER,
+		ALLOW_NUMBER allowNumber,
+		SPACE,
+		DEPOSIT,
+		MONTHLY_RENT monthlyRent,
+		RENTABLE_DATE rentableDate,
+		FACILITY
+		FROM ROOM
+		WHERE BRANCH_NUMBER = #{branchNumber}
+	</select>
+
+	<select id="getMemberInfo" resultType="BranchDetailVDTO">
+		SELECT
+		<!-- C.MEMBER_NUMBER memberNumber, C.BRANCH_NUMBER branchNumber, -->
 		C.ROOM_NUMBER roomNumber,
 		M.FAVORITE1,
 		M.FAVORITE2,
@@ -192,15 +192,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		P.ANIMAL,
 		P.AMOUNT
 		FROM CONTRACT C, MEMBER M, PET P
-		WHERE C.BRANCH_NUMBER = #{branchNumber}
-		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER	
-		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER	
-   </select>
-   
+		WHERE C.BRANCH_NUMBER =
+		#{branchNumber}
+		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER
+		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
+	</select>
+
 	<insert id="visitBooking">
-		INSERT INTO VISIT SET 
+		INSERT INTO VISIT SET
 		BRANCH_NUMBER=#{visitDTO.branchNumber},
-		MEMBER_NUMBER=(SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}),
+		MEMBER_NUMBER=(SELECT
+		M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}),
 		RESERVATION_TIME=#{visitDTO.reservationTime},
 		MEMO=#{visitDTO.memo}
 	</insert>
@@ -209,4 +211,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="getThemeLists" resultType="String">
    	select distinct theme from BRANCH
    </select>
+
 </mapper>
