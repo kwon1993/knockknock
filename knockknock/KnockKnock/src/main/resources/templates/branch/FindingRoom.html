@@ -330,15 +330,17 @@ function multiSearch(){
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
-						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+ data[i].theme +"</span></a></div>";
-					
+						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+ (data[i].theme!='.'?data[i].theme:'') +"</span></a></div>";
 					
 					}
 					content += "</div>";
 						
 					jQuery("#container").html(content);
+				
 					
 				}
+				
+				
 			},
 			error : function(data){
 				alert("error");
