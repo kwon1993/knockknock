@@ -34,11 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		MAXIMUM_RESIDENT maximumResident,
 		BRANCH_TYPE branchType,
 		PET,
-		ISPARKING,
-		ISELEVATOR,
+		ISPARKING isParking,
+		ISELEVATOR isElevator,
 		FACILITY,
 		RULE,
-		THEME
+		THEME theme
 		FROM BRANCH
 		<if test="address!=null">
 			WHERE ADDRESS LIKE CONCAT('%',#{address},'%')
@@ -111,12 +111,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.ISELEVATOR isElevator,
 		B.FACILITY,
 		B.RULE,
-		B.THEME theme,
+		B.THEME,
 		B.GENDER gender
 		FROM BRANCH B
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="address!=null">
-				address like CONCAT('%',#{address},'%')
+				ADDRESS like CONCAT('%',#{address},'%')
 			</if>
 			<if test="genderList.size!=0">
 				and gender in
@@ -140,8 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</foreach>
 			</if>
 		</trim>
-
-		order by branchNumber asc
+		ORDER BY branchNumber asc
 	</select>
 
 	<select id="getDetail" resultType="BranchDetailVDTO">
