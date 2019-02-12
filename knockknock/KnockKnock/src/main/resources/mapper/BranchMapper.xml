@@ -52,14 +52,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
-  	SELECT
+  	SELECT	
+  			B.BRANCH_NUMBER branchNumber,
  			R.ROOM_NUMBER roomNumber, B.ADDRESS,
 			B.ADDRESS_DETAIL addressDetail,B.THEME,
  			R.GENDER, R.DEPOSIT,
  			R.MONTHLY_RENT monthlyRent,
  			R.RENTABLE_DATE rentableDate,
 			R.ALLOW_NUMBER allowNumber
-   	FROM 	ROOM R, BRANCH B
+	FROM    BRANCH B, ROOM R		
    	WHERE 	R.BRANCH_NUMBER = B.BRANCH_NUMBER
     ORDER 	BY R.room_number ASC, R.RENTABLE_DATE ASC
    		
@@ -207,6 +208,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!-- 테마 체크박스 -->
    <select id="getThemeLists" resultType="String">
-   	select distinct theme  from branch
+   	SELECT DISTINCT THEME FROM BRANCH 
    </select>
 </mapper>
