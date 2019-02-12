@@ -193,7 +193,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		V.CONFIRM,
+		V.CONFIRM‎,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
@@ -250,13 +250,77 @@
 		FROM BRANCH
 	</select>
 	<insert id="roomRegist">
-		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER,
-		ALLOW_NUMBER, SPACE,
-		DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
+		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
 		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
 	</insert>
-
-
-
-
+	
+	<insert id='testBranchRegist'>
+		INSERT INTO BRANCH 
+		(THEME, BANK_NAME, DEPOSITOR,
+		BRANCH_ACCOUNT, GENDER,
+		BRANCH_COMMENT,
+		BRANCH_TYPE, ISPARKING,
+		ISELEVATOR, PET, ADDRESS,
+		ADDRESS_DETAIL, FACILITY, 
+		MAXIMUM_RESIDENT,RULE)
+		VALUES
+		(#{theme},#{bankName},#{depositor},#{branchAccount},#{gender},#{branchComment},#{branchType},#{isParking},#{isElevator},#{pet},#{address},#{addressDetail},#{facility},#{maximumResident},#{rule})
+	</insert>
+	
+	<!-- <insert id="testRoomRegist" useGeneratedKeys="true" keyProperty="branchNumber" 
+	parameterType="java.util.List">
+		INSERT INTO ROOM
+		(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
+		VALUES
+		<foreach collection="roomDTO2" item="roomDTO2" separator=", ">
+			(#{branchNumber},#{roomDTO2.roomNumber2},
+			#{roomDTO2.gender2},#{roomDTO2.allowNumber2},
+			#{roomDTO2.space2},#{roomDTO2.deposit2},
+			#{roomDTO2.monthlyRent2},#{roomDTO2.rentableDate2},
+			#{roomDTO2.facility2})
+		</foreach>
+	</insert> -->
+	
+	
+	<insert id="testRoomRegist" 
+	parameterType="java.util.List">
+	INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE)
+		VALUES(#{branchNumber},#{roomNumber2},#{gender2},#{allowNumber2},#{space2},#{deposit2},#{monthlyRent2},#{rentableDate2})
+	</insert>
+	
+	
+	
+	
+	
+		<!-- 	<foreach collection="roomNumber2" item="roomNumber2" index="index">
+			#{roomNumber2.roomNumber2}
+		</foreach>
+		,
+		<foreach collection="gender2" item="gender2" index="index">
+			#{gender2}
+		</foreach>
+		,
+		<foreach collection="allowNumber2" item="allowNumber2" index="index">
+			#{allowNumber2}
+		</foreach>
+		,
+		<foreach collection="space2" item="space2" index="index">
+			#{space2}
+		</foreach>
+		,
+		<foreach collection="deposit2" item="deposit2" index="index">
+			#{deposit2}
+		</foreach>
+		,
+		<foreach collection="monthlyRent2" item="monthlyRent2" index="index">
+			#{mothlyRent2}
+		</foreach>
+		,
+		<foreach collection="rentableDate2" item="rentableDate2" index="index">
+			#{rentableDate2}
+		</foreach>
+		,
+		<foreach collection="facility2" item="facility2" index="index">
+			#{facility2}
+		</foreach> -->
 </mapper>

@@ -85,10 +85,11 @@ public class BranchController {
 	
 	@PostMapping("/uploadAjaxAction")
 	@ResponseBody
-	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+	public void uploadAjaxPost(@RequestBody MultipartFile[] uploadFile){
 		
 		// 지점 번호 받아서 경로에 넣어주기!
-		String uploadFolder="C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch";
+//		String uploadFolder="C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch";
+		String uploadFolder="C:/Users/ash/Desktop/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch";
 
 		// 폴더 생성
 		File uploadPath = new File(uploadFolder, getFolder());
@@ -98,7 +99,7 @@ public class BranchController {
 			uploadPath.mkdirs();
 		}
 		
-		for(MultipartFile multipartFile:uploadFile) {
+		for(MultipartFile multipartFile:uploadFile){
 			logger.info("-------------------------------");
 			logger.info("Upload File Name: " +multipartFile.getOriginalFilename());
 			logger.info("Upload File Size: " +multipartFile.getSize());
@@ -121,13 +122,13 @@ public class BranchController {
 				multipartFile.transferTo(saveFile);
 				
 				// 업로드 파일 타입 체크
-/*				if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
+				if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
 					
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
 					
 					thumbnail.close();
-				}*/
+				}
 				
 			} catch (Exception e) {
 				logger.error(e.getMessage());
@@ -140,12 +141,7 @@ public class BranchController {
 	@ResponseBody
 	public void visitBooking(@RequestBody VisitDTO visitDTO) {
 		
-		
 		logger.info("POST/visitBooking");
 		branchService.visitBooking(visitDTO);
 	}
-	
-
-
-	
 }
