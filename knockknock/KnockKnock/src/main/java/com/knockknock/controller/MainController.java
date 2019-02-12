@@ -44,6 +44,7 @@ public class MainController {
 	@RequestMapping("/findingCategoryRoom")
 	public String toFindingCategoryRoom(Model model, BranchDetailVDTO branchDetailVDTO) throws Exception {
 		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
+		model.addAttribute("themeLists", branchService.getThemeLists());
 //		PageMaker pageMaker = new PageMaker();
 //		pageMaker.setCri(cri);
 //		pageMaker.setTotalCount(branchService.categoryCountService(cri));

@@ -133,8 +133,8 @@ public class AdminServiceImpl implements AdminService {
 			String introduce, String branchType, String isParking, String isElevator, String pet, String address,
 			String addressDetail, String remainAddress, String publicFacility, String rule, String[] roomType) {
 		int maximumResident = 0;
-		for (String type : roomType) {
-			switch (type) {
+		for (int i = 0; i < roomType.length; i++) {
+			switch (roomType[i]) {
 			case "1인실":
 				maximumResident += 1;
 				break;

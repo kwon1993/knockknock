@@ -20,15 +20,13 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							id="categoryRoomSearch">주소 검색</button>
 					</form>
 					<!-- 체크박스 -->
-						<div class="favoriteCheckbox">
+						<div class="branchThemeField">
 							<label class="field-title"><strong>관심사</strong></label>
-							<div name="favorite" id="favorite">
-								<div class="checkbox">
-									<input type="checkbox" value="IT" id="favorite1" name="IT"><label
-										for="favorite1">IT</label>
-								</div>
+							<div  th:each="theme : ${themeLists}" name="branchTheme" id="branchTheme">
+									<div class="checkbox"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
 							</div>
 						</div>
+						
 				</div>
 
 			</div>
@@ -46,19 +44,19 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<td>입주가능일</td>
 				<td>임주가능 인원</td>
 			</tr>
-			<tr th:each="list : ${lists}">
-				<td th:text="${list.roomNumber}"></td>
-				<td th:text="${list.address}"></td>
+			<tr th:each="branchDetailVDTO : ${lists}">
+				<td th:text="${branchDetailVDTO.roomNumber}"></td>
+				<td th:text="${branchDetailVDTO.address}"></td>
 				<!-- 		<td> -->
-				<!--             <a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p th:text="${list.title}"></p></a> -->
+				<!--             <a th:href="@{'adminEventView?writingNumber=' + ${branchDetailVDTO.writingNumber}}"><p th:text="${branchDetailVDTO.title}"></p></a> -->
 				<!--         </td> -->
-				<td th:text="${list.addressDetail}"></td>
-				<td th:text="${list.theme}"></td>
-				<td th:text="${list.gender}"></td>
-				<td th:text="${list.deposit}"></td>
-				<td th:text="${list.monthlyRent}"></td>
-				<td th:text="${list.rentableDate}"></td>
-				<td th:text="${list.allowNumber}"></td>
+				<td th:text="${branchDetailVDTO.addressDetail}"></td>
+				<td th:text="${branchDetailVDTO.theme}"></td>
+				<td th:text="${branchDetailVDTO.gender}"></td>
+				<td th:text="${branchDetailVDTO.deposit}"></td>
+				<td th:text="${branchDetailVDTO.monthlyRent}"></td>
+				<td th:text="${branchDetailVDTO.rentableDate}"></td>
+				<td th:text="${branchDetailVDTO.allowNumber}"></td>
 			</tr>
 
 			<!--     <tr> -->
@@ -69,36 +67,43 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			<!--         </td> -->
 			<!--     </tr> -->
 		</table>
-		<div class="box-footer">
-			<ul class="pagination">
+		
+	
 
-				<li class="page-item" th:if="${pageMaker.prev} == true"><a
-					th:href="@{/findingCategoryRoom(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
-				</li>
-
-				<li class="page-item"
-					th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"
-					th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-					<a
-					th:href="@{/findingCategoryRoom(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}"
-					th:text="${idx}"></a>
-				</li>
-
-				<li class="page-item"
-					th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-					<a
-					th:href="@{/findingCategoryRoom(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
-				</li>
-
-			</ul>
-		</div>
-	</div>
-
-	</div>  
-</div>
-<!--  
+  
 <script>
- function Categorycheckbox(){
+$(document).ready(function(){
+	$('.checkbox').on('click',function(){
+		var themeCheckboxList = new Array();
+		$("input[name='branchTheme']:checked").each(function(i){
+			themeCheckboxList.push($(this).val());
+		});//checked end
+		jQuery.ajax({
+			method : 'post',
+			url : '/categoryRoomSearch',
+			data : JSON.stringify({themeCheckboxList}),
+			dataType : "json",
+			contentType: 'application/json; charset=UTF-8',
+			//async : false,
+			success : function(){
+			
+				alert("gffhfh");
+			},
+			error : function(data){
+				alert("category  error");
+			}
+			
+		});
+	 }); 
+	
+	
+ /*  $("input[type='checkbox']").on('click',function(){
+	 alert(this.value);
+  }); */
+  
+});
+
+ /* function Categorycheckbox(){
 	
 	var userId = $("#category").val();
 
@@ -125,9 +130,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			self.close();
 		}
 	});
-}
+} */
 </script>
--->
+</div>
 </body>
 </html>
 
