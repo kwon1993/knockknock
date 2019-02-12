@@ -11,20 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
 	<select id="checkEmail" resultType="MemberDTO">
-		select
-		M.EMAIL email
-		from member M
-		where email = #{email}
+		SELECT
+		EMAIL
+		FROM MEMBER
+		WHERE EMAIL = #{email}
 	</select>
 	
     <select id="findById" resultType="MemberDTO">
-    	select email,password,grade,name from member 
-    	where email = #{id}
+    	SELECT EMAIL, PASSWORD, GRADE, NAME FROM MEMBER 
+    	WHERE EMAIL = #{id}
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	select email, password, grade, name from member 
-    	where email = #{email}
+    	SELECT EMAIL, PASSWORD, GRADE, NAME FROM MEMBER 
+    	WHERE EMAIL = #{email}
     </select>
     
     <select id="findByName" resultType="MemberDTO">
@@ -151,15 +151,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMVL" resultType="VisitDTO">
     	SELECT
-    	V.BRANCH_NUMBER branchNumber, 
-    	V.WRITING_NUMBER writingNumber,
-    	V.RESERVATION_TIME reservationTime,
-    	V.CONFIRM
-    	FROM VISIT V
+    	BRANCH_NUMBER branchNumber, 
+    	WRITING_NUMBER writingNumber,
+    	RESERVATION_TIME reservationTime, 'CONFIRM'‎
+    	FROM VISIT
     	WHERE
-    	V.MEMBER_NUMBER
-    	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
-    	ORDER BY CONFIRM ASC, RESERVATION_TIME DESC
+    	MEMBER_NUMBER
+    	= (SELECT MEMBER_NUMBER FROM MEMBER WHERE EMAIL = #{email})
+    	ORDER BY 'CONFIRM' ASC, RESERVATION_TIME DESC
     </select>
 
 	<delete id="deleteJM">

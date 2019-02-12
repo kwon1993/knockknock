@@ -1,6 +1,7 @@
 package com.knockknock.dto.branch;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class RoomDTO {
 	private Date rentableDate;
 	private String facility;
 	private String imageRoom;
+	
 }

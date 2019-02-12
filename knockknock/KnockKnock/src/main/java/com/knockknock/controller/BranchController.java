@@ -131,13 +131,14 @@ public class BranchController {
 				multipartFile.transferTo(saveFile);
 
 				// 업로드 파일 타입 체크
-				/* if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
-					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
-					
-					thumbnail.close();
-				}*/
+
+//				if(checkImageType(saveFile)) { // 이미지 파일이라면 섬네일 생성
+//					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
+//					
+//					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
+//					
+//					thumbnail.close();
+//				}
 				
 			} catch (Exception e) {
 				logger.error(e.getMessage());
@@ -156,7 +157,6 @@ public class BranchController {
 		String username = user.getUsername();
 		
 		logger.info(visitDTO.toString());
-
 		logger.info("POST/visitBooking");
 		//branchService.visitBooking(visitDTO);
 		 branchService.visitBooking(visitDTO, username);

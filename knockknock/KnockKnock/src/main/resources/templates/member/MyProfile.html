@@ -139,7 +139,7 @@ cursor: pointer;
 	
 		<div class='row text-center text-lg-left' id='allGallery'>
 			<a class='d-block mb-4 h-100' id='gallery'>
-		        <img class='img-fluid img-thumbnail' th:src="${image.imageProfile}" alt="" id='img' style="width:40%; height:40%"><br>
+		        <img class='img-fluid img-thumbnail' th:src="${image.imageProfile}" alt="" id='img' style="width:120px; height:120px"><br>
 			</a>
 		</div>
 		<div>
@@ -289,16 +289,13 @@ function uploadProfileShot(){
 	for(var i=0; i<files.length; i++){
 		formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
 	}	
-	
-	alert("form" + form);
-	alert("formData" + formData);
-	
+
 	$.ajax({
 		type:'post',
 		url:'/profileUpdate',
 		data:formData,
 		processData:false,
-		contentType:"application/json",
+		contentType:false,
 		dataType:'json',
 		success:function(result){
 			alert("업로드완료");

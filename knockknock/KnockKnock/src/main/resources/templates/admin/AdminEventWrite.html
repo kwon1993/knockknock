@@ -5,6 +5,7 @@
 <title>이벤트 작성</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 </head>
 <body>
 	<div layout:fragment="content" class="container"
@@ -54,17 +55,55 @@
 							<td><input type="number" name="recruitNumber"></td>
 						</tr>
 						<tr>
-							<td>content</td>
-							<td><textarea name="content"></textarea></td>
+							<td><label for="content">content</label></td>
+							<td><textarea class="form-control" name="content"
+									id="content" cols="50" rows="15"></textarea> <script>
+										CKEDITOR.replace('content');
+									</script></td>
 						</tr>
 						<tr>
 							<td>send</td>
-							<td><input type="submit" name="eventWrite"></td>
+							<td><input type="submit" name="eventWrite" id="eventWrite"></td>
 						</tr>
 					</table>
 				</form>
 			</div>
 		</div>
+		<script type="text/javascript" src="../texteditor/sample.js"></script>
+
+
+
+
+
+		<!-- 		<script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
+
+
+
+
+		<!--  <script th:src="@{/ckeditor/ckeditor.js}"></script> -->
+		<!-- 		<script>
+			$(function() {
+				CKEDITOR.replace('content', {//해당 이름으로 된 textarea에 에디터를 적용
+					width : '100%',
+					height : '400px',
+					filebrowserImageUploadUrl : '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+				});
+
+				CKEDITOR.on('dialogDefinition', function(ev) {
+					var dialogName = ev.data.name;
+					var dialogDefinition = ev.data.definition;
+
+					switch (dialogName) {
+					case 'image': //Image Properties dialog
+						//dialogDefinition.removeContents('info');
+						dialogDefinition.removeContents('Link');
+						dialogDefinition.removeContents('advanced');
+						break;
+					}
+				});
+			});
+			
+		</script> -->
 	</div>
 </body>
 </html>

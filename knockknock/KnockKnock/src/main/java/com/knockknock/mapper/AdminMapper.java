@@ -2,9 +2,13 @@ package com.knockknock.mapper;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.knockknock.dto.branch.BranchDTO;
+import com.knockknock.dto.branch.RoomDTO2;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
@@ -73,4 +77,8 @@ public interface AdminMapper {
 	public void roomModify();
 
 	public void roomDelete();
+
+	//테스트
+	public void testBranchRegist(BranchDTO branchDTO);
+	public void testRoomRegist(int branchNumber, String gender2, int roomNumber2, int allowNumber2, int deposit2,  Date rentableDate2, String space2, int monthlyRent2);
 }
