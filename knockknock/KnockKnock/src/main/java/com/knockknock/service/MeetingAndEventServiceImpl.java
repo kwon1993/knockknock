@@ -25,6 +25,16 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
+	public List<MeetingVDTO> mMainListService() throws Exception{ //미팅리스트
+		return meMapper.mMainList();
+	}
+	
+	@Override
+	public List<MeetingVDTO> eMainListService() throws Exception{ //미팅리스트
+		return meMapper.eMainList();
+	}
+	
+	@Override
 	public List<MeetingVDTO> meetingListService(Criteria cri) throws Exception{ //미팅리스트
 		return meMapper.meetingList(cri);
 	}
@@ -36,11 +46,11 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	
 	@Override
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
-			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String gender, String favorite) throws Exception{ //미팅 작성
+			Date acceptStartTime, Date acceptEndTime, String detailIntroduce, String place, String placeDetail,
+			int recruitMaxNumber, String gender, String favorite) throws Exception{ //미팅 작성
 		meMapper.meetingInsert( memberNumber,  title,  meetingStartTime,  meetingEndTime,
-			 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
-			 place,  placeDetail,  recruitMaxNumber, gender, favorite);
+			 acceptStartTime,  acceptEndTime,  detailIntroduce, place,  placeDetail,
+			 recruitMaxNumber, gender, favorite);
 	}
 	
 	@Override
@@ -49,12 +59,12 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,
-			Date acceptStartTime, Date acceptEndTime, String simpleIntroduce, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber) throws Exception{ //미팅 수정
+	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime,
+			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String detailIntroduce,
+			String place, String placeDetail, int recruitMaxNumber, String favorite) throws Exception{ //미팅 수정
 		meMapper.meetingModify(writingNumber, memberNumber,  title,  meetingStartTime,  meetingEndTime,
-				 acceptStartTime,  acceptEndTime,  simpleIntroduce,  detailIntroduce,
-				 place,  placeDetail, recruitMaxNumber);
+				 acceptStartTime,  acceptEndTime,  detailIntroduce, place,  placeDetail, 
+				 recruitMaxNumber, favorite);
 	}
 	
 	@Override
