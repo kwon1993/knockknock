@@ -54,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findingCategoryRoomList"
 		resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
 		R.GENDER, R.DEPOSIT,
@@ -225,6 +226,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">
-		select distinct theme from branch
+		SELECT DISTINCT THEME FROM BRANCH
 	</select>
 </mapper>

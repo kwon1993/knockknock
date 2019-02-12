@@ -45,16 +45,24 @@ public class BranchController {
 	}
   
 	  //관심사로 방찾기의 방검색
-	  @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
-	  @ResponseBody
-	  public String categoryRoomSearch(@RequestParam("address") String address, Model model,@RequestParam List<String>themeCheckboxList)
-	  throws Exception { 
-      
-	  System.out.println(address+"   "+themeCheckboxList);
-	  model.addAttribute("lists", branchService.categoryRoomSearch(address));
+	 @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
+	 @ResponseBody
+	 public String categoryRoomSearch(Model model,@RequestParam List<String>searchKeyWord)
+	 throws Exception { 
 	  
-	  return "branch/FindingCategoryRoom";
-	  }
+		 System.out.println(searchKeyWord);
+		 model.addAttribute("lists", branchService.categoryRoomSearch(searchKeyWord));
+	  
+	 return "branch/FindingCategoryRoom";
+	 }
+	 
+//	@PostMapping("/categoryRoomSearch")
+//	@ResponseBody
+//	public List<BranchDetailVDTO>categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO branchDetailVDTO)throws Exception{
+//		model.addAttribute("list", branchService.categoryRoomSearch(branchDetailVDTO));
+//		
+//		return branchService.categoryRoomSearch(branchDetailVDTO);
+//	}
 	  
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
