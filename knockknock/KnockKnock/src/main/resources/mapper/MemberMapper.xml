@@ -11,20 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
 	<select id="checkEmail" resultType="MemberDTO">
-		select
-		M.EMAIL email
-		from member M
-		where email = #{email}
+		SELECT
+		EMAIL
+		FROM MEMBER
+		WHERE EMAIL = #{email}
 	</select>
 	
     <select id="findById" resultType="MemberDTO">
-    	select email,password,grade,name from member 
-    	where email = #{id}
+    	SELECT EMAIL, PASSWORD, GRADE, NAME FROM MEMBER 
+    	WHERE EMAIL = #{id}
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	select email, password, grade, name from member 
-    	where email = #{email}
+    	SELECT EMAIL, PASSWORD, GRADE, NAME FROM MEMBER 
+    	WHERE EMAIL = #{email}
     </select>
     
     <select id="findByName" resultType="MemberDTO">
