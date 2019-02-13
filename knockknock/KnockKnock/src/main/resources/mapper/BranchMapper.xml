@@ -150,13 +150,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					</when>
 				</choose>
 			</if>
-	<!-- 		<if test="themeList.size!=0">
-				and theme in
-				<foreach collection="themeList" item="theme" open="("
-					close=")" separator="," index="index">
-					#{theme}
-				</foreach>
-			</if> -->
 		</trim>
 		ORDER BY branchNumber asc
 	</select>

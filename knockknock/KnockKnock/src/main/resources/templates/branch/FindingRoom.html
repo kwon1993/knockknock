@@ -204,7 +204,7 @@ height:250px;
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
 				<span th:text='${dto.address}' name='addressList' id='addressList' />
-				<span  th:if="${dto.theme!='.'}" th:text='${dto.theme}' name='theme' id='theme' />
+				<span th:text='${dto.theme}' name='theme' id='theme' />
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -331,7 +331,7 @@ function multiSearch(){
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
 						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address
-						+ "</span></a></div>";
+						+ "<span name='theme' id='theme' />"+data[i].theme+"</span></a></div>";
 					}
 					content += "</div>";
 					jQuery("#container").html(content);
