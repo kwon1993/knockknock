@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
-import com.knockknock.dto.branch.ReviewDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.member.VisitDTO;
