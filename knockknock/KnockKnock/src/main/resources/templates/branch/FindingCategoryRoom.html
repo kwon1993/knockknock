@@ -5,9 +5,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
     <title>낙낙-카테고리 방찾기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>   
+
+
 </head>
 <body>
 
@@ -18,111 +17,144 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<div class="search">
 					<!-- <form action="/categoryRoomSearch"> -->
 						<label class="field-title"><strong>주소검색</strong></label>
-						<input type="text"/>
+						<input type="text" th:name="address"  th:id="address"/>
+						<button id="categoryRoomSearch">주소 검색</button>
 				</div>		
 						<!-- <button type="submit" name="categoryRoomSearch" id="categoryRoomSearch">주소 검색</button> -->
 					<!-- </form> -->
 					<!-- 체크박스 -->
-						<div class="branchThemeField">
-							<label class="field-title"><strong>관심사</strong></label>
-							<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
-									<div class="branchTheme"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
-							</div>
-						</div>
-						
+				<div class="branchThemeField">
+					<label class="field-title"><strong>관심사</strong></label>
+					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
+							<div class="branchTheme"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
+					</div>
 				</div>
-
+						
 			</div>
+
 		</div>
 		
-	<div class="basic"  id="basicGallery">
-		<table class="w3-table-all">
-			<tr>
-				<td>위치</td>
-				<td>방 이름</td>
-				<td>관심사</td>
-				<td>방 타입</td>
-				<td>보증금</td>
-				<td>월세</td>
-				<td>입주가능일</td>
-				<td>임주가능 인원</td>
-			</tr>
-			<tr th:each="branchDetailVDTO : ${lists}">
-<!-- 				<td> -->
-<!-- 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
-<!-- 				</td> -->
-				<td th:text="${branchDetailVDTO.roomNumber}"></td>
-				<td th:text="${branchDetailVDTO.address}"></td>
-				<!-- 		<td> -->
-				<!--             <a th:href="@{'adminEventView?writingNumber=' + ${branchDetailVDTO.writingNumber}}"><p th:text="${branchDetailVDTO.title}"></p></a> -->
-				<!--         </td> -->
-				<td th:text="${branchDetailVDTO.addressDetail}"></td>
-				<td th:text="${branchDetailVDTO.theme}"></td>
-				<td th:text="${branchDetailVDTO.gender}"></td>
-				<td th:text="${branchDetailVDTO.deposit}"></td>
-				<td th:text="${branchDetailVDTO.monthlyRent}"></td>
-				<td th:text="${branchDetailVDTO.rentableDate}"></td>
-				<td th:text="${branchDetailVDTO.allowNumber}"></td>
-			</tr>
-		</table>
 		
-	</div>
-
-<script>
-
-	var categoryRoom={
+		<div class="basic"  id="basicGallery">
+			<table class="w3-table-all">
+				<tr>
+					<td>방 번호</td>
+					<td>주소</td>
+					<td>세부주소</td>
+					<td>테마</td>
+					<td>성별</td>
+					<td>보증금</td>
+					<td>월세</td>
+					<td>입주가능 일자</td>
+					<td>입주가능 인원</td>
+				</tr>
 			
-			myProperty:"someValue",
-			searchCategory:[],
-			
-			// object literals can contain properties and methods.
-	        // e.g we can define a further object for module configuration:
-	        	
-			myConfig:{
-				useCaching : true,
-				language:"en"
-			},
-			refreshGrid: function(data){
-				//todo grid refresh
-			},
-			sendToServer:function(searchCategory){
-				var that=this;
-				var jqxhr= $.get("/findingCategoryRoom/?searchCategory="+searchCategory,function(){
-					alert("success");
-				})
-					.done(function(data){
-						that.refreshGrid(data);
-						alert("second success");
-					})
-					.fail(function(){
-						alert("error");
-					})
-					.always(function(){
-						alert("finished");
+			  <tbody id="branchDetailVDTOs">			  
+				<tr th:each="branchDetailVDTO : ${lists}">
+	<!-- 				<td> -->
+	<!-- 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
+	<!-- 				</td> -->
+					<td th:text="${branchDetailVDTO.roomNumber}"></td>
+					<td th:text="${branchDetailVDTO.address}"></td>
+					<!-- 		<td> -->
+					<!--             <a th:href="@{'adminEventView?writingNumber=' + ${branchDetailVDTO.writingNumber}}"><p th:text="${branchDetailVDTO.title}"></p></a> -->
+					<!--         </td> -->
+					<td th:text="${branchDetailVDTO.addressDetail}"></td>
+					<td th:text="${branchDetailVDTO.theme}"></td>
+					<td th:text="${branchDetailVDTO.gender}"></td>
+					<td th:text="${branchDetailVDTO.deposit}"></td>
+					<td th:text="${branchDetailVDTO.monthlyRent}"></td>
+					<td th:text="${branchDetailVDTO.rentableDate}"></td>
+					<td th:text="${branchDetailVDTO.allowNumber}"></td>
+				</tr>
+			  </tbody>
+			</table>
+	  	</div>
+	  
+		<script>
+			var categoryRoom = {
+
+				address : $("#address").val(),
+				searchCategory : [],
+				refreshGrid : function(data) {
+					//todo grid refresh
+				},
+
+				sendToServer : function(searchCategory) {
+					var that = this;
+
+					var datas = {
+						"address" : $("#address").val(),
+						"searchKeyWord" : searchCategory
 					};
-			
-			},
-	//a very basic method
-	checkboxEventBind: function(target){
-		var that=this;
-		$(target).change(function(e){
-			that.searchCategory.push($(e.target).val());
-			that.sendToServer(that.searchCategory);
-		});
-	},
-	
-	searchInputEventBind:function(target){
-		$(target).change(function(e){
-			that.searchCategory.push($(e.target).val());
-			that.sendToServer(that.searchCategory);
-		});
-	}
-	
-	};
-	$(document).ready(function(){
-		categoryRoom.checkboxEventBind(".branchThemeField");
-		categoryRoom.searchInputEventBind(".search");
-	});
-</script>
+					alert(searchCategory);
+					/* var jqxhr= $.get("/categoryRoomSearch?searchKeyWord="+searchCategory,function(){
+						alert("success");
+					})
+						.done(function(data){
+							that.refreshGrid(data);
+							alert("second success");
+						})
+						.fail(function(){
+							alert("error");
+						})
+						.always(function(){
+							alert("finished");
+						}); */
+					$.ajax({
+						url : "categoryRoomSearch",
+						type : 'GET',
+						data : datas,
+						success : function(branchDetailVDTOs) {
+							alert("완료!" + branchDetailVDTOs);
+							var tableList = "";
+							$.each(branchDetailVDTOs, function(key, branchDetailVDTO) {
+								console.log(key + ", " + branchDetailVDTO.theme);
+								//기존의 테이블에 출력되는 것을 삭제
+								$('#branchDetailVDTOs tr').remove();
+								<!--새로 표시할 콘텐츠 집어넣기-->							 	
+								$('#branchDetailVDTOs').append("<tr><td>"+ branchDetailVDTO.roomNumber+"</td>"+"<td>"+ branchDetailVDTO.address+"</td>"+"<td>"+branchDetailVDTO.addDetail+
+																"</td>"+"<td>"+branchDetailVDTO.theme+"</td>"+"<td>"+ branchDetailVDTO.gender+"</td>"+"<td>"+branchDetailVDTO.deposit+
+																"</td>"+"<td>"+branchDetailVDTO.monthlyRent+"</td>"+"<td>"+branchDetailVDTO.rentableDate+"</td>"+"<td>"+branchDetailVDTO.allowNumber+"</td></tr>");	
+							});
+							//$('#newCategoryTable').html(tableList);
+							//$('#branchDetailVDTOs').html(tableList);
+							// $("#basicGallery").reload();
+						},
+						error : function(jqXHR, textStatus, errorThrown) {
+							alert("에러 발생~~ \n" + textStatus + " : "
+									+ errorThrown);
+
+						}
+					});
+				},
+
+				//a very basic method
+				checkboxEventBind : function(target) {
+					alert("checkboxEventBind target  :" + target);
+					var that = this;
+
+					$(target).change(function(e) {
+						that.searchCategory.push($(e.target).val());
+
+						that.sendToServer(that.searchCategory);
+					});
+				},
+
+				searchInputEventBind : function(target) {
+					var that = this;
+					$(target).change(function(e) {
+						that.searchCategory.push($(e.target).val());
+						that.sendToServer(that.searchCategory);
+					});
+				}
+
+			};
+			$(document).ready(function() {
+				categoryRoom.checkboxEventBind(".branchThemeField");
+				categoryRoom.searchInputEventBind(".search");
+			});
+		</script>
+	</div>
 </body>
 </html>
