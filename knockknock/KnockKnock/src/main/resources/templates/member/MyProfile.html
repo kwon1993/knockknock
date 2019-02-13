@@ -7,7 +7,7 @@
 
 <style>
 body {
-	font-family: "Lato", sans-serif;
+	font-family: 'Jua', sans-serif;
 }
 
 .sidenav {
@@ -279,7 +279,7 @@ window.onclick = function(event) {
     }
 }
 
-
+//----------------------------------업로드----------------------------
 $(updateProfile).on('click',function(){
 	memberNumber = $("#hidden").val();
 	nickname = $("input[name='nickname']").val();
@@ -301,7 +301,7 @@ $(updateProfile).on('click',function(){
 	});
 })
 
-//프로필 미리보기
+//프로필 미리보기-------------------------------------
 function readURL(input){
 	if(input.files && input.files[0]){
 		var reader = new FileReader();

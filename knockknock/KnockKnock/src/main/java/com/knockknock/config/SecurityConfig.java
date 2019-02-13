@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
 		//이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-		//web.ignoring().antMatchers("/**");
+//		web.ignoring().antMatchers("/resources/**");
 	}
 	
 	@Override
@@ -71,17 +71,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	    http.csrf().disable().
 		http
 		.authorizeRequests()
-			.antMatchers("/**","/reviewList","/categoryRoomSearch").permitAll()
-			.anyRequest().authenticated()
+			.antMatchers("/**","/lib/**",""
+					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
+//				 .anyRequest().authenticated() 
 			.and()
 		.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/")
-			.failureUrl("/login")
+//			.failureUrl("/login")
 			.and()
 		.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/")
+			.logoutSuccessUrl("/login")
 			.permitAll();
 		//loginProcessingUrl없애니 됨
 		
