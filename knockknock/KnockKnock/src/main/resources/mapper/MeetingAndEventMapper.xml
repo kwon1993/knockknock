@@ -15,6 +15,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             COUNT(*)
         FROM EVENT
     </select>
+    <select id="mMainList" resultType="MeetingVDTO">
+    		SELECT
+			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime
+			FROM
+			    MEETING
+			WHERE WRITING_NUMBER > 0
+			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
+			LIMIT 5;
+    </select>
+    <select id="eMainList" resultType="EventVDTO">
+    		SELECT
+			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime
+			FROM
+			    EVENT
+			WHERE WRITING_NUMBER > 0
+			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
+			LIMIT 5;
+    </select>    
     <select id="meetingList" resultType="MeetingVDTO">
     	<![CDATA[
 			SELECT

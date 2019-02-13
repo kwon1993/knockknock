@@ -14,7 +14,7 @@ import com.knockknock.dto.event.MeetingVDTO;
 public interface MeetingAndEventMapper {
 	public int meetingCount(Criteria cri) throws Exception; //모임글 수
 	public List<MeetingVDTO> mMainList() throws Exception;
-	public List<MeetingVDTO> eMainList() throws Exception;
+	public List<EventVDTO> eMainList() throws Exception;
 	public List<MeetingVDTO> meetingList(Criteria cri) throws Exception; //모임글 리스트
 	public MeetingVDTO meetingView(int writingNumber) throws Exception; //모임상세보기
 	public void meetignViewHit(int writingNumber); //조회수

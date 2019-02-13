@@ -1,29 +1,18 @@
 package com.knockknock.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
 import com.knockknock.service.MeetingAndEventServiceImpl;
-
-import lombok.SneakyThrows;
 
 @Controller
 public class MeetingAndEventController {
@@ -67,10 +56,10 @@ public class MeetingAndEventController {
 		return "redirect:/meetingList";
 	}
 	
-	@Value("${image.upload.path}")
-	String uploadPath;
-	@Value("${image.upload.uri}")
-	String uploadUri;
+//	@Value("${image.upload.path}")
+//	String uploadPath;
+//	@Value("${image.upload.uri}")
+//	String uploadUri;
 	
 	//ckedior이미지 업로드 컨트롤러
 //	@PostMapping("/imageUpload")

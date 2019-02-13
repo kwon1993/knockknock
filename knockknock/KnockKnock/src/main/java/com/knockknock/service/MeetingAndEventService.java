@@ -10,7 +10,7 @@ import com.knockknock.dto.event.MeetingVDTO;
 public interface MeetingAndEventService {
 	public int meetingCountService(Criteria cri) throws Exception; //모임글 수
 	public List<MeetingVDTO> mMainListService() throws Exception; //모임글 리스트
-	public List<MeetingVDTO> eMainListService() throws Exception; //모임글 리스트
+	public List<EventVDTO> eMainListService() throws Exception; //모임글 리스트
 	public List<MeetingVDTO> meetingListService(Criteria cri) throws Exception; //모임글 리스트
 	public MeetingVDTO meetingViewService(int writingNumber) throws Exception; //모임상세보기
 	public void meetingInsertService(int memberNumber, String title, Date meetingStartTime, Date meetingEndTime,

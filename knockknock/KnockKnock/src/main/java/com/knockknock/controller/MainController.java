@@ -1,19 +1,12 @@
 package com.knockknock.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
-import com.knockknock.dto.event.Criteria;
-import com.knockknock.dto.event.PageMaker;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.service.BranchService;
 import com.knockknock.service.MeetingAndEventServiceImpl;
@@ -92,7 +85,7 @@ public class MainController {
 	@RequestMapping("/meetingAndEventMain")
 	public String toMeetingAndEvent(Model model) throws Exception {
 		model.addAttribute("mMainList", meServiceImpl.mMainListService());
-		//model.addAttribute("eMainList", meServiceImpl.eMainListService());
+		model.addAttribute("eMainList", meServiceImpl.eMainListService());
 		return "event/MeetingAndEventMain";
 	}
 	

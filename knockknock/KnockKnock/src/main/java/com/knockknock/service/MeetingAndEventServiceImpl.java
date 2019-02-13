@@ -30,7 +30,7 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public List<MeetingVDTO> eMainListService() throws Exception{ //미팅리스트
+	public List<EventVDTO> eMainListService() throws Exception{ //미팅리스트
 		return meMapper.eMainList();
 	}
 	

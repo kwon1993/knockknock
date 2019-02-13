@@ -4,11 +4,16 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임 만들기</title>
+<style type="text/css">
+#jumbotronId{
+    background-color: white;
+}
+</style>
 </head>
 <body>
 
 	<div layout:fragment="content" class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 개설하기</h3>
 
 			<p>대표이미지</p>
@@ -52,7 +57,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 									<option value="낚시">낚시</option>
 									<option value="인문학">인문학</option>
 									<option value="천문학">천문학</option>
-									<option value="꽃꽃이">꽃꽃이</option>
+									<option value="꽃꽃이">꽃꽂이</option>
 									<option value="가드닝">가드닝</option>
 									<option value="캘리그라피">캘리그라피</option>
 									<option value="스터디">스터디</option>

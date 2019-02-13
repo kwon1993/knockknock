@@ -4,10 +4,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임게시판</title>
+<style type="text/css">
+#jumbotronId{
+    background-color: white;
+}
+</style>
 </head>
 <body>
 	<div layout:fragment="content" class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" id="jumbotronId">
 			<h1>모임게시판</h1>
 <!-- 			<img th:src="@{/images/event/test.jpg}" style="width:2000; height:300px"> -->
 			<table class="table table-hover">
