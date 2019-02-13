@@ -89,6 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 	    	.csrf()
 	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//	    	.disable();
 		
 		//스마트에디터 관련 설정
 	    http
