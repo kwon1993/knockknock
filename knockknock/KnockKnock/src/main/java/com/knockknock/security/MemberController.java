@@ -1,5 +1,7 @@
 package com.knockknock.security;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -71,7 +73,7 @@ public class MemberController {
 	
 	//패스워드찾기
 	@RequestMapping(value="/findPass", method = RequestMethod.POST)
-    public String findPass(MemberDTO memberDTO,RedirectAttributes redirectattr,Errors errors) {
+    public String findPass(MemberDTO memberDTO,RedirectAttributes redirectattr,Errors errors, HttpServletResponse response) {
 		System.out.println("findPass매핑");
 		//1.이메일형식검사
         new FindPassValidator().validate(memberDTO, errors);
@@ -84,13 +86,13 @@ public class MemberController {
         FindpassService service = new FindpassService();
         
         try {
-        	System.out.println("try시작");
+        	System.out.println("try시작111");
         	//비번찾기를 위한 excute메서드 실행
-        	MemberDTO resultDto = service.execute(sqlsession, memberDTO);
+        	MemberDTO resultDto = service.execute(sqlsession,  memberDTO);
             System.out.println("resultDto"+resultDto);
         	redirectattr.addFlashAttribute("resultDto",resultDto); 
             System.out.println("try끝");
-            return "redirect:/sendpass";
+            return "redirect:sendpass";
         }catch(Exception e)
         {
         	System.out.println("예외가 있다");

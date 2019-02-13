@@ -39,7 +39,7 @@ public class MyPageController {
 		//프로필정보를 불러오기 위한 모델
 		model.addAttribute("profile", memberService.getProfile(username));
 		model.addAttribute("getPet",memberService.getPet(username));
-		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
+//		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
 		model.addAttribute("image",memberService.getImageDir(username));
 		
 		return "member/MyProfile";

@@ -30,13 +30,16 @@ public class MainController {
 	//메인화면 스타트
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO) {
+		
+		//방정보를 가져온다.
+		
 		return "home/Home";
 	}
 	
 	//메인화면 심플방검색
 	@GetMapping("/simpleRoomSearch")
 	public String simpleRoomSearch(Model model, BranchDetailVDTO branchDetailVDTO) {
-		model.addAttribute("lists", branchService.simpleRoomSearchList(branchDetailVDTO));
+		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
 		return "branch/FindingRoom";
 	}
 	
