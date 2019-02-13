@@ -1,5 +1,6 @@
 package com.knockknock.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -63,7 +64,27 @@ public class BranchController {
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
+		
+		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 개수를 구한다
+		String path = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		File f = new File( path );
+		File[] files = f.listFiles();
 
+		// files
+		int count = 0;
+		for (int i = 0; i < files.length; i++) {
+
+		if ( files[i].isFile() ) {
+		count++;
+		System.out.println( "파일 : " + files[i].getName() );
+		} else {
+		System.out.println( "디렉토리명 : " + files[i].getName() );
+		}
+		} // end of for
+		
+		System.out.println("파일 갯수: " +count);
+		model.addAttribute("imageNumber", count);
+		
 		return "branch/HouseInfo";
 	}
 
