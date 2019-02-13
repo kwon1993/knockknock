@@ -23,6 +23,9 @@ public interface MemberService{
 	//비밀번호변경(임시비밀번호)
 	public void changePassword(MemberDTO memberDTO);
 	
+	//비밀번호변경(수정비밀번호)
+	public void changeRealPassword(MemberDTO memberDTO);
+	
 	//마이페이지-프로필가져오기
 	public List<MemberDTO> getProfile(String username);
 	

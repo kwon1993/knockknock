@@ -44,9 +44,8 @@ public class MemberServiceImpl implements MemberService{
 	public List<MeetingVDTO> getMMLM(String email) {
 		return memberMapper.getMMLM(email);
 	}
-
+	//임시비번변경
 	public void changePassword(MemberDTO memberDTO) {
-		System.out.println("랜덤번호:");
 		int randomInt;
 		String randomStr="";
 		String tempPassword="";
@@ -58,10 +57,15 @@ public class MemberServiceImpl implements MemberService{
 			tempPassword+=randomInt+randomStr;
 		}
 		
-		System.out.println("임시비번은:"+tempPassword);
-		
 		memberDTO.setPassword(new BCryptPasswordEncoder().encode(tempPassword));
 		
+		memberMapper.changePassword(memberDTO);
+	}
+	
+	public void changeRealPassword(MemberDTO memberDTO) {
+		memberDTO.setPassword(new BCryptPasswordEncoder().encode(memberDTO.getPassword()));
+		System.out.println("인코더후아이디:"+memberDTO.getEmail());
+		System.out.println("인코더후:"+memberDTO.getPassword());
 		memberMapper.changePassword(memberDTO);
 	}
 	
