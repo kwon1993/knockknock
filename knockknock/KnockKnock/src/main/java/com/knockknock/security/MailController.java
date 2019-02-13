@@ -29,13 +29,15 @@ public class MailController {
         
       System.out.println("이름은: "+memberDTO.getName());
       
+      	System.out.println("토스완료:"+FindpassService.toss);
+      
       String setfrom = "springteam11@gmail.com";         
       String tomail  = memberDTO.getEmail();     // 받는 사람 이메일
       String title   = memberDTO.getName() + "님의 아이디와 비밀번호 입니다.";      // 제목
       String content = memberDTO.getName() + "님의 아이디는 " 
                           + memberDTO.getEmail()
                           + " 임시비밀번호는 "
-                          + memberDTO.getPassword()
+                          + FindpassService.toss
                           + " 입니다.";    // 내용
        
       try {
@@ -61,5 +63,3 @@ public class MailController {
       return "member/Login";
     }
 }
-
-

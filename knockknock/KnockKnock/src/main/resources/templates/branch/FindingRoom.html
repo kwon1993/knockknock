@@ -321,7 +321,7 @@ function multiSearch(){
 				jQuery("#allGallery").remove();
 				//받아오는 주소가 널이 아니라면(값이 있다면)
 				if(data[0].address!=null){
-			
+								
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					for(i=0; i<data.length; i++){
 						content+=
@@ -330,17 +330,12 @@ function multiSearch(){
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
-						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+ (data[i].theme!='.'?data[i].theme:'') +"</span></a></div>";
-					
+						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address
+						+ "</span></a></div>";
 					}
 					content += "</div>";
-						
 					jQuery("#container").html(content);
-				
-					
 				}
-				
-				
 			},
 			error : function(data){
 				alert("error");
