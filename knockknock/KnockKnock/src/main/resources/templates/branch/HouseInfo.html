@@ -251,15 +251,11 @@ width: 850px;
 		
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   			<div class="carousel-inner">
+  			
 		    <div class="carousel-item active">
 		      <img class="d-block w-100" src="../../images/branch/1branch.jpg" alt="First slide">
 		    </div>
-		    <div class="carousel-item">
-		      <img class="d-block w-100" src="../../images/branch/2branch.jpg" alt="Second slide">
-		    </div>
-		    <div class="carousel-item">
-		      <img class="d-block w-100" src="../../images/branch/3branch.jpg" alt="Third slide">
-		    </div>
+		    
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -693,9 +689,9 @@ width: 850px;
 		// 리뷰 삭제 
 		function deleteConfirm(writingNumber){
 			var msg = confirm("리뷰를 삭제하시겠습니까?");
-			if(msg==true){ // 
+			if(msg==true){ // 확인 버튼 클릭 시
 				reviewDelete(writingNumber);
-			} else {
+			} else { // 취소 버튼 클릭 시
 				return false;
 			}
 		}
