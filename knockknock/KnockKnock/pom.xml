@@ -77,7 +77,13 @@
        		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
         	<version>3.0.4.RELEASE</version>
         </dependency>
-		
+        
+        <!-- 시큐리티 태그 라이브러리 -->
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-taglibs</artifactId>
+		</dependency> 
+
 		<!-- 타임리프 레이아웃 -->
 		<dependency>
     		<groupId>nz.net.ultraq.thymeleaf</groupId>

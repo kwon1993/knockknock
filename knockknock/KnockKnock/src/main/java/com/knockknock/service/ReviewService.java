@@ -18,8 +18,8 @@ public class ReviewService {
 		return reviewMapper.reviewList(branchNumber);
 	}
 
-	public int reviewInsertService(ReviewDTO reviewDTO) {
-		return reviewMapper.reviewInsert(reviewDTO);
+	public int reviewInsertService(ReviewDTO reviewDTO, String email) {
+		return reviewMapper.reviewInsert(reviewDTO, email);
 	}
 
 	public int reviewUpdateService(ReviewDTO reviewDTO) {

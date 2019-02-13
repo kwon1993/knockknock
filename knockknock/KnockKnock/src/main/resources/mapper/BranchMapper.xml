@@ -216,7 +216,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		RESERVATION_TIME=#{visitDTO.reservationTime},
 		MEMO=#{visitDTO.memo}
 	</insert>
-
+   
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">
 		SELECT DISTINCT THEME FROM BRANCH

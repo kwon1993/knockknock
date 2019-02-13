@@ -4,10 +4,18 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+=======
 <!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>   
+>>>>>>> 702400f9c70b62624e873c3add866f6463a0fc00
 </head>
 <body>
 
@@ -70,6 +78,41 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 <script>
 
+<<<<<<< HEAD
+<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(function() {
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+});
+
+$(document).ready(function(){
+	$('.checkbox').on('click',function(){
+		var themeCheckboxList = new Array();
+		$("input[name='branchTheme']:checked").each(function(i){
+			themeCheckboxList.push($(this).val());
+		});//checked end
+		jQuery.ajax({
+			/* method : 'post', */
+			type: 'post',
+			url : '/categoryRoomSearch',
+			/* data : JSON.stringify(themeCheckboxList),
+			dataType : 'json', */
+			data : themeCheckboxList,
+			dataType: "text",
+			contentType: 'application/json; charset=UTF-8',
+			//async : false,
+			/* success : function(){ */
+			success : function(result){
+				alert("gffhfh");
+			},
+			error : function(result){
+				console.log(themeCheckboxList);
+				alert("category  error");
+			}
+=======
 	var categoryRoom={
 			
 			myProperty:"someValue",
@@ -100,6 +143,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					.always(function(){
 						alert("finished");
 					};
+>>>>>>> 702400f9c70b62624e873c3add866f6463a0fc00
 			
 			},
 	//a very basic method
