@@ -1,28 +1,29 @@
 package com.knockknock.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
 import com.knockknock.service.MeetingAndEventServiceImpl;
+
+import lombok.SneakyThrows;
 
 @Controller
 public class MeetingAndEventController {
@@ -57,60 +58,52 @@ public class MeetingAndEventController {
 			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber,
 			@RequestParam("detailIntroduce") String detailIntroduce, @RequestParam("gender") String gender, 
 			@RequestParam("favorite") String favorite)throws Exception{
 		meServiceImpl.meetingInsertService(memberNumber, title, meetingStartTime, meetingEndTime, acceptStartTime,
-				acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitMaxNumber, gender, favorite);
+				acceptEndTime, detailIntroduce, place, placeDetail, recruitMaxNumber, gender, favorite);
 		
 		return "redirect:/meetingList";
 	}
 	
-	@RequestMapping(value="/community/imageUpload", method=RequestMethod.POST)
-	private void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
-        OutputStream out = null;
-        PrintWriter printWriter = null;
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");		
-        
-        try{
-        	 
-            String fileName = upload.getOriginalFilename();
-            byte[] bytes = upload.getBytes();
-            String uploadPath = "D://gitKonckpro/knockknock/KnockKnock/src/main/resources/static/images/event" + fileName;//저장경로
- 
-            out = new FileOutputStream(new File(uploadPath));
-            out.write(bytes);
-            String callback = request.getParameter("CKEditorFuncNum");
- 
-            printWriter = response.getWriter();
-            String fileUrl = "D://gitKonckpro/knockknock/KnockKnock/src/main/resources/static/images/event" + fileName;//url경로
- 
-            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
-                    + callback
-                    + ",'"
-                    + fileUrl
-                    + "','이미지를 업로드 하였습니다.'"
-                    + ")</script>");
-            printWriter.flush();
- 
-        }catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (printWriter != null) {
-                    printWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return;
-	}
+	@Value("${image.upload.path}")
+	String uploadPath;
+	@Value("${image.upload.uri}")
+	String uploadUri;
 	
+	//ckedior이미지 업로드 컨트롤러
+//	@PostMapping("/imageUpload")
+//	@SneakyThrows
+//	private String imageUpload(@RequestPart MultipartFile upload, @RequestParam("CKEditorFuncNum") String callback, HttpServletRequest request) throws IOException {
+//		//CKEditor 에서 파일을 넘겨주는 이름이 upload 로 설정 되어 있다. 반드시 upload 로 설정
+//		
+//		String sourceName = upload.getOriginalFilename();
+//		String sourceExt = FilenameUtils.getExtension(sourceName).toLowerCase(); 
+//		
+//		File destFile;
+//		String destFileName;
+//		
+//		do {
+//			destFileName = RandomStringUtils.randomAlphabetic(8).concat(".").concat(sourceExt);
+//			destFile = new File(uploadPath.concat(destFileName));
+//		}while(destFile.exists());
+//		destFile.getParentFile().mkdir();
+//		upload.transferTo(destFile);
+//		
+//		String imgUrl = request.getScheme().concat("://").concat(request.getServerName()).concat(uploadUri).concat(destFileName);
+//		
+//		// ckeditor upload callback
+//		StringBuffer sb = new StringBuffer();
+//		sb.append("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(");
+//		sb.append(callback);
+//		sb.append(",'");
+//		sb.append(imgUrl);
+//		sb.append("','이미지 업로드 성공!')</script>");
+//		
+//		return sb.toString();
+//	}
+
 	@RequestMapping("/meetingModifyForm")
 	private String meetingModifyForm(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("meetingModifyForm", meServiceImpl.meetingModifyFormService(writingNumber));
@@ -122,11 +115,10 @@ public class MeetingAndEventController {
 			@RequestParam("title") String title,
 			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("simpleIntroduce") String simpleIntroduce,
-			@RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
+			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
 		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
-				acceptStartTime, acceptEndTime, simpleIntroduce, detailIntroduce, place, placeDetail, recruitMaxNumber);
+				acceptStartTime, acceptEndTime, detailIntroduce, place, placeDetail, recruitMaxNumber, favorite);
 		return "redirect:/meetingList";
 	}
 	

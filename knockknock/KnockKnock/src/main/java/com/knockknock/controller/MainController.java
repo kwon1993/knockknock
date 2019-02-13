@@ -1,17 +1,22 @@
 package com.knockknock.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.PageMaker;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.service.BranchService;
+import com.knockknock.service.MeetingAndEventServiceImpl;
 
 @Controller
 public class MainController {
@@ -19,16 +24,22 @@ public class MainController {
 	@Autowired
 	BranchService branchService;
 	
+	@Autowired
+	MeetingAndEventServiceImpl meServiceImpl;
+	
 	//메인화면 스타트
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO) {
+		
+		//방정보를 가져온다.
+		
 		return "home/Home";
 	}
 	
 	//메인화면 심플방검색
 	@GetMapping("/simpleRoomSearch")
 	public String simpleRoomSearch(Model model, BranchDetailVDTO branchDetailVDTO) {
-		model.addAttribute("lists", branchService.simpleRoomSearchList(branchDetailVDTO));
+		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
 		return "branch/FindingRoom";
 	}
 	
@@ -79,7 +90,9 @@ public class MainController {
 	
 	//네비게이션바 '모임 및 이벤트
 	@RequestMapping("/meetingAndEventMain")
-	public String toMeetingAndEvent() {
+	public String toMeetingAndEvent(Model model) throws Exception {
+		model.addAttribute("mMainList", meServiceImpl.mMainListService());
+		//model.addAttribute("eMainList", meServiceImpl.eMainListService());
 		return "event/MeetingAndEventMain";
 	}
 	

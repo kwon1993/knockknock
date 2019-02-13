@@ -181,8 +181,8 @@ height:250px;
 	        <div class="branchThemeField">
 	              <label class="field-title"><strong>테마</strong></label>
 	              <div name="branchTheme" id="branchTheme">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="checkbox6" name="branchTheme"><label for="checkbox6">있음</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="checkbox7" name="branchTheme"><label for="checkbox7">없음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">있음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">없음</label></div>
 	              </div>
 	        </div>
         </div>
@@ -204,7 +204,7 @@ height:250px;
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
 				<span th:text='${dto.address}' name='addressList' id='addressList' />
-				<span th:text='${dto.theme}' name='theme' id='theme' />
+				<span  th:if="${dto.theme!='.'}" th:text='${dto.theme}' name='theme' id='theme' />
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -317,6 +317,7 @@ function multiSearch(){
 			contentType: 'application/json',
 			async : false,
 			success : function(data){
+				
 				jQuery("#allGallery").remove();
 				//받아오는 주소가 널이 아니라면(값이 있다면)
 				if(data[0].address!=null){
@@ -329,13 +330,17 @@ function multiSearch(){
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
-						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+data[i].theme+"</span></a></div>";
+						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+ (data[i].theme!='.'?data[i].theme:'') +"</span></a></div>";
+					
 					}
 					content += "</div>";
 						
 					jQuery("#container").html(content);
 				
+					
 				}
+				
+				
 			},
 			error : function(data){
 				alert("error");

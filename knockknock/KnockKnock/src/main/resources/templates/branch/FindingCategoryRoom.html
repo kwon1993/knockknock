@@ -4,11 +4,18 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+=======
+<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>   
+>>>>>>> 702400f9c70b62624e873c3add866f6463a0fc00
 </head>
 <body>
 
@@ -16,18 +23,18 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		<div class="w3-container">
 			<div class="jumbotron" id="jumbotronId" style="margin-top: 40px;">
 				<!-- 주소 검색 -->
-				<div>
-					<form action="/categoryRoomSearch">
+				<div class="search">
+					<!-- <form action="/categoryRoomSearch"> -->
 						<label class="field-title"><strong>주소검색</strong></label>
-						<input type="text" name="address" />
-						<button type="submit" name="categoryRoomSearch"
-							id="categoryRoomSearch">주소 검색</button>
-					</form>
+						<input type="text"/>
+				</div>		
+						<!-- <button type="submit" name="categoryRoomSearch" id="categoryRoomSearch">주소 검색</button> -->
+					<!-- </form> -->
 					<!-- 체크박스 -->
 						<div class="branchThemeField">
 							<label class="field-title"><strong>관심사</strong></label>
-							<div  th:each="theme : ${themeLists}" name="branchTheme" id="branchTheme">
-									<div class="checkbox"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
+							<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
+									<div class="branchTheme"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
 							</div>
 						</div>
 						
@@ -35,10 +42,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 			</div>
 		</div>
-
+		
+	<div class="basic"  id="basicGallery">
 		<table class="w3-table-all">
 			<tr>
-				<td>방번호</td>
 				<td>위치</td>
 				<td>방 이름</td>
 				<td>관심사</td>
@@ -49,6 +56,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<td>임주가능 인원</td>
 			</tr>
 			<tr th:each="branchDetailVDTO : ${lists}">
+<!-- 				<td> -->
+<!-- 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
+<!-- 				</td> -->
 				<td th:text="${branchDetailVDTO.roomNumber}"></td>
 				<td th:text="${branchDetailVDTO.address}"></td>
 				<!-- 		<td> -->
@@ -62,21 +72,13 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<td th:text="${branchDetailVDTO.rentableDate}"></td>
 				<td th:text="${branchDetailVDTO.allowNumber}"></td>
 			</tr>
-
-			<!--     <tr> -->
-			<!--         <td colspan="5"> -->
-			<!--             <form action="adminEventWriteView"> -->
-			<!--                 <input type="submit" value="Write"> -->
-			<!--             </form> -->
-			<!--         </td> -->
-			<!--     </tr> -->
 		</table>
 		
-	
+	</div>
 
-  
 <script>
 
+<<<<<<< HEAD
 <!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
@@ -110,47 +112,61 @@ $(document).ready(function(){
 				console.log(themeCheckboxList);
 				alert("category  error");
 			}
+=======
+	var categoryRoom={
 			
+			myProperty:"someValue",
+			searchCategory:[],
+			
+			// object literals can contain properties and methods.
+	        // e.g we can define a further object for module configuration:
+	        	
+			myConfig:{
+				useCaching : true,
+				language:"en"
+			},
+			refreshGrid: function(data){
+				//todo grid refresh
+			},
+			sendToServer:function(searchCategory){
+				var that=this;
+				var jqxhr= $.get("/findingCategoryRoom/?searchCategory="+searchCategory,function(){
+					alert("success");
+				})
+					.done(function(data){
+						that.refreshGrid(data);
+						alert("second success");
+					})
+					.fail(function(){
+						alert("error");
+					})
+					.always(function(){
+						alert("finished");
+					};
+>>>>>>> 702400f9c70b62624e873c3add866f6463a0fc00
+			
+			},
+	//a very basic method
+	checkboxEventBind: function(target){
+		var that=this;
+		$(target).change(function(e){
+			that.searchCategory.push($(e.target).val());
+			that.sendToServer(that.searchCategory);
 		});
-	 }); 
+	},
 	
+	searchInputEventBind:function(target){
+		$(target).change(function(e){
+			that.searchCategory.push($(e.target).val());
+			that.sendToServer(that.searchCategory);
+		});
+	}
 	
- /*  $("input[type='checkbox']").on('click',function(){
-	 alert(this.value);
-  }); */
-  
-});
-
- /* function Categorycheckbox(){
-	
-	var userId = $("#category").val();
-
-	 name이 같은 체크박스의 값들을 배열에 담는다.
- 	var checkboxValues = [];
- 	$("input[name='hobby']:checked").each(function(i) {
- 		checkboxValues.push($(this).val());
- 	});
-	
-	// 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
-	var allData = { "category": category};
-	
-	$.ajax({
- 		url:"",
-		type:'post',
-		data: allData,
-		success:function(data){
-			alert("완료!");
-			window.opener.location.reload();
-			self.close();
-		},
-		error:function(jqXHR, textStatus, errorThrown){
-			alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-			self.close();
-		}
+	};
+	$(document).ready(function(){
+		categoryRoom.checkboxEventBind(".branchThemeField");
+		categoryRoom.searchInputEventBind(".search");
 	});
-} */
 </script>
-</div>
 </body>
 </html>
-

@@ -69,9 +69,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <update id="changePassword">
-    	update MEMBER
-		set password=#{password}
-		where email=#{email}
+    	UPDATE MEMBER
+		SET PASSWORD=#{password}
+		WHERE EMAIL=#{email}
 	</update>    
     
     <select id="getPet" resultType="ProfileVDTO">
@@ -79,8 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	P.ANIMAL animal,
     	P.AMOUNT amount
     	FROM MEMBER M,PET P
-    	where M.EMAIL = #{username}
-    	and M.MEMBER_NUMBER = P.MEMBER_NUMBER
+    	WHERE M.EMAIL = #{username}
+    	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
     
     <select id="getProfile" resultType="memberDTO">
@@ -96,36 +96,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.INTRODUCE introduce,
     	M.IMAGE_PROFILE imageProfile
     	FROM MEMBER M
-    	where M.EMAIL = #{username}
+    	WHERE M.EMAIL = #{username}
     </select>
     
     <update id="profileUpdate">
-			   update MEMBER m,pet p
-			   set m.nickname=#{nickname},m.introduce= #{introduce}, p.animal=#{animal}
-			   where m.MEMBER_NUMBER = p.MEMBER_NUMBER
-			   AND m.member_number = #{memberNumber}
+			   UPDATE MEMBER m,PET p
+			   SET m.NICKNAME=#{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
+			   WEHERE m.MEMBER_NUMBER = p.MEMBER_NUMBER
+			   AND m.MEMBER_NUMBER = #{memberNumber}
     </update>
     
     <update id="profileUpdate2">
-	   		   update MEMBER m,pet p
-			   set m.nickname=#{nickname}, m.introduce= #{introduce}, p.animal=#{animal}
-			   where m.member_number = #{memberNumber}
+	   		   UPDATE MEMBER m, PET p
+			   SET m.NICKNAME = #{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
+			   WHERE m.MEMBER_NUMBER = #{memberNumber}
     </update>
     
     <update id="saveImageDir">
-	   		   update MEMBER
-			   set IMAGE_PROFILE = #{finalImage}
-			   where email = #{username}
+	   		   UPDATE MEMBER
+			   SET IMAGE_PROFILE = #{finalImage}
+			   WHERE EMAIL = #{username}
     </update>
     
     <select id="getImageDir" resultType="MemberDTO">
-	   		   select image_profile imageProfile
-			   from MEMBER
-			   where email = #{username}
+	   		   SELECT IMAGE_PROFILE imageProfile
+			   FROM MEMBER
+			   WHERE EMAIL = #{username}
     </select>
-    
-    
-    
+
     <select id="getMEL" resultType="EventVDTO">
     	SELECT
     	E.TITLE,
