@@ -4,17 +4,22 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임 만들기</title>
+<style type="text/css">
+#jumbotronId{
+    background-color: white;
+}
+</style>
 </head>
 <body>
 
 	<div layout:fragment="content" class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 개설하기</h3>
-
-			<p>대표이미지</p>
-			<input type="file" value="선택">
-				<form action="/writeBoard" role="form" id="editorForm">
-<!-- 					<input type="hidden" name="memberNumber"> -->
+			<span>대표이미지</span>
+				<form action="/writeBoard" role="form" id="editorForm"  method="post" enctype="multipart/form-data">
+					<img class="d-block" width="200" height="200" id="foo" src="#" onerror="this.src='https://brienshamp.com/images/default-image.jpg';"/>
+					<input type='file' name="image" id="imgInp"/>
+					<span>(이미지 크기가 가로300px, 세로300px만 적용가능합니다)</span>
 					<table class="table">
 						<tr>
 							<td>작성자</td>
@@ -52,7 +57,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 									<option value="낚시">낚시</option>
 									<option value="인문학">인문학</option>
 									<option value="천문학">천문학</option>
-									<option value="꽃꽃이">꽃꽃이</option>
+									<option value="꽃꽃이">꽃꽂이</option>
 									<option value="가드닝">가드닝</option>
 									<option value="캘리그라피">캘리그라피</option>
 									<option value="스터디">스터디</option>
@@ -99,29 +104,86 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</form>
 		</div>
 <!-- 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
-	 <script th:src="@{/ckeditor/ckeditor.js}"></script>
-	<script>
-	    $(function(){
-	        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
-	            width:'100%',
-	            height:'400px',
-	            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-	        });
+		<script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                $('#foo').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+          $("#imgInp").change(function() {
+            readURL(this);
+          });
+		//사진 미리보기
+// 		function readURL(input){
+// 			if(input.files && input.files[0]){
+// 				var reader = new FileReader();
+			
+// 				reader.onload = function(e){
+// 					$("#img").attr('src',e.target.result);
+// 				}
+// 				reader.readAsDataURL(input.files[0]);
+// 			}
+// 		}
+// 		$("#uploadProfileShot").change(function(){
+// 			readURL(this);
+// 		})
+		
+		//사진 업데이트
+// 		function uploadProfileShot(){
+// 			var formData = new FormData();
+// 			var inputFile = $("input[name='uploadFileShot']");
+// 			var files = inputFile[0].files;
+			
+// 			for(var i=0; i<files.length; i++){
+// 				formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
+// 			}	
+		
+// 			$.ajax({
+// 				type:'post',
+// 				url:'/profileUpdate',
+// 				data:formData,
+// 				processData:false,
+// 				contentType:false,
+// 				dataType:'json',
+// 				success:function(result){
+// 					alert("업로드완료");
+// 				},
+// 				error:function(error){
+// 					location.reload();
+// 					alert("업로드실패");
+					
+// 				}
+// 			});
+// 		}
 
-	        CKEDITOR.on('dialogDefinition', function( ev ){
-	            var dialogName = ev.data.name;
-	            var dialogDefinition = ev.data.definition;
-	          
-	            switch (dialogName) {
-	                case 'image': //Image Properties dialog
-	                    //dialogDefinition.removeContents('info');
-	                    dialogDefinition.removeContents('advanced');
-	                    dialogDefinition.removeContents('Link');
-	                    break;
-	            }
-	        });
-	    });
-	</script>
+		</script>
+		<script th:src="@{/ckeditor/ckeditor.js}"></script>
+		<script>
+		    $(function(){
+		        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+		            width:'100%',
+		            height:'400px',
+		            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+		        });
+	
+		        CKEDITOR.on('dialogDefinition', function( ev ){
+		            var dialogName = ev.data.name;
+		            var dialogDefinition = ev.data.definition;
+		          
+		            switch (dialogName) {
+		                case 'image': //Image Properties dialog
+		                    //dialogDefinition.removeContents('info');
+		                    dialogDefinition.removeContents('advanced');
+		                    dialogDefinition.removeContents('Link');
+		                    break;
+		            }
+		        });
+		    });
+		</script>
 	</div>
 </body>
 </html>

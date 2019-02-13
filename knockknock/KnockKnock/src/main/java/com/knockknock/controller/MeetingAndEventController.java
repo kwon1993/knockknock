@@ -1,7 +1,6 @@
 package com.knockknock.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,21 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.event.PageMaker;
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.service.MeetingAndEventServiceImpl;
-
-import lombok.SneakyThrows;
 
 @Controller
 public class MeetingAndEventController {
@@ -53,56 +56,43 @@ public class MeetingAndEventController {
 		return "event/WriteBoard";
 	}
 	
+	@Value("${file.upload.directory}")
+	String uploadFileDir;
+	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
-	private String writeBoard(@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
-			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
+	private String writeBoard(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
+			@RequestParam("title") String title, @RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber,
-			@RequestParam("detailIntroduce") String detailIntroduce, @RequestParam("gender") String gender, 
-			@RequestParam("favorite") String favorite)throws Exception{
-		meServiceImpl.meetingInsertService(memberNumber, title, meetingStartTime, meetingEndTime, acceptStartTime,
-				acceptEndTime, detailIntroduce, place, placeDetail, recruitMaxNumber, gender, favorite);
+			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce,
+			@RequestPart MultipartFile image)throws Exception{
 		
+		MeetingVDTO meeting = new MeetingVDTO();
+		
+		
+		
+		if(image.isEmpty()){ //이미지 업로드가 없을때
+			meServiceImpl.meetingInsertService(meeting);
+		}else {
+			String ImageName = image.getOriginalFilename(); //파일의 이름을 함수에 저장
+//			String ImageNameExtension = FilenameUtils.getExtension(ImageName).toLowerCase();
+			File FileUrl; //경로와 이미지 이름이 섞일 함수선언
+			
+			do {
+				FileUrl = new File(uploadFileDir+ImageName); //경로+이미지
+			}while(FileUrl.exists());
+				
+			FileUrl.getParentFile().mkdirs();
+			image.transferTo(FileUrl);
+			
+			meServiceImpl.meetingInsertService(meeting); //게시글 insert
+			
+			meeting.setImage(FileUrl);
+			
+			meServiceImpl.imageUploadService(image); //이미지 insert
+		}
 		return "redirect:/meetingList";
 	}
-	
-	@Value("${image.upload.path}")
-	String uploadPath;
-	@Value("${image.upload.uri}")
-	String uploadUri;
-	
-	//ckedior이미지 업로드 컨트롤러
-//	@PostMapping("/imageUpload")
-//	@SneakyThrows
-//	private String imageUpload(@RequestPart MultipartFile upload, @RequestParam("CKEditorFuncNum") String callback, HttpServletRequest request) throws IOException {
-//		//CKEditor 에서 파일을 넘겨주는 이름이 upload 로 설정 되어 있다. 반드시 upload 로 설정
-//		
-//		String sourceName = upload.getOriginalFilename();
-//		String sourceExt = FilenameUtils.getExtension(sourceName).toLowerCase(); 
-//		
-//		File destFile;
-//		String destFileName;
-//		
-//		do {
-//			destFileName = RandomStringUtils.randomAlphabetic(8).concat(".").concat(sourceExt);
-//			destFile = new File(uploadPath.concat(destFileName));
-//		}while(destFile.exists());
-//		destFile.getParentFile().mkdir();
-//		upload.transferTo(destFile);
-//		
-//		String imgUrl = request.getScheme().concat("://").concat(request.getServerName()).concat(uploadUri).concat(destFileName);
-//		
-//		// ckeditor upload callback
-//		StringBuffer sb = new StringBuffer();
-//		sb.append("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(");
-//		sb.append(callback);
-//		sb.append(",'");
-//		sb.append(imgUrl);
-//		sb.append("','이미지 업로드 성공!')</script>");
-//		
-//		return sb.toString();
-//	}
 
 	@RequestMapping("/meetingModifyForm")
 	private String meetingModifyForm(Model model, @RequestParam("writingNumber") int writingNumber) {
@@ -158,80 +148,5 @@ public class MeetingAndEventController {
 		return "redirect:/eventList";
 	}
 	
-	@GetMapping("/uploadAjax")
-	private void uploadAjax() {
-		System.err.println("upload ajax");
-	}
-	
-	//단일 파일 업로드
-//	@RequestMapping("/photoUpload")
-//	public String photoUpload(HttpServletRequest request, photoUploadDTO pu, @RequestParam("memberNumber") int memberNumber) {
-//		String callback = pu.getCallback();
-//		String callbackFunc = pu.getCallbackFunc();
-//		String fileResult = "";
-//		try {
-//			if(pu.getFileData() != null && pu.getFileData().getOriginalFilename() != null 
-//					&& !pu.getFileData().getOriginalFilename().equals("")) {
-//				//파일이 존재하면
-//				String originalName = pu.getFileData().getOriginalFilename();
-//				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
-//				//파일 기본경로
-//				String defaultPath = request.getSession().getServletContext().getRealPath("/");
-//				//파일 기본경로_상세경로
-//				String path = defaultPath + "resource" + File.separator + "photo_upload" + File.separator;
-//				File file = new File(path);
-//				System.out.println("path:"+path);
-//				//디렉토리 존재하지 않을경우 디렉토리 생성
-//				if(!file.exists()) {
-//					file.mkdirs();
-//				}
-//				//서버에 업로드 할 파일명(한글문제로 인해 원본파일은 올리지 않는 것이 좋다)
-//				String realName = memberNumber+"_";
-//				//서버에 파일 쓰기
-//				pu.getFileData().transferTo(new File(path+realName));
-//				fileResult += "&bNewLine=true&sFileName="+originalName+"&sFileURL=/resource/photo_upload/"+realName;
-//			}else {
-//				fileResult += "&errstr=error";
-//			}
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "redirect:"+callback+"?callbackFunc="+callbackFunc+fileResult;
-//	}
-	
-//	//다중 파일업로드
-//	@RequestMapping("/multiplePhotoUpload")
-//	@ResponseBody
-//	public String multiplePhotoUpload(HttpServletRequest request) {
-//		//파일정보
-//		StringBuffer sb = new StringBuffer();
-//		try {
-//			//파일명을 받는다 - 일반 원본파일명
-//			String oldName = request.getHeader("file-name");
-//			//파일 기본경로_상세경로
-//			String filePath = "D:/gitKonckpro/knockknock/KnockKnock/src/main/resources/static/images/event/";
-//			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
-//                    .format(System.currentTimeMillis()))
-//                    .append(oldName.substring(oldName.lastIndexOf("."))).toString();
-//			InputStream is = request.getInputStream();
-//			OutputStream os = new FileOutputStream(filePath + saveName);
-//			int numRead;
-//			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
-//			while((numRead = is.read(b,0,b.length))!=-1) {
-//				os.write(b,0,numRead);
-//			}
-//			os.flush();
-//			os.close();
-//			//정보출력
-//			sb = new StringBuffer();
-//            sb.append("&bNewLine=true")
-//            .append("&sFileName=").append(oldName)
-//            .append("&sFileURL=").append("http://localhost:1234/writeBoardForm")
-//            .append(saveName);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return sb.toString();
-//	}
 
 }

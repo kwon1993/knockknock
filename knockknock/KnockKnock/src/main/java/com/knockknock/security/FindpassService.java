@@ -36,17 +36,14 @@ public class FindpassService {
     			randomStr = String.valueOf((char) ((int) (rnd.nextInt(26)) + 97));
     			tempPassword+=randomInt+randomStr;
     		}
-    		
-    		System.out.println("임시비번은:"+tempPassword);
+    		//메일로 보낼 변수 toss
     		toss = tempPassword;
-    		System.out.println("임비:"+toss);
     		
     		memberDTO.setPassword(new BCryptPasswordEncoder().encode(tempPassword));
     		
     		memberMapper.changePassword(memberDTO);
            	
             MemberDTO resultdto = memberMapper.findByEmail(memberDTO);
-            System.out.println(resultdto);
             if(resultdto == null) {
             	System.out.println("예외발생");
                 throw new Exception();

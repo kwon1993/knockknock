@@ -26,10 +26,6 @@ public class MailController {
     public String mailSending(Model model,HttpServletResponse response) {
       Map<String, Object> map = model.asMap();
       MemberDTO memberDTO = (MemberDTO)map.get("resultDto");
-        
-      System.out.println("이름은: "+memberDTO.getName());
-      
-      	System.out.println("토스완료:"+FindpassService.toss);
       
       String setfrom = "springteam11@gmail.com";         
       String tomail  = memberDTO.getEmail();     // 받는 사람 이메일

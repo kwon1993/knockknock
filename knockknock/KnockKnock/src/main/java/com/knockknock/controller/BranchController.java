@@ -41,13 +41,14 @@ public class BranchController {
 	  //관심사로 방찾기의 방검색
 	 @RequestMapping(value="/categoryRoomSearch",method=RequestMethod.GET) 
 	 @ResponseBody
-	 public String categoryRoomSearch(Model model,@RequestParam List<String>searchKeyWord)
+	 public List<BranchDetailVDTO> categoryRoomSearch(Model model,@RequestParam(value="address") String address, @RequestParam(value="searchKeyWord[]") List<String>searchKeyWord)
 	 throws Exception { 
 	  
-		 System.out.println(searchKeyWord);
-		 model.addAttribute("lists", branchService.categoryRoomSearch(searchKeyWord));
-	  
-	 return "branch/FindingCategoryRoom";
+		 System.out.println(searchKeyWord +"   "+ address);
+		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(address,searchKeyWord);
+		 model.addAttribute("lists",branchDetailVDTOs);
+		 System.out.println("  branchDetailVDTOs "+ branchDetailVDTOs);
+	 return branchDetailVDTOs;
 	 }
 	 
 //	@PostMapping("/categoryRoomSearch")

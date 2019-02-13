@@ -71,10 +71,15 @@ cursor: pointer;
 	color: white;
 	border-radius: 1rem;
 }
+
+#allLogin{
+	font-family: 'Jua', sans-serif;
+}
+
 </style>
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" id='allLogin'>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
@@ -231,7 +236,7 @@ window.onclick = function(event) {
     }
 }
 
-//아이디찾기 ajax 처리
+//아이디찾기 ajax 처리★★★★
 $(document).ready(function(){
 	$("input[name='findId']").on('click',function(){
 		
@@ -257,6 +262,19 @@ $(document).ready(function(){
 		});
 	});
 });
+
+//비밀번호찾기 ajax 처리★★★★
+$(document).ready(function(){
+	$("input[name='findPass']").on('click',function(){
+		
+		
+		
+	});
+})
+
+
+
+
 
 //동적으로 생성된 태그에 이벤트 걸기
 $(document).on("click", "#modalx", function(){
