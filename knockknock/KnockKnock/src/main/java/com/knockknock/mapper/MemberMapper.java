@@ -1,23 +1,30 @@
 package com.knockknock.mapper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
 public interface MemberMapper {
+	//회원가입
 	public void register(MemberDTO memberDTO);
+	public void petRegister(@Param("memberDTO") MemberDTO memberDTO, @Param("petDTO") PetDTO petDTO);
+	
+	//찾기관련
 	public MemberDTO findById(String id);
 	public MemberDTO findByEmail(MemberDTO memberDTO);
 	public MemberDTO findByName(MemberDTO memberDTO);
-
+	
 	public List<MeetingVDTO> getMMLJ(String email);
 	public List<MeetingVDTO> getMMLM(String email);
 
@@ -48,4 +55,6 @@ public interface MemberMapper {
 	public int deleteV(int writingNumber, String email);
 	
 	public void saveImageDir(String finalImage, String username);
+	
+	public ArrayList<Integer> getMemberNumber();
 }

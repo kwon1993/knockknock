@@ -71,10 +71,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	    http.csrf().disable().
 		http
 		.authorizeRequests()
-			.antMatchers("/**","/lib/**",""
-					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
+		//애니리퀘스트를 빼고, 해즈롤로 처리한다.
+//			.antMatchers("/**","/lib/**",""
+//					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
 //				 .anyRequest().authenticated() 
-			.and()
+			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
+					"/js/**","/lib/**","/smarteditor/**","/texteditor/**","/vendor/**","static/**").permitAll()
+			.antMatchers("/branch/**","etc/**","/home/**").permitAll()
+		.and()
 		.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/")
@@ -98,13 +102,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    .disable();	
 	}
 
-	//로그인 처리 시, 인증에 대한 처리.
+	//로그인 처리 시 인증에 대한 처리
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		System.out.println("configureGlobal작동");
 		auth.eraseCredentials(false).userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 	}
-
+	//회원가입시 비밀번호 인코딩을 위한 패스워드 인코더 Bean
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

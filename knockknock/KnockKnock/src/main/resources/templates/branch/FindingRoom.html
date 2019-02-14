@@ -9,6 +9,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 <style>
 
+body{
+	font-family: 'Jua', sans-serif;
+}
+
 #jumbotronId{
     padding: 2rem 1rem;
     margin-bottom: 0rem;
@@ -30,15 +34,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 #theme{
  	position: absolute;
-    top:58%;
-    left:80%;
+    top:67%;
+    left:82%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:10px;
-    font-family: sans-serif;
+    font-size:11px;
+    font-family: 'Jua', sans-serif;
     color: white;
     z-index: 2;
     text-align: center;
-    padding:4px 15px;
+    padding:12px 15px;
     background-color: #2eca6a;
     border-radius: .25rem;
 }
@@ -154,6 +158,11 @@ height:250px;
 
 }
 
+#searchAddress{
+	border-radius: .25rem;
+	border:1px solid  #2eca6a;
+}
+
 </style>
     
 </head>
@@ -178,25 +187,25 @@ height:250px;
 			<div class="genderField">
 	              <label class="field-title"><strong>성별</strong></label>
 	              <div name="gender" id="gender">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">남성전용</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="checkbox2" name="gender"><label for="checkbox2">여성전용</label></div>
-	              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="checkbox3" name="gender"><label for="checkbox3">남녀공용</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">&nbsp;남성전용</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="checkbox2" name="gender"><label for="checkbox2">&nbsp;여성전용</label></div>
+	              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="checkbox3" name="gender"><label for="checkbox3">&nbsp;남녀공용</label></div>
 	              </div>
 	        </div>
 	        <br><br><br>
 	        <div class="petField">
 	              <label class="field-title"><strong>반려동물</strong></label>
 	              <div name="pet" id="pet">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">가능</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="checkbox5" name="pet"><label for="checkbox5">불가능</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">&nbsp;가능</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="checkbox5" name="pet"><label for="checkbox5">&nbsp;불가능</label></div>
 	              </div>
 	        </div>
 	        <br>
 	        <div class="branchThemeField">
 	              <label class="field-title"><strong>테마</strong></label>
 	              <div name="branchTheme" id="branchTheme">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">있음</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">없음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">&nbsp;있음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">&nbsp;없음</label></div>
 	              </div>
 	        </div>
         </div>
@@ -345,7 +354,7 @@ function multiSearch(){
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
 						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address
-						+ "<span name='theme' id='theme' />"+data[i].theme+"</span></a></div>";
+						+ "</span><span name='theme' id='theme'>"+data[i].theme+"</span></a></div>";
 					}
 					content += "</div>";
 					jQuery("#container").html(content);

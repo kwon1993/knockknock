@@ -353,7 +353,8 @@ $(updateProfile).on('click',function(){
 function readURL(input){
 	if(input.files && input.files[0]){
 		var reader = new FileReader();
-	
+		
+		//#img는 이미지 화면 태그
 		reader.onload = function(e){
 			$("#img").attr('src',e.target.result);
 		}
@@ -361,6 +362,7 @@ function readURL(input){
 	}
 }
 
+//파일올리기버튼 클릭시 readURL호출
 $("#uploadProfileShot").change(function(){
 	readURL(this);
 })
