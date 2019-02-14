@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Controller
@@ -36,9 +37,12 @@ public class MemberController {
 	//회원가입폼
 	//1.회원등록
 	@RequestMapping("/create")
-	public String member(Model model, MemberDTO memberDTO) {
+	public String member(Model model, MemberDTO memberDTO, PetDTO petDTO) {
+		System.out.println(memberDTO.getMemberNumber());
+		System.out.println(petDTO.getAnimal());
+		
 		//2.memberService의 register호출
-		memberService.register(memberDTO);
+		memberService.register(memberDTO, petDTO);
 		
 		return "member/RegisterComplete";
 	}
