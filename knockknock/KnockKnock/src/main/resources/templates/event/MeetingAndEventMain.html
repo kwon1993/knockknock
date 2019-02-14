@@ -1,40 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" 
-layout:decorate="~{etc/fragments/Main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>모임 및 이벤트</title>
 <style type="text/css">
-#jumbotronId{
-    background-color: white;
+#jumbotronId {
+	background-color: white;
 }
-#option_wrap{
-	border:1px solid  #2eca6a;
+
+#option_wrap {
+	border: 1px solid #2eca6a;
 	border-radius: 1rem;
 	width: 50%;
 }
+/* body { */
+/*     margin :40px 10px; */
+/*     padding : 0; */
+/*     font-family : "Lucida Grande", Helvetica, Arial, Verdana,sans-serif; */
+/*     font-size : 14px; */
+/* } */
+/* #calendar { */
+/*     max-width : 900px; */
+/*     margin : 0 auto; */
+/* } */
 </style>
+<!-- <link th:href='@{/fullcalendar/fullcalendar.min.css}' rel='stylesheet' /> -->
+<!-- <link th:href='@{/fullcalendar/fullcalendar.print.min.css}' rel='stylesheet' media='print' /> -->
+<!-- <link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.css' /> -->
 </head>
 <body id="body">
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-		<h1>모임 및 이벤트</h1>
-		<!-- 베너 -->
-			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+		<div id='calendar'></div>
+
+			<h1>모임 및 이벤트</h1>
+			<!-- 베너 -->
+			<div id="carouselExampleIndicators" class="carousel slide"
+				data-ride="carousel">
 				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="0"
+						class="active"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<a href="/eventView?writingNumber=1"><img class="d-block w-100" th:src="@{/images/event/banner1.jpg}" alt="첫번째 슬라이드"></a>
+						<a href="/eventView?writingNumber=1"><img
+							class="d-block w-100" th:src="@{/images/event/banner1.jpg}"
+							alt="첫번째 슬라이드"></a>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner2.jpg}" alt="두번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner2.jpg}"
+							alt="두번째 슬라이드">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner3.jpg}" alt="세번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner3.jpg}"
+							alt="세번째 슬라이드">
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -47,171 +69,141 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					class="sr-only">다음</span>
 				</a>
 			</div>
-	
-			<!-- 캘린더 -->
-			<table class="table" border="1" id="tab">
-	        <tr>
-	            <td align="center"><input type="button" id="prevmonth" value="<"></input></td>
-	            <td colspan="5" align="center" id="Ymd"></td>
-	            <td align="center"><input type="button" id="nextmonth" value=">"></td>
-	        </tr>
-	
-	        <tr align="center">
-	            <td align="center">일</td>
-	            <td align="center">월</td>
-	            <td align="center">화</td>
-	            <td align="center">수</td>
-	            <td align="center">목</td>
-	            <td align="center">금</td>
-	            <td align="center">토</td>
-	        </tr>
-	    </table>
-	    <div class="row">
-		    <div class="col">
-			    <!-- 미니 글 리스트 -->
-			    <span class="font-weight-bold">모임글</span>
-				<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}">+더보기</a>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="mt : ${mMainList}">
-							<td th:text="${mt.writingNumber}">번호</td>
-							<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber})}" th:text="${mt.title}">제목</a></td>
-							<td th:text="${mt.writeTime}">작성일</td>
-						</tr>
-					</tbody>
-				</table>
-		    </div>
-			<div class="col">
-				<span class="font-weight-bold">이벤트글</span>
-				<a class="font-style-success font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>		
-				<table class="table table-hover">		
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="et : ${eMainList}">
-							<td th:text="${et.writingNumber}">번호</td>
-							<td><a th:href="@{/eventView(writingNumber=${et.writingNumber})}" th:text="${et.title}">제목</a></td>
-							<td th:text="${et.writeTime}">작성일</td>
-						</tr>
-					</tbody>
-				</table>
+
+
+
+			<div class="row">
+				<div class="col">
+					<!-- 미니 글 리스트 -->
+					<span class="font-weight-bold">모임글</span> <a
+						class="font-weight-bold pull-right" role="button"
+						th:href="@{/meetingList}">+더보기</a>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="mt : ${mMainList}">
+								<td th:text="${mt.writingNumber}">번호</td>
+								<td><a
+									th:href="@{/meetingView(writingNumber=${mt.writingNumber})}"
+									th:text="${mt.title}">제목</a></td>
+								<td th:text="${mt.writeTime}">작성일</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col">
+					<span class="font-weight-bold">이벤트글</span> <a
+						class="font-style-success font-weight-bold pull-right"
+						role="button" th:href="@{/eventList}">+더보기</a>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="et : ${eMainList}">
+								<td th:text="${et.writingNumber}">번호</td>
+								<td><a
+									th:href="@{/eventView(writingNumber=${et.writingNumber})}"
+									th:text="${et.title}">제목</a></td>
+								<td th:text="${et.writeTime}">작성일</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-	    <script language="javascript">
-		    $(document).ready(function(){
-		       var today = new Date();
-		       var year = today.getFullYear();
-		       var month = today.getMonth();
-		       var day = today.getDay();
-		
-		       month += 1;
-		
-		       function dayy(year, month){ //월의 일수를 구함
-		           switch(month){
-		               case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-		               return 31;
-		
-		               case 4: case 6: case 9: case 11:
-		               return 30;
-		
-		               case 2:
-		               if(((year%400)==0||(year%4)==0&&(year%100)!=0)){
-		                   return 29;
-		               }
-		               else{
-		                   return 28;
-		               }
-		           }
-		           
-		       } 
-		       $("#prevmonth").on("click",function(){
-		       var ymda = document.getElementById("prev");
-		       var yg = document.getElementById("Ymd");
-		
-		       month--; //month를 계속 감소시켜준다
-		       if(month < 1){ // month가 1보다 작아지면
-		           month = 12; // month를 12로 만들어줌
-		           year -= 1; //year를 1 감소시켜준다
-		       }
-		       if(year < 1970){ //1970년 밑으로는 내려가지 않음..
-		           alert("기원전");
-		            for(var i=1;i<100;i--){
-		           window.top.moveTo(i ,i *=-1);
-		           }
-		       }
-		
-		       var ymda = year + "년" + (month)+"월";
-		       present();
-		       });
-		
-		       
-		       $("#nextmonth").on("click",function(){ //다음 월로 가는 함수
-		             
-		       var ymda = document.getElementById("next");
-		       var yg = document.getElementById("Ymd");
-		
-		       month++; //month 를 계속 증가시켜줌
-		       if(month > 12){ //만약 month가 12를 넘어가면
-		           month = 1; // month를 1로 만듦
-		           year += 1; //year을 1 증가시켜준다
-		       }
-		
-		       var ymda = year + "년" + month+"월";
-		   
-		       present(); //present()함수를 호출하여 다시 찍어줌
-				
-		       });
-		
-		       
-		       function present(){
-		       var start = new Date(year, month-1, 1);
-		       var ymda = document.getElementById("Ymd");
-		       var Tab = document.getElementById("tab");
-		
-		       var row = null;
-		       var cnt = 0;
-		
-		       var ym = year + "년" + (month)+"월";
-		   
-		       ymda.innerHTML = ym;
-		
-		       while(tab.rows.length >2){     //테이블의 행의 길이가 2보다 크면 테이블의 행 제거함.
-		           tab.deleteRow(tab.rows.length -1);
-		       }
-		       row = Tab.insertRow();
-		
-		       for(var j = 0; j<start.getDay(); j++){ //달력의 시작 일 구함
-		           cell = row.insertCell();
-		           cnt+=1;
-		       }
-		
-		       for(var i = 0; i< dayy(year, month); i++){ //달력 일수만큼 찍어줌
-		       cell = row.insertCell();
-		       cell.innerHTML = i+1;
-		       cnt += 1;
-		
-		       if(cnt%7 ==0){ //cnt가 7이면 행을 늘려줌
-		           row = tab.insertRow(); 
-		       	}
-		   	   }
-		   	}
-		    });
-		   </script>		
-			<script type="text/javascript">
+			<!-- fullcalendar -->
+<!-- 			<script th:src='@{/fullcalendar/lib/jquery.min.js}'></script> -->
+<!-- 			<script th:src='@{/fullcalendar/lib/moment.min.js}'></script> -->
+<!-- 			<script th:src='@{/fullcalendar/fullcalendar.min.js}'></script> -->
+<!-- 			<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery.min.js'></script> -->
+<!-- 			<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script> -->
+<!-- 			<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script> -->
+			<script>
+				$(document).ready(function() {
+	
+				    // page is now ready, initialize the calendar...
+	
+				    $('#calendar').fullCalendar({
+				        // put your options and callbacks here
+				        left:   'Calendar',
+				        center: '',
+				        right:  'today prev,next'
+				    })
+	
+				});
+// 				 $(document).ready(function() { 
+// 					$('#calendar').fullCalendar({
+// 						header : {
+// 							left : 'prev,next today',
+// 							center : 'title',
+// 							right : 'month,agendaWeek,agendaDay,listMonth'
+// 						},
+// 						defaultDate : '2019-01-12',
+// 						navLinks : true, // can click day/week names to navigate views
+// 						businessHours : true, // display business hours
+// 						editable : true,
+// 						events : [ {
+// 							title : 'Business Lunch',
+// 							start : '2019-01-03T13:00:00',
+// 							constraint : 'businessHours'
+// 						}, {
+// 							title : 'Meeting',
+// 							start : '2019-01-13T11:00:00',
+// 							constraint : 'availableForMeeting', // defined below
+// 							color : '#257e4a'
+// 						}, {
+// 							title : 'Conference',
+// 							start : '2019-01-18',
+// 							end : '2019-01-20'
+// 						}, {
+// 							title : 'Party',
+// 							start : '2019-01-29T20:00:00'
+// 						},
+
+// 						// areas where "Meeting" must be dropped
+// 						{
+// 							id : 'availableForMeeting',
+// 							start : '2019-01-11T10:00:00',
+// 							end : '2019-01-11T16:00:00',
+// 							rendering : 'background'
+// 						}, {
+// 							id : 'availableForMeeting',
+// 							start : '2019-01-13T10:00:00',
+// 							end : '2019-01-13T16:00:00',
+// 							rendering : 'background'
+// 						},
+
+// 						// red areas where no events can be dropped
+// 						{
+// 							start : '2019-01-24',
+// 							end : '2019-01-28',
+// 							overlap : false,
+// 							rendering : 'background',
+// 							color : '#ff9f89'
+// 						}, {
+// 							start : '2019-01-06',
+// 							end : '2019-01-08',
+// 							overlap : false,
+// 							rendering : 'background',
+// 							color : '#ff9f89'
+// 						} ]
+// 					});
+
+// 				});
+			</script>
+			<!-- <script type="text/javascript">
 		            present();            
-		    </script>
+		    </script> -->
 		</div>
 	</div>
 </body>

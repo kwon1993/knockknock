@@ -120,14 +120,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이미지 업로드 -->
-	<update id="imageUpload">
-		UPDATE MEETING
-		SET IMAGE = #{finalImage}
-		WHERE WRITING_NUMBER = #{writingNumber}
-	</update>
-	<select id="ImageView" resultType="MemberDTO">
-		SELECT MT.IMAGE
-		FROM MEETING MT, MEMBER MB
-		WHERE MB.EMAIL = #{username} AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
-    </select>
+<!-- 	<update id="imageUpload"> -->
+<!-- 		UPDATE MEETING -->
+<!-- 		SET IMAGE = #{finalImage} -->
+<!-- 		WHERE WRITING_NUMBER = #{writingNumber} -->
+<!-- 	</update> -->
+<!-- 	<select id="ImageView" resultType="MemberDTO"> -->
+<!-- 		SELECT MT.IMAGE -->
+<!-- 		FROM MEETING MT, MEMBER MB -->
+<!-- 		WHERE MB.EMAIL = #{username} AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER -->
+<!--     </select> -->
 </mapper>
