@@ -37,10 +37,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		
 		<div class="basic"  id="basicGallery">
 			<table class="w3-table-all">
-				<tr>
+				<tr  class="text-center" style="width: 30px;">
 					<td>방 번호</td>
 					<td>주소</td>
-					<td>세부주소</td>
 					<td>테마</td>
 					<td>성별</td>
 					<td>보증금</td>
@@ -50,7 +49,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</tr>
 			
 			  <tbody id="branchDetailVDTOs">			  
-				<tr th:each="branchDetailVDTO : ${lists}">
+				<tr  class="text-center" style="width: 30px;" th:each="branchDetailVDTO : ${lists}">
 	<!-- 				<td> -->
 	<!-- 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
 	<!-- 				</td> -->
@@ -59,7 +58,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					<!-- 		<td> -->
 					<!--             <a th:href="@{'adminEventView?writingNumber=' + ${branchDetailVDTO.writingNumber}}"><p th:text="${branchDetailVDTO.title}"></p></a> -->
 					<!--         </td> -->
-					<td th:text="${branchDetailVDTO.addressDetail}"></td>
+					
 					<td th:text="${branchDetailVDTO.theme}"></td>
 					<td th:text="${branchDetailVDTO.gender}"></td>
 					<td th:text="${branchDetailVDTO.deposit}"></td>
@@ -70,7 +69,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			  </tbody>
 			</table>
 	  	</div>
-	  
+
 		<script>
 			var categoryRoom = {
 
@@ -108,19 +107,25 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						success : function(branchDetailVDTOs) {
 							alert("완료!" + branchDetailVDTOs);
 							var tableList = "";
+							$('#branchDetailVDTOs tr').remove();
 							$.each(branchDetailVDTOs, function(key, branchDetailVDTO) {
 								console.log(key + ", " + branchDetailVDTO.theme);
 								//기존의 테이블에 출력되는 것을 삭제
-								$('#branchDetailVDTOs tr').remove();
-								<!--새로 표시할 콘텐츠 집어넣기-->							 	
-								$('#branchDetailVDTOs').append("<tr><td>"+ branchDetailVDTO.roomNumber+"</td>"+"<td>"+ branchDetailVDTO.address+"</td>"+"<td>"+branchDetailVDTO.addDetail+
-																"</td>"+"<td>"+branchDetailVDTO.theme+"</td>"+"<td>"+ branchDetailVDTO.gender+"</td>"+"<td>"+branchDetailVDTO.deposit+
-																"</td>"+"<td>"+branchDetailVDTO.monthlyRent+"</td>"+"<td>"+branchDetailVDTO.rentableDate+"</td>"+"<td>"+branchDetailVDTO.allowNumber+"</td></tr>");	
-							});
-							//$('#newCategoryTable').html(tableList);
-							//$('#branchDetailVDTOs').html(tableList);
-							// $("#basicGallery").reload();
-						},
+								
+								<!--새로 표시할 콘텐츠 집어넣기-->
+								$('#branchDetailVDTOs').append(
+									'<tr class="text-center" style="width: 30px;">'
+									+'<td>'+branchDetailVDTO.roomNumber+'</td>'
+									+'<td>'+branchDetailVDTO.address+'</td>'
+									+'<td class="theme">'+branchDetailVDTO.theme+'</td>'
+									+'<td class="gender">'+branchDetailVDTO.gender+'</td>'
+									+'<td class="deposit">'+branchDetailVDTO.deposit+'</td>'
+									+'<td class="monthlyRent">'+branchDetailVDTO.monthlyRent+'</td>'
+									+'<td class="monthlyRent">'+branchDetailVDTO.rentableDate+'</td>'
+									+'<td class="allowNumber">'+branchDetailVDTO.allowNumber+'</td>'
+									+'</tr>');	
+						});
+				},
 						error : function(jqXHR, textStatus, errorThrown) {
 							alert("에러 발생~~ \n" + textStatus + " : "
 									+ errorThrown);

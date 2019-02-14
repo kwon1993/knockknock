@@ -89,12 +89,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		R.RENTABLE_DATE rentableDate,
 		R.ALLOW_NUMBER allowNumber
 		FROM BRANCH B, ROOM R
-		<!-- <trim prefix="where" prefixOverrides="AND|OR"> -->
+		<trim prefix="where" prefixOverrides="AND|OR">
 		<if test="address!=null">
-			where R.BRANCH_NUMBER = B.BRANCH_NUMBER
+			R.BRANCH_NUMBER = B.BRANCH_NUMBER
 			AND address like CONCAT('%',#{address},'%')
 		</if>
-		<!-- </trim> -->
+		<if test="searchKeyWord.size!=0">
+			and THEME in
+			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
+			#{theme1}
+			</foreach>
+		</if>	
+		</trim>
 		ORDER BY R.room_number ASC, R.RENTABLE_DATE ASC
 	</select>
 
