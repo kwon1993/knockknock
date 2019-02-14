@@ -1,11 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
+
 <head>
+
 
 <title>낙낙-방찾기</title>
 
 <style>
+
+body{
+	font-family: 'Jua', sans-serif;
+}
 
 #jumbotronId{
     padding: 2rem 1rem;
@@ -28,15 +34,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 #theme{
  	position: absolute;
-    top:58%;
-    left:80%;
+    top:67%;
+    left:82%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:10px;
-    font-family: sans-serif;
+    font-size:11px;
+    font-family: 'Jua', sans-serif;
     color: white;
     z-index: 2;
     text-align: center;
-    padding:4px 15px;
+    padding:12px 15px;
     background-color: #2eca6a;
     border-radius: .25rem;
 }
@@ -48,17 +54,23 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	padding:45px 14px;
 	border:1px solid  #2eca6a;
 	border-radius: 1rem;
+	/*font-family: 'Do Hyeon', sans-serif;*/
+	/*font-family: 'Black Han Sans', sans-serif;*/
+	/*font-family: 'Cute Font', cursive;*/
+	font-family: 'Jua', sans-serif;
 	 
 }
 #map_wrap{
 	display:inline;
 	float:right;
 	border-bottom:3px solid #2eca6a;
+	font-family: 'Jua', sans-serif;
 }
 #map{
 	display:inline;
 	float:right;
 	border-radius: 1rem;
+	font-family: 'Jua', sans-serif;
 }
 
 #roomSearch{
@@ -72,15 +84,16 @@ layout:decorate="~{etc/fragments/Main_layout}">
 }
 
 .field-title{
- color: #2eca6a;
+  color: #2eca6a;
   text-transform: uppercase;
   letter-spacing: 0.030em;
   background-color:white;
-  font-size:15px;
+  font-size:20px;
 }
 
 #bang{
-	font-size:20px;
+	font-size:30px;
+	font-family: 'Jua', sans-serif;
 }
 
 #container{
@@ -140,6 +153,16 @@ width:350px;
 height:250px;
 }
 
+#addressList{
+	font-family: 'Jua', sans-serif;
+
+}
+
+#searchAddress{
+	border-radius: .25rem;
+	border:1px solid  #2eca6a;
+}
+
 </style>
     
 </head>
@@ -164,25 +187,25 @@ height:250px;
 			<div class="genderField">
 	              <label class="field-title"><strong>성별</strong></label>
 	              <div name="gender" id="gender">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">남성전용</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="checkbox2" name="gender"><label for="checkbox2">여성전용</label></div>
-	              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="checkbox3" name="gender"><label for="checkbox3">남녀공용</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">&nbsp;남성전용</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="여" id="checkbox2" name="gender"><label for="checkbox2">&nbsp;여성전용</label></div>
+	              	<div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="공용" id="checkbox3" name="gender"><label for="checkbox3">&nbsp;남녀공용</label></div>
 	              </div>
 	        </div>
 	        <br><br><br>
 	        <div class="petField">
 	              <label class="field-title"><strong>반려동물</strong></label>
 	              <div name="pet" id="pet">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">가능</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="checkbox5" name="pet"><label for="checkbox5">불가능</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">&nbsp;가능</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="불가능" id="checkbox5" name="pet"><label for="checkbox5">&nbsp;불가능</label></div>
 	              </div>
 	        </div>
 	        <br>
 	        <div class="branchThemeField">
 	              <label class="field-title"><strong>테마</strong></label>
 	              <div name="branchTheme" id="branchTheme">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">있음</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">없음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">&nbsp;있음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">&nbsp;없음</label></div>
 	              </div>
 	        </div>
         </div>
@@ -204,7 +227,7 @@ height:250px;
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
 				<span th:text='${dto.address}' name='addressList' id='addressList' />
-				<span  th:if="${dto.theme!='.'}" th:text='${dto.theme}' name='theme' id='theme' />
+				<span th:text='${dto.theme}' name='theme' id='theme' />
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -321,7 +344,7 @@ function multiSearch(){
 				jQuery("#allGallery").remove();
 				//받아오는 주소가 널이 아니라면(값이 있다면)
 				if(data[0].address!=null){
-			
+								
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					for(i=0; i<data.length; i++){
 						content+=
@@ -330,17 +353,12 @@ function multiSearch(){
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
-						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address + "</span><span name='theme' id='theme'>"+ (data[i].theme!='.'?data[i].theme:'') +"</span></a></div>";
-					
+						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address
+						+ "</span><span name='theme' id='theme'>"+data[i].theme+"</span></a></div>";
 					}
 					content += "</div>";
-						
 					jQuery("#container").html(content);
-				
-					
 				}
-				
-				
 			},
 			error : function(data){
 				alert("error");

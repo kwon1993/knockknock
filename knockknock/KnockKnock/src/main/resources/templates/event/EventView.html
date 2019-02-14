@@ -4,10 +4,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <meta charset="UTF-8">
 <title th:text="${EventView.title}"></title>
+<style type="text/css">
+
+body{
+	font-family: 'Jua', sans-serif;
+}
+
+#jumbotronId{
+    background-color: white;
+}
+</style>
 </head>
 <body>
 <div layout:fragment="content" class="container">
-		<div class="jumbotron" style="margin-top: 200px">
+		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 게시판</h3>
 			<h1 th:text="${EventView.title}">제목</h1>
 			<span th:text="${EventView.writeTime} + ' | '">작성일</span>

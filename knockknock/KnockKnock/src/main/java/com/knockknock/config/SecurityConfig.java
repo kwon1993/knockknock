@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
 		//이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-		//web.ignoring().antMatchers("/**");
+//		web.ignoring().antMatchers("/resources/**");
 	}
 	
 	@Override
@@ -71,23 +71,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	    http.csrf().disable().
 		http
 		.authorizeRequests()
-			.antMatchers("/**","/reviewList","/categoryRoomSearch").permitAll()
-			.anyRequest().authenticated()
-			.and()
+		//애니리퀘스트를 빼고, 해즈롤로 처리한다.
+//			.antMatchers("/**","/lib/**",""
+//					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
+//				 .anyRequest().authenticated() 
+			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
+					"/js/**","/lib/**","/smarteditor/**","/texteditor/**","/vendor/**","static/**").permitAll()
+			.antMatchers("/branch/**","etc/**","/home/**").permitAll()
+		.and()
 		.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/")
-			.failureUrl("/login")
+//			.failureUrl("/login")
 			.and()
 		.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/")
+			.logoutSuccessUrl("/login")
 			.permitAll();
 		//loginProcessingUrl없애니 됨
 		
 		http
 	    	.csrf()
 	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+//        http
+//        	.csrf().disable();
 		
 		//스마트에디터 관련 설정
 	    http
@@ -96,13 +104,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    .disable();	
 	}
 
-	//로그인 처리 시, 인증에 대한 처리.
+	//로그인 처리 시 인증에 대한 처리
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		System.out.println("configureGlobal작동");
 		auth.eraseCredentials(false).userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 	}
-
+	//회원가입시 비밀번호 인코딩을 위한 패스워드 인코더 Bean
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

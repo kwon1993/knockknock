@@ -77,20 +77,19 @@
        		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
         	<version>3.0.4.RELEASE</version>
         </dependency>
-		
+        
+        <!-- 시큐리티 태그 라이브러리 -->
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-taglibs</artifactId>
+		</dependency> 
+
 		<!-- 타임리프 레이아웃 -->
 		<dependency>
     		<groupId>nz.net.ultraq.thymeleaf</groupId>
     		<artifactId>thymeleaf-layout-dialect</artifactId>
     		<version>2.3.0</version>
 		</dependency>
-		
-		<!-- Java Mail API -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
 		
 		<!-- Mail -->
 		<dependency>
@@ -105,7 +104,12 @@
 		    <scope>provided</scope>
 		</dependency>
 		
-		<!-- 파일업로드 -->		
+		<!-- 파일업로드 -->
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>org.apache.commons.fileupload</artifactId>
+			<version>1.2.2.LIFERAY-PATCHED-1</version>
+		</dependency>	
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>

@@ -7,13 +7,19 @@
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header"
-	th:content="${_csrf.headerName}" />
-	
+	th:content="${_csrf.headerName}"/>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
+
+#houseInfo{
+	font-family: 'Jua', sans-serif;
+}
+
 body {
 	padding-top: 114px;
+	font-family: 'Jua', sans-serif;
+	
 }
 
 body, input, textarea, select, button, table {
@@ -24,6 +30,12 @@ body, input, textarea, select, button, table {
 #navbar {
 	overflow: hidden;
 	background-color: #2eca6a;
+}
+
+#navbar1 {
+	overflow: hidden;
+	background-color: #2eca6a;
+	width: 225px;
 }
 
 #navbar a {
@@ -46,20 +58,19 @@ body, input, textarea, select, button, table {
 	color: white;
 }
 
-
-.recentView {
- width: 150px;
- height: 200px;
- border:2px solid red;
- padding:10px;
- text-align: center;
-}
-
 .sticky {
 	position: fixed;
 	top: 92.18px;
 	/* width: 100%; */
 	width: 1015px;
+	z-index: 2;
+}
+
+.sticky1 {
+	position: fixed;
+	top: 92.18px;
+	/* width: 100%; */
+	width: 200px;
 	z-index: 2;
 }
 
@@ -213,17 +224,29 @@ img {
 #myBtn1 {
 	padding: 2px;
 }
+
+.uploadResult ul li{
+list-style: none;
+padding: 10px;
+}
+
+.uploadResult ul li img{
+width:300px;
+}
+
+#carouselExampleControls{
+width: 850px;
+}
+
+
 </style>
-
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
 </head>
-<body>
+<body id='houseInfo'>
 
 
-	<div layout:fragment="content" class="container">
+	<div layout:fragment="content" class="container" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
 
 		<br /> <br /> <br />
 
@@ -235,87 +258,25 @@ img {
 
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
-		<div class="resentView">
-			<h3>최근 본 지점</h3>
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  			<div class="carousel-inner">
+  			
+		    <div class="carousel-item active">
+		      <img class="d-block w-100" th:src="'/images/branch/'+${details.branchNumber}+'branch.jpg'" alt="First slide">
+		    </div>
+		    
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
 		</div>
 		
-		<!-- <div class="container">
-
-			<div class="mySlides">
-				<div class="numbertext">1 / 6</div>
-				<img src="images/branch/Swimm_16_Its_Nice_That.jpg"
-					style="width: 100%">
-			</div>
-
-			<div class="mySlides">
-				<div class="numbertext">2 / 6</div>
-				<img src="images/branch/Swimm_Its_Nice_That_1.jpg"
-					style="width: 100%">
-			</div>
-
-			<div class="mySlides">
-				<div class="numbertext">3 / 6</div>
-				<img src="images/branch/Swimm_Its_Nice_That_10.jpg"
-					style="width: 100%">
-			</div>
-
-			<div class="mySlides">
-				<div class="numbertext">4 / 6</div>
-				<img src="images/branch/Swimm_Its_Nice_That_11.jpg"
-					style="width: 100%">
-			</div>
-
-			<div class="mySlides">
-				<div class="numbertext">5 / 6</div>
-				<img src="images/branch/Swimm_Its_Nice_That_12.jpg"
-					style="width: 100%">
-			</div>
-
-			<div class="mySlides">
-				<div class="numbertext">6 / 6</div>
-				<img src="images/branch/Swimm_Its_Nice_That_15.jpg"
-					style="width: 100%">
-			</div>
-
-			<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next"
-				onclick="plusSlides(1)">❯</a>
-
-			<div class="row">
-				<div class="column">
-					<img class="demo cursor"
-						th:src="@{/images/branch/Swimm_16_Its_Nice_That.jpg}"
-						style="width: 100%" onclick="currentSlide(1)" alt="1">
-				</div>
-				<div class="column">
-					<img class="demo cursor"
-						th:src="@{/images/branch/Swimm_16_Its_Nice_That.jpg}"
-						style="width: 100%" onclick="currentSlide(2)" alt="2">
-				</div>
-				<div class="column">
-					<img class="demo cursor"
-						src="@{/images/branch/Swimm_16_Its_Nice_That.jpg}"
-						style="width: 100%" onclick="currentSlide(3)" alt="3">
-				</div>
-				<div class="column">
-					<img class="demo cursor"
-						src="@{/images/branch/Swimm_16_Its_Nice_That.jpg}"
-						style="width: 100%" onclick="currentSlide(4)" alt="4">
-				</div>
-				<div class="column">
-					<img class="demo cursor"
-						src="@{/images/branch/Swimm_16_Its_Nice_That.jpg}"
-						style="width: 100%" onclick="currentSlide(5)" alt="5">
-				</div>
-				<div class="column">
-					<img class="demo cursor"
-						src="images/branch/Swimm_Its_Nice_That_15.jpg" style="width: 100%"
-						onclick="currentSlide(6)" alt="6">
-				</div>
-			</div>
-		</div>
-
-		<br /> <br /> <br /> -->
-
+		<br /> <br /> <br /> 
 
 		<div class="row">
 			<div class="col-md-11">
@@ -348,18 +309,11 @@ img {
 					</div>
 				</div>
 
-
-				<img class="img-fluid img-thumbnail"
-					src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
-				<br /> <br /> <br />
-
 				<div id="navbar" name="navbar" class="w3-round-large">
-
 					<a href="#introduce" class="nb">지점 소개</a> <a href="#locationInfo"
 						class="nb">위치 정보</a> <a href="#roomInfo" class="nb">방 정보</a> <a
 						href="#detailInfo" class="nb">세부 정보</a> <a href="#review"
 						class="nb">리뷰</a>
-
 				</div>
 
 				<script>
@@ -571,343 +525,203 @@ img {
 						</tr>
 					</table>
 
-
-  
-
 					<br /> <br /> <br />
-
-
 					<h3>반려동물 정보</h3>
 					<br />
-
 					<div th:each="memberInfo:${memberInfoList}">
 						<p
 							th:text="|*{memberInfo.animal}, *{memberInfo.amount}마리|"></p>
 					</div>
-
-
 				</div>
 
-
-				<div id="review" class="w3-container">
-					
-					<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">  -->
 					<br /> <br /> <br /> <br /> <br /> <br />
-
+<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★리뷰 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ㅍ-->
 					<h2>리뷰</h2>
 					<br />
 
+				<div id="review" class="w3-container">
 					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<!-- <img class="img-fluid img-thumbnail"
-									src="http://placehold.it/400x300" alt=""> <input
-									type="file" id="imageUpload"> -->
-									
-									<div class='uploadDiv'>
-										<input type='file' name='uploadFile' multiple>
-									</div>
-									
-									<div class='uploadResult'>
-										<ul>
-										
-										</ul>
-									</div> 
-									
-									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-									<button id='uploadBtn'>Upload</button>
-									
-									
-								<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
-							</div>
+						<div class="form-group">
+							<form name="reviewInsertForm">
+								<div class="input-group">
+									<input type="hidden" name="writingNumber">
+									<input type="hidden" name="branchNumber" th:value="${details.branchNumber}"> 
+									<input type="text" style="width: 763.5px" class="form-control" id="content" name="reviewContent" placeholder="내용을 입력하세요.">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button" name="reviewInsertBtn">등록</button> 
+									</span>
+								</div>
+							</form>
+
 						</div>
-						<div class="col-md-8">
-							<div class="form-group">
-
-		
-		<script>
-			$(document).ready(function(){
-				
-				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-				var maxSize = 5242880; // 5MB
-				
-				// 파일 크기, 확장자 제한
-				function checkExtension(fileName, fileSize){
-					
-					if(fileSize >= maxSize){
-						alert("파일 크기 초과");
-						return false;
-					}
-					
-					if(regex.test(fileName)){
-						alert("해당 종류의 파일은 업로드할 수 없습니다.");
-						return false;
-					}
-					return true;
-				}
-				
-				// 파일 업로드 폼 복사
-				var cloneObj = $(".uploadDiv").clone();
-				
-				// 파일 목록
- 				var uploadResult = $(".uploadResult ul");
-				
-				function showUploadedFile(uploadResultArr){
-					var str="";
-					
-					$(uploadResultArr).each(function(i, obj){
-						
-						str += "<li>"+obj.fileName+"</li>";
-					});
-					
-					uploadResult.append(str);
-				} 
-				
-				$("#uploadBtn").on("click", function(e){
-					var formData=new FormData();
-					var inputFile =$("input[name='uploadFile']");
-					var files = inputFile[0].files;
-					console.log(files);
-					
-					//add filedata to formdata
-					for(var i=0; i<files.length; i++){
-						
-						if(!checkExtension(files[i].name, files[i].size)){
-							return false;
-						}
-						
-						formData.append("uploadFile", files[i]);
-					}
-					
-					$.ajax({
-						url: '/uploadAjaxAction',
-						processData:false,
-						contentType:false,
-						data: formData,
-						type: 'POST',
-						// dataType: 'json',
-						success: function(result){
 							
-							alert("uploaded!");
-							console.log(result);
-							
-							// showUploadedFile(result);
-							
-							// 복사해두었던 폼 다시 생성
-							$(".uploadDiv").html(cloneObj.html());
-						}
-					});
-				});
-			});
-		</script>
-
-								<form name="reviewInsertForm">
-									<div class="input-group">
-										<input type="hidden" name="memberNumber" th:value="303">
-										<input type="hidden" name="branchNumber"
-											th:value="${details.branchNumber}"> <input
-											type="text" class="form-control" id="content" name="content"
-											placeholder="내용을 입력하세요."> <span
-											class="input-group-btn">
-											<button class="btn btn-default" type="button"
-												name="reviewInsertBtn">등록</button> 
-												<!-- <input type="hidden"
-											th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> -->
-										</span>
-									</div>
-								</form>
-
-							</div>
-
-							<div class="container">
-								<div id="reviewList"></div>
-								<!-- <input type="hidden" th:name="${_csrf.parameterName}"
+						
+						<div class="container">
+							<div id="reviewList">
+						</div>
+							<!-- <input type="hidden" th:name="${_csrf.parameterName}"
 									th:value="${_csrf.token}"> -->
-							</div>
-
 						</div>
 					</div>
-
-
 				</div>
+			</div>
+				<div class="col-md-1">
+				<div id="navbar1" class="w3-round-large">
+					<br />
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
+					<br />
+					<button id="myBtn1" class='btn btn-default'
+						onclick="location.href='/toSharingGuide'">입주 안내</button>
+					<!-- <sec:authentication property="principal" var="user" /> -->	
+					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					<br />
+				</div>
+			</div>
+		</div>
+	
+		<br /> <br /> <br />
 
-				<br /> <br /> <br />
-
-
-
-
-<!-- 리뷰 Ajax -->
+		<!-- 리뷰 Ajax -->
 		<script>
-			// var branchNumber= $("input[name='branchNumber']").val();
 		
-			/* $('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
-				var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
-				reviewInsert(insertData); // Insert 함수호출(아래)
-			});  */	
-
-			<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			$(function() {
-				$(document).ajaxSend(function(e, xhr, options) {
-					xhr.setRequestHeader(header, token);
-				});
+		<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(function() {
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
 			});
-		function showReviewList(){
+		});
+		
+		/* var branchNumber= $("input[name='branchNumber']").val(); */
+
+			function showReviewList(){
 			var branchNumber1= $("input[name='branchNumber']").val();
 			inner="";
 	
-			alert(branchNumber1);
-			
 			 $.ajax({
  				type:'post',  
 				url:'/reviewList',
  				data: branchNumber1, // 값 하나만 받아오기
-                dataType:"text",
+                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
 				contentType: "application/json",
 				// async:false, async는 deprecated 되었음
 				 success:function(result){
-					 alert(result);
-					$.each(result, function(key, value) {
-						
-						alert(key +"/"+value);
-						
-						 inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+					$.each(JSON.parse(result), function(key, value) {
+						inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 						inner += '<div class="reviewInfo'+value.writingNumber+'">'
-								+ '댓글번호 : '
-								+ value.writingNumber
+								+ '작성일자 : '
+								+ value.writeTime
 								+ ' / 작성자 : '
 								+ value.nickname;
-						inner += '<a onclick="reviewUpdate('
+						inner += '&nbsp&nbsp&nbsp&nbsp<button name="aboutReview" class="btn btn-default" onclick="reviewUpdate('
 								+ value.writingNumber
 								+ ',\''
 								+ value.content
-								+ '\');"> 수정 </a>';
-						inner += '<a onclick="reviewDelete('
+								+ '\');"> 수정 </button>';
+						inner += '&nbsp<button name="aboutReview" class="btn btn-default" onclick="deleteConfirm('
 								+ value.writingNumber
-								+ ');"> 삭제 </a> </div>';
+								+ ');"> 삭제 </button> </div>';
 						inner += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
 								+ value.content
 								+ '</p>';
 						inner += '</div></div>'; 
-						inner+="<br /><h3>성공</h3><br />"
 					});
+					
 					$("#reviewList").html(inner);
 				},
 				error:function(result){
-					console.log(result);
 					inner+="<br /><h3>에러 발생</h3><br />"
 					$("#reviewList").html(inner);
 				}
 			});
 		}; 
 		
+		// 리뷰 등록
+	 	$('[name=reviewInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
+	 		var branchNumber= $("input[name='branchNumber']").val();
+	 		var content = $("input[name='reviewContent']").val();
+			// var insertData = $('[name=reviewInsertForm]').serialize(); // reviewInsertForm의 내용을 가져옴
 		
-		/* //테스트---------------------------------------------------------------------
-			function showReviewList(){
-				var branchNumber= $("input[name='branchNumber']").val();
-				inner="";
-			
-				$.ajax({
-				method:'post', 
-				url:'/reviewList2',
-				async:false,
-				data: {"branchNumber1":branchNumber}, // 값 하나만 받아오기
-				beforeSend : function(xhr){   // 403 에러 해결 방법: 데이터를 전송하기 전에 헤더에 csrf값을 설정 
-                     xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                 },
-				// processData: false,
-				success:function(data){
-					alert(data[0]);
-					$.each(data, function(key, value) {
-						
-						alert(key +"/"+value);
-						/* inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-						inner += '<div class="reviewInfo'+value.writingNumber+'">'
-								+ '댓글번호 : '
-								+ value.writingNumber
-								+ ' / 작성자 : '
-								+ value.nickname;
-						inner += '<a onclick="reviewUpdate('
-								+ value.writingNumber
-								+ ',\''
-								+ value.content
-								+ '\');"> 수정 </a>';
-						inner += '<a onclick="reviewDelete('
-								+ value.writingNumber
-								+ ');"> 삭제 </a> </div>';
-						inner += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
-								+ value.content
-								+ '</p>';
-						inner += '</div></div>'; 
-						inner+="<br /><h3>성공</h3><br />"
-					});
-					$("#reviewList").html(inner);
-				},
-				error:function(data){
-					alert(data+"실패");
-					inner+="<br /><h3>에러 발생</h3><br />"
-					$("#reviewList").html(inner);
+			$.ajax({
+				url : '/reviewInsert',
+				type : 'post',
+				data : JSON.stringify({
+						"branchNumber":branchNumber,
+						"content":content
+				}),
+				dataType : 'text',
+				contentType: "application/json",
+				success : function(data) {
+					if (data == 1) {
+						showReviewList(); // 리뷰 작성 후 댓글 목록 reload
+						$('[name=reviewContent]').val(''); 
+					}
 				}
 			});
-		};
-		//테스트---------------------------------------------------------- */
+		})
+		
+		// 리뷰 수정 - 리뷰 내용 출력을 input 폼으로 변경 
+		function reviewUpdate(writingNumber, content) {
+			var a = '';
+
+			a += '<div class="input-group">';
+			a += '<input type="text" class="form-control" name="content_'+writingNumber+'" value="'+content+'"/>';
+			a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reviewUpdateProc('
+					+ writingNumber + ');">수정 완료</button> </span>';
+			a += '</div>';
+
+			$('.reviewContent' + writingNumber).html(a);
+		} 
+
+	 	// 리뷰 수정
+		function reviewUpdateProc(writingNumber) {
+			var updateContent = $('[name=content_' + writingNumber + ']').val();
+
+			$.ajax({
+				url : '/reviewUpdateProc',
+				type : 'post',
+				data : JSON.stringify({
+					'content' : updateContent,
+					'writingNumber' : writingNumber
+				}),
+				dataType : 'text',
+				contentType: "application/json",
+				success : function(data) {
+					if (data == 1)
+						showReviewList(branchNumber); //댓글 수정후 목록 출력 
+				}
+			});
+		}
+
+		// 리뷰 삭제 
+		function deleteConfirm(writingNumber){
+			var msg = confirm("리뷰를 삭제하시겠습니까?");
+			if(msg==true){ // 확인 버튼 클릭 시
+				reviewDelete(writingNumber);
+			} else { // 취소 버튼 클릭 시
+				return false;
+			}
+		}
+		
+		function reviewDelete(writingNumber) {
+			$.ajax({
+				url : '/reviewDelete'+writingNumber,
+				type : 'post',
+				data : writingNumber,
+				dataType : 'text',
+				success : function(data) {
+					if (data == 1)
+						showReviewList(branchNumber); //댓글 삭제 후 목록 출력 
+				}
+			});
+		} 
 		
 		$(document).ready(function() {
 			showReviewList(); //페이지 로딩시 리뷰 목록 출력 
 		}); 
 		
 		</script>
-		
-  
-
-		<!-- 		<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
-</script> -->
-
-			</div>
-
-			<div class="col-md-1">
-				<div name="navbar" class="w3-round-large fixed">
-					<br />
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
-					<br />
-
-					<button id="myBtn1" class='btn btn-default'
-						onclick="location.href='/toSharingGuide'">입주 안내</button>
-
-					<button id="myBtn" class='btn btn-default'>방문 신청</button>
-					<br />
-				</div>
-			</div>
-		</div>
 
 		<!-- 방문신청 모달 -->
 		<script>
@@ -945,6 +759,11 @@ function showSlides(n) {
 			}
 			
 	 		visitBooking.onclick = function(){
+	 			
+	 			
+	 			
+	 			
+	 			
 				branchNumber= $("input[name='branchNumber']").val();
 				reservationTime = $("input[name='reservationTime']").val();
 				memo = $("input[name='memo']").val();
@@ -979,16 +798,6 @@ function showSlides(n) {
 				modal.style.display = "none";
 			});
 		</script>
-		
-		<!-- 지도 동적 로드 -->
-		<!-- <script type="text/javascript"
-			src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false"></script>
-		<script type="text/javascript">
-			daum.maps.load(function() {
-				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-				var map = new daum.maps.Map(node, options);
-			});
-		</script>  -->
 
 		<!-- 셰어 하우스 위치 표시, 카테고리별 위치 정보 표시 -->
 		<script type="text/javascript"
@@ -1235,17 +1044,137 @@ function showSlides(n) {
 			};
 
 			var navbar = document.getElementById("navbar");
-			var sticky = navbar.offsetTop; // 92
+			var navbar1 = document.getElementById("navbar1");
+			// var sticky = navbar.offsetTop; // 92
 
 			function myFunction() {
 				if (window.pageYOffset >= 792.799) { 
 					navbar.classList.add("sticky")
+					navbar1.classList.add("sticky1")
 				} else {
 					navbar.classList.remove("sticky");
+					navbar1.classList.remove("sticky1");
 				}
 			}
 		</script>
-
-	</div>
+		
+		<!-- 						<div class="col-md-4">
+							<div class="form-group">
+									<div class='uploadResult'>
+										<ul>
+										</ul>
+									</div> 
+								<p class="help-block">업로드 할 대표 사진 한 장을 선택해주세요.</p>
+									<div class='uploadDiv'>
+										<input type='file' name='uploadFile'>
+									</div>
+									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+									<button id='uploadBtn'>Upload</button>
+							</div>
+						</div>
+						<div class="col-md-8"> -->
+		
+	<!-- 		<script>
+			$(document).ready(function(){
+				
+				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+				var maxSize = 5242880; // 5MB
+				
+				// 파일 크기, 확장자 제한
+				function checkExtension(fileName, fileSize){
+					
+					if(fileSize >= maxSize){
+						alert("파일 크기 초과");
+						return false;
+					}
+					
+					if(regex.test(fileName)){
+						alert("해당 종류의 파일은 업로드할 수 없습니다.");
+						return false;
+					}
+					return true;
+				}
+				
+				// 파일 업로드 폼 복사
+				var cloneObj = $(".uploadDiv").clone();
+				
+				// 파일 목록
+ 				var uploadResult = $(".uploadResult ul");
+				
+				// 파일 삭제
+				$(".uploadResult").on("click", "span", function(e){
+					
+					var targetFile = $(this).data("file");
+					var type = $(this).data("type");
+					console.log(targetFile);
+					
+					$.ajax({
+						url: '/deleteFile',
+						data: {fileName: targetFile, type:type},
+						dataType: 'text',
+						type: 'POST',
+						success: function(result){
+							alert(result);
+						}
+					});
+				});
+				
+				function showUploadedFile(uploadResultArr){
+					var str="";
+					
+					$(uploadResultArr).each(function(i, obj){
+					
+						var fileCallPath = encodeURIComponent("/"+obj.uploadPath+"/"+
+								obj.uuid+"_"+obj.fileName);
+						
+						var originPath = obj.uploadPath +"\\"+obj.uuid+"_"+obj.fileName;
+						originPath = originPath.replace(new RegExp(/\\/g), "/"); 
+						
+						 str += "<li><img src='/display?fileName="+fileCallPath+"'><span data-file=\'"+fileCallPath+"\' data-type='image'>x</span></li>"; 
+						
+					});
+					
+					uploadResult.append(str);
+					alert("이미지 가져오기");
+				} 
+				
+				$("#uploadBtn").on("click", function(e){
+					var formData=new FormData();
+					var inputFile =$("input[name='uploadFile']");
+					var files = inputFile[0].files;
+					console.log(files);
+					
+					//add filedata to formdata
+					for(var i=0; i<files.length; i++){
+						
+						if(!checkExtension(files[i].name, files[i].size)){
+							return false;
+						}
+						
+						formData.append("uploadFile", files[i]);
+					}
+					
+					$.ajax({
+						url: '/uploadAjaxAction',
+						processData:false,
+						contentType:false,
+						data: formData,
+						type: 'POST',
+						dataType: 'json',
+						success: function(result){
+							
+							alert("uploaded!");
+							console.log(result);
+							
+							showUploadedFile(result);
+							
+							// 복사해두었던 폼 다시 생성
+							$(".uploadDiv").html(cloneObj.html());
+						}
+					});
+				});
+			});
+		</script> -->
+</div>
 </body>
 </html>

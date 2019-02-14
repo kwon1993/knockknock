@@ -1,5 +1,6 @@
 package com.knockknock.dto.event;
 
+import java.io.File;
 import java.sql.Date;
 
 import lombok.Data;
@@ -22,7 +23,7 @@ public class MeetingVDTO {
 	private String cancelReason; //취소이유
 	private Date meetingStartTime; //모임 시작시간
 	private Date meetingEndTime; //모임 종료시간
-	private String image; //이미지
+	private File image; //이미지
 	private int like; //좋아요
 	private String nickname;
 	private String gender; //성별

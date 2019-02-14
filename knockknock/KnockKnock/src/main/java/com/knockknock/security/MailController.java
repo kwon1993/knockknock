@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.member.MemberDTO;
 
@@ -26,8 +27,6 @@ public class MailController {
     public String mailSending(Model model,HttpServletResponse response) {
       Map<String, Object> map = model.asMap();
       MemberDTO memberDTO = (MemberDTO)map.get("resultDto");
-        
-      System.out.println("이름은: "+memberDTO.getName());
       
       String setfrom = "springteam11@gmail.com";         
       String tomail  = memberDTO.getEmail();     // 받는 사람 이메일
@@ -35,7 +34,7 @@ public class MailController {
       String content = memberDTO.getName() + "님의 아이디는 " 
                           + memberDTO.getEmail()
                           + " 임시비밀번호는 "
-                          + memberDTO.getPassword()
+                          + FindpassService.toss
                           + " 입니다.";    // 내용
        
       try {
@@ -61,5 +60,3 @@ public class MailController {
       return "member/Login";
     }
 }
-
-

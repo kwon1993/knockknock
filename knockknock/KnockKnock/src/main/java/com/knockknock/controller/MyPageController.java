@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
+
+import lombok.val;
 
 @Controller
 public class MyPageController {
@@ -63,6 +66,7 @@ public class MyPageController {
 		return memberService.getProfile(username);
 		
 	}
+
 	
 	//프로필사진업로드
 	@RequestMapping(value="/profileUpdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -236,5 +240,28 @@ public class MyPageController {
 		
 		return "member/MyVisitList";
 	}
-
+	
+	//비밀번호변경
+	@RequestMapping("changePass")
+	public String changePass(Model model, MemberDTO memberDTO) {
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		System.out.println("접속아이디:"+user.getUsername());
+		System.out.println("입력비밀번호:"+memberDTO.getPassword());
+		String username = user.getUsername();
+		
+		//현재로그인 아이디를 DTO에 저장
+		memberDTO.setEmail(username);
+		//프로필정보를 불러오기 위한 모델
+		model.addAttribute("profile", memberService.getProfile(username));
+		//펫정보 불러오기 위한 모델
+		model.addAttribute("getPet",memberService.getPet(username));
+//		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
+		model.addAttribute("image",memberService.getImageDir(username));
+		
+		memberService.changeRealPassword(memberDTO);
+		return "member/MyProfile";
+	}
+	
 }

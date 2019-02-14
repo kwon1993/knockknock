@@ -44,9 +44,9 @@ public class BranchService {
 	//}
 	
 	//관심사로 찾기의 방검색
-	 public List<BranchDetailVDTO> categoryRoomSearch(List<String> searchKeyWord) throws
+	 public List<BranchDetailVDTO> categoryRoomSearch( String address,List<String> searchKeyWord) throws
 	  Exception{ 
-	 return branchMapper.categoryRoomSearch(searchKeyWord);
+	 return branchMapper.categoryRoomSearch(address,searchKeyWord);
 	 }
 	
 	//관심사로 찾기의 방검색

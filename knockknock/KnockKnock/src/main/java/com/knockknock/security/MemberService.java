@@ -3,16 +3,15 @@ package com.knockknock.security;
 import java.util.List;
 
 import com.knockknock.dto.event.EventVDTO;
-import com.knockknock.dto.event.JoinMeetingDTO;
-import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.dto.member.VisitDTO;
 
 public interface MemberService{
-
-	public void register(MemberDTO memberDTO);
+	//회원가입
+	public void register(MemberDTO memberDTO, PetDTO petDTO);
 	
 	// 내 모임 리스트 - 신청
 	public List<MeetingVDTO> getMMLJ(String email);
@@ -22,6 +21,9 @@ public interface MemberService{
 
 	//비밀번호변경(임시비밀번호)
 	public void changePassword(MemberDTO memberDTO);
+	
+	//비밀번호변경(수정비밀번호)
+	public void changeRealPassword(MemberDTO memberDTO);
 	
 	//마이페이지-프로필가져오기
 	public List<MemberDTO> getProfile(String username);
@@ -60,5 +62,7 @@ public interface MemberService{
 
 	// 방문 신청 취소
 	public int deleteV(int writingNumber, String email);
+
+	int getMemberNumber();
 
 }
