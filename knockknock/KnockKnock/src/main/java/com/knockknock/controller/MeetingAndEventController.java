@@ -60,37 +60,45 @@ public class MeetingAndEventController {
 	String uploadFileDir;
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
-	private String writeBoard(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
+	private String writeBoard(@RequestParam("memberNumber") int memberNumber,
 			@RequestParam("title") String title, @RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce,
-			@RequestPart MultipartFile image)throws Exception{
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce
+			)throws Exception{/*@RequestPart MultipartFile image*/
 		
 		MeetingVDTO meeting = new MeetingVDTO();
+		meeting.setMemberNumber(memberNumber);
+		meeting.setTitle(title);
+		meeting.setMeetingStartTime(meetingStartTime);
+		meeting.setMeetingEndTime(meetingEndTime);
+		meeting.setAcceptStartTime(acceptStartTime);
+		meeting.setAcceptEndTime(acceptEndTime);
+		meeting.setPlace(place);
+		meeting.setPlaceDetail(placeDetail);
+		meeting.setFavorite(favorite);
+		meeting.setRecruitMaxNumber(recruitMaxNumber);
+		meeting.setDetailIntroduce(detailIntroduce);
 		
-		
-		
-		if(image.isEmpty()){ //이미지 업로드가 없을때
+//		if(image.isEmpty()){ //이미지 업로드가 없을때
 			meServiceImpl.meetingInsertService(meeting);
-		}else {
-			String ImageName = image.getOriginalFilename(); //파일의 이름을 함수에 저장
-//			String ImageNameExtension = FilenameUtils.getExtension(ImageName).toLowerCase();
-			File FileUrl; //경로와 이미지 이름이 섞일 함수선언
-			
-			do {
-				FileUrl = new File(uploadFileDir+ImageName); //경로+이미지
-			}while(FileUrl.exists());
-				
-			FileUrl.getParentFile().mkdirs();
-			image.transferTo(FileUrl);
-			
-			meServiceImpl.meetingInsertService(meeting); //게시글 insert
-			
-			meeting.setImage(FileUrl);
-			
-			meServiceImpl.imageUploadService(image); //이미지 insert
-		}
+//		}else {
+//			String ImageName = image.getOriginalFilename(); //파일의 이름을 함수에 저장
+////			String ImageNameExtension = FilenameUtils.getExtension(ImageName).toLowerCase();
+//			File FileUrl; //경로와 이미지 이름이 섞일 함수선언
+//			
+//			do {
+//				FileUrl = new File(uploadFileDir+ImageName); //경로+이미지
+//			}while(FileUrl.exists());
+//				
+//			FileUrl.getParentFile().mkdirs();
+//			image.transferTo(FileUrl);
+//			
+//			meeting.setImage(FileUrl);
+//			
+//			meServiceImpl.meetingInsertService(meeting); //게시글 insert
+//			meServiceImpl.imageUploadService(image); //이미지 insert
+//		}
 		return "redirect:/meetingList";
 	}
 
@@ -148,5 +156,9 @@ public class MeetingAndEventController {
 		return "redirect:/eventList";
 	}
 	
-
+	@RequestMapping("/cal") //미팅 글 쓰기
+	private String cal() throws Exception{
+		return "/fullcalendar/demos/agenda-views";
+	}
+	
 }
