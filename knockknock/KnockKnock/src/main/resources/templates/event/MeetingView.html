@@ -19,31 +19,39 @@ body{
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 게시판</h3>
+			<div class="row">
+				<div class="col-2">
+					<img class="d-block" width="150" height="150" id="foo" src="#" onerror="this.src='/images/meeting/default.png';"/>
+					<h6>개설자 정보</h6>
+					<span th:text="${MeetingView.nickname}"></span>
+				</div>
+			<div class="col">
 			<h1 th:text="${MeetingView.title}">제목</h1>
-			<span th:text="${MeetingView.nickname} + ' | '">닉네임</span>
-			<span th:text="${MeetingView.writeTime} + ' | '">작성일</span>
+<!-- 			<span th:text="${MeetingView.nickname} + ' | '">닉네임</span> -->
+			<span th:text="'작성일 : '+${MeetingView.writeTime} + ' | '">작성일</span>
 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
-			<form>
-				<div>
-					<br/>
-					<span th:text="모임소개"></span>
-					<p th:text="${MeetingView.detailIntroduce}"></p>
-				</div>
-				<div>
-					<span>모임정보</span>
-					<ul>
-						<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
-						<li th:text="'모임 기간 : '+
-						${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-						${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
-						<li th:text="'접수 기간 : '+
-						${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-						${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
-						<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
-					</ul>
-				</div>
-			</form>
-
+				<form>
+					<div>
+						<br/>
+						<span th:text="모임소개"></span>
+						<p th:text="${MeetingView.detailIntroduce}"></p>
+					</div>
+					<div>
+						<span>모임정보</span>
+						<ul>
+							<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
+							<li th:text="'모임 기간 : '+
+							${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
+							${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
+							<li th:text="'접수 기간 : '+
+							${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
+							${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
+							<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
 <!-- 			<input type="checkbox" onclick="toggleOn(this)"/> -->
 		<!-- 참가하기 모달창 (로그인시에만 참가하기 구현필요, 인원이 만석되면 참가불가 구현필요)-->
 			<a class="btn btn-success" data-toggle="modal" href="#myModal1" th:text="'참가하기'"></a>
