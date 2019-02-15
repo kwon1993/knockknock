@@ -285,11 +285,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	public void branchImageRegist(int branchNumber, BranchDTO branchDTO) {
-		DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
-		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
-		System.out.println(resource);
+//		DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
+//		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
+//		System.out.println(resource);
 		
-		String resourceToString = resource.toString();
+		String resourceToString = "src/main/resources/static/images/branch/" + branchNumber;
 		
 		File BranchUploadPath = new File(resourceToString);
 		
@@ -297,11 +297,11 @@ public class AdminServiceImpl implements AdminService {
 			BranchUploadPath.mkdirs();
 		}
 		
-		int Numbering = 1;
+		int Numbering = 0;
 		
 		for (MultipartFile multipartFile : branchDTO.getBranchImages()) {
-			String uploadFileName = branchNumber + "BRANCH " + Numbering; // 브랜치넘버+파일명
-			Numbering++;
+			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+			String uploadFileName = branchNumber + "BRANCH " + ++Numbering + extension; // 브랜치넘버+파일명
 			// IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1);
 			int idx = uploadFileName.indexOf(" ");
