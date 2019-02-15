@@ -75,9 +75,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			.antMatchers("/**","/lib/**",""
 //					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
 //				 .anyRequest().authenticated() 
+			//매치 : static 이하
 			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
 					"/js/**","/lib/**","/smarteditor/**","/texteditor/**","/vendor/**","static/**").permitAll()
-			.antMatchers("/branch/**","etc/**","/home/**").permitAll()
+			//매치 : BranchController
+			.antMatchers("/roomSearch","/categoryRoomSearch","/roomDetailView/**").permitAll()
+			//매치 : MainController
+			.antMatchers("/","/simpleRoomSearch","/findingRoom","/findingCategoryRoom","/meetingAndEventMain","/toSharingGuide","/toFAQ").permitAll()
+			//매치 : MeetingAndEventController
+			.antMatchers("/meetingList","/meetingView","/eventList","/eventView").permitAll()
+			//매치 : ReviewController
+			.antMatchers("/reviewList").permitAll()
+			//매치 : MemberController
+			.antMatchers("/register","/create","/checkEmail","/findId","/findPass").permitAll()
+			//매치 : MailController
+			.antMatchers("/sendpass").permitAll()
+			.anyRequest().authenticated()
 		.and()
 		.formLogin()
 			.loginPage("/login")

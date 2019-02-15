@@ -1,6 +1,11 @@
 package com.knockknock.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +23,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
+import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
 
 @Controller
 public class BranchController {
 	@Autowired
 	public BranchService branchService;
+	@Autowired
+	public MemberController mc;
 
 	private static final Logger logger = LoggerFactory.getLogger(BranchController.class);
 
@@ -58,13 +67,56 @@ public class BranchController {
 //		return branchService.categoryRoomSearch(branchDetailVDTO);
 //	}
 	  
+	 // 생년월일을 기준으로 현재 나이 계산 
+	 public int getAge(int birthYear, int birthMonth, int birthDay)
+	{
+	        Calendar current = Calendar.getInstance();
+	        int currentYear  = current.get(Calendar.YEAR);
+	        int currentMonth = current.get(Calendar.MONTH) + 1;
+	        int currentDay   = current.get(Calendar.DAY_OF_MONTH);
+	       
+	        int age = currentYear - birthYear;
+	        // 생일 안 지난 경우 -1
+	        if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay)  
+	            age--;
+	       
+	        return age;
+	}
+
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
-	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {
+	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model, Authentication authentication, MemberDTO memberDTO, HttpSession hs) {
+		//from 성현 : 로그인시 세션유지가 안되서 테스트로 세션관련된걸 넣어놨는데 테스트 끝나면 삭제할게요
+		mc.getSession(authentication,hs,memberDTO);
+		
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
+		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
+		
+		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 개수를 구한다
+		String path = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		File f = new File( path );
+		File[] files = f.listFiles();
 
+		// files
+		int count = 0;
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < files.length-1; i++) {
+
+		if ( files[i].isFile() ) {
+		count++;
+		list.add(files[i].getName());
+		System.out.println( "파일 : " + files[i].getName() );
+		} else {
+		System.out.println( "디렉토리명 : " + files[i].getName() );
+		}
+		} // end of for
+		System.out.println(list);
+		count= count-1; // main.jpg 제외
+		System.out.println("파일 갯수: " +count);
+		model.addAttribute("fileList", list);
+		
 		return "branch/HouseInfo";
 	}
 

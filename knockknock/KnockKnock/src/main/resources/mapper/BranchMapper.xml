@@ -4,27 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.knockknock.mapper.BranchMapper">
-	<select id="simpleRoomSearchList" resultType="BranchDetailVDTO">
-		SELECT
-		B.BRANCH_NUMBER branchNumber,
-		B.BRANCH_COMMENT branchComment,
-		B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,
-		B.MAXIMUM_RESIDENT maximumResident,
-		B.BRANCH_TYPE branchType,
-		B.PET,
-		B.ISPARKING isParking,
-		B.ISELEVATOR isElevator,
-		B.FACILITY,
-		B.RULE,
-		B.THEME theme
-		FROM BRANCH B
-		<if test="address!=null">
-			where address like CONCAT('%',#{address},'%')
-		</if>
-
-	</select>
-
 	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
 		BRANCH_NUMBER branchNumber,
@@ -51,8 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BRANCH WHERE BRANCH_NUMBER > 0
 	</select>
 
-	<select id="findingCategoryRoomList"
-		resultType="BranchDetailVDTO">
+	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
@@ -183,7 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B.BRANCH_NUMBER = #{brancnNumber}
 	</select>
 
-	<select id="getRoomInfo" resultType="RoomDTO">
+	<select id="getRoomInfo" resultType="RoomVDTO">
 		SELECT
 		ROOM_NUMBER roomNumber,
 		GENDER,
@@ -208,13 +186,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		M.BIRTH,
 		M.GENDER memberGender,
 		M.INTRODUCE,
+		M.IMAGE_PROFILE imageProfile
+		FROM CONTRACT C, MEMBER M
+		WHERE C.BRANCH_NUMBER = #{branchNumber}
+		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER
+	</select>
+	
+	<select id="getPetInfo" resultType="PetDTO">
+		SELECT
 		P.ANIMAL,
 		P.AMOUNT
-		FROM CONTRACT C, MEMBER M, PET P
-		WHERE C.BRANCH_NUMBER =
-		#{branchNumber}
-		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER
-		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
+		FROM PET P, CONTRACT C
+		WHERE C.BRANCH_NUMBER = #{branchNumber}
+		AND C.MEMBER_NUMBER=P.MEMBER_NUMBER
 	</select>
 
 	<insert id="visitBooking">

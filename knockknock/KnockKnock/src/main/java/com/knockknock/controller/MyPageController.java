@@ -128,7 +128,6 @@ public class MyPageController {
 
 		return "member/MyEventList";
 	}
-
 	
 	/*ash
 	 * @RequestMapping("/MyVisitList") public String myVisitList(Model
@@ -183,7 +182,6 @@ public class MyPageController {
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 		
-		
 		return "member/MyMeetingList";
 	}
 	
@@ -202,7 +200,6 @@ public class MyPageController {
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 		
-		
 		return "member/MyMeetingList";
 	}
 	
@@ -219,7 +216,6 @@ public class MyPageController {
 		
 		// 참가한 모임 리스트 다시 받아오기
 		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
-		
 		
 		return "member/MyEventList";
 	}
