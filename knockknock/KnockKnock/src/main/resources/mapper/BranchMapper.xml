@@ -30,8 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BRANCH WHERE BRANCH_NUMBER > 0
 	</select>
 
-	<select id="findingCategoryRoomList"
-		resultType="BranchDetailVDTO">
+	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
