@@ -63,7 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		R.ALLOW_NUMBER allowNumber
 		FROM BRANCH B, ROOM R
 		WHERE R.BRANCH_NUMBER = B.BRANCH_NUMBER
-		ORDER BY roomNumber ASC, rentableDate ASC
+		GROUP BY B.BRANCH_NUMBER
+		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
 
 		<!-- <![CDATA[ -->
@@ -82,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- ]]> -->
 	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
 		R.GENDER, R.DEPOSIT,
@@ -92,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="where" prefixOverrides="AND|OR">
 		<if test="address!=null">
 			R.BRANCH_NUMBER = B.BRANCH_NUMBER
-			AND address like CONCAT('%',#{address},'%')
+			AND ADDRESS like CONCAT('%',#{address},'%')
 		</if>
 		<if test="searchKeyWord.size!=0">
 			and THEME in
@@ -101,6 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</if>	
 		</trim>
+		GROUP BY B.BRANCH_NUMBER
 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
 
