@@ -11,9 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -289,7 +288,7 @@ public class AdminServiceImpl implements AdminService {
 //		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
 //		System.out.println(resource);
 		
-		String resourceToString = "src/main/resources/static/images/branch/" + branchNumber;
+		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/" + branchNumber;
 		
 		File BranchUploadPath = new File(resourceToString);
 		
@@ -302,15 +301,17 @@ public class AdminServiceImpl implements AdminService {
 		for (MultipartFile multipartFile : branchDTO.getBranchImages()) {
 			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 			String uploadFileName = branchNumber + "BRANCH " + ++Numbering + extension; // 브랜치넘버+파일명
-			// IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1);
-			int idx = uploadFileName.indexOf(" ");
-			uploadFileName = uploadFileName.substring(0, idx);
-
+			System.out.println("toString: " + branchDTO.getBranchImages().toString());
+			System.out.println("size: " + branchDTO.getBranchImages().size());
+			System.out.println("getClass: " + branchDTO.getBranchImages().getClass());
+			System.out.println("isEmpty: " + branchDTO.getBranchImages().isEmpty());
+			System.out.println("BranchUploadPath: " + BranchUploadPath);
+			System.out.println("uploadFileName: " + uploadFileName);
 			try {
 				File saveFile = new File(BranchUploadPath, uploadFileName);
 				// 경로를 파일화시킨다.(실제파일생성)
 				multipartFile.transferTo(saveFile);
+				System.out.println("saveFile: " + saveFile);
 				// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
 //				String finalImage = BranchUploadFolder2 + uploadFileName;
 				// 이미지경로를 저장한다.
@@ -318,9 +319,11 @@ public class AdminServiceImpl implements AdminService {
 				// 이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
 //				model.addAttribute("image",memberService.getImageDir(username));
 			} catch (Exception e) {
-				e.getMessage();
+				System.out.println("실패");
+				e.printStackTrace();
 			} // end catch
 		}
+		
 	}
 
 	public void roomImageRegist() {
