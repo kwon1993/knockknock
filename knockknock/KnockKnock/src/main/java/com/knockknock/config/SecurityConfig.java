@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/reviewList").permitAll()
 			//매치 : MemberController
 			.antMatchers("/register","/create","/checkEmail","/findId","/findPass").permitAll()
-			//매치 : MemberController
+			//매치 : MailController
 			.antMatchers("/sendpass").permitAll()
 			.anyRequest().authenticated()
 		.and()
