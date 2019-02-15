@@ -5,11 +5,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.knockknock.mapper.MemberMapper">
     <insert id="register">
-		INSERT INTO MEMBER(MEMBER_NUMBER, GRADE, EMAIL, PASSWORD, PHONE_NUMBER, NICKNAME, NAME, BIRTH, GENDER, JOIN_TIME, ADDRESS, ADDRESS_DETAIL)
+		INSERT INTO MEMBER
+		(MEMBER_NUMBER, GRADE, EMAIL, PASSWORD, PHONE_NUMBER, NICKNAME, NAME, BIRTH, GENDER,
+		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3)
 		VALUES
-		(0, 'NORMAL', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender}, now(), #{address}, #{addressDetail})
+		(0, 'NORMAL', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
+		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3})
     </insert>
 
+	<insert id="petRegister">
+			INSERT INTO PET
+			(PET_NUMBER, MEMBER_NUMBER, ANIMAL,AMOUNT)
+			VALUES
+			(0, #{memberDTO.memberNumber}, #{petDTO.animal},1)
+	</insert>
+    
+    <select id="getMemberNumber" resultType="Integer">
+		SELECT MEMBER_NUMBER
+		memberNumber
+		FROM MEMBER
+	</select>
+    
 	<select id="checkEmail" resultType="MemberDTO">
 		SELECT
 		EMAIL
@@ -23,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     

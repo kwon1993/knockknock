@@ -1,13 +1,14 @@
 package com.knockknock.security;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.mapper.MemberMapper;
 
 @Controller
@@ -36,9 +38,12 @@ public class MemberController {
 	//회원가입폼
 	//1.회원등록
 	@RequestMapping("/create")
-	public String member(Model model, MemberDTO memberDTO) {
+	public String member(Model model, MemberDTO memberDTO, PetDTO petDTO) {
+		System.out.println(memberDTO.getMemberNumber());
+		System.out.println(petDTO.getAnimal());
+		
 		//2.memberService의 register호출
-		memberService.register(memberDTO);
+		memberService.register(memberDTO, petDTO);
 		
 		return "member/RegisterComplete";
 	}
@@ -47,9 +52,7 @@ public class MemberController {
 	@ResponseBody
 	public MemberDTO checkEmail(Model model, @RequestBody MemberDTO memberDTO) {
 		return memberMapper.checkEmail(memberDTO);
-	
 	}
-	
 
 	//기본적으로 '로그인'누르면 연결. 그외에 인증처리 안된상태에서 방찾기 등 누르면 로그인으로
 	@RequestMapping("/login")
@@ -57,10 +60,10 @@ public class MemberController {
 		return "member/Login";
 	}
 	
-	//로그인완료
-	@PostMapping("/loginComplete")
-	public String loginComplete(MemberDTO memberDTO){
-		return "etc/fragments/Main_layout";
+	//로그인 성공시
+	@RequestMapping("/loginSuccess")
+	public String loginSuccess() {
+		return "home/Home";
 	}
 	
 	//아이디찾기
@@ -101,4 +104,20 @@ public class MemberController {
         }
     }
 	
+	public void getSession(Authentication auth, HttpSession session, MemberDTO memberDTO) {
+		if(auth!=null && session.getAttribute("userId")==null) {
+			SecurityMember sc = (SecurityMember)auth.getPrincipal();
+			
+			memberDTO.setEmail(sc.getUsername());
+			
+			
+			MemberDTO nickname = memberMapper.findByEmail(memberDTO);
+			MemberDTO profileImage = memberMapper.getImageDir(sc.getUsername());
+			session.setAttribute("nickname", nickname.getNickname());
+			
+			if(profileImage!=null) { 
+				session.setAttribute("profileImage", profileImage.getImageProfile());
+			}
+		}
+	}
 }

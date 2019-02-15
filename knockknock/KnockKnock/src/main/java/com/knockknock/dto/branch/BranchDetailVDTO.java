@@ -26,7 +26,7 @@ public class BranchDetailVDTO {
 	private String imageBathroom;
 	private String imageETC;
 	private int roomNumber;
-	private int allowNumber;
+	private String allowNumber;
 	private String space;
 	private int deposit;
 	private int monthlyRent;

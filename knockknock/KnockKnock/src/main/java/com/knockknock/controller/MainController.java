@@ -1,6 +1,9 @@
 package com.knockknock.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.mapper.MemberMapper;
+import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
 import com.knockknock.service.MeetingAndEventServiceImpl;
 
@@ -16,15 +21,17 @@ public class MainController {
 
 	@Autowired
 	BranchService branchService;
-	
+	@Autowired
+	MemberMapper memberMapper;
 	@Autowired
 	MeetingAndEventServiceImpl meServiceImpl;
+	@Autowired
+	MemberController mc;
 	
 	//메인화면 스타트
 	@RequestMapping("/")
-	public String start(Model model, MemberDTO memberDTO) {
-		
-		//방정보를 가져온다.
+	public String start(Model model, MemberDTO memberDTO, Authentication authentication, HttpSession hs) {
+		mc.getSession(authentication,hs,memberDTO);
 		
 		return "home/Home";
 	}

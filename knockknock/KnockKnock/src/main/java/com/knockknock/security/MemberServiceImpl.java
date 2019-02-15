@@ -1,6 +1,8 @@
 package com.knockknock.security;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Service;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.dto.member.VisitDTO;
+import com.knockknock.mapper.AdminMapper;
 import com.knockknock.mapper.MemberMapper;
 
 @Service
@@ -22,17 +26,31 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberMapper memberMapper;
 	@Autowired
+	private AdminMapper adminMapper;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	//회원아이디(이메일)에 맞는 등급 등을 꺼내기 위해 사용?
 	//private Map<String,MemberDTO> accounts = new HashMap<>();
 	
 	@Override
-	public void register(MemberDTO memberDTO) {
+	public void register(MemberDTO memberDTO, PetDTO petDTO) {
 		//3.memberDTO의 패스워드를 인코딩처리한다
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 		//4.인코딩 후, memberMapper로 등록을 간다
 		memberMapper.register(memberDTO);
+		int memberNumber = getMemberNumber();
+		memberDTO.setMemberNumber(memberNumber);
+		System.out.println("가멤버의펫"+petDTO.getAnimal());
+		System.out.println("가입멤버넘버"+memberDTO.getMemberNumber());
+		memberMapper.petRegister(memberDTO, petDTO);
+	}
+	
+	@Override
+	public int getMemberNumber() {
+		ArrayList<Integer> memberNumber = memberMapper.getMemberNumber();
+		int maxMemberNumber = Collections.max(memberNumber);
+		return maxMemberNumber;
 	}
 
 	@Override
@@ -44,9 +62,8 @@ public class MemberServiceImpl implements MemberService{
 	public List<MeetingVDTO> getMMLM(String email) {
 		return memberMapper.getMMLM(email);
 	}
-
+	//임시비번변경
 	public void changePassword(MemberDTO memberDTO) {
-		System.out.println("랜덤번호:");
 		int randomInt;
 		String randomStr="";
 		String tempPassword="";
@@ -58,10 +75,15 @@ public class MemberServiceImpl implements MemberService{
 			tempPassword+=randomInt+randomStr;
 		}
 		
-		System.out.println("임시비번은:"+tempPassword);
-		
 		memberDTO.setPassword(new BCryptPasswordEncoder().encode(tempPassword));
 		
+		memberMapper.changePassword(memberDTO);
+	}
+	
+	public void changeRealPassword(MemberDTO memberDTO) {
+		memberDTO.setPassword(new BCryptPasswordEncoder().encode(memberDTO.getPassword()));
+		System.out.println("인코더후아이디:"+memberDTO.getEmail());
+		System.out.println("인코더후:"+memberDTO.getPassword());
 		memberMapper.changePassword(memberDTO);
 	}
 	
@@ -85,8 +107,6 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getImageDir(String username){
 		return memberMapper.getImageDir(username);
 	}
-	
-	
 
 	public List<EventVDTO> getMEL(String email){
 		return memberMapper.getMEL(email);

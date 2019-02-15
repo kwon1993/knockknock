@@ -1,5 +1,9 @@
 package com.knockknock.dto.branch;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -25,5 +29,7 @@ public class BranchDTO {
 	private String imageKitchin;
 	private String imageBathroom;
 	private String imageETC;
+	
+	private List<MultipartFile> branchImages;
 }
 
