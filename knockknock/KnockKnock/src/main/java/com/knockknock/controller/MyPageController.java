@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
-
-import lombok.val;
 
 @Controller
 public class MyPageController {
@@ -69,9 +66,9 @@ public class MyPageController {
 
 	
 	//프로필사진업로드
-	@RequestMapping(value="/profileUpdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/profileUpdate")
 	@ResponseBody
-	public void uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO, Authentication authentication) {
+	public MemberDTO uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO, Authentication authentication) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
@@ -113,6 +110,8 @@ public class MyPageController {
 				e.getMessage();
 			}//end catch
 		}
+		
+		return memberService.getImageDir(username);
 	} 
 
 	@RequestMapping("/MyEventList")
