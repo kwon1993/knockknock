@@ -180,7 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B.BRANCH_NUMBER = #{brancnNumber}
 	</select>
 
-	<select id="getRoomInfo" resultType="RoomDTO">
+	<select id="getRoomInfo" resultType="RoomVDTO">
 		SELECT
 		ROOM_NUMBER roomNumber,
 		GENDER,
