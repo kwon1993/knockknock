@@ -236,12 +236,21 @@ width: 850px;
 h2[name="mouseEvent"]:hover {
 	color: #2eca6a;
 }
+.card {
+	float: left;
+	width:33%;
+	margin: 1em;
+}
+
+.clear {
+	clear:both;
+}
+
+출처: https://webdir.tistory.com/272 [WEBDIR]
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	 -->
 </head>
 <body id='houseInfo'>
-
 
 	<div layout:fragment="content" class="container">
 	
@@ -504,21 +513,22 @@ h2[name="mouseEvent"]:hover {
 					<h3><strong>입주민 정보</strong></h3>
 					<br />
 					<div th:each="memberInfo:${memberInfoList}">
-					<div class="card" style="width: 18rem;">
-					  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:288px;" alt="Card image cap">
-					  <div class="card-body">
-					    <div class="card-text">
-							닉네임: <div th:text="${memberInfo.nickname}"></div>
-							성별: <div th:text="${memberInfo.memberGender}"></div>
-							나이: <div th:text="${memberInfo.birth}"></div>
-							관심사: <div th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
-							소개글: <div th:text="${memberInfo.introduce}"></div>
-					    </div>
-					  </div>
-					</div>  
-					<br />
+						<div class="card" style="width: 18rem;">
+						  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:288px;" th:alt="card-cap-image">
+						  <div class="card-body">
+						    <div class="card-text">
+								닉네임: <div th:text="${memberInfo.nickname}"></div>
+								성별: <div th:text="${memberInfo.memberGender}"></div>
+								나이: <div th:text="${memberInfo.birth}"></div>
+								관심사: <div th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
+								소개글: <div th:text="${memberInfo.introduce}"></div>
+						    </div>
+						  </div>
+						</div>
 					</div>
-
+					
+					<div class="clear"></div>
+					
 					<br /> <br /> <br />
 					<h3><strong>반려 동물 정보</strong></h3>
 					<br />
