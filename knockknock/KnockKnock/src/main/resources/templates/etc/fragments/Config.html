@@ -1,6 +1,7 @@
 <head th:fragment="Config" 
 xmlns:th="http://www.w3.org/1999/xhtml"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8">
   <title>KnockKnock 樂樂</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -38,7 +39,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <link th:href="@{https://fonts.googleapis.com/css?family=Black+Han+Sans}" rel="stylesheet">
   <link th:href="@{https://fonts.googleapis.com/css?family=Cute+Font}" rel="stylesheet">
   <link th:href="@{https://fonts.googleapis.com/css?family=Jua}" rel="stylesheet">
-  
+  <!-- 이미지로딩 에러방지 -->
+  <link rel="icon" type="image/png" th:href="@{http://example.com/myicon.png}">
+
   
 <style>
 	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -83,33 +86,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		font-size:20px;
 		color:black;
 	}
-	
-	#navAll{
+
+	#suvNav,#navbarDefault,#knockknock,#allContent{
+		font-family: 'Jua', sans-serif;
 	}
 	
 	#suvNav{
-		font-family: 'Jua', sans-serif;
+		width:173px;
 	}
-	
-	#navbarDefault{
-		font-family: 'Jua', sans-serif;
-	}
-	
-	#knockknock{
-		font-family: 'Jua', sans-serif;
-	}
-	
-	#allContent{
-		font-family: 'Jua', sans-serif;
-	}
-	
-	#nick{
-		margin-left:30px;
-	}
+
 	@media (min-width: 992px)
-.navbar-expand-lg .navbar-nav {
-    width: 527px;
-}
+	.navbar-expand-lg .navbar-nav {
+    	width: 527px;
+	}
 </style>
 <!-- JavaScript Libraries -->
 <!-- jQuery -->

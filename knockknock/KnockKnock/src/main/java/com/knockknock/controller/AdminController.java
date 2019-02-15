@@ -4,15 +4,14 @@ import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
@@ -138,11 +137,8 @@ public class AdminController {
 
 	// 방문신청 리스트 페이지
 	@RequestMapping("adminVisitList")
-	public String visitList(Model model) {
+	public String visitList(Model model, HttpServletRequest request) {
 		model.addAttribute("visitListView", adminService.visitList());
-		final DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
-		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static" + "/1.jpg");
-		System.out.println(resource);
 		return "admin/AdminVisitList";
 	}
 
@@ -170,14 +166,14 @@ public class AdminController {
 
 	// 지점 등록
 	@RequestMapping("adminBranchRegist")
-	public String adminBranchRegist(Model model, BranchDTO branchDTO, RoomDTO roomDTO) {
+	public String adminBranchRegist(Model model, BranchDTO branchDTO, RoomDTO roomDTO, List<MultipartFile> imageBranch) {
 //		String path = request.getSession().getServletContext().getRealPath("/");
 //		System.out.println(path);
 		
 		//경로 가져오기
-		final DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
-		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static" + "/1.jpg");
-		System.out.println(resource);
+//		final DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
+//		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static" + "/1.jpg");
+//		System.out.println(resource);
 		
 		// 지점 및 방 등록
 		adminService.branchRegist(branchDTO, roomDTO);

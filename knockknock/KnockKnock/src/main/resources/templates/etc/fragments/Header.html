@@ -40,42 +40,46 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
         </ul>
       </div>
       
-      <!-- 로긴, 권한 등 버튼 관련 -->
-      <div id='suvNav'>
+       <!-- 로긴, 권한 등 버튼 관련 -->
+      <div id='suvNav' style="text-align: right;">
       	<span sec:authorize="isAuthenticated()">
-      		<th:block class="nav-item" id='nick'>
-      			<img th:src="${session.profileImage}" style="width:10%; height:10%;">
-      			<a th:text="${session.nickname}+'님 어서오세요'"><br>
-      		</th:block>
+			<th:block class="nav-item" id='nick'>
+	      		<img th:src="${session.profileImage}" id="profileImage" style="width:22%; height:22%; border-radius: 100%"/>
+		    	<span th:text="${session.nickname}+'님 어서오세요'"></span>
+			</th:block>
+	    </span>
+      
+      	<span sec:authorize="isAuthenticated()">
 			<th:block class="nav-item">
-				<a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 17px">▶Logout&nbsp;&nbsp;&nbsp;</a>
+				<a class="nav-log" id="nav-log" th:href="@{/logout}" style="font-size: 17px">Logout&nbsp;&nbsp;</a>
 	  		</th:block>
 	  	</span>
 		
 		<span sec:authorize = "hasAuthority('ADMIN')">
 			<th:block class="nav-item">
-		    	<a class="nav-log" id="nav-log" th:href="@{/adminEventListView}" style="font-size: 17px">&nbsp;&nbsp;&nbsp;▶AdminPage</a>
+		    	<a class="nav-log" id="nav-log" th:href="@{/adminEventListView}" style="font-size: 17px">&nbsp;&nbsp;&nbsp;AdminPage</a>
 			</th:block>
 	    </span>
 				
 		<span sec:authorize = "hasAuthority('NORMAL')">
 			<th:block class="nav-item">
-		    	<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 17px">&nbsp;&nbsp;&nbsp;▶MyPage</a>
+		    	<a class="nav-log" id="nav-log" th:href="@{/profileMain}" style="font-size: 17px">&nbsp;&nbsp;MyPage</a>
 			</th:block>
 		</span>
 				
 		<span sec:authorize="isAnonymous()">	   
 			<th:block class="nav-item">
-				<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 17px">▶Login&nbsp;&nbsp;&nbsp;</a>
+				<a class="nav-log" id="nav-log" th:href="@{/login}" style="font-size: 17px">Login&nbsp;&nbsp;&nbsp;</a>
 			</th:block>
 	    </span>
 	    
 		<span sec:authorize="isAnonymous()">	   
 			<th:block class="nav-item" >
-				<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 17px">&nbsp;&nbsp;&nbsp;▶Join</a>
+				<a class="nav-log" id="nav-log" th:href="@{/register}" style="font-size: 17px">&nbsp;&nbsp;&nbsp;Join</a>
 			</th:block>
 		</span>
       </div>
+   	</div>
   </nav>
   <!--/ Nav End /-->
  </header>
