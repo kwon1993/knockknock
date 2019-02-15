@@ -198,6 +198,48 @@ cursor: pointer;
 
 
 
+			<!-- <div id="Join" class="tabcontent">
+				<h3 class="font-weight-bold">신청한 모임</h3>
+				<br />
+				<div class="w3-container">
+					<table class="w3-table-all">
+						<tr>
+							<th><input type='checkbox' name='selectAll' /></th>
+							<th>모임 주최자</th>
+							<th>제목</th>
+							<th>신청 마감일</th>
+							<th>모임 시작일</th>
+							<th>모임 종료일</th>
+							<th>승인 여부</th>
+							<th></th>
+						</tr>
+						<tr th:each="MMLJ:${MMLJ}">
+							<td><input type='checkbox' name='MMLJ' /></td>
+							<td th:text="${MMLJ.nickname}"></td>
+							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLJ.writingNumber}}" th:text="${MMLJ.title}"></a></td>
+							<td th:text="${MMLJ.acceptEndTime}"></td>
+							<td th:text="${MMLJ.meetingStartTime}"></td>
+							<td th:text="${MMLJ.meetingEndTime}"></td>
+							<td th:text="${MMLJ.meetingStatus}"></td>
+							타임리프의 href는 a 태그에서만 동작한다
+							<td><a data-toggle="modal" data-target="#myModalJM" id="myBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						</tr>
+					</table>
+				</div>
+				<br />
+			</div>
+			
+				모임 신청 취소 완료 모달
+			<div id="myModalJM" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>모임 신청이 취소되었습니다</h3>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+			</div> -->
+			
 			<div id="Join" class="tabcontent">
 				<!-- <h3 class="font-weight-bold">신청한 모임</h3> -->
 				<br />
@@ -222,6 +264,7 @@ cursor: pointer;
 							<td th:text="${MMLJ.meetingEndTime}"></td>
 							<td th:text="${MMLJ.meetingStatus}"></td>
 							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
+							<td><button name="" class="btn btn-default" onclick="MTDConfirm(${MMLJ.writingNumber});">삭제</button></td>
 							<td><a data-toggle="modal" data-target="#myModalJM" id="myBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
@@ -229,6 +272,22 @@ cursor: pointer;
 				</div>
 				<br />
 			</div>
+			
+				<!-- 모임 신청 취소 완료 모달 -->
+			<div id="myModalJM" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>모임 신청이 취소되었습니다</h3>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
+			</div>
+
+			<!-- 모달 -->
+		
+
+
+
 
 			<div id="Make" class="tabcontent">
 				<!-- <h3 class="font-weight-bold">개설한 모임</h3> -->
@@ -256,16 +315,6 @@ cursor: pointer;
 				<br />
 			</div>
 			
-			<!-- 모임 신청 취소 완료 모달 -->
-			<div id="myModalJM" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<h3>모임 신청이 취소되었습니다</h3>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
-				</div>
-			</div>
-			
 			<!-- 모임 개설 취소 완료 모달 -->
 			<div id="myModalMM" class="modal">
 				<div class="modal-content">
@@ -276,12 +325,7 @@ cursor: pointer;
 				</div>
 			</div>
 			
-			<!-- 모달 -->
-			<!-- <script>
-				$(document).ready(function(){
-					$(#myModalJM).modal("show");
-				})
-			</script> -->
+			
 			
 			
  		
@@ -340,5 +384,3 @@ cursor: pointer;
 	</div>
 </body>
 </html>
-
-

@@ -41,7 +41,7 @@ public class BranchDetailVDTO {
 	/* private int petNumber; */
 	private int amount;
 	private int writingNumber;
-	
+	private String imageProfile;
 	private String favorite1;
 	private String favorite2;
 	private String favorite3;

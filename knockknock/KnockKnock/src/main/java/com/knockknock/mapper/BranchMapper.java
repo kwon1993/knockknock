@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.VisitDTO;
 
 @Mapper
@@ -34,6 +35,8 @@ public interface BranchMapper {
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber);
+
+	public List<PetDTO> getPetInfo(int branchNumber);
 
 	//테마 체크박스
 	public List<String> getThemeLists();

@@ -159,7 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B.BRANCH_NUMBER = #{brancnNumber}
 	</select>
 
-	<select id="getRoomInfo" resultType="RoomDTO">
+	<select id="getRoomInfo" resultType="RoomVDTO">
 		SELECT
 		ROOM_NUMBER roomNumber,
 		GENDER,
@@ -184,13 +184,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		M.BIRTH,
 		M.GENDER memberGender,
 		M.INTRODUCE,
+		M.IMAGE_PROFILE imageProfile
+		FROM CONTRACT C, MEMBER M
+		WHERE C.BRANCH_NUMBER = #{branchNumber}
+		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER
+	</select>
+	
+	<select id="getPetInfo" resultType="PetDTO">
+		SELECT
 		P.ANIMAL,
 		P.AMOUNT
-		FROM CONTRACT C, MEMBER M, PET P
-		WHERE C.BRANCH_NUMBER =
-		#{branchNumber}
-		AND C.MEMBER_NUMBER = M.MEMBER_NUMBER
-		AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
+		FROM PET P, CONTRACT C
+		WHERE C.BRANCH_NUMBER = #{branchNumber}
+		AND C.MEMBER_NUMBER=P.MEMBER_NUMBER
 	</select>
 
 	<insert id="visitBooking">
