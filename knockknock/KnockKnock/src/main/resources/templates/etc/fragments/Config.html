@@ -15,6 +15,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <!-- default header name is X-CSRF-TOKEN -->
   <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
   
+  <!-- fullcalendar -->
+  <link th:href='@{/fullcalendar/fullcalendar.min.css}' rel='stylesheet' />
+  <link th:href='@{/fullcalendar/fullcalendar.print.min.css}' rel='stylesheet' media='print' />
+  
   <!-- Favicons -->
   <link th:href="@{/img/favicon.png}" rel="icon" type="text/css">
   <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon" type="text/css">
