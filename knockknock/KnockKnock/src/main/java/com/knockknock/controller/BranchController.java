@@ -86,7 +86,7 @@ public class BranchController {
 		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
 		
 		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 개수를 구한다
-		String path = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		String path = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
 		File f = new File( path );
 		File[] files = f.listFiles();
 
