@@ -183,7 +183,7 @@ public class AdminController {
 		adminService.branchRegist(branchDTO, roomDTO);
 		int branchNumber = adminService.getBranchNumber();
 		adminService.roomRegist(branchNumber, roomDTO);
-		
+		adminService.branchImageRegist(branchNumber, branchDTO);
 
 		// 이미지 업로드 하기(지점이미지는 거실,부엌,화장실,기타 / 방이미지는 방마다 이미지 1개)
 		// 1.완료버튼을 누르면 브랜치넘버를 다음 페이지로 보내고, 그 브랜치넘버를 다음페이지 뷰에 넣어둔다.

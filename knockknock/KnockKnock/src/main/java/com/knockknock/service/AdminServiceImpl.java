@@ -1,5 +1,6 @@
 package com.knockknock.service;
 
+import java.io.File;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
@@ -282,10 +284,43 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	public void branchImageRegist(int branchNumber) {
+	public void branchImageRegist(int branchNumber, BranchDTO branchDTO) {
 		DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
-		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static" + "/1.jpg");
+		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
 		System.out.println(resource);
+		
+		String resourceToString = resource.toString();
+		
+		File BranchUploadPath = new File(resourceToString);
+		
+		if (BranchUploadPath.exists() == false) {
+			BranchUploadPath.mkdirs();
+		}
+		
+		int Numbering = 1;
+		
+		for (MultipartFile multipartFile : branchDTO.getBranchImages()) {
+			String uploadFileName = branchNumber + "BRANCH " + Numbering; // 브랜치넘버+파일명
+			Numbering++;
+			// IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1);
+			int idx = uploadFileName.indexOf(" ");
+			uploadFileName = uploadFileName.substring(0, idx);
+
+			try {
+				File saveFile = new File(BranchUploadPath, uploadFileName);
+				// 경로를 파일화시킨다.(실제파일생성)
+				multipartFile.transferTo(saveFile);
+				// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
+//				String finalImage = BranchUploadFolder2 + uploadFileName;
+				// 이미지경로를 저장한다.
+//				memberService.saveImageDir(finalImage,username);
+				// 이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
+//				model.addAttribute("image",memberService.getImageDir(username));
+			} catch (Exception e) {
+				e.getMessage();
+			} // end catch
+		}
 	}
 
 	public void roomImageRegist() {

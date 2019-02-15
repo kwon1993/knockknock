@@ -63,7 +63,7 @@ public interface AdminMapper {
 
 	// branch
 
-	public void branchRegist(@Param("branch") BranchDTO branchDTO);
+	public void branchRegist(@Param("branchDTO") BranchDTO branchDTO);
 
 	public ArrayList<Integer> getBranchNumber();
 

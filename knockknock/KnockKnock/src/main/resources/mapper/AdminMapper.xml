@@ -245,10 +245,10 @@
 		ISELEVATOR, PET, ADDRESS, ADDRESS_DETAIL, FACILITY, MAXIMUM_RESIDENT,
 		RULE)
 		VALUES
-		(#{branch.theme},#{branch.bankName},#{branch.depositor},#{branch.branchAccount},
-		#{branch.gender},#{branch.branchComment},#{branch.branchType},#{branch.isParking},
-		#{branch.isElevator},#{branch.pet},#{branch.address},#{branch.addressDetail},
-		#{branch.facility},#{branch.maximumResident},#{branch.rule})
+		(#{branchDTO.theme},#{branchDTO.bankName},#{branchDTO.depositor},#{branchDTO.branchAccount},
+		#{branchDTO.gender},#{branchDTO.branchComment},#{branchDTO.branchType},#{branchDTO.isParking},
+		#{branchDTO.isElevator},#{branchDTO.pet},#{branchDTO.address},#{branchDTO.addressDetail},
+		#{branchDTO.facility},#{branchDTO.maximumResident},#{branchDTO.rule})
 	</insert>
 	<select id="getBranchNumber" resultType="Integer">
 		SELECT BRANCH_NUMBER

@@ -2,6 +2,9 @@ package com.knockknock.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
@@ -57,7 +60,7 @@ public interface AdminService {
 
 	public void roomRegist(int branchNumber, RoomDTO roomDTO);
 
-	public void branchImageRegist(int branchNumber);
+	public void branchImageRegist(int branchNumber, BranchDTO branchDTO);
 	
 	public void roomImageRegist();
 
