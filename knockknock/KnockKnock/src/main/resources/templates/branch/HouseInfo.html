@@ -22,11 +22,6 @@ body {
 	
 }
 
-body, input, textarea, select, button, table {
-    /* font-family: 돋움, Dotum, 맑은고딕, "malgun gothic", "Apple SD Gothic Neo", Helvetica, sans-serif; */
-    font-size: 14px;
-}
-
 #navbar {
 	overflow: hidden;
 	background-color: #2eca6a;
@@ -238,18 +233,20 @@ width:300px;
 width: 850px;
 }
 
-
+h2[name="mouseEvent"]:hover {
+	color: #2eca6a;
+}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	 -->
 </head>
 <body id='houseInfo'>
 
 
-	<div layout:fragment="content" class="container" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
-
-		<br /> <br /> <br />
-
+	<div layout:fragment="content" class="container">
+	
+		<br />
+		
 		<h1 style="float: left">낙낙 쉐어 하우스 &nbsp;</h1>
 		<h1 th:text="${details.branchNumber}" id='branchNumber'
 			style="float: left"></h1>
@@ -263,13 +260,9 @@ width: 850px;
 		    <div class="carousel-item active">
 		      <img class="d-block w-100" th:src="'/images/branch/'+${details.branchNumber}+'/main.jpg'" alt="First slide">
 		    </div>
-		    
-		   <span th:each="i, index : ${#numbers.sequence(1,imageNumber)}">
-			    <div class="carousel-item">
-			      <img class="d-block w-100" src="'images/branch/'+${details.branchNumber}+'1.jpg'" alt="none">
-			    </div>
-		   </span> 
-	
+			 <div class="carousel-item" th:each="item : ${fileList}">
+			   <img class="d-block w-100" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
+			 </div>
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -298,7 +291,7 @@ width: 850px;
 								th:value="${details.branchNumber}">
 							<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
 							<input type="date" name="reservationTime" /> <input type="text"
-								class="form-control" name="memo" placeholder="간단한 메모를 남겨주세요." />
+								class="form-control" name="memo" placeholder="방문을 원하는 시간을 입력해주세요. ex)오후 4시 반" />
 							<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
 							<div class="row">
 								<div class="col-md-6">
@@ -320,21 +313,21 @@ width: 850px;
 						href="#detailInfo" class="nb">세부 정보</a> <a href="#review"
 						class="nb">리뷰</a>
 				</div>
-
-				<script>
-					$('a.nb').on('click', function() {
-						$('a.nb').removeClass('active');
-						$(this).addClass('active');
-					});
-				</script>
+				
+		<script>		
+		$('a.nb').on('click', function() {
+			$('a.nb').removeClass('active');
+			$(this).addClass('active');
+		});
+		</script>
 
 				<div id="introduce" class="w3-container">
 					<br /> <br /> <br /> <br /> <br /> <br />
-					<h2>지점 소개</h2>
+					<h2><strong>지점 소개</strong></h2>
 					<br />
 					<p th:text="${details.branchComment}"></p>
 					<br />
-					<table class="w3-table-all">
+					<table class="table table-striped">
 						<tr>
 							<th>주소</th>
 							<th>최대 거주 인원</th>
@@ -361,7 +354,8 @@ width: 850px;
 
 					<br /> <br /> <br /> <br /> <br /> <br />
 
-					<h2>위치 정보</h2>
+					<h2><strong>위치 정보</strong></h2>
+
 					<br />
 
 					<div id="map" style="width: 700px; height: 500px;"></div>
@@ -370,22 +364,10 @@ width: 850px;
 					<div class="container">
 						<div class="row">
 							<div class="col-md-4">
-								<h3 id="MT1" name="mouseEvent">대형마트</h3>
+								<h2 id="MT1" name="mouseEvent">대형마트</h2>
 							</div>
 							<div class="col-md-4">
-								<h3 id="CS2" name="mouseEvent">편의점</h3>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h3 id="PK6" name="mouseEvent">주차장</h3>
-							</div>
-							<div class="col-md-4">
-								<h3 id="SW8" name="mouseEvent">지하철역</h3>
+								<h2 id="CS2" name="mouseEvent">편의점</h2>
 							</div>
 							<div class="col-md-4">
 								<h3></h3>
@@ -394,22 +376,10 @@ width: 850px;
 
 						<div class="row">
 							<div class="col-md-4">
-								<h3 id="BK9" name="mouseEvent">은행</h3>
+								<h2 id="PK6" name="mouseEvent">주차장</h2>
 							</div>
 							<div class="col-md-4">
-								<h3 id="CT1" name="mouseEvent">문화시설</h3>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h3 id="FD6" name="mouseEvent">음식점</h3>
-							</div>
-							<div class="col-md-4">
-								<h3 id="CE7" name="mouseEvent">카페</h3>
+								<h2 id="SW8" name="mouseEvent">지하철역</h2>
 							</div>
 							<div class="col-md-4">
 								<h3></h3>
@@ -418,10 +388,34 @@ width: 850px;
 
 						<div class="row">
 							<div class="col-md-4">
-								<h3 id="HP8" name="mouseEvent">병원</h3>
+								<h2 class="field-title" id="BK9" name="mouseEvent">은행</h2>
 							</div>
 							<div class="col-md-4">
-								<h3 id="PM9" name="mouseEvent">약국</h3>
+								<h2 class="field-title" id="CT1" name="mouseEvent">문화시설</h2>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h2 id="FD6" name="mouseEvent">음식점</h2>
+							</div>
+							<div class="col-md-4">
+								<h2 id="CE7" name="mouseEvent">카페</h2>
+							</div>
+							<div class="col-md-4">
+								<h3></h3>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h2 id="HP8" name="mouseEvent">병원</h2>
+							</div>
+							<div class="col-md-4">
+								<h2 id="PM9" name="mouseEvent">약국</h2>
 							</div>
 							<div class="col-md-4">
 								<h3></h3>
@@ -435,10 +429,10 @@ width: 850px;
 
 					<br /> <br /> <br /> <br /> <br /> <br />
 
-					<h2>방 정보</h2>
+					<h2><strong>방 정보</strong></h2>
 					<br /> <img class="img-fluid img-thumbnail"
 						src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
-					<table class="w3-table-all">
+					<table class="table table-striped">
 						<tr>
 							<th>호수</th>
 							<th>성별</th>
@@ -465,10 +459,10 @@ width: 850px;
 
 					<br /> <br /> <br /> <br /> <br /> <br />
 
-					<h2>세부 정보</h2>
+					<h2><strong>세부 정보</strong></h2>
 					<br />
 
-					<h3>시설 정보</h3>
+					<h3><strong>시설 정보</strong></h3>
 					<br />
 
 					<h4>공용 시설</h4>
@@ -480,7 +474,7 @@ width: 850px;
 					<div class="w3-container">
 						<h4>개별 시설</h4>
 						<br />
-						<table class="w3-table-all">
+						<table class="table table-striped">
 							<tr>
 								<th>호수</th>
 								<th>시설</th>
@@ -495,56 +489,51 @@ width: 850px;
 
 					<br /> <br /> <br />
 
-					<h3>공동 생활 규칙</h3>
+					<h3><strong>공동 생활 규칙</strong></h3>
 					<br />
 
 					<h4>기본 생활 규칙</h4>
 					<br />
 					<p>모든 지점에 공통으로 적용되는 생활 규칙</p>
 					<br />
-
-					<h4 th:text="|*{details.branchNumber}호점의 생활 규칙|"></h4>
+					<strong><h4 th:text="|*{details.branchNumber}호점의 생활 규칙|"></h4></strong> 
 					<br />
 					<p th:text="${details.rule}"></p>
 					<br />
 
-					<h3>입주민 정보</h3>
-					<br />
-
-
-					<table class="w3-table-all">
-						<tr>
-							<th>닉네임</th>
-							<th>성별</th>
-							<th>나이</th>
-							<th>관심사</th>
-							<th>소개글</th>
-						</tr>
-						<tr th:each="memberInfo:${memberInfoList}">
-							<td th:text="${memberInfo.nickname}"></td>
-							<td th:text="${memberInfo.memberGender}"></td>
-							<td th:text="${memberInfo.birth}"></td>
-							<td
-								th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></td>
-							<td th:text="${memberInfo.introduce}"></td>
-						</tr>
-					</table>
-
-					<br /> <br /> <br />
-					<h3>반려동물 정보</h3>
+					<h3><strong>입주민 정보</strong></h3>
 					<br />
 					<div th:each="memberInfo:${memberInfoList}">
-						<p
-							th:text="|*{memberInfo.animal}, *{memberInfo.amount}마리|"></p>
+					<div class="card" style="width: 18rem;">
+					  <img class="card-img-top" th:src="${memberInfo.imageProfile}" th:error="" style="width:288px;" alt="Card image cap">
+					  <div class="card-body">
+					    <div class="card-text">
+							닉네임: <div th:text="${memberInfo.nickname}"></div>
+							성별: <div th:text="${memberInfo.memberGender}"></div>
+							나이: <div th:text="${memberInfo.birth}"></div>
+							관심사: <div th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
+							소개글: <div th:text="${memberInfo.introduce}"></div>
+					    </div>
+					  </div>
+					</div>  
+					<br />
+					</div>
+
+					<br /> <br /> <br />
+					<h3><strong>반려 동물 정보</strong></h3>
+					<br />
+					<div th:each="petInfo:${petInfoList}">
+						<p th:text="|*{petInfo.animal}, *{petInfo.amount}마리|"></p>
 					</div>
 				</div>
 
-					<br /> <br /> <br /> <br /> <br /> <br />
 <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★리뷰 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ㅍ-->
-					<h2>리뷰</h2>
-					<br />
+					
 
 				<div id="review" class="w3-container">
+					<br /> <br /> <br /> <br /> <br /> <br />
+					<h3><strong>리뷰</strong></h3>
+					<br />
 					<div class="row">
 						<div class="form-group">
 							<form name="reviewInsertForm">
@@ -765,10 +754,6 @@ width: 850px;
 			
 	 		visitBooking.onclick = function(){
 	 			
-	 			
-	 			
-	 			
-	 			
 				branchNumber= $("input[name='branchNumber']").val();
 				reservationTime = $("input[name='reservationTime']").val();
 				memo = $("input[name='memo']").val();
@@ -823,6 +808,14 @@ width: 850px;
 			// 지도를 생성합니다    
 			var map = new daum.maps.Map(mapContainer, mapOption);
 
+			// 마커 이미지
+			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+   			imageSize = new daum.maps.Size(64, 69), // 마커이미지의 크기입니다
+   			imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+			
+   			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+   			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+   			
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new daum.maps.services.Geocoder();
 			
@@ -845,7 +838,8 @@ width: 850px;
 									// 결과값으로 받은 위치를 마커로 표시합니다
 									var marker = new daum.maps.Marker({
 										map : map,
-										position : coords
+										position : coords,
+										image:markerImage
 									});
 
 									// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element 삽입 가능
@@ -1062,6 +1056,7 @@ width: 850px;
 				}
 			}
 		</script>
+	
 		
 		<!-- 						<div class="col-md-4">
 							<div class="form-group">
