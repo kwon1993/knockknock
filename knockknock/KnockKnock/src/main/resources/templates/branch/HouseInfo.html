@@ -358,7 +358,7 @@ h2[name="mouseEvent"]:hover {
 
 					<br />
 
-					<div id="map" style="width: 700px; height: 500px;"></div>
+					<div id="map" style="width: 750px; height: 500px;"></div>
 					<br />
 
 					<div class="container">
@@ -505,7 +505,7 @@ h2[name="mouseEvent"]:hover {
 					<br />
 					<div th:each="memberInfo:${memberInfoList}">
 					<div class="card" style="width: 18rem;">
-					  <img class="card-img-top" th:src="${memberInfo.imageProfile}" th:error="" style="width:288px;" alt="Card image cap">
+					  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:288px;" alt="Card image cap">
 					  <div class="card-body">
 					    <div class="card-text">
 							닉네임: <div th:text="${memberInfo.nickname}"></div>
