@@ -54,9 +54,9 @@ body{
 			
 			  <tbody id="branchDetailVDTOs">			  
 				<tr  class="text-center" style="width: 30px;" th:each="branchDetailVDTO : ${lists}">
-	<!-- 				<td> -->
-	<!-- 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
-	<!-- 				</td> -->
+<!-- 	 				<td> -->
+<!-- 	 				<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'> -->
+<!-- 	 				</td> -->
 					<td th:text="${branchDetailVDTO.roomNumber}"></td>
 					<td th:text="${branchDetailVDTO.address}"></td>
 					<!-- 		<td> -->
@@ -90,10 +90,12 @@ body{
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory
 					};
-					alert(searchCategory);
+				
+				//	alert(searchCategory);
+					
 					/* var jqxhr= $.get("/categoryRoomSearch?searchKeyWord="+searchCategory,function(){
 						alert("success");
-					})
+						})
 						.done(function(data){
 							that.refreshGrid(data);
 							alert("second success");
@@ -104,17 +106,19 @@ body{
 						.always(function(){
 							alert("finished");
 						}); */
+						
 					$.ajax({
 						url : "categoryRoomSearch",
 						type : 'GET',
 						data : datas,
 						success : function(branchDetailVDTOs) {
-							alert("완료!" + branchDetailVDTOs);
+							//alert("완료!" + branchDetailVDTOs);						
 							var tableList = "";
+							//기존의 테이블 삭제	
 							$('#branchDetailVDTOs tr').remove();
+							//each를 통해 테이블 출력
 							$.each(branchDetailVDTOs, function(key, branchDetailVDTO) {
 								console.log(key + ", " + branchDetailVDTO.theme);
-								//기존의 테이블에 출력되는 것을 삭제
 								
 								<!--새로 표시할 콘텐츠 집어넣기-->
 								$('#branchDetailVDTOs').append(
@@ -142,12 +146,21 @@ body{
 				checkboxEventBind : function(target) {
 					alert("checkboxEventBind target  :" + target);
 					var that = this;
-
-					$(target).change(function(e) {
-						that.searchCategory.push($(e.target).val());
+				
+					 $(target).change(function(e) { 
+							that.searchCategory=[];
+						$("input[name='branchTheme']:checked").each(function(i){
+							that.searchCategory[i] = $(this).val();
+							//console.log($(this).val()+"  " +that.searchCategory[i]);
+							
+							
+						});
+						
+						
+						
 
 						that.sendToServer(that.searchCategory);
-					});
+					 }); 
 				},
 
 				searchInputEventBind : function(target) {
