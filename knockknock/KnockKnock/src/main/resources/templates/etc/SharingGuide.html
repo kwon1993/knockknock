@@ -8,6 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <style>
+#Process,#Culture{
+	text-align:center;
+}
+
+#imgParty,#imgCulture1,#imgCulture2{
+	width:400px;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -69,6 +76,17 @@ to {
 #container{
 	font-family: 'Jua', sans-serif;
 }
+
+#nowFindingRoom{
+	font-family: 'Jua', sans-serif;
+	font-size:50px;
+	text-align:center;
+	color:#2eca6a;
+}
+
+#nowFindingRoom:hover {
+	color:pink;
+}
 </style>
 </head>
 <body>
@@ -83,15 +101,11 @@ to {
 			<button class="tablinks" onclick="openCity(event, 'Culture')">樂樂만의
 				문화</button>
 		</div>
-
-
 		<img src="" />
-
-
 
 		<div id="Process" class="tabcontent">
 			<h3 class="font-weight-bold">입주 절차</h3>
-			<br /> <br /> <br /> <img src="img/party.jpeg" width="700px" /> <br />
+			<br /> <br /> <br /> <img src="img/party.jpeg" style="border-radius:1rem;" id='imgParty'/> <br />
 			<br /> <br />
 			<p class="font-weight-bold">1. 방문 신청
 			<p>
@@ -120,6 +134,7 @@ to {
 			<br />
 			<br />
 			<br />
+			<a th:href="@{/findingRoom}" id='nowFindingRoom'>지금 바로 방을 찾아볼래요!</a>
 		</div>
 
 		<div id="Culture" class="tabcontent">
@@ -128,13 +143,13 @@ to {
 			<br />
 			<br />
 			<h4 class="font-weight-bold">신년 파티/연말 파티</h4>
-			<br /> <img src="img/party.jpeg" width="700px" /> <br /> <br /> <br />
+			<br /> <img src="img/party.jpeg" style="border-radius:1rem;" id='imgCulture1' /> <br /> <br /> <br />
 			<p></p>
 			<br />
 			<br />
 			<br />
 			<h4 class="font-weight-bold">여름/겨울 캠프</h4>
-			<br /> <img src="img/surf.jpeg" width="700px" /> <br /> <br /> <br />
+			<br /> <img src="img/surf.jpeg" style="border-radius:1rem;" id='imgCulture2' /> <br /> <br /> <br />
 			<p>하절기에 한 번, 동절기에 한 번. 낙낙과 연이 닿은 사람들과 함께 떠나는 </p>
 			<br />
 			<br /> <br />

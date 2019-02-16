@@ -38,11 +38,10 @@ public class BranchController {
 	private static final Logger logger = LoggerFactory.getLogger(BranchController.class);
 
 	// Ajax 방리스트받기(체크박스,주소)
-	@PostMapping("/roomSearch")
+	@RequestMapping("/roomSearch")
 	@ResponseBody
 	public List<BranchDetailVDTO> roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
-		
-		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
+			model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
   
