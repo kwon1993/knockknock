@@ -37,8 +37,10 @@ body{
 					<div class="col">
 						<table class="table">
 							<tr>
+								<!-- from 성현 -->
 								<td>작성자</td>
-								<td><input type="number" name="memberNumber" required></td>
+								<td><span th:text="${session.nickname}"></span></td>
+								<td><input type="hidden" name="memberNumber" th:value="${session.memberNumber}" required></td>
 							</tr>
 							<tr>
 								<td>모임명<small class="text-danger">(필수)</small></td>
