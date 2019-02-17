@@ -246,7 +246,6 @@ h2[name="mouseEvent"]:hover {
 	clear:both;
 }
 
-출처: https://webdir.tistory.com/272 [WEBDIR]
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -259,9 +258,7 @@ h2[name="mouseEvent"]:hover {
 		<h1 style="float: left">낙낙 쉐어 하우스 &nbsp;</h1>
 		<h1 th:text="${details.branchNumber}" id='branchNumber'
 			style="float: left"></h1>
-		<h1 style="float: left">호점</h1>
-		<!-- <div th:text="${details.branchNumber}" id='branchNameTest'></div> -->
-
+		<h1 style="float: left">호점 &nbsp;</h1>
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -439,8 +436,28 @@ h2[name="mouseEvent"]:hover {
 					<br /> <br /> <br /> <br /> <br /> <br />
 
 					<h2><strong>방 정보</strong></h2>
-					<br /> <img class="img-fluid img-thumbnail"
-						src="http://placehold.it/700x400" alt=""> <br /> <br /> <br />
+					<br /> 
+						
+						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'room/mainImage.jpg'" alt="First slide">
+		    </div>
+			 <div class="carousel-item" th:each="i : ${roomList}">
+			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'room/'+${i}" alt="none">
+			 </div>
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
+						
+						 <br /> <br /> <br />
 					<table class="table table-striped">
 						<tr>
 							<th>호수</th>
@@ -1185,6 +1202,42 @@ h2[name="mouseEvent"]:hover {
 				});
 			});
 		</script> -->
+		
+		<!-- 최근 본 지점 -->
+		<script>
+		// 쿠키 생성
+		function setCookie(cookie_name, value, days) {
+			  var exdate = new Date();
+			  exdate.setDate(exdate.getDate() + days);
+			  // 설정 일수만큼 현재시간에 만료값으로 지정
+
+			  var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
+			  document.cookie = cookie_name + '=' + cookie_value;
+		}
+		
+		// 생성된 쿠키 가져오기
+		function getCookie(cookie_name) {
+		  var x, y;
+		  var val = document.cookie.split(';');
+		
+		  for (var i = 0; i < val.length; i++) {
+		    x = val[i].substr(0, val[i].indexOf('='));
+		    y = val[i].substr(val[i].indexOf('=') + 1);
+		    x = x.replace(/^\s+|\s+$/g, ''); // 앞과 뒤의 공백 제거하기
+		    if (x == cookie_name) {
+		      return unescape(y); // unescape로 디코딩 후 값 리턴
+		    }
+		  }
+		}
+		
+		// value에 branchNumber를 담기
+		var branchNumber= $("input[name='branchNumber']").val();
+		setCookie('recentView', 'branchNumber', '1');
+		
+		// 쿠키 추가
+		
+		
+		</script>
 </div>
 </body>
 </html>

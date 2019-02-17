@@ -3,8 +3,9 @@ package com.knockknock.controller;
 import java.io.File;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,21 +14,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
-
-import lombok.val;
 
 @Controller
 public class MyPageController {
 
 	@Autowired
 	MemberService memberService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping("/profileMain")
 	public String profileMain(Model model, ProfileVDTO profileVDTO, Authentication authentication) {
@@ -203,7 +206,7 @@ public class MyPageController {
 		return "member/MyMeetingList";
 	}
 	
-	// 참가한 이벤트 취소
+	// 참가한 이벤트 취소 - 각각
 	@RequestMapping("/deleteJE")
 	public String deleteJE(Model model, @RequestParam("writingNumber") int writingNumber) {
 
@@ -214,12 +217,31 @@ public class MyPageController {
 		model.addAttribute("user", user.getUsername());
 		memberService.deleteJE(writingNumber, user.getUsername());
 		
-		// 참가한 모임 리스트 다시 받아오기
+		// 참가한 이벤트 리스트 다시 받아오기
 		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
 		
 		return "member/MyEventList";
 	}
 	
+	// 참가한 이벤트 취소 - 체크박스
+	@RequestMapping("/checkedDeleteJE")
+	@ResponseBody
+	public String checkedDeleteJE(Model model, @RequestBody String writingNumber1) {
+		
+		int writingNumber = Integer.parseInt(writingNumber1);
+
+		// 현재 로그인 사용자 정보에 접근
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+
+		model.addAttribute("user", user.getUsername());
+		memberService.checkedDeleteJE(writingNumber, user.getUsername());
+		
+		// 참가한 이벤트 리스트 다시 받아오기
+		memberService.getMEL(user.getUsername());
+		
+		return "redirect:MyEventList";
+	}
 	// 방문 신청 취소
 	@RequestMapping("/deleteV")
 	public String deleteV(Model model, @RequestParam("writingNumber") int writingNumber) {
@@ -259,5 +281,25 @@ public class MyPageController {
 		memberService.changeRealPassword(memberDTO);
 		return "member/MyProfile";
 	}
+	
+	// 개설한 모임 취소(사실상 INSERT)
+		@RequestMapping(value = "/cancelMM", method = RequestMethod.POST)
+		@ResponseBody
+		public void cancelMM(@RequestBody MeetingDTO meetingDTO, Authentication authentication, Model model) {
+
+			// 현재 로그인 사용자 정보에 접근
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			User user = (User) authentication.getPrincipal();
+			String email = user.getUsername();
+
+			logger.info(meetingDTO+"");
+			logger.info("POST/cancelMM");
+
+			memberService.cancelMM(meetingDTO, email);
+			
+			// 신청, 개설한 모임 리스트 다시 받아오기
+			model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+			model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		}
 	
 }
