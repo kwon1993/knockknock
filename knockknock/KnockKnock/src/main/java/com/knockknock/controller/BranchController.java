@@ -93,8 +93,8 @@ public class BranchController {
 		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
 		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
 		
-		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 개수를 구한다
-		String path = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 객체
+		String path = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
 		File f = new File( path );
 		File[] files = f.listFiles();
 
@@ -115,6 +115,24 @@ public class BranchController {
 		count= count-1; // main.jpg 제외
 		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
+		
+		// 해당 지점의 room 디렉토리에 있는 파일 객체
+		String pathRoom = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber+"room";
+		File fRoom = new File( pathRoom );
+		File[] filesRoom = fRoom.listFiles();
+		
+		List<String> roomList = new ArrayList<String>();
+		
+		for(int i = 0; i < filesRoom.length-1; i++) {
+		if(filesRoom[i].isFile()) {
+			roomList.add(filesRoom[i].getName());
+			System.out.println( "파일 : " + filesRoom[i].getName() );
+		} else {
+			System.out.println( "디렉토리명 : " + filesRoom[i].getName() );
+		}
+		}
+		System.out.println(roomList);
+		model.addAttribute("roomList", roomList);
 		
 		return "branch/HouseInfo";
 	}
