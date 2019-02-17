@@ -227,11 +227,11 @@ public class AdminServiceImpl implements AdminService {
 //					roomDeposit[i], roomMonthlyRent[i], roomRentableDate[i], roomDTO.getRoomFacility());
 //		}
 
-		//String으로 받은 날짜
+		// String으로 받은 날짜
 		Iterator<String> iterator = roomDTO.getRentableDate().iterator();
 		List<Date> rentableDate = new ArrayList<Date>();
 
-		//String으로 받은 날짜를 -> util.date -> sql.date로 변환. String -> sql.date는 잘 안되더라
+		// String으로 받은 날짜를 -> util.date -> sql.date로 변환. String -> sql.date는 잘 안되더라
 		while (iterator.hasNext()) {
 			String tmp = iterator.next();
 			if (Pattern.matches(dateForm, tmp)) {
@@ -246,8 +246,8 @@ public class AdminServiceImpl implements AdminService {
 				rentableDate.add(null);
 			}
 		}
-		
-		//날짜를 배열에 넣고 입력 안한 날짜는 null로 처리
+
+		// 날짜를 배열에 넣고 입력 안한 날짜는 null로 처리
 		Iterator<Date> sqlDate = rentableDate.iterator();
 		Date[] roomRentableDate = new Date[roomDTO.getRoomNumber().size()];
 		for (int i = 0; i < roomRentableDate.length; i++) {
@@ -258,7 +258,7 @@ public class AdminServiceImpl implements AdminService {
 			}
 		}
 
-		//입력한 줄까지만 방 정보가 들어감. 누락된 입력란이 존재하면 입력 안됨
+		// 입력한 줄까지만 방 정보가 들어감. 누락된 입력란이 존재하면 입력 안됨
 		for (int i = 0; i < roomDTO.getRoomNumber().size()
 				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
 						|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
@@ -287,31 +287,61 @@ public class AdminServiceImpl implements AdminService {
 //		DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
 //		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
 //		System.out.println(resource);
-		
-		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/" + branchNumber;
-		
+
+		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+				+ branchNumber;
+
 		File BranchUploadPath = new File(resourceToString);
-		
+
 		if (BranchUploadPath.exists() == false) {
 			BranchUploadPath.mkdirs();
 		}
-		
+
 		int Numbering = 0;
-		
+
 		for (MultipartFile multipartFile : branchDTO.getBranchImages()) {
-			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-			String uploadFileName = branchNumber + "BRANCH " + ++Numbering + extension; // 브랜치넘버+파일명
-			System.out.println("toString: " + branchDTO.getBranchImages().toString());
-			System.out.println("size: " + branchDTO.getBranchImages().size());
-			System.out.println("getClass: " + branchDTO.getBranchImages().getClass());
-			System.out.println("isEmpty: " + branchDTO.getBranchImages().isEmpty());
-			System.out.println("BranchUploadPath: " + BranchUploadPath);
-			System.out.println("uploadFileName: " + uploadFileName);
+			String extension = multipartFile.getOriginalFilename()
+					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+			String uploadFileName = ++Numbering + extension; // 브랜치넘버+파일명
 			try {
 				File saveFile = new File(BranchUploadPath, uploadFileName);
 				// 경로를 파일화시킨다.(실제파일생성)
 				multipartFile.transferTo(saveFile);
-				System.out.println("saveFile: " + saveFile);
+				// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
+//				String finalImage = BranchUploadFolder2 + uploadFileName;
+				// 이미지경로를 저장한다.
+//				memberService.saveImageDir(finalImage,username);
+				// 이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
+//				model.addAttribute("image",memberService.getImageDir(username));
+			} catch (Exception e) {
+				System.out.println("실패");
+				e.printStackTrace();
+			} // end catch
+		}
+
+	}
+
+	public void roomImageRegist(int branchNumber, RoomDTO roomDTO) {
+		
+		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+				+ branchNumber + "room";
+
+		File RoomUploadPath = new File(resourceToString);
+
+		if (RoomUploadPath.exists() == false) {
+			RoomUploadPath.mkdirs();
+		}
+
+		int Numbering = 0;
+
+		for (MultipartFile multipartFile : roomDTO.getRoomImages()) {
+			String extension = multipartFile.getOriginalFilename()
+					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+			String uploadFileName = ++Numbering + extension;
+			try {
+				File saveFile = new File(RoomUploadPath, uploadFileName);
+				// 경로를 파일화시킨다.(실제파일생성)
+				multipartFile.transferTo(saveFile);
 				// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
 //				String finalImage = BranchUploadFolder2 + uploadFileName;
 				// 이미지경로를 저장한다.
@@ -324,9 +354,75 @@ public class AdminServiceImpl implements AdminService {
 			} // end catch
 		}
 		
-	}
-
-	public void roomImageRegist() {
+		
+//		int loop = 0;
+//		int Numbering = 1;
+//		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+//				+ branchNumber + "room";
+//		File RoomUploadPath = new File(resourceToString);
+//		if(RoomUploadPath.exists() == false) {
+//			RoomUploadPath.mkdirs();
+//		}
+//		for(MultipartFile multipartFile : roomDTO.getRoomImages()) {
+//			if (!(roomDTO.getRoomNumber().get(loop) == null || roomDTO.getDeposit().get(loop) == null
+//					|| roomDTO.getMonthlyRent().get(loop) == null || roomDTO.getRentableDate().equals(null)
+//					|| roomDTO.getSpace().get(loop).equals(null) || roomDTO.getSpace().get(loop) == "")) {
+//				System.out.println("Numbering: " + Numbering + "번째 이미지");
+//				String extension = multipartFile.getOriginalFilename()
+//						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+//				String uploadFileName = Numbering++ + extension; // 브랜치넘버+파일명
+//				try {
+//					File saveFile = new File(RoomUploadPath, uploadFileName);
+//					// 경로를 파일화시킨다.(실제파일생성)
+//					multipartFile.transferTo(saveFile);
+//					System.out.println("saveFile: " + saveFile);
+//				} catch (Exception e) {
+//					System.out.println("파일업로드 실패");
+//					e.printStackTrace();
+//				} // end catch
+//			}
+//			loop++;
+//		}
+		
+//		int rooms = 0;
+//		int loop = 0;
+//		int Numbering = 1;
+//		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+//				+ branchNumber + "room";
+//		
+//		File RoomUploadPath = new File(resourceToString);
+//		
+//		if (RoomUploadPath.exists() == false) {
+//			RoomUploadPath.mkdirs();
+//		}
+//		
+//		for (Integer roomNumber : roomDTO.getRoomNumber()) {
+//			if (!(roomDTO.getRoomNumber().get(loop) == null || roomDTO.getDeposit().get(loop) == null
+//					|| roomDTO.getMonthlyRent().get(loop) == null || roomDTO.getRentableDate().equals(null)
+//					|| roomDTO.getSpace().get(loop).equals(null) || roomDTO.getSpace().get(loop) == "")) {
+//
+//				System.out.println("rooms: " + rooms + "번째 방");
+//
+//				List<MultipartFile> multipartFileList = roomDTO.getRoomImages().get(rooms++);
+//				multipartFileList.toString();
+//				for (MultipartFile multipartFile : multipartFileList) {
+//					System.out.println("Numbering: " + Numbering + "번째 이미지");
+//					String extension = multipartFile.getOriginalFilename()
+//							.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+//					String uploadFileName = Numbering++ + extension; // 브랜치넘버+파일명
+//					try {
+//						File saveFile = new File(RoomUploadPath, uploadFileName);
+//						// 경로를 파일화시킨다.(실제파일생성)
+//						multipartFile.transferTo(saveFile);
+//						System.out.println("saveFile: " + saveFile);
+//					} catch (Exception e) {
+//						System.out.println("파일업로드 실패");
+//						e.printStackTrace();
+//					} // end catch
+//				}
+//			}
+//			loop++;
+//		}
 
 	}
 

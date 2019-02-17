@@ -62,7 +62,7 @@ public interface AdminService {
 
 	public void branchImageRegist(int branchNumber, BranchDTO branchDTO);
 	
-	public void roomImageRegist();
+	public void roomImageRegist(int branchNumber, RoomDTO roomDTO);
 
 	public void testBranchRegist(BranchDTO branchDTO);
 	public void testRoomRegist(int branchNumber, String gender2, int roomNumber2, int allowNumber2, int deposit2, Date rentableDate2, String space2, int monthlyRent2);
