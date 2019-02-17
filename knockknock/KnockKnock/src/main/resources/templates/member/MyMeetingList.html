@@ -177,7 +177,7 @@ cursor: pointer;
 					<a th:href="@{/profileMain}">내 프로필</a><br>
 					<a th:href="@{/MyMeetingList}">내 모임</a><br>
 					<a th:href="@{/MyEventList}">내 이벤트</a><br>
-					<a th:href="@{/MyVisitList}">내 방문신청</a><br>
+					<a th:href="@{/MyVisitList}">내 방문 신청</a><br>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -214,7 +214,7 @@ cursor: pointer;
 							<th></th>
 						</tr>
 						<tr th:each="MMLJ:${MMLJ}">
-							<td><input type='checkbox' name='checkRow' /></td>
+							<td><input type='checkbox' name='checkRow' th:value="${MMLJ.writingNumber}"/></td>
 							<td th:text="${MMLJ.nickname}"></td>
 							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLJ.writingNumber}}" th:text="${MMLJ.title}"></a></td>
 							<td th:text="${MMLJ.acceptEndTime}"></td>
@@ -242,20 +242,44 @@ cursor: pointer;
 
 					}
 				})
-			})	
-			     
-			$('#checkedDelete').click(function(){
+
+				$('#checkedDelete').click(function(){
 		        if(confirm("선택된 모임 신청을 취소하시겠습니까?")){
-		           /*  $("input[name=checkRow]:checked").each(function(){
-		                var tr_value =$(this).val();
-		                var tr=$("tr[data-tr_value='"+tr_value+"']");
-		                tr.remove();
-		            }); */
-		            alert("모임 신청이 취소되었습니다.");
+		            
+		        	var checkBoxArr=[];
+		        	
+		            $("input[name=checkRow]:checked").each(function(i){
+						checkBoxArr.push($(this).val());
+		            })
+		            
+		            $.ajax({
+							type:'post',  
+							url:'/checkedDeleteJM',
+			 				data: JSON.stringify(checkBoxArr), // key, value로 이뤄지지 않은 단순 배열은 JSON.stringify로 보내야 함
+			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+							contentType: "application/json",
+							// async:false, async는 deprecated 되었음
+							 success:function(response){
+					            alert("선택한 모임 신청이 취소되었습니다.");
+					            
+					            // 미팅 리스트 갱신 필요
+					            $(location).attr('href', '/MyMeetingList');
+
+							 },
+							 error:function(response){
+								 alert("에러 발생");
+							 }
+						})
+		            
+		            
 		        }else{
 		            return false;
 		        }
-		    });
+		    
+			}) // checkedDelete
+			
+			})	// ready
+			     
 	
 			</script>
 			

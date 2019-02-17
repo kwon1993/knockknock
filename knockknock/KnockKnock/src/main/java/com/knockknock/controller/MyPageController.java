@@ -1,12 +1,12 @@
 package com.knockknock.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -172,7 +172,7 @@ public class MyPageController {
 		return "member/MyVisitList";
 	}
 
-	// 신청한 모임 취소
+	// 신청한 모임 취소 - 각각
 	@RequestMapping("/deleteJM")
 	public String deleteJM(Model model, @RequestParam("writingNumber") int writingNumber) {
 
@@ -184,6 +184,29 @@ public class MyPageController {
 		memberService.deleteJM(writingNumber, user.getUsername());
 		
 		// 신청, 개설한 모임 리스트 다시 받아오기
+		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		
+		return "member/MyMeetingList";
+	}
+	
+	// 신청한 모임 취소 - 체크박스
+	@RequestMapping("/checkedDeleteJM")
+	@ResponseBody
+	public String checkedDeleteJM(Model model, @RequestBody String[] checkBoxArr) {
+		// JSON.stringify를 통해 배열로 넘어온 값은 @RequestBody로 받아야 한다
+		
+		System.out.println(checkBoxArr[0]);
+		
+		// 현재 로그인 사용자 정보에 접근 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		User user = (User)authentication.getPrincipal();
+		
+		for (int i = 0; i<checkBoxArr.length;i++) {
+			int writingNumber = Integer.parseInt(checkBoxArr[i]);
+			memberService.deleteJM(writingNumber, user.getUsername());
+		}
+		
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 		
@@ -228,22 +251,26 @@ public class MyPageController {
 	// 참가한 이벤트 취소 - 체크박스
 	@RequestMapping("/checkedDeleteJE")
 	@ResponseBody
-	public String checkedDeleteJE(Model model, @RequestBody String writingNumber1) {
+	public String checkedDeleteJE(Model model, @RequestBody String[] checkBoxArr) {
+		// JSON.stringify를 통해 배열로 넘어온 값은 @RequestBody로 받아야 한다
 		
-		int writingNumber = Integer.parseInt(writingNumber1);
-
-		// 현재 로그인 사용자 정보에 접근
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-
-		model.addAttribute("user", user.getUsername());
-		memberService.checkedDeleteJE(writingNumber, user.getUsername());
+		System.out.println(checkBoxArr[0]);
 		
-		// 참가한 이벤트 리스트 다시 받아오기
-		memberService.getMEL(user.getUsername());
+		// 현재 로그인 사용자 정보에 접근 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		User user = (User)authentication.getPrincipal();
 		
-		return "redirect:MyEventList";
+		for (int i = 0; i<checkBoxArr.length;i++) {
+			int writingNumber = Integer.parseInt(checkBoxArr[i]);
+			memberService.deleteJE(writingNumber, user.getUsername());
+		}
+		
+		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
+		
+		return "member/MyEventList";
 	}
+	
+	
 	// 방문 신청 취소
 	@RequestMapping("/deleteV")
 	public String deleteV(Model model, @RequestParam("writingNumber") int writingNumber) {
