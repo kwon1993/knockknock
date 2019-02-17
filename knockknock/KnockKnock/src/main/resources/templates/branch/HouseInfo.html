@@ -4,6 +4,8 @@
 <head>
 <title>지점 상세 정보</title>
 <meta charset="utf-8">
+<!-- from 성현 : 방문신청 에러 관련 -->
+<meta http-equiv="Content-type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header"
@@ -287,7 +289,7 @@ h2[name="mouseEvent"]:hover {
 
 				<div id="myModal" class="modal">
 					<div class="modal-content">
-						<form action="/visitBooking" method="post" id="visitBookingForm">
+						<form action="/visitBooking" method="post" id="visitBookingForm" >
 							<span class="close">&times;</span>
 							<h3 style="float: left">낙낙&nbsp;</h3>
 							<h3 th:text="${details.branchNumber}" 
@@ -576,10 +578,12 @@ h2[name="mouseEvent"]:hover {
 
 						</div>
 							
+						<!-- from 성현 시큐리티 적용 -->
+						<input type='hidden' th:value="${session.nickname}" id='sessionNickname'>
 						
 						<div class="container">
 							<div id="reviewList">
-						</div>
+							</div>
 							<!-- <input type="hidden" th:name="${_csrf.parameterName}"
 									th:value="${_csrf.token}"> -->
 						</div>
@@ -594,7 +598,9 @@ h2[name="mouseEvent"]:hover {
 					<button id="myBtn1" class='btn btn-default'
 						onclick="location.href='/toSharingGuide'">입주 안내</button>
 					<!-- <sec:authentication property="principal" var="user" /> -->	
+					
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					
 					<br />
 				</div>
 			</div>
@@ -613,6 +619,8 @@ h2[name="mouseEvent"]:hover {
 				xhr.setRequestHeader(header, token);
 			});
 		});
+		//from 성현 :로그인한 사람의 닉네임 가져오기
+		var nick =$("#sessionNickname").val();
 		
 		/* var branchNumber= $("input[name='branchNumber']").val(); */
 
@@ -620,7 +628,60 @@ h2[name="mouseEvent"]:hover {
 			var branchNumber1= $("input[name='branchNumber']").val();
 			inner="";
 	
-			 $.ajax({
+		//본인글만 수정,삭제버튼이 활성화되게 해야 한다.
+		//하우스인포를 띄울 때, 작성자의 이름은 가져와진다.
+		//로그인 한 사람의 이름과, 실제 뜨는 닉네임을 if로 처리한다.
+		//if내용이 맞다면, 수정삭제를 활성화한다.
+		
+			//from 성현 : 시큐리티 적용중
+			
+			$.ajax({
+ 				type:'post',  
+				url:'/reviewList',
+ 				data: branchNumber1, // 값 하나만 받아오기
+                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+				contentType: "application/json",
+				// async:false, async는 deprecated 되었음
+				 success:function(result){
+					
+					$.each(JSON.parse(result), function(key, value) {
+						inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+						inner += '<div class="reviewInfo'+value.writingNumber+'">'
+								+ '작성일자 : '
+								+ value.writeTime
+								+ ' / 작성자 : '
+								+ value.nickname;
+						
+						if(value.nickname==nick){
+						inner += '&nbsp&nbsp&nbsp&nbsp<button name="aboutReview" class="btn btn-default" onclick="reviewUpdate('
+								+ value.writingNumber
+								+ ',\''
+								+ value.content
+								+ '\');"> 수정 </button>';
+						inner += '&nbsp<button name="aboutReview" class="btn btn-default" onclick="deleteConfirm('
+								+ value.writingNumber
+								+ ');"> 삭제 </button> </div>';
+						}else{
+						inner += '</div>';	
+							
+						}
+						inner += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
+								+ value.content
+								+ '</p>';
+						inner += '</div></div>'; 
+					});
+					
+					$("#reviewList").html(inner);
+				},
+				error:function(result){
+					inner+="<br /><h3>에러 발생</h3><br />"
+					$("#reviewList").html(inner);
+				}
+			});
+			//시큐리티 적용중 end
+		
+			//from 성현 : 민희야 테스트 해보고 정상 작동하는것같으면 밑에 에이젝스 삭제해~
+			/*  $.ajax({
  				type:'post',  
 				url:'/reviewList',
  				data: branchNumber1, // 값 하나만 받아오기
@@ -655,7 +716,8 @@ h2[name="mouseEvent"]:hover {
 					inner+="<br /><h3>에러 발생</h3><br />"
 					$("#reviewList").html(inner);
 				}
-			});
+			}); */
+			// end
 		}; 
 		
 		// 리뷰 등록
@@ -760,6 +822,14 @@ h2[name="mouseEvent"]:hover {
 			
 			// When the user clicks the button, open the modal 
 			btn.onclick = function() {
+				//from 성현 : 시큐리티 적용(세션닉이 없을 때 action을 로긴으로 바꾼 후 서브밋)
+				if(nick==""){
+					alert('먼저 로그인을 해주세요');
+					var	form =$("#visitBookingForm");
+					form.action = "/login";
+					form.submit();
+					return false;
+				}
 				modal.style.display = "block";
 			}
 

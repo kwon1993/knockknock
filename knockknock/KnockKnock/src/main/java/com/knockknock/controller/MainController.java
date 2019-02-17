@@ -106,12 +106,6 @@ public class MainController {
 		return "event/MeetingAndEventMain";
 	}
 	
-	//네비게이션바 '언어변환'
-	@RequestMapping("/toTranslateLanguage")
-	public String toTranslateLanguage() {
-		return "";
-	}
-	
 	//네비게이션바 '입주안내'
 	@RequestMapping("/toSharingGuide")
 	public String toSharingGuide() {

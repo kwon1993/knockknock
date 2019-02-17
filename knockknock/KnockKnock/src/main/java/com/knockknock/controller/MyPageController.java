@@ -72,15 +72,15 @@ public class MyPageController {
 
 	
 	//프로필사진업로드
-	@RequestMapping(value="/profileUpdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/profileUpdate")
 	@ResponseBody
-	public void uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO, Authentication authentication) {
+	public MemberDTO uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO, Authentication authentication) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
 		
 		//업로드할 절대경로1
-		String uploadFolder = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
+		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
 		//업로드할 절대경로2
 		String uploadFolderPath = "\\profile";
 		//DB에 저장할 상대경로
@@ -116,6 +116,8 @@ public class MyPageController {
 				e.getMessage();
 			}//end catch
 		}
+		
+		return memberService.getImageDir(username);
 	} 
 
 	@RequestMapping("/MyEventList")

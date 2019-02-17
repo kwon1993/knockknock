@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +23,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
+import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
 
 @Controller
 public class BranchController {
 	@Autowired
 	public BranchService branchService;
+	@Autowired
+	public MemberController mc;
 
 	private static final Logger logger = LoggerFactory.getLogger(BranchController.class);
 
 	// Ajax 방리스트받기(체크박스,주소)
-	@PostMapping("/roomSearch")
+	@RequestMapping("/roomSearch")
 	@ResponseBody
 	public List<BranchDetailVDTO> roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
-		
-		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
+			model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
   
@@ -79,7 +84,10 @@ public class BranchController {
 
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
-	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model) {
+	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model, Authentication authentication, MemberDTO memberDTO, HttpSession hs) {
+		//from 성현 : 로그인시 세션유지가 안되서 테스트로 세션관련된걸 넣어놨는데 테스트 끝나면 삭제할게요
+		mc.getSession(authentication,hs,memberDTO);
+		
 		model.addAttribute("details", branchService.getDetail(branchNumber));
 		model.addAttribute("roomInfoList", branchService.getRoomInfo(branchNumber));
 		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
