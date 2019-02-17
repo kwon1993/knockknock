@@ -162,52 +162,6 @@ height:250px;
 	border:1px solid  #2eca6a;
 }
 
-/*더보기*/
-.col-xs-6 {
-    display: none;
-}
-.col-xs-6.active {
-    display: block;
-}
-.is_comp.col-xs-6:after {
-    display: none;
-}
-.btn-wrap, .lists, .main {
-    display: block;
-}
-.main {
-    max-width: 640px;
-    margin: 0 auto;
-}
-.text-lg-left {
-    margin-bottom: 4rem;
-}
-.text-lg-left {
-    padding: 20px;
-}
-.text-lg-left:nth-child(2n) {
-    color: #fff;
-}
-.btn-wrap {
-    text-align: center;
-}
-
-#js-btn-wrap,#hi{
-  color: #2eca6a;
-  border: 1px solid #2eca6a;
-  border-radius: 50px;
-  text-transform: uppercase;
-  letter-spacing: 0.030em;
-  background-color:white;
-  font-size:40px;
-  margin-bottom:20px;
-}
-
-.button{
-	width:100%;
-
-}
-
 </style>
     
 </head>
@@ -260,13 +214,13 @@ height:250px;
 
 	<!-- gallery Page Content -->
 	<!-- src="http://placehold.it/400x300"  -->
-    <div class="container" id="container"> <!-- 더페 ID=js-load/CLASS=main -->
+    <div class="container" id="container">
     
       <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
-	      
-	      <div class='row text-center text-lg-left' id='allGallery'><!-- 더페UI / class=lists-->
+
+	      <div class='row text-center text-lg-left' id='allGallery'>
 	      	<!-- thymeleaf gallery-->
-	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'><!-- 더페LI / class=lists__item js-load -->
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
@@ -276,10 +230,9 @@ height:250px;
 	        </div>
 	        <!-- /.thymeleaf gallery-->
 	      </div>
-	      <!-- 더보기 페이징 -->
-	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">More</a></div>
-  </div>
+    </div>
 <!-- /.container -->
+
 <script>
 
 //제이쿼리 충돌방지 문법 체인지
@@ -410,10 +363,8 @@ function multiSearch(){
 							
 						+"</a></div>";
 					}
-					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>More</a></div>";
+					content += "</div>";
 					jQuery("#container").html(content);
-					
-					morePage();
 				}
 			},
 			error : function(data){
@@ -427,37 +378,6 @@ function multiSearch(){
 			}
 		});
 	};
-	
-	
-	
-//더보기페이징
-$(window).on('load', function () {
-    load('#container', '4');
-    $("#js-btn-wrap .button").on("click", function () {
-        load('#container', '4', '#js-btn-wrap');
-    })
-});
- 
-function morePage(){ 
-	load('#container', '4');
-	$("#js-btn-wrap .button").on("click", function () {
-	    load('#container', '4', '#js-btn-wrap');
-	}) 
-}
- 
-function load(id, cnt, btn) {
-    var girls_list = id + " .col-xs-6:not(.active)";
-    var girls_length = $(girls_list).length;
-    var girls_total_cnt;
-    if (cnt < girls_length) {
-        girls_total_cnt = cnt;
-    } else {
-        girls_total_cnt = girls_length;
-        $('.button').hide()
-    }
-    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
-}
-	
 </script>
 </div>
 </body>

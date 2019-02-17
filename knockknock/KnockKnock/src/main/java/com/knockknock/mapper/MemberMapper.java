@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
@@ -48,6 +49,8 @@ public interface MemberMapper {
 
 	public int deleteJM(int writingNumber, String email);
 	
+	public int checkedDeleteJE(int writingNumber, String email);
+	
 	public int deleteMM(int writingNumber, String email);
 	
 	public int deleteJE(int writingNumber, String email);
@@ -57,4 +60,7 @@ public interface MemberMapper {
 	public void saveImageDir(String finalImage, String username);
 	
 	public ArrayList<Integer> getMemberNumber();
+	
+	public void cancelMM(@Param("meetingDTO") MeetingDTO meetingDTO, String email);
+
 }
