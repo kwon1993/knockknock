@@ -40,6 +40,7 @@ body{
 						<span>모임정보</span>
 						<ul>
 							<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
+							<li th:text="'성별 : '+ ${MeetingView.gender}"></li>
 							<li th:text="'모임 기간 : '+
 							${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
 							${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
