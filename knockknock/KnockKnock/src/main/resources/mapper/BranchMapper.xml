@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</if>	
 		</trim>
-		ORDER BY R.room_number ASC, R.RENTABLE_DATE ASC
+		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
 
 	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">

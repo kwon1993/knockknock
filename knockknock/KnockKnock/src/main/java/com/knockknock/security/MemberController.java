@@ -1,13 +1,14 @@
 package com.knockknock.security;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,9 +52,7 @@ public class MemberController {
 	@ResponseBody
 	public MemberDTO checkEmail(Model model, @RequestBody MemberDTO memberDTO) {
 		return memberMapper.checkEmail(memberDTO);
-	
 	}
-	
 
 	//기본적으로 '로그인'누르면 연결. 그외에 인증처리 안된상태에서 방찾기 등 누르면 로그인으로
 	@RequestMapping("/login")
@@ -61,10 +60,10 @@ public class MemberController {
 		return "member/Login";
 	}
 	
-	//로그인완료
-	@PostMapping("/loginComplete")
-	public String loginComplete(MemberDTO memberDTO){
-		return "etc/fragments/Main_layout";
+	//로그인 성공시
+	@RequestMapping("/loginSuccess")
+	public String loginSuccess() {
+		return "home/Home";
 	}
 	
 	//아이디찾기
@@ -104,4 +103,21 @@ public class MemberController {
             return "member/Login"; 
         }
     }
+	
+	public void getSession(Authentication auth, HttpSession session, MemberDTO memberDTO) {
+		if(auth!=null && session.getAttribute("userId")==null) {
+			SecurityMember sc = (SecurityMember)auth.getPrincipal();
+			
+			memberDTO.setEmail(sc.getUsername());
+			
+			
+			MemberDTO nickname = memberMapper.findByEmail(memberDTO);
+			MemberDTO profileImage = memberMapper.getImageDir(sc.getUsername());
+			session.setAttribute("nickname", nickname.getNickname());
+			
+			if(profileImage!=null) { 
+				session.setAttribute("profileImage", profileImage.getImageProfile());
+			}
+		}
+	}
 }
