@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
@@ -62,5 +63,9 @@ public interface MemberMapper {
 	public ArrayList<Integer> getMemberNumber();
 	
 	public void cancelMM(@Param("meetingDTO") MeetingDTO meetingDTO, String email);
+	
+	// 내 관심 지점 리스트
+	public List<BranchDetailVDTO> getMLBL(String email);
 
+	public int deleteLB(int branchNumber, String email);
 }

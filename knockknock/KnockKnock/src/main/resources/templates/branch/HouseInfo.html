@@ -261,7 +261,7 @@ h2[name="mouseEvent"]:hover {
 		<h1 th:text="${details.branchNumber}" id='branchNumber'
 			style="float: left"></h1>
 		<h1 style="float: left">호점 &nbsp;</h1>
-		<button id="likeBranch" class="btn btn-default" th:value=${details.branchNumber}>내 마음 속에 저장</button>
+		<button id="likeBranch" class="btn btn-default">내 마음 속에 저장</button>
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -608,6 +608,36 @@ h2[name="mouseEvent"]:hover {
 		</div>
 	
 		<br /> <br /> <br />
+
+		<script>
+		$(document).ready(function() { 
+		
+			var branchNumber1= $("input[name='branchNumber']").val();
+			
+			$("#likeBranch").click(function(){
+				if(confirm("해당 지점을 내 관심 지점으로 등록하시겠습니까?")){
+					
+					// alert(branchNumber1==1);
+					
+					$.ajax({
+		 				type:'post',  
+						url:'/likeBranch',
+		 				data: branchNumber1, // 값 하나만 받아오기
+		                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+						contentType: "application/json",
+						// async:false, async는 deprecated 되었음
+						success:function(response){
+							alert("내 관심 지점 등록이 완료되었습니다.");
+							$(location).attr('href', '/roomDetailView/?branchNumber='+branchNumber); 
+						}
+					}) 
+				} else {
+					return false;
+				}
+			})
+			
+			});
+		</script>
 
 		<!-- 리뷰 Ajax -->
 		<script>

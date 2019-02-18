@@ -78,7 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	MT.WRITING_NUMBER writingNumber,
     	MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
-    	MT.MEETING_END_TIME meetingEndTime
+    	MT.MEETING_END_TIME meetingEndTime,
+    	MT.CANCEL_REASON cancelReason
     	FROM MEETING MT
     	WHERE MT.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
@@ -226,4 +227,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JM.MEETING_STATUS='다음 기회에'
 		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
 	</update>
+	
+	<select id="getMLBL" resultType="BranchDetailVDTO">
+		SELECT 
+		B.BRANCH_NUMBER branchNumber,
+		B.ADDRESS,
+		B.THEME,
+		B.BRANCH_TYPE branchType,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.PET,
+		B.ISPARKING,
+		B.ISELEVATOR
+		FROM BRANCH B 
+		WHERE B.BRANCH_NUMBER 
+		IN (SELECT LB.BRANCH_NUMBER FROM LIKE_BRANCH LB
+		WHERE LB.MEMBER_NUMBER=(SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}))
+	</select>
+	
+	<delete id="deleteLB">
+		DELETE FROM LIKE_BRANCH
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND BRANCH_NUMBER=#{branchNumber}
+	</delete>
 </mapper>

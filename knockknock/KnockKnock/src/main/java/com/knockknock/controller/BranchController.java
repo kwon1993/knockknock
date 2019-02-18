@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.security.MemberController;
@@ -94,7 +94,8 @@ public class BranchController {
 		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
 		
 		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 객체
-		String path = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		// System.getProperty("user.dir"): 프로젝트가 있는 경로까지 자동으로 가지고 옴
+		String path = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber;
 		File f = new File( path );
 		File[] files = f.listFiles();
 
@@ -117,7 +118,7 @@ public class BranchController {
 		model.addAttribute("fileList", list);
 		
 		// 해당 지점의 room 디렉토리에 있는 파일 객체
-		String pathRoom = "C:\\Users\\min\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber+"room";
+		String pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
 		File fRoom = new File( pathRoom );
 		File[] filesRoom = fRoom.listFiles();
 		
@@ -231,6 +232,23 @@ public class BranchController {
 		logger.info("POST/visitBooking");
 
 		branchService.visitBooking(visitDTO, email);
+	}
+	
+	// 관심 지점 등록
+	@RequestMapping(value="/likeBranch", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public void likeBranch(@RequestBody String branchNumber1, Authentication authentication) {
+		
+		System.out.println("관심 지점: "+branchNumber1);
+		
+		int branchNumber = Integer.parseInt(branchNumber1);
+		
+		// 현재 로그인 사용자 정보에 접근
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		
+		branchService.likeBranch(branchNumber, email);
 	}
 
 	/*
