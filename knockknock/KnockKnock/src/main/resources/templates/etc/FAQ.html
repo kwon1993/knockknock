@@ -101,7 +101,7 @@
 <body id='FAQBody'>
 	<div layout:fragment="content" class="container" id="accordian">
 	
-		<h1 id='title'>궁금한 점이 있으신가요?</h1>
+		<h1 id='title'>궁금한 점이 있으신가요 <span id='q1'>?</span><span id='q2'>?</span></h1>
 		<div id='kakao'>
 			<div id="plusfriend-addfriend-button"></div>
    		 	<a href="http://developers.kakao.com/logout"></a>
@@ -220,6 +220,19 @@
 		</div>
 
 		<script>
+		
+			//카테고리바 체크디자인용
+			window.onload = function(){
+				$('#toFAQNav').addClass('active').css('color','#2eca6a');
+			}
+			
+			setInterval(function() {
+				$("#q1").css('color','#2eca6a');
+				$("#q2").css('color','pink');
+				$("#q1").fadeOut(400).fadeIn(400);
+				$("#q2").fadeIn(400).fadeOut(400);
+			}, 500); 
+			
 			//어코디언기능
 			var acc = document.getElementsByClassName("accordion");
 			var i;

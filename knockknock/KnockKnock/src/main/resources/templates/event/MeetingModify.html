@@ -13,72 +13,267 @@ body{
 #jumbotronId{
     background-color: white;
 }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
 </style>
 </head>
 <body>
-
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 개설하기</h3>
-
-			<p>대표이미지</p>
-			<input type="file" value="선택">
-				<form action="/meetingModify">
-<!-- 					<input type="hidden" name="memberNumber"> -->
-					<table class="table">
-						<tr>
-							<td>작성자</td>
-							<td><input type="hidden" name="writingNumber" th:value="${meetingModifyForm.writingNumber}"></td>
-							<td><input type="hidden" name="memberNumber" th:value="${meetingModifyForm.memberNumber}"></td>
-						</tr>
-						<tr>
-							<td>모임명</td>
-							<td><input type="text" name="title" th:value="${meetingModifyForm.title}"></td>
-						</tr>
-						<tr>
-							<td>모임기간</td>
-							<td><input type="date" name="meetingStartTime" th:value="${meetingModifyForm.meetingStartTime}">부터
-							<input type="date" name="meetingEndTime" th:value="${meetingModifyForm.meetingEndTime}">까지</td>
-						</tr>
-						<tr>
-							<td>접수기간</td>
-							<td><input type="date" name="acceptStartTime" th:value="${meetingModifyForm.acceptStartTime}">부터
-							<input type="date" name="acceptEndTime" th:value="${meetingModifyForm.acceptEndTime}">까지</td>
-						</tr>
-						<tr>
-							<td>모임장소</td>
-							<td><input type="text" name="place" th:value="${meetingModifyForm.place}">
-							<input th:type="text" name="placeDetail" th:value="${meetingModifyForm.placeDetail}"></td>
-						</tr>
-						<tr>
-							<td>모집인원</td>
-							<td><input type="number" name="recruitNumber" th:value="${meetingModifyForm.recruitNumber}">명</td>
-						</tr>
-						<tr>
-							<td>성별</td>
-							<td>
-								<select name="gender">
-									<option value="무관">무관</option>
-									<option value="남자만">남자만</option>
-									<option value="여자만">여자만</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>간단 모임소개</td>
-							<td><textarea name="simpleIntroduce" th:value="${meetingModifyForm.simpleIntroduce}"></textarea></td>
-						</tr>
-						<tr>
-							<td>상세 모임소개</td>
-							<td><textarea name="detailIntroduce" th:value="${meetingModifyForm.detailIntroduce}"></textarea></td>
-						</tr>
-						<tr>
-							<td><input class="btn btn-default" type="submit" name="meetingModify" value="개설완료"></td>
-							<td><input class="btn btn-default" type="submit" name="meetingModify" value="취소"></td>
-						</tr>
-					</table>
-				</form>
+			<form action="/meetingModify" role="form" id="editorForm" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-2">
+						<span>대표이미지</span>
+						<img class="d-block" width="150" height="150" id="foo" th:src="@{meetingModifyForm.image}" onerror="this.src='/images/meeting/default.png';"/>
+						<input class="form-control-file" type='file' name="image" id="imgInp"/>
+						<small>* 이미지 등록에 대한 안내는 FAQ를 확인해주세요</small>
+					</div>
+					<div class="col">
+						<table class="table">
+							<tr>
+								<td>작성자</td>
+								<td><input type="hidden" name="writingNumber" th:value="${meetingModifyForm.writingNumber}"></td>
+								<td><input type="hidden" name="memberNumber" th:value="${meetingModifyForm.memberNumber}"></td>
+							</tr>
+							<tr>
+								<td>모임명<small class="text-danger">(필수)</small></td>
+								<td><input type="text" name="title" th:value="${meetingModifyForm.title}" maxlength="30" required></td>
+							</tr>
+							<tr>
+								<td>모임테마</td>
+								<td>
+									<select name=favorite th:value="${meetingModifyForm.favorite}">
+										<option value="없음">없음</option>
+										<option value="IT">IT</option>
+										<option value="컴퓨터">컴퓨터</option>
+										<option value="음악">음악</option>
+										<option value="요리">요리</option>
+										<option value="제과/제빵">제과/제빵</option>
+										<option value="공연">공연</option>
+										<option value="커피">커피</option>
+										<option value="전시">전시</option>
+										<option value="드로잉">드로잉</option>
+										<option value="영화">영화</option>
+										<option value="어학">어학</option>
+										<option value="패션">패션</option>
+										<option value="운동">운동</option>
+										<option value="게임">게임</option>
+										<option value="사진">사진</option>
+										<option value="댄스">댄스</option>
+										<option value="자동차">자동차</option>
+										<option value="독서">독서</option>
+										<option value="여행">여행</option>
+										<option value="와인">와인</option>
+										<option value="낚시">낚시</option>
+										<option value="인문학">인문학</option>
+										<option value="천문학">천문학</option>
+										<option value="꽃꽃이">꽃꽂이</option>
+										<option value="가드닝">가드닝</option>
+										<option value="캘리그라피">캘리그라피</option>
+										<option value="스터디">스터디</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>모임기간<small class="text-danger">(필수)</small></td>
+								<td><input type="date" name="meetingStartTime" th:value="${meetingModifyForm.meetingStartTime}"/> 부터
+								<input type="date" name="meetingEndTime" th:value="${meetingModifyForm.meetingEndTime}"/>까지</td>
+							</tr>
+							<tr>
+								<td>접수기간<small class="text-danger">(필수)</small></td>
+								<td><input type="date" name="acceptStartTime" th:value="${meetingModifyForm.acceptStartTime}" required>부터
+								<input type="date" name="acceptEndTime" th:value="${meetingModifyForm.acceptEndTime}" required>까지</td>
+							</tr>
+							<tr>	
+                              	<td>모임장소<small class="text-danger">(필수)</small></td>
+                                <td>
+	                                <span class="input-group-addon"><i class="fa fa-address fa" aria-hidden="true"></i></span>
+									<input class='address1' type="text" id="sample4_postcode" placeholder="우편번호"><br/>
+									<input class='address1' type="text" id="sample4_roadAddress" name="place" placeholder="도로명주소" th:value="${meetingModifyForm.place}"><br/>
+									<input class='address1' type="text" id="sample4_detailAddress" name="placeDetail" placeholder="상세주소" th:value="${meetingModifyForm.placeDetail}"><br/>
+									<input class='address1' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
+									<span id="guide" style="color:#999;display:none"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>모집인원<small class="text-danger">(필수)</small></td>
+								<td><input type="number" name="recruitMaxNumber" th:value="${meetingModifyForm.recruitMaxNumber}" required>명</td>
+							</tr>
+							<tr>
+								<td>성별</td>
+								<td>
+									<select name="gender" th:value="${meetingModifyForm.gender}">
+										<option value="무관">무관</option>
+										<option value="남자만">남자만</option>
+										<option value="여자만">여자만</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>모임소개<small class="text-danger">(필수)</small></td>
+								<td><textarea name="detailIntroduce" th:value="${meetingModifyForm.detailIntroduce}" id="ckeditor" maxlength="3000" required></textarea></td>
+							</tr>
+						</table>
+						<input class="pull-right" type="submit" value="수정완료">
+					</div>
+				</div>
+			</form>
 		</div>
+<!-- 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<script type="text/javascript">
+		
+		//사진 미리보기-----------------
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                $('#foo').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+          $("#imgInp").change(function() {
+            readURL(this);
+          });
+		//사진 미리보기
+// 		function readURL(input){
+// 			if(input.files && input.files[0]){
+// 				var reader = new FileReader();
+			
+// 				reader.onload = function(e){
+// 					$("#img").attr('src',e.target.result);
+// 				}
+// 				reader.readAsDataURL(input.files[0]);
+// 			}
+// 		}
+// 		$("#uploadProfileShot").change(function(){
+// 			readURL(this);
+// 		})
+		
+		//사진 업데이트
+// 		function uploadProfileShot(){
+// 			var formData = new FormData();
+// 			var inputFile = $("input[name='uploadFileShot']");
+// 			var files = inputFile[0].files;
+			
+// 			for(var i=0; i<files.length; i++){
+// 				formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
+// 			}	
+		
+// 			$.ajax({
+// 				type:'post',
+// 				url:'/profileUpdate',
+// 				data:formData,
+// 				processData:false,
+// 				contentType:false,
+// 				dataType:'json',
+// 				success:function(result){
+// 					alert("업로드완료");
+// 				},
+// 				error:function(error){
+// 					location.reload();
+// 					alert("업로드실패");
+					
+// 				}
+// 			});
+// 		}
+
+			//Ajax Okay용 벨류
+			var regValue=0;
+			var pwdValue=0;
+		    var roadAddress = $("#sample4_roadAddress").val();
+		    var detailAddress = $("#sample4_detailAddress").val();
+			
+			function allCheck(){
+				if(regValue==1 && pwdValue==1){
+					return true;
+				}else{
+			
+					return false;
+				}
+			};
+			
+		    //주소API-------------------------------------------------------------
+		    function sample4_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var roadAddr = data.roadAddress; // 도로명 주소 변수
+		                var extraRoadAddr = ''; // 참고 항목 변수
+		
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraRoadAddr += data.bname;
+		                }
+		                // 건물명이 있고, 공동주택일 경우 추가한다.
+		                if(data.buildingName !== '' && data.apartment === 'Y'){
+		                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                }
+		                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		                if(extraRoadAddr !== ''){
+		                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+		                }
+		
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('sample4_postcode').value = data.zonecode;
+		                document.getElementById("sample4_roadAddress").value = roadAddr;
+		                
+		                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+		                if(roadAddr !== ''){
+		                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+		                } else {
+		                    document.getElementById("sample4_extraAddress").value = '';
+		                }
+		
+		                var guideTextBox = document.getElementById("guide");
+		                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+		                if(data.autoRoadAddress) {
+		                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+		                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+		                    guideTextBox.style.display = 'block';
+		
+		                } else {
+		                    guideTextBox.innerHTML = '';
+		                    guideTextBox.style.display = 'block';
+		                }
+		            }
+		        }).open();
+		    }
+		</script>
+		
+		
+		<!-- <script th:src="@{/ckeditor/ckeditor.js}"></script>
+		<script>
+		//ck editor-----------------
+		    $(function(){
+		        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+		            width:'100%',
+		            height:'400px',
+		            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+		        });
+	
+		        CKEDITOR.on('dialogDefinition', function( ev ){
+		            var dialogName = ev.data.name;
+		            var dialogDefinition = ev.data.definition;
+		          
+		            switch (dialogName) {
+		                case 'image': //Image Properties dialog
+		                    //dialogDefinition.removeContents('info');
+		                    dialogDefinition.removeContents('advanced');
+		                    dialogDefinition.removeContents('Link');
+		                    break;
+		            }
+		        });
+		    });
+		</script> -->
 	</div>
 </body>
 </html>

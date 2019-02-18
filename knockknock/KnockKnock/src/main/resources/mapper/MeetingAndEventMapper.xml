@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             MT.ACCEPT_START_TIME acceptStartTime, MT.ACCEPT_END_TIME acceptEndTime,
             MT.MEETING_START_TIME meetingStartTime, MT.MEETING_END_TIME meetingEndTime,
             MT.RECRUIT_NUMBER recruitNumber, MT.RECRUIT_MAX_NUMBER recruitMaxNumber,
-            MT.DETAIL_INTRODUCE detailIntroduce, MT.FAVORITE, MB.NICKNAME
+            MT.DETAIL_INTRODUCE detailIntroduce, MT.FAVORITE, MT.GENDER, MB.NICKNAME
         FROM MEETING MT, MEMBER MB
         WHERE MT.MEMBER_NUMBER=MB.MEMBER_NUMBER AND WRITING_NUMBER = #{writingNumber}
     </select>
@@ -91,10 +91,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET HIT = HIT + 1
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</update>
-	<select id="meetingModifyForm" resultType="MeetingDTO">
+	<select id="meetingModifyForm" resultType="MeetingVDTO">
 		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
 		MEETING_END_TIME meetingEndTime, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
-		PLACE, PLACE_DETAIL placeDetail, RECRUIT_NUMBER recruitNumber, DETAIL_INTRODUCE detailIntroduce, FAVORITE
+		PLACE, PLACE_DETAIL placeDetail, RECRUIT_MAX_NUMBER recruitMaxNumber, DETAIL_INTRODUCE detailIntroduce, FAVORITE
 		FROM MEETING
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</select>
@@ -103,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SET
     		TITLE = #{title}, MEETING_START_TIME = #{meetingStartTime}, MEETING_END_TIME = #{meetingEndTime},
     		ACCEPT_START_TIME = #{acceptStartTime}, ACCEPT_END_TIME = #{acceptEndTime},
-    		PLACE = #{place}, PLACE_DETAIL = #{placeDetail}, RECRUIT_NUMBER = #{recruitNumber},
+    		PLACE = #{place}, PLACE_DETAIL = #{placeDetail}, RECRUIT_MAX_NUMBER = #{recruitMaxNumber},
 	    	DETAIL_INTRODUCE = #{detailIntroduce}, FAVORITE = #{favorite}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>

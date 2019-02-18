@@ -7,9 +7,51 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
-body{
-font-family: 'Jua', sans-serif;
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Jua', sans-serif;
 }
+
+body{
+	font-family: 'Jua', sans-serif;
+	margin-top:80px;
+}
+
+.sidenav {
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 130px;
+	left: 60px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
+	margin-right: 40px;
+}
+
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+.sidenav a {
+	padding: 10px 10px 10px 16px;
+	text-decoration: none;
+	font-size: 30px;
+	color: #2eca6a;
+	display: block;
+}
+
+.sidenav a:hover {
+	color: #064579;
+}
+
+
+
+
 </style>
 
 </head>
@@ -21,7 +63,7 @@ font-family: 'Jua', sans-serif;
 		<div class="row">
 			<div class="col-md-2">
 				<h3>관리 메뉴</h3>
-				<div class="sidenav">
+				<div class="sidenav" id='sidenav'>
 					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
 						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
 						th:href="@{adminVisitList}">방문문의관리</a><br> <a
