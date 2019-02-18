@@ -94,6 +94,8 @@ public class BranchController {
 		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
 		
 		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 객체
+//		String path = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
+		//테스트(from 성현 : 되면 위의 주석처리 삭제)
 		String path = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber;
 		File f = new File( path );
 		File[] files = f.listFiles();
@@ -117,6 +119,8 @@ public class BranchController {
 		model.addAttribute("fileList", list);
 		
 		// 해당 지점의 room 디렉토리에 있는 파일 객체
+//		String pathRoom = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber+"room";
+		//테스트(from 성현 : 되면 위의 주석처리 삭제)
 		String pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
 		File fRoom = new File( pathRoom );
 		File[] filesRoom = fRoom.listFiles();

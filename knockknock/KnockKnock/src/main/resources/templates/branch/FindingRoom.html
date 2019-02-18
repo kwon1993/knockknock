@@ -61,7 +61,8 @@ body{
 #map_wrap{
 	display:inline;
 	float:right;
-	border-bottom:3px solid #2eca6a;
+	border-bottom:2px solid #2eca6a;
+	margin-bottom:10px;
 	height:450px;
 	font-family: 'Jua', sans-serif;
 }
@@ -103,58 +104,14 @@ border-top:10px;
 font-weight: bolder;
 }
 
-/* .checkbox input[type=checkbox] {  
-    display: none;  
-}
-
-input[type=checkbox] + label{
-    display: inline-block;  
-    cursor: pointer;  
-    position: relative;  
-    padding-left: 25px;  
-    margin-right: 15px;  
-    font-size: 13px;
-}
-
-input[type=checkbox]+ label:before {     
-
-    content: "";  
-    display: inline-block;  
-  
-    width: 20px;  
-    height: 20px;  
-  
-    margin-right: 10px;  
-    position: absolute;  
-    left: 0;  
-    bottom: 1px;  
-    background-color: #ccc;  
-    border-radius: 2px; 
-    box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
-}
-input[type=checkbox]:checked + label:before { 
-
-    content: "\2713";
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);  
-    font-size: 18px; 
-    font-weight:800; 
-    color: #fff;  
-    background:#2eca6a;
-    text-align: center;  
-    line-height: 18px;  
-
-} 
- */
-
 #img{
-border: 1px solid #2eca6a;
+background-color:#2eca6a;
 width:350px;
 height:250px;
 }
 
 #addressList{
 	font-family: 'Jua', sans-serif;
-
 }
 
 #searchAddress{
@@ -214,10 +171,8 @@ height:250px;
 <body>
 <!-- container -->
 <div layout:fragment="content" class="container">
-
 	<!-- 옵션박스 -->
     <div class="jumbotron" id='jumbotronId' style="margin-top:40px;">
-    	
     	<!-- 맵 -->
 		<div class="map_wrap" id="map_wrap">
 			<div id="map" style="width:70%;height:83%;position:relative;overflow:hidden;margin-left:20px"></div><br>
@@ -255,15 +210,11 @@ height:250px;
 	        </div>
         </div>
     </div>
-    
     <br>
-
 	<!-- gallery Page Content -->
 	<!-- src="http://placehold.it/400x300"  -->
     <div class="container" id="container"> <!-- 더페 ID=js-load/CLASS=main -->
-    
       <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
-	      
 	      <div class='row text-center text-lg-left' id='allGallery'><!-- 더페UI / class=lists-->
 	      	<!-- thymeleaf gallery-->
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'><!-- 더페LI / class=lists__item js-load -->
@@ -278,7 +229,7 @@ height:250px;
 	      </div>
 	      <!-- 더보기 페이징 -->
 	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">More</a></div>
-  </div>
+  	</div>
 <!-- /.container -->
 <script>
 
@@ -310,6 +261,7 @@ var i=0;
 //갤러리,주소를 지도 위에 띄우기
 window.onload = function(){
 	searchMap();
+	$('#findingRoomNav').addClass('active').css('color','#2eca6a');
 }
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
@@ -457,7 +409,9 @@ function load(id, cnt, btn) {
     }
     $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
-	
+
+
+
 </script>
 </div>
 </body>

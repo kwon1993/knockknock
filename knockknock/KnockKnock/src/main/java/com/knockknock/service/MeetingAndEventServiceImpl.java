@@ -52,17 +52,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 	
 	@Override
-	public MeetingDTO meetingModifyFormService(int writingNumber) {
+	public MeetingVDTO meetingModifyFormService(int writingNumber) {
 		return meMapper.meetingModifyForm(writingNumber);
 	}
 	
 	@Override
-	public void meetingModifyService(int writingNumber, int memberNumber, String title, Date meetingStartTime,
-			Date meetingEndTime, Date acceptStartTime, Date acceptEndTime, String detailIntroduce,
-			String place, String placeDetail, int recruitMaxNumber, String favorite) throws Exception{ //미팅 수정
-		meMapper.meetingModify(writingNumber, memberNumber,  title,  meetingStartTime,  meetingEndTime,
-				 acceptStartTime,  acceptEndTime,  detailIntroduce, place,  placeDetail, 
-				 recruitMaxNumber, favorite);
+	public void meetingModifyService(MeetingVDTO meeting) throws Exception{ //미팅 수정
+		meMapper.meetingModify(meeting);
 	}
 	
 	@Override
@@ -112,13 +108,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public void mparticipateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.mparticipate(writingNumber, memberNumber);
+	public void mparticipateService(int writingNumber, int memberNumber, String email) throws Exception {
+		meMapper.mparticipate(writingNumber, memberNumber, email);
 	}
 	
 	@Override
-	public void eparticipateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.eparticipate(writingNumber, memberNumber);
+	public void eparticipateService(int writingNumber, int memberNumber, String email) throws Exception {
+		meMapper.eparticipate(writingNumber, memberNumber, email);
 	}
 
 	@Override
