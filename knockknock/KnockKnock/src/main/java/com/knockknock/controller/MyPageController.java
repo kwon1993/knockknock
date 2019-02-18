@@ -80,11 +80,13 @@ public class MyPageController {
 		String username = user.getUsername();
 		
 		//업로드할 절대경로1
-		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
+//		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
+		//테스트경로
+		String uploadFolder = System.getProperty("user.dir")+"/src/main/resources/static/images";
 		//업로드할 절대경로2
-		String uploadFolderPath = "\\profile";
+		String uploadFolderPath = "/profile";
 		//DB에 저장할 상대경로
-		String uploadRelativeDirectory = "\\images\\profile\\";
+		String uploadRelativeDirectory = "/images/profile/";
 		
 		//절대경로1,2를 합쳐서 실제 업로드 경로를 만든다.(2를 1에 함께 써도 무관)
 		File uploadPath = new File(uploadFolder,uploadFolderPath);
