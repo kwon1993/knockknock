@@ -7,10 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.event.Criteria;
@@ -62,7 +65,7 @@ public class MeetingAndEventController {
 			@RequestParam("title") String title, @RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce, @RequestParam("gender") String gender
 			)throws Exception{/*@RequestPart MultipartFile image*/
 		
 		MeetingVDTO meeting = new MeetingVDTO();
@@ -77,6 +80,7 @@ public class MeetingAndEventController {
 		meeting.setFavorite(favorite);
 		meeting.setRecruitMaxNumber(recruitMaxNumber);
 		meeting.setDetailIntroduce(detailIntroduce);
+		meeting.setGender(gender);
 		
 //		if(image.isEmpty()){ //이미지 업로드가 없을때
 			meServiceImpl.meetingInsertService(meeting);
@@ -107,14 +111,26 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/meetingModify")
-	private String meetingModify(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
-			@RequestParam("title") String title,
-			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
+	private String meetingModify(@RequestParam("memberNumber") int memberNumber,
+			@RequestParam("title") String title, @RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
-		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
-				acceptStartTime, acceptEndTime, detailIntroduce, place, placeDetail, recruitMaxNumber, favorite);
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce, @RequestParam("gender") String gender
+			)throws Exception{
+		
+		MeetingVDTO meeting = new MeetingVDTO();
+		meeting.setTitle(title);
+		meeting.setMeetingStartTime(meetingStartTime);
+		meeting.setMeetingEndTime(meetingEndTime);
+		meeting.setAcceptStartTime(acceptStartTime);
+		meeting.setAcceptEndTime(acceptEndTime);
+		meeting.setPlace(place);
+		meeting.setPlaceDetail(placeDetail);
+		meeting.setFavorite(favorite);
+		meeting.setFavorite(gender);
+		meeting.setRecruitMaxNumber(recruitMaxNumber);
+		meeting.setDetailIntroduce(detailIntroduce);
+		meServiceImpl.meetingModifyService(meeting);
 		return "redirect:/meetingList";
 	}
 	
@@ -142,21 +158,19 @@ public class MeetingAndEventController {
 		return "event/EventView";
 	}
 	
-	@RequestMapping("/mparticipate") //참가하기
-	private String mparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
-		meServiceImpl.mparticipateService(writingNumber, memberNumber);
-		return "redirect:/meetingList";
+	@RequestMapping(value="/mparticipate", method= RequestMethod.POST) //참가하기
+	private void mparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber, Authentication authentication) throws Exception{
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		meServiceImpl.mparticipateService(writingNumber, memberNumber, email);		
 	}
 	
-	@RequestMapping("/eparticipate") //참가하기
-	private String eparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber) throws Exception{
-		meServiceImpl.eparticipateService(writingNumber, memberNumber);
-		return "redirect:/eventList";
+	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기
+	private void eparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber, Authentication authentication) throws Exception{
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		meServiceImpl.eparticipateService(writingNumber, memberNumber, email);
 	}
-	
-	@RequestMapping("/cal") //미팅 글 쓰기
-	private String cal() throws Exception{
-		return "/fullcalendar/demos/agenda-views";
-	}
-	
 }

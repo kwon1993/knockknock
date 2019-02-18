@@ -80,18 +80,21 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
 
-		// 업로드할 절대경로1
-		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
-		// 업로드할 절대경로2
-		String uploadFolderPath = "\\profile";
-		// DB에 저장할 상대경로
-		String uploadRelativeDirectory = "\\images\\profile\\";
-
-		// 절대경로1,2를 합쳐서 실제 업로드 경로를 만든다.(2를 1에 함께 써도 무관)
-		File uploadPath = new File(uploadFolder, uploadFolderPath);
-
-		// 업로드 경로가 존재하지않으면 폴더를 만든다.
-		if (uploadPath.exists() == false) {
+		
+		//업로드할 절대경로1
+//		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
+		//테스트경로
+		String uploadFolder = System.getProperty("user.dir")+"/src/main/resources/static/images";
+		//업로드할 절대경로2
+		String uploadFolderPath = "/profile";
+		//DB에 저장할 상대경로
+		String uploadRelativeDirectory = "/images/profile/";
+		
+		//절대경로1,2를 합쳐서 실제 업로드 경로를 만든다.(2를 1에 함께 써도 무관)
+		File uploadPath = new File(uploadFolder,uploadFolderPath);
+		
+		//업로드 경로가 존재하지않으면 폴더를 만든다.
+		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
 

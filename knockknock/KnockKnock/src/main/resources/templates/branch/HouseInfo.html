@@ -32,7 +32,8 @@ body {
 #navbar1 {
 	overflow: hidden;
 	background-color: #2eca6a;
-	width: 225px;
+	width: 150px;
+	padding:5px;
 }
 
 #navbar a {
@@ -46,8 +47,8 @@ body {
 }
 
 #navbar a:hover {
-	background-color: #ddd;
-	color: black;
+	background-color: white;
+	color: #2eca6a;
 }
 
 #navbar a.active {
@@ -214,12 +215,17 @@ img {
 	opacity: 1;
 }
 
-#myBtn {
+#myBtn,#myBtn1 {
 	padding: 2px;
+	color:white;
+	background:#2eca6a;
 }
 
-#myBtn1 {
+#myBtn:hover,#myBtn1:hover {
 	padding: 2px;
+	color:#2eca6a;
+	background:white;
+	border:1px solid #2eca6a;
 }
 
 .uploadResult ul li{
@@ -238,6 +244,29 @@ width: 850px;
 h2[name="mouseEvent"]:hover {
 	color: #2eca6a;
 }
+
+button[name='aboutReview']{
+	background-color: #2eca6a;
+	color:white;
+}
+
+button[name='reviewInsertBtn']{
+	background-color: #2eca6a;
+	color:white;
+}
+
+button[name='aboutReview']:hover{
+	color:#2eca6a;
+	background:white;
+	border:1px solid #2eca6a;
+}
+
+button[name='reviewInsertBtn']:hover{
+	color:#2eca6a;
+	background:white;
+	border:1px solid #2eca6a;
+}
+
 .card {
 	float: left;
 	width:33%;
@@ -247,6 +276,18 @@ h2[name="mouseEvent"]:hover {
 .clear {
 	clear:both;
 }
+
+#navbar1{
+background:white;
+border: 3px solid #2eca6a;
+border-radius:1rem;
+color:black;
+}
+
+#branchNumberText{
+	text-align:center;
+} 
+
 
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -591,10 +632,11 @@ h2[name="mouseEvent"]:hover {
 					</div>
 				</div>
 			</div>
-				<div class="col-md-1">
+			<!-- 우측 방문신청 박스 -->
+			<div class="col-md-1">
 				<div id="navbar1" class="w3-round-large">
 					<br />
-					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color: #f2f2f2"></h2>
+					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color:#2eca6a" id='branchNumberText'></h2>
 					<br />
 					<button id="myBtn1" class='btn btn-default'
 						onclick="location.href='/toSharingGuide'">입주 안내</button>
@@ -641,6 +683,11 @@ h2[name="mouseEvent"]:hover {
 
 		<!-- 리뷰 Ajax -->
 		<script>
+		
+		//카테고리바 체크디자인용
+		window.onload = function(){
+			$('#categoryFindingRoomNav').addClass('active').css('color','#2eca6a');;
+		}
 		
 		<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
 		var token = $("meta[name='_csrf']").attr("content");
@@ -781,7 +828,7 @@ h2[name="mouseEvent"]:hover {
 
 			a += '<div class="input-group">';
 			a += '<input type="text" class="form-control" name="content_'+writingNumber+'" value="'+content+'"/>';
-			a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reviewUpdateProc('
+			a += '<span class="input-group-btn"><button class="btn btn-default" name="aboutReview" type="button" onclick="reviewUpdateProc('
 					+ writingNumber + ');">수정 완료</button> </span>';
 			a += '</div>';
 
@@ -1305,7 +1352,7 @@ h2[name="mouseEvent"]:hover {
 		</script> -->
 		
 		<!-- 최근 본 지점 -->
-		<script>
+		<!-- <script>
 		// 쿠키 생성
 		function setCookie(cookie_name, value, days) {
 			  var exdate = new Date();
@@ -1338,7 +1385,7 @@ h2[name="mouseEvent"]:hover {
 		// 쿠키 추가
 		
 		
-		</script>
+		</script> -->
 </div>
 </body>
 </html>

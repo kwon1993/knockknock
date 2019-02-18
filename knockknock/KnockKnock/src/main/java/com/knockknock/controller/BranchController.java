@@ -116,8 +116,7 @@ public class BranchController {
 		count= count-1; // main.jpg 제외
 		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
-		
-		// 해당 지점의 room 디렉토리에 있는 파일 객체
+
 		String pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
 		File fRoom = new File( pathRoom );
 		File[] filesRoom = fRoom.listFiles();

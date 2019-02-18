@@ -12,7 +12,9 @@
 }
 
 body {
-	font-family: "Lato", sans-serif;
+	font-family: 'Jua', sans-serif;
+	margin-top:100px;
+	
 }
 
 .sidenav {
@@ -64,11 +66,6 @@ body {
 </style>
 <body>
 	<div layout:fragment="content" class="container" id='suvContainer'>
-		<div class="jumbotron">
-			<h1>이벤트 등록 페이지</h1>
-			<a th:href="@{/registTest}">테스트</a><br>
-		</div>
-		<br />
 		<form action="adminBranchRegist" method="post"
 			enctype="multipart/form-data" id='form'>
 			<div class="row">
