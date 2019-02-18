@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
@@ -143,11 +144,23 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.deleteJE(writingNumber, email);
 		return 1;
 	}
+	
+	@Override
+	public int checkedDeleteJE(int writingNumber, String email) {
+		memberMapper.checkedDeleteJE(writingNumber, email);
+		return 1;
+	}
+
 
 	@Override
 	public int deleteV(int writingNumber, String email) {
 		memberMapper.deleteV(writingNumber, email);
 		return 1;
+	}
+
+	@Override
+	public void cancelMM(MeetingDTO meetingDTO, String email) {
+		memberMapper.cancelMM(meetingDTO, email);
 	}
 
 

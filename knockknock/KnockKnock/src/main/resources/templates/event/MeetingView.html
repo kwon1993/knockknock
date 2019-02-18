@@ -99,9 +99,19 @@ body{
 				      
 				    </div>
 				  </div>
-			<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
+			
+			<!-- from 성현 -->
+			<!-- 세션으로 가져온 닉네임과 글쓴 사람이 맞으면 수정,삭제 활성화 -->
+			<span th:if="${session.nickname}==${MeetingView.nickname}">
+				<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
+				<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a>
+			</span>
 			<a class="btn" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
-			<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a>
+			
+			
+			<!-- <a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
+			<a class="btn" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
+			<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a> -->
 		</div>
 <script>
 //모달 생성

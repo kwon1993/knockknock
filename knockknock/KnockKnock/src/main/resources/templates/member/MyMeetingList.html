@@ -1,4 +1,4 @@
-"src/main/resources/templates/member/MyMeetingList.html"<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml"
 	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <style>
 body {
 	font-family: 'Jua', sans-serif;
 } 
 
 .sidenav {
-	width: 300px;
+	width: 200px;
 	position: fixed;
 	z-index: 1;
 	top: 130px;
@@ -37,6 +37,7 @@ body {
 }
 
 .main {
+	position:relative;
 	margin-left: 90px; /* Same width as the sidebar + left position in px */
 	padding: 0px 10px;
 }
@@ -176,7 +177,7 @@ cursor: pointer;
 					<a th:href="@{/profileMain}">내 프로필</a><br>
 					<a th:href="@{/MyMeetingList}">내 모임</a><br>
 					<a th:href="@{/MyEventList}">내 이벤트</a><br>
-					<a th:href="@{/MyVisitList}">내 방문신청</a><br>
+					<a th:href="@{/MyVisitList}">내 방문 신청</a><br>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -201,19 +202,19 @@ cursor: pointer;
 				<!-- <h3 class="font-weight-bold">신청한 모임</h3> -->
 				<br />
 				<div class="w3-container">
-					<table class="w3-table-all">
+					<table class="table table-striped">
 						<tr>
-							<th><input type='checkbox' name='selectAll' /></th>
+							<th><input type='checkbox' id='checkAll' /></th>
 							<th>모임 주최자</th>
 							<th>제목</th>
 							<th>신청 마감일</th>
 							<th>모임 시작일</th>
 							<th>모임 종료일</th>
-							<th>승인 여부</th>
+							<th>상태</th>
 							<th></th>
 						</tr>
 						<tr th:each="MMLJ:${MMLJ}">
-							<td><input type='checkbox' name='MMLJ' /></td>
+							<td><input type='checkbox' name='checkRow' th:value="${MMLJ.writingNumber}"/></td>
 							<td th:text="${MMLJ.nickname}"></td>
 							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLJ.writingNumber}}" th:text="${MMLJ.title}"></a></td>
 							<td th:text="${MMLJ.acceptEndTime}"></td>
@@ -221,19 +222,73 @@ cursor: pointer;
 							<td th:text="${MMLJ.meetingEndTime}"></td>
 							<td th:text="${MMLJ.meetingStatus}"></td>
 							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
-							<td><a data-toggle="modal" data-target="#myModalJM" id="myBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td>
+							<td><a id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
+						<h4>선택된 모임&nbsp;<button id="checkedDelete" class="btn btn-default">신청 취소</button></h4>
 				</div>
 				<br />
 			</div>
+			
+			<script>
+			$(document).ready(function(){
+				
+				$("#checkAll").click(function(){
+					if($("#checkAll").prop("checked")){
+				        $("input[name=checkRow]").prop("checked", true);
+					} else {
+				        $("input[name=checkRow]").prop("checked", false);
+
+					}
+				})
+
+				$('#checkedDelete').click(function(){
+		        if(confirm("선택된 모임 신청을 취소하시겠습니까?")){
+		            
+		        	var checkBoxArr=[];
+		        	
+		            $("input[name=checkRow]:checked").each(function(i){
+						checkBoxArr.push($(this).val());
+		            })
+		            
+		            $.ajax({
+							type:'post',  
+							url:'/checkedDeleteJM',
+			 				data: JSON.stringify(checkBoxArr), // key, value로 이뤄지지 않은 단순 배열은 JSON.stringify로 보내야 함
+			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+							contentType: "application/json",
+							// async:false, async는 deprecated 되었음
+							 success:function(response){
+					            alert("선택한 모임 신청이 취소되었습니다.");
+					            
+					            // 미팅 리스트 갱신 필요
+					            $(location).attr('href', '/MyMeetingList');
+
+							 },
+							 error:function(response){
+								 alert("에러 발생");
+							 }
+						})
+		            
+		            
+		        }else{
+		            return false;
+		        }
+		    
+			}) // checkedDelete
+			
+			})	// ready
+			     
+	
+			</script>
+			
 
 			<div id="Make" class="tabcontent">
 				<!-- <h3 class="font-weight-bold">개설한 모임</h3> -->
 				<br /> 
 				<div class="w3-container">
-					<table class="w3-table-all">
+					<table class="table table-striped">
 						<tr>
 							<th>제목</th>
 							<th>모집 마감일</th>
@@ -242,12 +297,14 @@ cursor: pointer;
 							<th></th>
 						</tr>
 						<tr th:each="MMLM:${MMLM}">
-						<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
+							<input type="hidden" th:value="${MMLM.writingNumber}" id="wantToCancle"/>
+							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
 							<td th:text="${MMLM.acceptEndTime}"></td>
 							<td th:text="${MMLM.meetingStartTime}"></td>
 							<td th:text="${MMLM.meetingEndTime}"></td>
-							<td><a role="button" id="myBtn" class="btn btn-default" th:href="@{'/deleteMM/?writingNumber='+${MMLM.writingNumber}}">개설 취소</a></td>
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+							<td><button id="myBtn" name="cancelBtns" class="btn btn-default">개설 취소</button></td>
+							<!-- <td><a role="button" id="myBtn" class="btn btn-default" th:href="@{'/deleteMM/?writingNumber='+${MMLM.writingNumber}}">개설 취소</a></td> -->
+							<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> -->
 						</tr>
 					</table>
 				</div>
@@ -255,64 +312,101 @@ cursor: pointer;
 				<br />
 			</div>
 			
-			<!-- 모임 신청 취소 완료 모달 -->
-			<div id="myModalJM" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<h3>모임 신청이 취소되었습니다</h3>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
+			<!-- 개설한 모임 취소 시 취소 사유 작성 모달 -->
+			<div id="myModal" class="modal">
+					<div class="modal-content">
+						<form action="cancelMM" method="post" id="cancleMMForm">
+							<span class="close">&times;</span>
+							<h3 style="float: left">개설 모임 취소</h3><br /><br />
+							<input type="text"
+								class="form-control" name="memo" placeholder="모임 개설 취소 사유를 작성해주세요" /> 
+								<br /> <br />
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default" id="closeModal">취소</button>
+								</div>
+								<div class="col-md-6">
+									<button type="button" class="btn btn-default" id="cancelMM"
+										data-dismiss="modal">완료</button>
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
 			
-			<!-- 모임 개설 취소 완료 모달 -->
-			<div id="myModalMM" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<h3>모임 개설이 취소되었습니다</h3>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
-				</div>
-			</div>
-			
-			<!-- 모달 -->
-			<!-- <script>
-				$(document).ready(function(){
-					$(#myModalJM).modal("show");
-				})
-			</script> -->
-			
-			
- 		
-<!-- 	<script>
-			var modalJM = document.getElementById('myModalJM');
-			var modalMM = document.getElementById('myModalMM');
-			var btns = document.getElementsByName('myBtn');
+			<script>
+			// Get the modal
+			var modal = document.getElementById('myModal');
 
-			btns[0].onclick=function(){
-				modalJM.style.display = "block";
-			}
-			btns[1].onclick=function(){
-				modalMM.style.display = "block";
-			}
-
-			//Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];                                          
-
-			//When the user clicks on <span> (x), close the modal
+			// Get the button that opens the modal
+			var btn = document.getElementsByName("cancelBtns");
+			
+		    // When the user clicks the button, open the modal 
+			btn[0].onclick = function() {
+				modal.style.display = "block";
+		    }
+		    
+			btn[1].onclick = function() {
+				modal.style.display = "block";
+		    }
+		    
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			
+			var closeModal = document.getElementById("closeModal");
+			var visitBooking = document.getElementById("visitBooking");
+			
+			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
-				modalJM.style.display = "none";
-				modalMM.style.display = "none";
+				modal.style.display = "none";
 			}
 
-			//When the user clicks anywhere outside of the modal, close it
+			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-			    if (event.target == modalJM || event.target == modalMM) {
-			    	modalJM.style.display = "none";
-			    	modalMM.style.display = "none";
-			    }
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
 			}
-			</script> -->
+		
+			closeModal.onclick = function(){
+				modal.style.display = "none";
+			}
+			
+			cancelMM.onclick = function(){
+	 			
+				writingNumber= $("#wantToCancle").val();
+				memo = $("input[name='memo']").val();
+				
+				 inner ="";
+				
+				$.ajax({
+					method:'post',
+					url: '/cancelMM',
+					data:
+						JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
+						"writingNumber":writingNumber,
+						"cancelReason":memo 
+					}),
+					dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
+					contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
+					success:function(data){
+						inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>개설 모임 취소가 완료되었습니다</h3><br /></div>"
+						$("#myModal").html(inner);
+						
+					},
+					error:function(data){  
+						inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
+						$("#myModal").html(inner);
+					}
+				});
+			};
+			
+			// 동적으로 생성된 태그에 이벤트 걸기
+			$(document).on("click", "#modalx", function(){
+				modal.style.display = "none";
+			});
+		</script>
  
 			<!-- 탭 -->
 			<script>
@@ -339,5 +433,3 @@ cursor: pointer;
 	</div>
 </body>
 </html>
-
-

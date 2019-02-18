@@ -54,9 +54,7 @@ body{
 	padding:45px 14px;
 	border:1px solid  #2eca6a;
 	border-radius: 1rem;
-	/*font-family: 'Do Hyeon', sans-serif;*/
-	/*font-family: 'Black Han Sans', sans-serif;*/
-	/*font-family: 'Cute Font', cursive;*/
+	height: 370px;
 	font-family: 'Jua', sans-serif;
 	 
 }
@@ -64,6 +62,7 @@ body{
 	display:inline;
 	float:right;
 	border-bottom:3px solid #2eca6a;
+	height:450px;
 	font-family: 'Jua', sans-serif;
 }
 #map{
@@ -163,6 +162,52 @@ height:250px;
 	border:1px solid  #2eca6a;
 }
 
+/*더보기*/
+.col-xs-6 {
+    display: none;
+}
+.col-xs-6.active {
+    display: block;
+}
+.is_comp.col-xs-6:after {
+    display: none;
+}
+.btn-wrap, .lists, .main {
+    display: block;
+}
+.main {
+    max-width: 640px;
+    margin: 0 auto;
+}
+.text-lg-left {
+    margin-bottom: 4rem;
+}
+.text-lg-left {
+    padding: 20px;
+}
+.text-lg-left:nth-child(2n) {
+    color: #fff;
+}
+.btn-wrap {
+    text-align: center;
+}
+
+#js-btn-wrap,#hi{
+  color: #2eca6a;
+  border: 1px solid #2eca6a;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.030em;
+  background-color:white;
+  font-size:40px;
+  margin-bottom:20px;
+}
+
+.button{
+	width:100%;
+
+}
+
 </style>
     
 </head>
@@ -175,7 +220,7 @@ height:250px;
     	
     	<!-- 맵 -->
 		<div class="map_wrap" id="map_wrap">
-			<div id="map" style="width:70%;height:75%;position:relative;overflow:hidden;margin-left:20px"></div><br>
+			<div id="map" style="width:70%;height:83%;position:relative;overflow:hidden;margin-left:20px"></div><br>
 		</div>
     
     	<div class="option_wrap" id="option_wrap">
@@ -212,17 +257,16 @@ height:250px;
     </div>
     
     <br>
-    
 
 	<!-- gallery Page Content -->
 	<!-- src="http://placehold.it/400x300"  -->
-    <div class="container" id="container">
+    <div class="container" id="container"> <!-- 더페 ID=js-load/CLASS=main -->
     
       <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
-
-	      <div class='row text-center text-lg-left' id='allGallery'>
+	      
+	      <div class='row text-center text-lg-left' id='allGallery'><!-- 더페UI / class=lists-->
 	      	<!-- thymeleaf gallery-->
-	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>
+	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'><!-- 더페LI / class=lists__item js-load -->
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
@@ -232,9 +276,10 @@ height:250px;
 	        </div>
 	        <!-- /.thymeleaf gallery-->
 	      </div>
-    </div>
+	      <!-- 더보기 페이징 -->
+	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">More</a></div>
+  </div>
 <!-- /.container -->
-
 <script>
 
 //제이쿼리 충돌방지 문법 체인지
@@ -292,7 +337,6 @@ var callback = function(result, status){
         	i=0;
     		marker.setMap(null);
     		customOverlay.setMap(null);
-        	
        });
         
         jQuery(".checkbox").on('click',function(){
@@ -301,7 +345,10 @@ var callback = function(result, status){
     		customOverlay.setMap(null);
         });
         
-    	var customContent = '<div class ="label"><span class="left"></span><span class="center">'+branchNumber[i++].textContent+'</span><span class="right"></span></div>';
+    	//var customContent = "<div class ='label'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+    	var customContent = "<div class ='label'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+   
+    	
     	// 인포윈도우로 장소에 대한 설명을 표시
     	var customOverlay = new daum.maps.CustomOverlay({
     	  	position : coords,
@@ -313,7 +360,6 @@ var callback = function(result, status){
     }//if end
     	map.setCenter(coords);
 };
-
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -340,37 +386,78 @@ function multiSearch(){
 			contentType: 'application/json',
 			async : false,
 			success : function(data){
-				
 				jQuery("#allGallery").remove();
-				//받아오는 주소가 널이 아니라면(값이 있다면)
-				if(data[0].address!=null){
-								
+				if(data==""){
+					alert("검색결과가 존재하지 않습니다:(");
+					return false;
+				}
+				else{
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					for(i=0; i<data.length; i++){
 						content+=
 						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
 						+
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
-						+ "' class='d-block mb-4 h-100' id='gallery'><img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
-						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + 
-						"호점</span><span name='addressList' id='addressList'><br>" + data[i].address
-						+ "</span><span name='theme' id='theme'>"+data[i].theme+"</span></a></div>";
+						+ "' class='d-block mb-4 h-100' id='gallery'>"
+						
+						+"<img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
+						
+						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + "호점</span>"
+						
+						+"<span name='addressList' id='addressList'><br>" + data[i].address + "</span>"
+						
+						+"<span name='theme' id='theme'>"+data[i].theme+"</span>"
+							
+						+"</a></div>";
 					}
-					content += "</div>";
+					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>More</a></div>";
 					jQuery("#container").html(content);
+					
+					morePage();
 				}
 			},
 			error : function(data){
-				alert("error");
+				if(data==""){
+					alert("검색결과가 존재하지 않습니다:(");
+					return false;
+				}
 			},
 			complete : function(data){
-				
 				searchMap();
 			}
 		});
 	};
-
-
+	
+	
+	
+//더보기페이징
+$(window).on('load', function () {
+    load('#container', '4');
+    $("#js-btn-wrap .button").on("click", function () {
+        load('#container', '4', '#js-btn-wrap');
+    })
+});
+ 
+function morePage(){ 
+	load('#container', '4');
+	$("#js-btn-wrap .button").on("click", function () {
+	    load('#container', '4', '#js-btn-wrap');
+	}) 
+}
+ 
+function load(id, cnt, btn) {
+    var girls_list = id + " .col-xs-6:not(.active)";
+    var girls_length = $(girls_list).length;
+    var girls_total_cnt;
+    if (cnt < girls_length) {
+        girls_total_cnt = cnt;
+    } else {
+        girls_total_cnt = girls_length;
+        $('.button').hide()
+    }
+    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
+}
+	
 </script>
 </div>
 </body>

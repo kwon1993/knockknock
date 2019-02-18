@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.RoomDTO;
-import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.BranchMapper;
 
@@ -68,6 +68,11 @@ public class BranchService {
 	// 지점 상세 정보 - 입주민
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber) {
 		return branchMapper.getMemberInfo(branchNumber);
+	}
+	
+	// 지점 상세 정보 - 반려 동물
+	public List<PetDTO> getPetInfo(int branchNumber){
+		return branchMapper.getPetInfo(branchNumber);
 	}
 	
 	// 방문 신청

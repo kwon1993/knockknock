@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     
@@ -82,6 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	FROM MEETING MT
     	WHERE MT.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
+    	ORDER BY ACCEPT_END_TIME DESC
     </select>
 
     <update id="changePassword">
@@ -151,6 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	WHERE JE.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
    		AND JE.WRITING_NUMBER = E.WRITING_NUMBER
+   		ORDER BY E.WRITING_NUMBER DESC
     </select>
     
   <!--   <select id="myVisitList" resultType="VisitVDTO">
@@ -167,6 +169,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT
     	BRANCH_NUMBER branchNumber, 
     	WRITING_NUMBER writingNumber,
+    	MEMO,
     	RESERVATION_TIME reservationTime, 'CONFIRM'‎
     	FROM VISIT
     	WHERE
@@ -199,6 +202,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 	
+	<delete id="checkedDeleteJE">
+		DELETE FROM JOIN_EVENT
+		WHERE
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		AND WRITING_NUMBER=#{writingNumber}
+	</delete>
+	
 	<delete id="deleteV">
 		DELETE FROM VISIT
 		WHERE
@@ -206,4 +217,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
+	
+	<update id="cancelMM">
+		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
+		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
+		SET M.TITLE='취소된 모임입니다.',
+		M.CANCEL_REASON=#{meetingDTO.cancelReason},
+		JM.MEETING_STATUS='다음 기회에'
+		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
+	</update>
 </mapper>

@@ -1,37 +1,32 @@
 package com.knockknock.controller;
 
-import java.io.File;
 import java.sql.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.event.PageMaker;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.security.MemberController;
 import com.knockknock.service.MeetingAndEventServiceImpl;
 
 @Controller
 public class MeetingAndEventController {
 	@Autowired
 	MeetingAndEventServiceImpl meServiceImpl;
+	//from 성현 : 로그인시 상단 정보표시 관련(신경안쓰셔도됨)
+	@Autowired
+	MemberController mc;
 	
 	@RequestMapping("/meetingList") //미팅리스트
 	private String meetingList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception{
@@ -52,7 +47,10 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/writeBoardForm") //미팅 글 쓰기
-	private String writeBoardForm() throws Exception{
+	private String writeBoardForm(Authentication authentication, HttpSession hs, MemberDTO memberDTO) throws Exception{
+		//from 성현 : 로그인시 상단 정보표시 관련(신경안쓰셔도됨)
+		mc.getSession(authentication,hs,memberDTO);
+
 		return "event/WriteBoard";
 	}
 	

@@ -1,5 +1,7 @@
 package com.knockknock.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,17 @@ public class MainController {
 	
 	//메인화면 스타트
 	@RequestMapping("/")
-	public String start(Model model, MemberDTO memberDTO, Authentication authentication, HttpSession hs) {
+	public String start(Model model, MemberDTO memberDTO, BranchDetailVDTO branchDetailVDTO, Authentication authentication, HttpSession hs) {
 		mc.getSession(authentication,hs,memberDTO);
+		
+		List temp = branchService.findingRoomList(branchDetailVDTO);
+		BranchDetailVDTO mainBranch1 = (BranchDetailVDTO)temp.get(temp.size()-1);
+		BranchDetailVDTO mainBranch2 = (BranchDetailVDTO)temp.get(temp.size()-2);
+		BranchDetailVDTO mainBranch3 = (BranchDetailVDTO)temp.get(temp.size()-3);
+		
+		model.addAttribute("mb1",mainBranch1);
+		model.addAttribute("mb2",mainBranch2);
+		model.addAttribute("mb3",mainBranch3);
 		
 		return "home/Home";
 	}
@@ -47,7 +58,6 @@ public class MainController {
 	@RequestMapping("/findingRoom")
 	public String toFindingRoom(Model model, BranchDetailVDTO branchDetailVDTO) {
 		model.addAttribute("lists", branchService.findingRoomList(branchDetailVDTO));
-		//System.out.println(branchDetailVDTO.getTheme());
 		return "branch/FindingRoom";
 	}
 	
@@ -94,12 +104,6 @@ public class MainController {
 		model.addAttribute("mMainList", meServiceImpl.mMainListService());
 		model.addAttribute("eMainList", meServiceImpl.eMainListService());
 		return "event/MeetingAndEventMain";
-	}
-	
-	//네비게이션바 '언어변환'
-	@RequestMapping("/toTranslateLanguage")
-	public String toTranslateLanguage() {
-		return "";
 	}
 	
 	//네비게이션바 '입주안내'

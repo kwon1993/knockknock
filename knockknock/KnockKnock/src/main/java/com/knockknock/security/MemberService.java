@@ -3,6 +3,7 @@ package com.knockknock.security;
 import java.util.List;
 
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
@@ -57,12 +58,18 @@ public interface MemberService{
 	// 모임 개설 취소
 	public int deleteMM(int writingNumber, String email);
 	
-	// 이벤트 참가 취소
+	// 이벤트 참가 취소 - 각각
 	public int deleteJE(int writingNumber, String email);
+	
+	// 이벤트 참가 취소 - 체크 박스
+	public int checkedDeleteJE(int writingNumber, String email);
 
 	// 방문 신청 취소
 	public int deleteV(int writingNumber, String email);
 
+	// 개설 모임 취소
+	public void cancelMM(MeetingDTO meetingDTO, String email);
+	
 	int getMemberNumber();
 
 }
