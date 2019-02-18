@@ -19,5 +19,5 @@ public class RoomDTO {
 	private String roomFacility;
 //	private String imageRoom;
 	
-	private List<List<MultipartFile>> roomImages;
+	private List<MultipartFile> roomImages;
 }

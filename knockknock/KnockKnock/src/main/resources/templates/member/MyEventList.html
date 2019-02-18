@@ -75,7 +75,7 @@ body {
   <a th:href="@{/profileMain}">내 프로필</a><br>
   <a th:href="@{/MyMeetingList}">내 모임</a><br>
   <a th:href="@{/MyEventList}">내 이벤트</a><br>
-  <a th:href="@{/MyVisitList}">내 방문신청</a><br>
+  <a th:href="@{/MyVisitList}">내 방문 신청</a><br>
 </div>
 </div>
 <div class="col-md-1">
@@ -97,8 +97,7 @@ body {
 							<th></th>
 						</tr>
 						<tr th:each="MEL:${MEL}">
-							<td><input type='checkbox' name='checkRow' /></td>
-							<input type='hidden' name="checkNumber" th:value="${MEL.writingNumber}"/>
+							<td><input type='checkbox' name='checkRow' th:value="${MEL.writingNumber}"/></td>
 							<td><a th:href="@{'/eventView/?writingNumber='+${MEL.writingNumber}}" th:text="${MEL.title}"></a></td>
 							<td th:text="${MEL.acceptEndTime}"></td>
 							<td th:text="${MEL.eventStartTime}"></td>
@@ -127,50 +126,48 @@ body {
 					}
 				})
 				
-				function checkedDeleteJE(writingNumber){
-					
-				}
-				
 			 $('#checkedDelete').click(function(){
 		        if(confirm("선택된 이벤트 참가를 취소하시겠습니까?")){
 		        	
-		        	  $("input[name=checkRow]:checked").each(function(i){
-						var writingNumber1 = $("input[name=checkNumber]").eq(i).val();
+  		        	 var checkBoxArr = [];
 
-					 	 console.log(writingNumber1);
-						
-						$.ajax({
+		        	$("input[name=checkRow]:checked").each(function(i){
+
+		        	checkBoxArr.push($(this).val());
+
+		        	})
+
+					alert(checkBoxArr);
+		        	
+		        	inner=""
+		        	
+		        	// 배열값을 Ajax로 넘기기 위한 세팅
+		        	//jQuery.ajaxSettings.traditional = true;
+		        	
+		        	 $.ajax({
 							type:'post',  
 							url:'/checkedDeleteJE',
-			 				data: writingNumber1, // 값 하나만 받아오기
+			 				data: JSON.stringify(checkBoxArr), // key, value로 이뤄지지 않은 단순 배열은 JSON.stringify로 보내야 함
 			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
 							contentType: "application/json",
 							// async:false, async는 deprecated 되었음
 							 success:function(response){
-					            alert("이벤트 참가가 취소되었습니다.");
+					            alert("선택한 이벤트 참가가 취소되었습니다.");
+					            
+					            // 이벤트 리스트 갱신 필요
+					            $(location).attr('href', '/MyEventList');
+
 							 },
 							 error:function(response){
 								 alert("에러 발생");
 							 }
-						}) 
-				}) 
-		        	}else{
+						})   
+
+		        	} else {
 		            	return false;
 		        	}
 		   		}) // 끝
-				
-				
 			})	
-			
-			 /* if("$(input[name=checkRow]:checked)"){
-				 
-					 $("input[name=checkRow]:checked").each(function(i){
-						var writingNumber1 = $("input[name=checkNumber]").eq(i).prop("value");
-
-					 	 alert(writingNumber1);
-			 }
-			 } */
-			
 	
 			</script>
 </div>

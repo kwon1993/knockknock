@@ -107,14 +107,26 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/meetingModify")
-	private String meetingModify(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber,
-			@RequestParam("title") String title,
-			@RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
+	private String meetingModify(@RequestParam("memberNumber") int memberNumber,
+			@RequestParam("title") String title, @RequestParam("meetingStartTime") Date meetingStartTime, @RequestParam("meetingEndTime") Date meetingEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 			@RequestParam("place") String place, @RequestParam("placeDetail") String placeDetail, @RequestParam("favorite") String favorite,
-			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce) throws Exception{
-		meServiceImpl.meetingModifyService(writingNumber, memberNumber, title, meetingStartTime, meetingEndTime,
-				acceptStartTime, acceptEndTime, detailIntroduce, place, placeDetail, recruitMaxNumber, favorite);
+			@RequestParam("recruitMaxNumber") int recruitMaxNumber, @RequestParam("detailIntroduce") String detailIntroduce
+			)throws Exception{
+		
+		MeetingVDTO meeting = new MeetingVDTO();
+		meeting.setMemberNumber(memberNumber);
+		meeting.setTitle(title);
+		meeting.setMeetingStartTime(meetingStartTime);
+		meeting.setMeetingEndTime(meetingEndTime);
+		meeting.setAcceptStartTime(acceptStartTime);
+		meeting.setAcceptEndTime(acceptEndTime);
+		meeting.setPlace(place);
+		meeting.setPlaceDetail(placeDetail);
+		meeting.setFavorite(favorite);
+		meeting.setRecruitMaxNumber(recruitMaxNumber);
+		meeting.setDetailIntroduce(detailIntroduce);
+		meServiceImpl.meetingModifyService(meeting);
 		return "redirect:/meetingList";
 	}
 	

@@ -1,6 +1,7 @@
 package com.knockknock.dto.event;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -26,4 +27,6 @@ public class EventVDTO {
 	private Date replyWriteDate; //댓글작성시간
 	private Date replyWriteTime; //댓글작성시간
 	private int parentNumber; //부모댓글 번호
+	
+	private List<Integer> writingNumberList;
 }
