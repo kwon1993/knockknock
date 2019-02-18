@@ -26,7 +26,7 @@ public interface MeetingAndEventService {
 	public int imageUploadService(MultipartFile image) throws Exception; 
 	public MeetingVDTO imageViewService(int writingNumber) throws Exception;
 	public int likeToggleService() throws Exception;
-	public void mparticipateService(int writingNumber, int memberNumber, String email) throws Exception;
+	public void mparticipateService(MeetingVDTO meetingVDTO, String email) throws Exception;
 	public void eparticipateService(int writingNumber, int memberNumber, String email) throws Exception;
 	public int meetingPlaceService() throws Exception;
 	public int meetingPlaceDetailService() throws Exception;

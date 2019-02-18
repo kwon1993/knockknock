@@ -3,6 +3,7 @@ package com.knockknock.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
@@ -29,7 +30,7 @@ public interface MeetingAndEventMapper {
 	public int imageUpload(MultipartFile image) throws Exception;
 	public MeetingVDTO imageView(int writingNumber) throws Exception;
 	public int likeToggle() throws Exception;
-	public void mparticipate(int writingNumber, int memberNumber, String email) throws Exception;
+	public void mparticipate(@Param("meetingVDTO") MeetingVDTO meetingVDTO, String email) throws Exception;
 	public void eparticipate(int writingNumber, int memberNumber, String email) throws Exception;
 	public int meetingPlace() throws Exception;
 	public int meetingPlaceDetail() throws Exception;

@@ -12,9 +12,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.MeetingVDTO;
@@ -159,11 +161,13 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping(value="/mparticipate", method= RequestMethod.POST) //참가하기
-	private void mparticipate(@RequestParam("writingNumber") int writingNumber, @RequestParam("memberNumber") int memberNumber, Authentication authentication) throws Exception{
+	@ResponseBody
+	private void mparticipate(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication) throws Exception{
+		System.err.println("진입");
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
-		meServiceImpl.mparticipateService(writingNumber, memberNumber, email);		
+		meServiceImpl.mparticipateService(meetingVDTO, email);		
 	}
 	
 	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기

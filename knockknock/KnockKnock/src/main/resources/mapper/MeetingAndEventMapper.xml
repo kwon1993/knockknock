@@ -110,11 +110,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="meetingDelete" parameterType="int">     
     	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
     </delete>
-	<insert id="mparticipate"> <!-- 참가하기 -->
-		INSERT INTO JOIN_MEETING (WRITING_NUMBER, MEMBER_NUMBER)
-		VALUES (#{writingNumber}, #{memberNumber})
+	<insert id="mparticipate"> <!-- 모임 참가하기 -->
+		INSERT INTO JOIN_MEETING SET 
+		WRITING_NUMBER= #{meetingVDTO.writingNumber},
+		MEMBER_NUMBER= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 	</insert>
-	<insert id="eparticipate"> <!-- 참가하기 -->
+	<insert id="eparticipate"> <!-- 이벤트 참가하기 -->
 		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)
 		VALUES (#{writingNumber}, #{memberNumber})
 	</insert>
