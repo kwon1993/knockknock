@@ -35,17 +35,17 @@ body{
 						<table class="table">
 							<tr>
 								<td>작성자</td>
-								<td><input type="hidden" name="writingNumber" th:value="${meetingModifyForm.writingNumber}"></td>
-								<td><input type="hidden" name="memberNumber" th:value="${meetingModifyForm.memberNumber}"></td>
+								<td><span th:text="${session.nickname}"></span></td>
+								<td><input type="hidden" name="memberNumber" th:value="${session.memberNumber}" required></td>
 							</tr>
 							<tr>
 								<td>모임명<small class="text-danger">(필수)</small></td>
 								<td><input type="text" name="title" th:value="${meetingModifyForm.title}" maxlength="30" required></td>
 							</tr>
 							<tr>
-								<td>모임테마</td>
+								<td>모임테마<small class="text-danger">(재선택)</small></td>
 								<td>
-									<select name=favorite th:value="${meetingModifyForm.favorite}">
+									<select name=favorite>
 										<option value="없음">없음</option>
 										<option value="IT">IT</option>
 										<option value="컴퓨터">컴퓨터</option>
@@ -103,7 +103,7 @@ body{
 								<td><input type="number" name="recruitMaxNumber" th:value="${meetingModifyForm.recruitMaxNumber}" required>명</td>
 							</tr>
 							<tr>
-								<td>성별</td>
+								<td>성별<small class="text-danger">(재선택)</small></td>
 								<td>
 									<select name="gender" th:value="${meetingModifyForm.gender}">
 										<option value="무관">무관</option>
@@ -250,7 +250,7 @@ body{
 		</script>
 		
 		
-		<!-- <script th:src="@{/ckeditor/ckeditor.js}"></script>
+		<script th:src="@{/ckeditor/ckeditor.js}"></script>
 		<script>
 		//ck editor-----------------
 		    $(function(){
@@ -273,7 +273,7 @@ body{
 		            }
 		        });
 		    });
-		</script> -->
+		</script>
 	</div>
 </body>
 </html>
