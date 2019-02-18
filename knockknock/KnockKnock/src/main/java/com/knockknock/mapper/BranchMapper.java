@@ -31,7 +31,9 @@ public interface BranchMapper {
 	public BranchDetailVDTO getDetail(int branchNumber);
 	// 지점 방문 신청
 	public void visitBooking(@Param("visitDTO") VisitDTO visitDTO, String email);
-
+	// 관심 지점 등록
+	public void likeBranch(int branchNumber, String email);
+	
 	public List<RoomDTO> getRoomInfo(int branchNumber);
 
 	public List<BranchDetailVDTO> getMemberInfo(int branchNumber);

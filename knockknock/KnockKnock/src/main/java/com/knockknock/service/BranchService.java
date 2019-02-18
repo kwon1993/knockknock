@@ -76,11 +76,14 @@ public class BranchService {
 	}
 	
 	// 방문 신청
-	//public void visitBooking(VisitDTO visitDTO) {
 	 public void visitBooking(VisitDTO visitDTO, String email) {
-	//	branchMapper.visitBooking(visitDTO);
 		 branchMapper.visitBooking(visitDTO, email);
 	}
+	 
+	// 관심 지점 등록
+	 public void likeBranch(int branchNumber, String email) {
+		 branchMapper.likeBranch(branchNumber, email);
+	 }
 
 	//테마 검색
 	public List<String> getThemeLists(){

@@ -209,6 +209,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		RESERVATION_TIME=#{visitDTO.reservationTime},
 		MEMO=#{visitDTO.memo}
 	</insert>
+	
+	<insert id="likeBranch">
+		INSERT INTO LIKE_BRANCH SET
+		BRANCH_NUMBER=#{branchNumber},
+		MEMBER_NUMBER=(SELECT
+		M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+	</insert>
    
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">

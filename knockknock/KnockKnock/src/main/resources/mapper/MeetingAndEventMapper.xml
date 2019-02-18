@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="meetingModifyForm" resultType="MeetingVDTO">
 		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
-		MEETING_END_TIME meetingEndTime, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
+		MEETING_END_TIME meetingEndTime, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime, GENDER,
 		PLACE, PLACE_DETAIL placeDetail, RECRUIT_MAX_NUMBER recruitMaxNumber, DETAIL_INTRODUCE detailIntroduce, FAVORITE
 		FROM MEETING
 		WHERE WRITING_NUMBER = #{writingNumber}
@@ -104,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		TITLE = #{title}, MEETING_START_TIME = #{meetingStartTime}, MEETING_END_TIME = #{meetingEndTime},
     		ACCEPT_START_TIME = #{acceptStartTime}, ACCEPT_END_TIME = #{acceptEndTime},
     		PLACE = #{place}, PLACE_DETAIL = #{placeDetail}, RECRUIT_MAX_NUMBER = #{recruitMaxNumber},
-	    	DETAIL_INTRODUCE = #{detailIntroduce}, FAVORITE = #{favorite}
+	    	DETAIL_INTRODUCE = #{detailIntroduce}, FAVORITE = #{favorite}, GENDER = #{gender}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
     <delete id="meetingDelete" parameterType="int">     

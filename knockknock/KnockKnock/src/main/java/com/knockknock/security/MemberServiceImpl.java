@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
@@ -161,6 +162,18 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void cancelMM(MeetingDTO meetingDTO, String email) {
 		memberMapper.cancelMM(meetingDTO, email);
+	}
+	
+	@Override
+	// 내 관심 지점 리스트
+	public List<BranchDetailVDTO> getMLBL(String email){
+		return memberMapper.getMLBL(email);
+	}
+	
+	@Override
+	public int deleteLB(int branchNumber, String email) {
+		memberMapper.deleteLB(branchNumber, email);
+		return 1;
 	}
 
 
