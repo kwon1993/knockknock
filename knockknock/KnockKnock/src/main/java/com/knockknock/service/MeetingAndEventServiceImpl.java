@@ -108,13 +108,13 @@ public class MeetingAndEventServiceImpl implements MeetingAndEventService{
 	}
 
 	@Override
-	public void mparticipateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.mparticipate(writingNumber, memberNumber);
+	public void mparticipateService(int writingNumber, int memberNumber, String email) throws Exception {
+		meMapper.mparticipate(writingNumber, memberNumber, email);
 	}
 	
 	@Override
-	public void eparticipateService(int writingNumber, int memberNumber) throws Exception {
-		meMapper.eparticipate(writingNumber, memberNumber);
+	public void eparticipateService(int writingNumber, int memberNumber, String email) throws Exception {
+		meMapper.eparticipate(writingNumber, memberNumber, email);
 	}
 
 	@Override
