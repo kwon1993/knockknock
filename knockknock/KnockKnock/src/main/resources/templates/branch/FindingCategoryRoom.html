@@ -35,7 +35,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	<!-- 전체 레이아웃 -->
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-		 <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 지점</strong></h1>
+		 <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">취미에</span> 낙낙!</strong></h1>
 		 <h3 class="my-4 text-center text-lg-left" id="bang"><strong>관심있는 분야에<span style="color:#2eca6a">&nbsp;체크!</span>&nbsp;해주세요</strong></h3>
 			<div class="row">
 				<div class="col-4" id="checkField">			   
@@ -50,10 +50,12 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<!-- 주소 검색 -->
 				<div class="form-group" id="search">
 					<label class="field-title"><h5><strong>주소검색</strong></h5></label>
+					
 						<div id="categorySearch" class="form-group">
 							<input type="text" th:name="address"  th:id="address"/>
 							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
 						</div>
+					
 				  </div>
 				</div>
 			
@@ -62,7 +64,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		<div class="col-7">
 		
 		<div class="table-responsive"  id="categoryGallery">
-		
+			<h3 class="my-4 text-center text-lg-left" id="bang"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
 			<table class="table-responsive" id="roomTable">
 				<tr  class="text-center">
 					<th style="visibility:hidden;"><span style="color:#2eca6a">지점 이미지</span></th>
@@ -164,7 +166,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				searchInputEventBind : function(target) {
 					var that = this;
 					
-					$(target).change(function(e) {
+					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
 // 						alert(e.tatget);
 						that.sendToServer(that.searchCategory);
