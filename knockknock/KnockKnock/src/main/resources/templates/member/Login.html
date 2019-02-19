@@ -78,6 +78,9 @@ cursor: pointer;
 	font-size:25px;
 }
 
+#myBtn{
+	
+}
 </style>
 </head>
 <body>
@@ -111,7 +114,7 @@ cursor: pointer;
 							
 							<div class="form-group">
 								<div class="cols-sm-10">
-									<div class="input-group">
+									<div class="input-group" style="font-size:70%">
 										<a href="#" class="input-group-addon" id="myBtn" name="myBtn">아이디를 잊어버렸나요?</a> 
 									</div>
 								</div>
@@ -119,7 +122,7 @@ cursor: pointer;
 							
 							<div class="form-group">
 								<div class="cols-sm-10">
-									<div class="input-group">
+									<div class="input-group" style="font-size:70%">
 										<a href="#" class="input-group-addon" id="myBtn" name="myBtn">비밀번호를 잊어버렸나요?</a> 
 									</div>
 								</div>
@@ -131,9 +134,11 @@ cursor: pointer;
 										<input type="submit" name='submit' id='login' value="로그인" class="form-control">
 										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									</div>
-									<div class="input-group">
-										<input type='button' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){console.log('gauth.signIn()')});  checkLoginStatus();}else{gauth.signOut().then(function(){'gauth.signOut()'});  checkLoginStatus();}">
-									</div>
+									<!-- 구글로그인 -->
+									<!--<div class="input-group">
+										<input type='submit' class='g-signin2' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){ checkLoginStatus();}); }else{gauth.signOut().then(function(){checkLoginStatus();});  }">
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+									</div>-->
 								</div>
 							</div>
 						</form>
@@ -282,9 +287,9 @@ $(document).on("click", "#modalx", function(){
 	modal.style.display = "none";
 });
 
-
-//구글 로그인
+/* //구글 로그인
 function checkLoginStatus(){
+	  var form =$(".form-horizontal");
 	  var loginBtn = document.querySelector('#loginBtn');
 	  if(gauth.isSignedIn.get()){
 		  console.log('logined');
@@ -310,9 +315,9 @@ function init() {
 		  console.log('googleAuth fail');
 	  })
 	  });
-}
+} */
 </script>	
-<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+<!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
 </div>
 </body>
 </html>
