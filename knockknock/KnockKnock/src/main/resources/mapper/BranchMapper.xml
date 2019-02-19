@@ -84,7 +84,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY B.BRANCH_NUMBER
 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
-
+<select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
+		SELECT
+		B.BRANCH_NUMBER branchNumber,
+		R.ROOM_NUMBER roomNumber, B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,B.THEME,
+		R.GENDER, R.DEPOSIT,
+		R.MONTHLY_RENT monthlyRent,
+		R.RENTABLE_DATE rentableDate,
+		R.ALLOW_NUMBER allowNumber
+		FROM BRANCH B, ROOM R
+		<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="address!=null">
+			R.BRANCH_NUMBER = B.BRANCH_NUMBER
+			AND ADDRESS like CONCAT('%',#{address},'%')
+		</if>
+		<if test="searchKeyWord.size!=0">
+			and THEME in
+			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
+			#{theme1}
+			</foreach>
+		</if>	
+		</trim>
+		GROUP BY B.BRANCH_NUMBER
+		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
+	</select>
 	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,

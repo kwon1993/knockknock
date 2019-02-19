@@ -5,11 +5,9 @@ import lombok.Data;
 
 @Data
 public class EventReplyDTO {
-	private int replyNumber;
-	private int writingNumber;
-	private int memberNumber;
-	private String content;
-	private Date writeDate;
-	private Date writeTime;
-	private int parentNumber;
+	private int writingNumber; //댓글달릴 글번호
+	private int memberNumber; //댓글쓴 회원번호
+	private String content; //댓글 내용
+	private Date writeTime; //댓글 작성시간
+	private int parentNumber; //대댓글) 부모댓글 번호
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.branch.BranchDetailVDTO2;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.member.PetDTO;
@@ -24,6 +25,8 @@ public interface BranchMapper {
 	public int categoryCount(Criteria cri) throws Exception;
 	//관심사로 찾기의 방검색
 	public  List<BranchDetailVDTO> categoryRoomSearch(String address, List<String> searchKeyWord) throws Exception;
+	//관심사로 찾기의 방검색
+	public  List<BranchDetailVDTO> categoryRoomSearch2(BranchDetailVDTO2 branchDetailVDTO2) throws Exception;
 	
 	//방찾기의 방검색
 	public List<BranchDetailVDTO> roomList(BranchDetailVDTO branchDetailVDTO);

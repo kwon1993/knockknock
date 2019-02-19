@@ -1,12 +1,17 @@
 package com.knockknock.dto.event;
 
 import java.io.File;
+import java.io.Serializable;
 import java.sql.Date;
 
 import lombok.Data;
 
 @Data
-public class MeetingVDTO {
+public class MeetingVDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int writingNumber; //글번호
 	private int memberNumber; //회원번호
 	private String title; //글제목
