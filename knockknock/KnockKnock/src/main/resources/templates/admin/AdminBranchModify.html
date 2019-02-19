@@ -119,16 +119,16 @@ body {
 					<div class="form-group">
 						<h4>테마</h4>
 						<input type="text" name="theme" class="form-control"
-							placeholder="테마">
+							placeholder="테마" value="${branchDTO.theme}">
 						<h4>지점은행</h4>
 						<input type="text" name="bankName" class="form-control"
-							placeholder="지점 은행 이름">
+							placeholder="지점 은행 이름" value="${branchDTO.bankName}">
 						<h4>지점은행 예금주</h4>
 						<input type="text" name="depositor" class="form-control"
-							placeholder="예금주">
+							placeholder="예금주" value="${branchDTO.depositor}">
 						<h4>지점은행 계좌</h4>
 						<input type="text" name="branchAccount" class="form-control"
-							placeholder="계좌번호">
+							placeholder="계좌번호" value="${branchDTO.branchAccount}">
 						<h4>성별</h4>
 						<select name="gender">
 							<option value="공용">공용</option>
@@ -136,12 +136,12 @@ body {
 							<option value="여">여</option>
 						</select>
 						<h4>소개글</h4>
-						<textarea name="branchComment"></textarea>
+						<textarea name="branchComment">${branchDTO.branchComment}</textarea>
 						<h4>규칙</h4>
-						<textarea name="rule"></textarea>
+						<textarea name="rule">${branchDTO.rule}</textarea>
 						<h4>거주유형</h4>
 						<input type="text" name="branchType" class="form-control"
-							placeholder="예)아파트">
+							placeholder="예)아파트" value="${brnchDTO.branchType}">
 						<h4>주차장</h4>
 						<select name="isParking">
 							<option value="yes">있음</option>
@@ -168,9 +168,9 @@ body {
 										id="sample4_postcode" placeholder="우편번호">
 									<div class="input-group">
 										<input class='address1' type="text" name="address"
-											id="sample4_roadAddress" placeholder="도로명주소"> <input
+											id="sample4_roadAddress" placeholder="도로명주소" value="${branchDTO.address}"> <input
 											class='address1' type="text" id="sample4_detailAddress"
-											name="addressDetail" placeholder="상세주소"> <input
+											name="addressDetail" placeholder="상세주소" value="${branchDTO.addressDetail}"> <input
 											class='address1' type="text" id="sample4_extraAddress"
 											name="remainAddress" placeholder="참고항목"> <input
 											class='address1' id='addressSearch' type="button"

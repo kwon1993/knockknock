@@ -265,8 +265,11 @@ public class AdminController {
 	// 지점 정보 수정 페이지
 	@RequestMapping("adminBranchModifyView")
 	public String adminBranchModifyView(Model model, @RequestParam int branchNumber) {
-		
-		return "";
+		model.addAttribute("branchDTO", adminService.branchModifyView(branchNumber));
+		model.addAttribute("roomDTO", adminService.roomModifyView(branchNumber));
+		model.addAttribute("branchImage", adminService.branchModifyViewImages(branchNumber));
+		model.addAttribute("roomImage", adminService.roomModifyViewImages(branchNumber));
+		return "admin/AdminBranchModify";
 	}
 
 	// 지점 정보 수정

@@ -260,8 +260,29 @@
 		ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
 		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
 	</insert>
-
-
+	<select id="branchModifyView" resultType="BranchDTO">
+		SELECT THEME,
+		BANK_NAME
+		bankName, DEPOSITOR, BRANCH_ACCOUNT branchAccount, GENDER,
+		BRANCH_COMMENT branchComment, ADDRESS,
+		ADDRESS_DETAIL addressDetail,
+		ADDRESS_NAME addressName, BRANCH_TYPE branchType, ISPARKING,
+		ISELEVATOR,
+		FACILITY, PET, MAXIMUM_RESIDENT maximumResident, RULE
+		FROM
+		BRANCH
+		WHERE BRANCH_NUMBER =
+		#{param1}
+	</select>
+	<select id="roomModifyView" resultType="roomVDTO">
+		SELECT ROOM_NUMBER,
+		GENDER, ALLOW_NUMBER allowNumber, SPACE, DEPOSIT, MONTHLY_RENT
+		monthlyRent, RENTABLE_DATE rentableDate,
+		FACILITY
+		FROM ROOM
+		WHERE
+		BRANCH_NUMBER = #{param1}
+	</select>
 
 
 
@@ -295,8 +316,10 @@
 
 
 	<insert id="testRoomRegist" parameterType="java.util.List">
-		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE,
-		DEPOSIT, MONTHLY_RENT, RENTABLE_DATE)
+		INSERT INTO
+		ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE,
+		DEPOSIT,
+		MONTHLY_RENT, RENTABLE_DATE)
 		VALUES(#{branchNumber},#{roomNumber2},#{gender2},#{allowNumber2},#{space2},#{deposit2},#{monthlyRent2},#{rentableDate2})
 	</insert>
 
