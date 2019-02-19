@@ -77,6 +77,8 @@ body{
 				</form>
 			</div>
 		</div>
+		<!-- from 성현 시큐리티 적용 -->
+		<input type='hidden' th:value="${session.nickname}" id='sessionNickname'>
 		<button class="btn btn-success" id="myBtn" th:text="'참가하기'"></button>
 		<!-- 참가하기 모달창 (로그인시에만 참가하기 구현필요, 인원이 만석되면 참가불가 구현필요)-->
 <!-- 			
@@ -132,8 +134,8 @@ body{
 							<div class="modal-body">
 								<h5 class="modal-title" id="myModalLable" th:text="'모임에 참가하시겠습니까?'"></h5>
 								<p th:text="'닉네임: '+${session.nickname}"></p>
-								<input type="text" name="writingNumber" th:value="${MeetingView.writingNumber}">
-								<input type="text" name="memberNumber" th:value="${session.memberNumber}">
+								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
+<!-- 								<input type="text" name="memberNumber" th:value="${session.memberNumber}"> -->
 							</div>
 							<div class="modal-footer">
 									<button type="button" class="btn btn-success" id="mparticipate" data-dismiss="modal" th:text="'참가'"></button>
@@ -192,19 +194,15 @@ body{
 	// Get the modal
 	var modal = document.getElementById('myModal');
 
-	// Get the button that opens the modal
-	var btn = document.getElementById("myBtn");
-
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	
 	var closeModal = document.getElementById("closeModal");
-	var mparticipate = document.getElementById("mparticipate");
 	
 	// When the user clicks the button, open the modal 
-	btn.onclick = function() {
+	$("#myBtn").click(function() {
 		//from 성현 : 시큐리티 적용(세션닉이 없을 때 action을 로긴으로 바꾼 후 서브밋)
-		if(nick==""){
+		if(nick===""){
 			alert('먼저 로그인을 해주세요');
 			var	form =$("#mparticipateForm");
 			form.action = "/login";
@@ -212,7 +210,7 @@ body{
 			return false;
 		}
 		modal.style.display = "block";
-	}
+	});
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
@@ -230,10 +228,11 @@ body{
 		modal.style.display = "none";
 	}
 	
-	mparticipate.onclick = function(){
+	//참가하기 처리
+	$("#mparticipate").click(function() {
 			
 		writingNumber= $("input[name='writingNumber']").val();
-		memberNumber= $("input[name='memberNumber']").val();
+// 		memberNumber= $("input[name='memberNumber']").val();
 		// var ss = $("#visitBookingForm").serialize();
 		 inner ="";
 		
@@ -243,7 +242,7 @@ body{
 			data:
 				JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
 				"writingNumber":writingNumber,
-				"memberNumber":memberNumber
+// 				"memberNumber":memberNumber
 			}),
 			dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
 			contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
@@ -251,13 +250,13 @@ body{
 				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>모임참여신청이 완료되었습니다</h4><br /><a class='btn btn-default pull-rigth' href='/profileMain'>신청확인하기</a><br /></div>"
 
 				$("#myModal").html(inner);
-			}/* ,
+			} ,
 			error:function(data){  
 				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>에러 발생</h4><br /></div>"
 				$("#myModal").html(inner);
-			} */
+			}
 		});
-	};
+	});
 	
 	// 동적으로 생성된 태그에 이벤트 걸기
 	$(document).on("click", "#modalx", function(){

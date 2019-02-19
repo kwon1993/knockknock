@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.MemberDTO;
+import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.mapper.MemberMapper;
 import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
-import com.knockknock.service.MeetingAndEventServiceImpl;
 
 @Controller
 public class MainController {
@@ -26,7 +26,7 @@ public class MainController {
 	@Autowired
 	MemberMapper memberMapper;
 	@Autowired
-	MeetingAndEventServiceImpl meServiceImpl;
+	MeetingAndEventMapper meMapper;
 	@Autowired
 	MemberController mc;
 	
@@ -101,8 +101,8 @@ public class MainController {
 	//네비게이션바 '모임 및 이벤트
 	@RequestMapping("/meetingAndEventMain")
 	public String toMeetingAndEvent(Model model) throws Exception {
-		model.addAttribute("mMainList", meServiceImpl.mMainListService());
-		model.addAttribute("eMainList", meServiceImpl.eMainListService());
+		model.addAttribute("mMainList", meMapper.mMainList());
+		model.addAttribute("eMainList", meMapper.eMainList());
 		return "event/MeetingAndEventMain";
 	}
 	
