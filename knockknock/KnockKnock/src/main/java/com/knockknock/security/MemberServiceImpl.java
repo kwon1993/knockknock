@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
-import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
@@ -160,8 +159,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void cancelMM(MeetingDTO meetingDTO, String email) {
-		memberMapper.cancelMM(meetingDTO, email);
+	public void cancelMM(MeetingVDTO meetingVDTO, String email) {
+		memberMapper.cancelMM(meetingVDTO, email);
 	}
 	
 	@Override

@@ -2,8 +2,6 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-<meta charset="UTF-8">
-<title>모임게시판</title>
 <style type="text/css">
 
 body{
@@ -12,6 +10,17 @@ body{
 
 #jumbotronId{
     background-color: white;
+}
+.dlk-radio input[type="radio"]
+{
+/* 	margin-left:-99999px; */
+	display:none;
+}
+.dlk-radio input[type="radio"] + .fa{
+     opacity:0.15
+}
+.dlk-radio input[type="radio"]:checked + .fa{
+    opacity:1
 }
 </style>
 </head>
@@ -47,7 +56,64 @@ body{
 					class="sr-only">다음</span>
 				</a>
 			</div>
-<!-- 			<img th:src="@{/images/event/test.jpg}" style="width:2000; height:300px"> -->
+			<div class=row>
+				<div class="col">				
+					<h3>관심사로 모임을 검색해보세요</h3>
+				</div>
+				<div class="col-1">				
+					<input type="button" value="검색">
+				</div>
+			</div>
+<!-- 			<div class="col dlk-radio btn-group"> -->
+				 <label class="btn btn-success">
+				     <input name="favorite" class="form-control" type="radio" value="IT">
+				     <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사1
+				</label>
+				<label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="컴퓨터">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사2
+			   </label>
+				<label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="요리">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사3
+			   </label>
+				<label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="공연/전시">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사4
+			   </label>
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사5
+			   </label>
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사6
+			   </label>
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사7
+			   </label>
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사8
+			   </label>
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사9
+			   </label>			
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사10
+			   </label>	
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class="form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사11
+			   </label>					   
+		   	   <label class="btn btn-success">
+				    <input name="favorite" class=" form-control" type="radio" value="영화">
+				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사12
+			   </label>		
+<!-- 			</div> -->
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -70,7 +136,6 @@ body{
 					</tr>
 				</tbody>
 			</table>
-			
 			<a th:href="@{/writeBoardForm}" class="btn btn-outline-success font-weight-bold pull-right" role="button">모임 만들기</a>
 			
 			<!-- 게시판 하단의 페이징 버튼 -->
