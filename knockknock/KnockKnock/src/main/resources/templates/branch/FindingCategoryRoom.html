@@ -15,7 +15,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
   }
 
  #jumbotronId { 
-	padding: 2rem 1rem;
+	padding: 4rem 0rem;
     margin-bottom: 0rem;
     background-color: white;
     border-radius: 1rem;
@@ -61,8 +61,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			
 		
 		
-		<div class="col-7">
-		
+		<div class="col-7">	
 		<div class="table-responsive"  id="categoryGallery">
 			<h3 class="my-4 text-center text-lg-left" id="bang"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
 			<table class="table-responsive" id="roomTable">
@@ -79,7 +78,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tr  class="text-center" th:each="branchDetailVDTO : ${lists}">
  	 				<td><a th:href="@{'/roomDetailView/?branchNumber='+${branchDetailVDTO.branchNumber}}" class='d-block mb-4 h-100' id=''>
  	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'branch.jpg'" alt="branchImg" id='img'>
-  	 				</a></td>
+  	 				<span th:text="'('+${branchDetailVDTO.branchNumber}+호점+')'"></span></a></td>
 					<td th:text="${branchDetailVDTO.address}"></td>
 					<td th:text="${branchDetailVDTO.theme}"></td>
 					<td th:text="${branchDetailVDTO.gender}"></td>
@@ -91,6 +90,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			</table>
 			</div>	
 	  	</div>
+<!-- 	  	<div class="pager"> -->
+<!-- 	  		<span class="page-number Clickable active">1</span> -->
+<!-- 	  		<span class="page-number">2</span> -->
+<!-- 	  		<span class="page-number">3</span> -->
+<!-- 	  	</div> -->
 		</div>
 		</div>
 		<script>
@@ -115,11 +119,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory
 					};
-						
+					console.log(datas+" 8888 "+JSON.stringify(datas));	
 					$.ajax({
 						url : "categoryRoomSearch",
-						type : 'GET',
-						data : datas,
+						/* type : 'GET', */
+						type : 'POST',
+						contentType:"application/json", 
+						datatype : "json",
+						async : false,
+						data : JSON.stringify(datas),
 						success : function(branchDetailVDTOs) {
 // 							alert("완료!" + branchDetailVDTOs);						
 							//기존의 테이블 삭제	
@@ -132,7 +140,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 								$('#branchDetailVDTOs').append(
 										"<tr class='text-center' style='width: 30px;'>"
 										+"<td><a href='/roomDetailView/?branchNumber="+branchDetailVDTO.branchNumber+"' class='d-block mb-4 h-100' id=''>"
-	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"branch.jpg'"+" alt='' id='img'/></a></td>"
+	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"branch.jpg'"+" alt='' id='img'/>"
+	 									+"<span>"+"("+branchDetailVDTO.branchNumber+"호점)"+"</span>"+"</a></td>"
 										+"<td class='address'>"+branchDetailVDTO.address+"</td>"
 										+"<td class='theme'>"+branchDetailVDTO.theme+"</td>"
 										+"<td class='gender'>"+branchDetailVDTO.gender+"</td>"
@@ -156,11 +165,17 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				
 					 $(target).change(function(e) { 
 							that.searchCategory=[];
+							
 						$("input[name='branchTheme']:checked").each(function(i){
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						that.sendToServer(that.searchCategory);
+						console.log("size:"+that.searchCategory.length);
+					/* 	if(that.searchCategory.size==0){
+							that.sendToServer(
+						}else{ */
+							that.sendToServer(that.searchCategory);
+						//}
 					 }); 
 				},
 				searchInputEventBind : function(target) {
@@ -177,6 +192,34 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				categoryRoom.checkboxEventBind(".checkbox");
 				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
+
+			
+			
+//div class 페이지 나타낼 수  class="pager"
+//span 으로 페이지 나타내기 class="page-number clickable active"
+//table class="sortable paginated" =>table-responsive
+// 			$(document).ready(function(){
+// 				$('table.paginated').each(function(){
+// 					var currentPage = 0;
+// 					var numPerPage = 5;
+// 					var $table = $(this);
+					
+// 					$table.bind('repaginate',function(){
+// 						$table.find('tbody tr').hide().slice(currentPage*numPerPage,(currentPage+1)*numPerPage).show();
+// 						});
+					
+// 				var numRows=$table.find('tbody tr').length;
+// 				var numPages=Math.ceil(numRows/numPerPage);
+// 				var $pager=$('<div class="pager"></div>');
+// 				for(var page=0; page<numPages; page++){
+// 					$('<span class="page-number"></span>').text(page+1).bind('click',{newPage:page},function(event){
+// 						currentPage = event.data['newPage'];
+// 					$table.trigger('repaginage');
+// 					$(this).addClass('active').siblings().removeClass('active');
+// 					}).appendTo($pager).addClass('clickable');
+// 				}
+// 				$pager.insertBefore($table).find('span.page-number:first').addClass('active';)});
+// 			});
 		</script>
 	</div>
 </body>
