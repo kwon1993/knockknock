@@ -75,8 +75,6 @@ public interface AdminMapper {
 	
 	public RoomDTO roomModify(int branchNumber);
 	
-	
-	
 
 	public void roomDelete();
 
