@@ -2,10 +2,12 @@ package com.knockknock.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.knockknock.dto.event.EventReplyDTO;
 import com.knockknock.dto.event.MeetingReplyDTO;
 
-
+@Mapper
 public interface ReplyMapper {
 	public int replyWritingNumber() throws Exception;
 	public int replyInsert() throws Exception;

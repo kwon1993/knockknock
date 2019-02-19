@@ -169,12 +169,12 @@ public class AdminController {
 	public String adminBranchRegist(Model model, BranchDTO branchDTO, RoomDTO roomDTO) {
 //		String path = request.getSession().getServletContext().getRealPath("/");
 //		System.out.println(path);
-		
-		//경로 가져오기
+
+		// 경로 가져오기
 //		final DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
 //		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static" + "/1.jpg");
 //		System.out.println(resource);
-		
+
 		// 지점 및 방 등록
 		adminService.branchRegist(branchDTO, roomDTO);
 		int branchNumber = adminService.getBranchNumber();
@@ -262,7 +262,8 @@ public class AdminController {
 
 	// 지점 정보 수정 페이지
 	@RequestMapping("adminBranchModifyView")
-	public String adminBranchModifyView(Model model) {
+	public String adminBranchModifyView(Model model, @RequestParam int branchNumber) {
+		
 		return "";
 	}
 

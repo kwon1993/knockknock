@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
+import com.knockknock.dto.branch.BranchDetailVDTO2;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.VisitDTO;
@@ -50,10 +51,10 @@ public class BranchService {
 	 }
 	
 	//관심사로 찾기의 방검색
-	//	 public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO branchDetailVDTO) throws
-	//	  Exception{ 
-	//	 return branchMapper.categoryRoomSearch(branchDetailVDTO);
-	//	 }
+		 public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO2 branchDetailVDTO2) throws
+		  Exception{ 
+		 return branchMapper.categoryRoomSearch2(branchDetailVDTO2);
+		 }
 	
 	// 지점 상세 정보 - 상세
 	public BranchDetailVDTO getDetail(int branchNumber) {

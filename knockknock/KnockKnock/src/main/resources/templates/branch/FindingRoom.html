@@ -32,7 +32,7 @@ body{
 
 #theme{
  	position: absolute;
-    top:67%;
+    top:60%;
     left:82%;
     transform: translate(-50%, -50%);                                                                   
     font-size:14px;
@@ -167,7 +167,7 @@ height:250px;
 }
 
 #img:hover{
-	background-color:orange;
+	background-color:black;
 	opacity:0.7;
 }
 
@@ -186,6 +186,9 @@ font-family: 'Jua', sans-serif;
     border: 1px solid #2eca6a;
 }
 
+#mapmarker,#calculator{
+	color:#2eca6a;
+}
 
 
 </style>
@@ -203,7 +206,7 @@ font-family: 'Jua', sans-serif;
     
     	<div class="option_wrap" id="option_wrap">
 			<div id="a1">
-				<input type="text" name="address" id='searchAddress' placeholder="주소 및 위치">
+				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<input type="text" name="address" id='searchAddress' placeholder="주소 및 위치">
 				<input type="submit" value="찾기" name='roomSearch' id='roomSearch'/>
 			</div>
 			<br>
@@ -235,6 +238,7 @@ font-family: 'Jua', sans-serif;
 			<div>
 				 <label class="field-title" ><strong>월세</strong></label>
 				 <div>
+				 <i class="fa fa-calculator" id='calculator'></i>
 					<input type="text" id="checkbox8" name="branchPay" placeholder="최저가"><label for="checkbox8"></label>
 					-
 					<input type="text" id="checkbox9" name="branchPay" placeholder="최대가"><label for="checkbox9">&nbsp;</label>
@@ -255,9 +259,9 @@ font-family: 'Jua', sans-serif;
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber'/><br>
-				<span th:text='${dto.address}' name='addressList' id='addressList'/><br>
+				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<span th:text='${dto.address}' name='addressList' id='addressList'/><br>
 				<span th:text='${dto.theme}' name='theme' id='theme'/>
-			    <span th:text="${dto.monthlyRent}+'원'" name='monthlyRent' id='monthlyRent'/>
+			    <i class="fa fa-calculator" id='calculator'></i><span th:text="${dto.monthlyRent}+'원'" name='monthlyRent' id='monthlyRent'/>
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -349,6 +353,19 @@ var callback = function(result, status){
 		
     }//if end
     	map.setCenter(coords);
+    	//클릭이벤트테스트
+    	var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwRemoveable = true;
+    	
+    	var infowindow = new daum.maps.InfoWindow({
+    	    content : iwContent,
+    	    removable : iwRemoveable
+    	});
+    	
+    	daum.maps.event.addListener(marker, 'click', function() {
+    	      // 마커 위에 인포윈도우를 표시합니다
+    	      infowindow.open(map, marker);  
+    	});
 };
 
 function multiSearch(){
@@ -402,7 +419,7 @@ function multiSearch(){
 						
 						+"<span name='theme' id='theme'>"+data[i].theme+"</span>"
 					
-						+"<span name='monthlyRent' id='monthlyRent'>"+data[i].monthlyRent+"</span>"
+						+"<span name='monthlyRent' id='monthlyRent'>"+data[i].monthlyRent+"원</span>"
 						
 						+"</a></div>";
 						

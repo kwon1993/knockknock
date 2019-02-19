@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.knockknock.dto.branch.BranchDTO;
+import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
@@ -70,7 +71,10 @@ public interface AdminMapper {
 	public void roomRegist(int branchNumber, int roomNumber, String gender, String allowNumber, String roomSpace,
 			int roomDeposit, int roomMonthlyRent, Date roomRentableDate, String privateFacility);
 
-	public void roomModify();
+	public BranchDTO branchModify(int branchNumber);
+	
+	public RoomDTO roomModify(int branchNumber);
+	
 
 	public void roomDelete();
 

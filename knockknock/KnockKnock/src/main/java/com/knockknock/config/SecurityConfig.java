@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
 		//이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-//		web.ignoring().antMatchers("/resources/**");
+	//	web.ignoring().antMatchers("/meetingModify");
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		    .disable();	
 //	    
 	    //실제필요설정------------------------------------------------------------
-//	    http.csrf().disable().
+//	    http.csrf().disable()
 		http
 		.authorizeRequests()
 		//애니리퀘스트를 빼고, 해즈롤로 처리한다.
@@ -77,13 +77,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				 .anyRequest().authenticated() 
 			//매치 : static 이하
 			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
-					"/js/**","/lib/**","/smarteditor/**","/texteditor/**","/vendor/**","static/**","/jqueryui/**").permitAll()
+					"/js/**","/lib/**","/vendor/**","static/**").permitAll()
 			//매치 : BranchController
 			.antMatchers("/roomSearch","/categoryRoomSearch","/roomDetailView/**").permitAll()
 			//매치 : MainController
 			.antMatchers("/","/simpleRoomSearch","/findingRoom","/findingCategoryRoom","/meetingAndEventMain","/toSharingGuide","/toFAQ").permitAll()
 			//매치 : MeetingAndEventController
-			.antMatchers("/meetingList","/meetingView","/eventList","/eventView").permitAll()
+			.antMatchers("/writeBoard","/meetingList","/meetingView","/meetingModify","/eventList","/eventView").permitAll()
 			//매치 : ReviewController
 			.antMatchers("/reviewList").permitAll()
 			//매치 : MemberController
