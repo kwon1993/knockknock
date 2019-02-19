@@ -264,7 +264,8 @@ public class AdminController {
 
 	// 지점 정보 수정 페이지
 	@RequestMapping("adminBranchModifyView")
-	public String adminBranchModifyView(Model model) {
+	public String adminBranchModifyView(Model model, @RequestParam int branchNumber) {
+		
 		return "";
 	}
 
