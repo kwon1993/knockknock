@@ -13,17 +13,22 @@ margin-top:100px;
 </head>
 <body>
 <div layout:fragment="content">
-<input type='button' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){console.log('gauth.signIn()')});  checkLoginStatus();}else{gauth.signOut().then(function(){'gauth.signOut()'});  checkLoginStatus();}">
+<span id='name'></span><input type='button' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){console.log('gauth.signIn()')});  checkLoginStatus();}else{gauth.signOut().then(function(){'gauth.signOut()'});  checkLoginStatus();}">
 
 <script>
 function checkLoginStatus(){
 	  var loginBtn = document.querySelector('#loginBtn');
+	  var nameTxt = document.querySelector("#name");
 	  if(gauth.isSignedIn.get()){
 		  console.log('logined');
 		  loginBtn.value = 'Logout';
+		  var profile = gauth.currentUser.get().getBasicProfile();
+		  console.log(profile);
+		  nameTxt.innerHTML = 'welcome <strong>'+profile.getName()+'</strong>';
 	  }else{
 		  console.log('logouted');
 		  loginBtn.value = 'Login';
+		  nameTxt.innerHTML = '';
 	  }
 }
 

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
-import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.security.MemberController;
@@ -41,7 +40,11 @@ public class BranchController {
 	@RequestMapping("/roomSearch")
 	@ResponseBody
 	public List<BranchDetailVDTO> roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
-			model.addAttribute("list", branchService.roomList(branchDetailVDTO));
+		System.out.println("최소방가격:"+branchDetailVDTO.getMinRent());
+		System.out.println("최소방가격:"+branchDetailVDTO.getMaxRent());
+		System.out.println("주소:"+branchDetailVDTO.getAddress());
+		
+		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
   

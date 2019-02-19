@@ -15,7 +15,9 @@ profile="http://www.w3.org/2005/10/profile">
   <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
   <!-- default header name is X-CSRF-TOKEN -->
   <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-  
+
+
+
   <!-- Favicons -->
   <link th:href="@{/img/favicon.png}" rel="icon" type="text/css">
   <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon" type="text/css">
@@ -41,7 +43,8 @@ profile="http://www.w3.org/2005/10/profile">
   <link th:href="@{https://fonts.googleapis.com/css?family=Jua}" rel="stylesheet">
   <!-- 이미지로딩 에러방지 -->
   <link rel="icon" type="image/png" th:href="@{http://example.com/myicon.png}">
-
+  <!-- 제이쿼리유아이 -->
+  <link th:href="@{/jqueryui/jquery-ui.css}" rel="stylesheet">
   
 <style>
 	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -114,7 +117,8 @@ profile="http://www.w3.org/2005/10/profile">
 	}
 </style>
 <!-- JavaScript Libraries -->
-<!-- jQuery -->
+
+	  <!-- jQuery -->
 	  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
 	  <script th:src="@{/lib/jquery/jquery-migrate.min.js}"></script>
 	  <script th:src="@{/lib/popper/popper.min.js}"></script>
@@ -131,4 +135,8 @@ profile="http://www.w3.org/2005/10/profile">
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
       <!-- map -->
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4bcec44279a03821440e0f867851605&libraries=services"></script>
+	  <!-- 제이쿼리유아이 -->
+	  <script th:src="@{//code.jquery.com/jquery-1.10.0.min.js}"></script>
+  	  <script th:src="@{/jqueryui/jquery-ui.js}"></script>
+
 </head>

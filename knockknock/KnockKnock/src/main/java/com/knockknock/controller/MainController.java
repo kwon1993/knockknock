@@ -121,7 +121,7 @@ public class MainController {
 	//구글로그인
 	@RequestMapping("/googleLogin")
 	public String googleLogin() {
-		return "member/googleLogin";
+		return "branch/test";
 	}
 
 }

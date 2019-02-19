@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" 
+layout:decorate="~{etc/fragments/Main_layout}">
+
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI 滑块（Slider） - 슬라</title>
+ 
+
+</head>
+
+<body>
+<div layout:fragment="content" class="container">
+<p>
+  <label for="amount">어마운트</label>
+  <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider-range"></div>
+ 
+   <script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+  </script>
+ 
+ 
+ </div>
+</body>
+</html>
