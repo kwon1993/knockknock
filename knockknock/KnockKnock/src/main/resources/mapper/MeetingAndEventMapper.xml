@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime
 			FROM
 			    MEETING
-			WHERE WRITING_NUMBER > 0
+			WHERE WRITING_NUMBER > 0  AND CANCEL_REASON IS NULL
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT 5;
     </select>
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MT.FAVORITE, MB.NICKNAME
 			FROM
 			    MEETING MT, MEMBER MB
-			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
+			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER AND CANCEL_REASON IS NULL
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT #{pageStart}, #{perPageNum}
     	]]>
@@ -107,9 +107,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	DETAIL_INTRODUCE = #{detailIntroduce}, FAVORITE = #{favorite}, GENDER = #{gender}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
-    <delete id="meetingDelete" parameterType="int">     
-    	DELETE FROM MEETING WHERE WRITING_NUMBER = #{writingNumber}
-    </delete>
+    <update id="cancelMeeting">
+		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
+		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
+		SET M.TITLE='취소된 모임입니다.',
+		M.CANCEL_REASON=#{meetingDTO.cancelReason},
+		JM.MEETING_STATUS='다음 기회에'
+		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
+	</update>
+    
 	<insert id="mparticipate"> <!-- 모임 참가하기 -->
 		INSERT INTO JOIN_MEETING SET 
 		WRITING_NUMBER= #{meetingVDTO.writingNumber},

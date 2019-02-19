@@ -52,49 +52,50 @@ body{
 					class="sr-only">다음</span>
 				</a>
 			</div>
-	    <div class="row">
-		    <div class="col">
-			    <!-- 미니 글 리스트 -->
-			    <span class="font-weight-bold">모임글</span>
-				<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}">+더보기</a>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="mt : ${mMainList}">
-							<td th:text="${mt.writingNumber}">번호</td>
-							<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber})}" th:text="${mt.title}">제목</a></td>
-							<td th:text="${mt.writeTime}">작성일</td>
-						</tr>
-					</tbody>
-				</table>
-		    </div>
-			<div class="col">
-				<span class="font-weight-bold">이벤트글</span>
-				<a class="font-style-success font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>		
-				<table class="table table-hover">		
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="et : ${eMainList}">
-							<td th:text="${et.writingNumber}">번호</td>
-							<td><a th:href="@{/eventView(writingNumber=${et.writingNumber})}" th:text="${et.title}">제목</a></td>
-							<td th:text="${et.writeTime}">작성일</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> 
+		    <div class="row">
+			    <div class="col">
+				    <!-- 미니 글 리스트 -->
+				    <span class="font-weight-bold">모임글</span>
+					<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}">+더보기</a>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="mt : ${mMainList}">
+								<td th:text="${mt.writingNumber}">번호</td>
+								<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber})}" th:text="${mt.title}">제목</a></td>
+								<td th:text="${mt.writeTime}">작성일</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+				<div class="col">
+					<span class="font-weight-bold">이벤트글</span>
+					<a class="font-style-success font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>		
+					<table class="table table-hover">		
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="et : ${eMainList}">
+								<td th:text="${et.writingNumber}">번호</td>
+								<td><a th:href="@{/eventView(writingNumber=${et.writingNumber})}" th:text="${et.title}">제목</a></td>
+								<td th:text="${et.writeTime}">작성일</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div> 
+
 		</div>
 	</div>
 </body>
