@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
-<head>
-<meta charset="UTF-8">
-<title>수정하기</title>
+
 <style type="text/css">
 
 body{
@@ -23,12 +21,13 @@ body{
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
 			<h3>모임 개설하기</h3>
-			<form action="/meetingModify" role="form" id="editorForm" enctype="multipart/form-data">
+			<form th:action="@{/meetingModify}" role="form" id="editorForm" method="POST" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-2">
 						<span>대표이미지</span>
 						<img class="d-block" width="150" height="150" id="foo" th:src="@{meetingModifyForm.image}" onerror="this.src='/images/meeting/default.png';"/>
-						<input class="form-control-file" type='file' name="image" id="imgInp"/>
+						<input type="hidden" name="writingNumber" th:value="${meetingModifyForm.writingNumber}">
+						<!-- <input class="form-control-file" type='file' name="image" id="imgInp"/> -->
 						<small>* 이미지 등록에 대한 안내는 FAQ를 확인해주세요</small>
 					</div>
 					<div class="col">
@@ -122,9 +121,41 @@ body{
 				</div>
 			</form>
 		</div>
-<!-- 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
+		
+		<script th:src="@{/ckeditor/ckeditor.js}"></script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		
 		<script type="text/javascript">
+			<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(function() {
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+			
+			//ck editor-----------------
+		   
+		        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+		            width:'100%',
+		            height:'400px',
+		            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+		        });
+	
+		        CKEDITOR.on('dialogDefinition', function( ev ){
+		            var dialogName = ev.data.name;
+		            var dialogDefinition = ev.data.definition;
+		          
+		            switch (dialogName) {
+		                case 'image': //Image Properties dialog
+		                    //dialogDefinition.removeContents('info');
+		                    dialogDefinition.removeContents('advanced');
+		                    dialogDefinition.removeContents('Link');
+		                    break;
+		            }
+		        });
+		    });//	$(function()   end
+		
 		
 		//사진 미리보기-----------------
         function readURL(input) {
@@ -135,52 +166,11 @@ body{
               }
               reader.readAsDataURL(input.files[0]);
             }
-          }
+          };//function readURL(input)  end
+          
           $("#imgInp").change(function() {
             readURL(this);
           });
-		//사진 미리보기
-// 		function readURL(input){
-// 			if(input.files && input.files[0]){
-// 				var reader = new FileReader();
-			
-// 				reader.onload = function(e){
-// 					$("#img").attr('src',e.target.result);
-// 				}
-// 				reader.readAsDataURL(input.files[0]);
-// 			}
-// 		}
-// 		$("#uploadProfileShot").change(function(){
-// 			readURL(this);
-// 		})
-		
-		//사진 업데이트
-// 		function uploadProfileShot(){
-// 			var formData = new FormData();
-// 			var inputFile = $("input[name='uploadFileShot']");
-// 			var files = inputFile[0].files;
-			
-// 			for(var i=0; i<files.length; i++){
-// 				formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
-// 			}	
-		
-// 			$.ajax({
-// 				type:'post',
-// 				url:'/profileUpdate',
-// 				data:formData,
-// 				processData:false,
-// 				contentType:false,
-// 				dataType:'json',
-// 				success:function(result){
-// 					alert("업로드완료");
-// 				},
-// 				error:function(error){
-// 					location.reload();
-// 					alert("업로드실패");
-					
-// 				}
-// 			});
-// 		}
 
 			//Ajax Okay용 벨류
 			var regValue=0;
@@ -195,9 +185,9 @@ body{
 			
 					return false;
 				}
-			};
+			};//function allCheck()  end
 			
-		    //주소API-------------------------------------------------------------
+		    //주소API---start----------------------------------------------------------
 		    function sample4_execDaumPostcode() {
 		        new daum.Postcode({
 		            oncomplete: function(data) {
@@ -247,33 +237,55 @@ body{
 		            }
 		        }).open();
 		    }
-		</script>
+		    //주소API---end----------------------------------------------------------
 		
-		
-		<script th:src="@{/ckeditor/ckeditor.js}"></script>
-		<script>
-		//ck editor-----------------
-		    $(function(){
-		        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
-		            width:'100%',
-		            height:'400px',
-		            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-		        });
-	
-		        CKEDITOR.on('dialogDefinition', function( ev ){
-		            var dialogName = ev.data.name;
-		            var dialogDefinition = ev.data.definition;
-		          
-		            switch (dialogName) {
-		                case 'image': //Image Properties dialog
-		                    //dialogDefinition.removeContents('info');
-		                    dialogDefinition.removeContents('advanced');
-		                    dialogDefinition.removeContents('Link');
-		                    break;
-		            }
-		        });
-		    });
 		</script>
 	</div>
+<!-- 	<script type="text/javascript"> 
+	//사진 미리보기
+//		function readURL(input){
+//			if(input.files && input.files[0]){
+//				var reader = new FileReader();
+		
+//				reader.onload = function(e){
+//					$("#img").attr('src',e.target.result);
+//				}
+//				reader.readAsDataURL(input.files[0]);
+//			}
+//		}
+//		$("#uploadProfileShot").change(function(){
+//			readURL(this);
+//		})
+	
+	//사진 업데이트
+//		function uploadProfileShot(){
+//			var formData = new FormData();
+//			var inputFile = $("input[name='uploadFileShot']");
+//			var files = inputFile[0].files;
+		
+//			for(var i=0; i<files.length; i++){
+//				formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
+//			}	
+	
+//			$.ajax({
+//				type:'post',
+//				url:'/profileUpdate',
+//				data:formData,
+//				processData:false,
+//				contentType:false,
+//				dataType:'json',
+//				success:function(result){
+//					alert("업로드완료");
+//				},
+//				error:function(error){
+//					location.reload();
+//					alert("업로드실패");
+				
+//				}
+//			});
+//		}
+
+	</script> -->
 </body>
 </html>
+
