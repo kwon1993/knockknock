@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
@@ -361,17 +361,17 @@ public class MyPageController {
 	// 개설한 모임 취소(사실상 INSERT)
 	@RequestMapping(value = "/cancelMM", method = RequestMethod.POST)
 	@ResponseBody
-	public void cancelMM(@RequestBody MeetingDTO meetingDTO, Authentication authentication, Model model) {
+	public void cancelMM(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication, Model model) {
 
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		logger.info(meetingDTO + "");
+		logger.info(meetingVDTO + "");
 		logger.info("POST/cancelMM");
 
-		memberService.cancelMM(meetingDTO, email);
+		memberService.cancelMM(meetingVDTO, email);
 
 		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));

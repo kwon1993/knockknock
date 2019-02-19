@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
-import com.knockknock.dto.event.MeetingDTO;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
@@ -75,7 +74,7 @@ public interface MemberService{
 	public int deleteV(int writingNumber, String email);
 
 	// 개설 모임 취소
-	public void cancelMM(MeetingDTO meetingDTO, String email);
+	public void cancelMM(MeetingVDTO meetingDTO, String email);
 	
 	int getMemberNumber();
 
