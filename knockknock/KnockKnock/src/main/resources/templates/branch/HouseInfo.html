@@ -670,7 +670,7 @@ color:black;
 						// async:false, async는 deprecated 되었음
 						success:function(response){
 							alert("내 관심 지점 등록이 완료되었습니다.");
-							$(location).attr('href', '/roomDetailView/?branchNumber='+branchNumber); 
+							$(location).attr('href', '/roomDetailView/?branchNumber='+branchNumber1); 
 						}
 					}) 
 				} else {
@@ -758,44 +758,6 @@ color:black;
 			});
 			//시큐리티 적용중 end
 		
-			//from 성현 : 민희야 테스트 해보고 정상 작동하는것같으면 밑에 에이젝스 삭제해~
-			/*  $.ajax({
- 				type:'post',  
-				url:'/reviewList',
- 				data: branchNumber1, // 값 하나만 받아오기
-                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
-				contentType: "application/json",
-				// async:false, async는 deprecated 되었음
-				 success:function(result){
-					$.each(JSON.parse(result), function(key, value) {
-						inner += '<div class="reviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-						inner += '<div class="reviewInfo'+value.writingNumber+'">'
-								+ '작성일자 : '
-								+ value.writeTime
-								+ ' / 작성자 : '
-								+ value.nickname;
-						inner += '&nbsp&nbsp&nbsp&nbsp<button name="aboutReview" class="btn btn-default" onclick="reviewUpdate('
-								+ value.writingNumber
-								+ ',\''
-								+ value.content
-								+ '\');"> 수정 </button>';
-						inner += '&nbsp<button name="aboutReview" class="btn btn-default" onclick="deleteConfirm('
-								+ value.writingNumber
-								+ ');"> 삭제 </button> </div>';
-						inner += '<div class="reviewContent'+value.writingNumber+'"> <p> 내용 : '
-								+ value.content
-								+ '</p>';
-						inner += '</div></div>'; 
-					});
-					
-					$("#reviewList").html(inner);
-				},
-				error:function(result){
-					inner+="<br /><h3>에러 발생</h3><br />"
-					$("#reviewList").html(inner);
-				}
-			}); */
-			// end
 		}; 
 		
 		// 리뷰 등록

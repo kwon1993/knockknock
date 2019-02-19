@@ -252,7 +252,7 @@ public class MyPageController {
 
 		return "member/MyMeetingList";
 	}
-
+	
 	// 개설한 모임 취소
 	@RequestMapping("/deleteMM")
 	public String deleteMM(Model model, @RequestParam("writingNumber") int writingNumber) {
