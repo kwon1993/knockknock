@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{etc/fragments/Main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body{
+margin-top:100px;
+}
+</style>
+</head>
+<body>
+<div layout:fragment="content">
+<input type='button' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){console.log('gauth.signIn()')});  checkLoginStatus();}else{gauth.signOut().then(function(){'gauth.signOut()'});  checkLoginStatus();}">
+
+<script>
+function checkLoginStatus(){
+	  var loginBtn = document.querySelector('#loginBtn');
+	  if(gauth.isSignedIn.get()){
+		  console.log('logined');
+		  loginBtn.value = 'Logout';
+	  }else{
+		  console.log('logouted');
+		  loginBtn.value = 'Login';
+	  }
+}
+
+
+function init() {
+	  console.log('init');
+	  gapi.load('auth2', function() { 
+	  console.log('auth2');
+	  window.gauth = gapi.auth2.init({
+		  client_id: '966331465571-1tfu8u3b61su87dn53ai3ro38pljvpt0.apps.googleusercontent.com'
+	  })
+	  gauth.then(
+		function(){
+		  console.log('googleAuth success'); 
+		  checkLoginStatus();
+	  },function(){
+		  console.log('googleAuth fail');
+	  })
+	  });
+}
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+</div>
+</body>
+</html>

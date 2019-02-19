@@ -117,5 +117,11 @@ public class MainController {
 	public String toFAQ() {
 		return "etc/FAQ";
 	}
+	
+	//구글로그인
+	@RequestMapping("/googleLogin")
+	public String googleLogin() {
+		return "member/googleLogin";
+	}
 
 }

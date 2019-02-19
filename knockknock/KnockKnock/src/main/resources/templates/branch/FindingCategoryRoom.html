@@ -3,84 +3,96 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
 <style>
-body{
-	font-family: 'Jua', sans-serif;
-}
 
+  .jb-th-1{
+  	width : 128px;
+  }
+  .jb-th-2{
+  	width : 50px;
+  }
 
-.img-thumbnail { 
-				 width: 205px; 
-				 height: 100px;
-			   }
-
-
+ #jumbotronId { 
+	padding: 2rem 1rem;
+    margin-bottom: 0rem;
+    background-color: white;
+    border-radius: 1rem;
+ 	background-color: white; 
+ 	font-family: 'Jua', sans-serif;
+ 	
+ }
+ #img{
+ 	width : 200px;
+ 	height : 150px;
+ }
+ 
 </style>
 
 </head>
 <body>
-
+	<!-- 전체 레이아웃 -->
 	<div layout:fragment="content" class="container">
-		<div class="w3-container">
-			<div class="jumbotron" id="jumbotronId" style="margin-top: 40px;">
-				<!-- 주소 검색 -->
-				<div class="search">
-					<!-- <form action="/categoryRoomSearch"> -->
-						<label class="field-title"><strong>주소검색</strong></label>
-						<input type="text" th:name="address"  th:id="address"/>
-						<button id="categoryRoomSearch">주소 검색</button>
-				</div>		
-						<!-- <button type="submit" name="categoryRoomSearch" id="categoryRoomSearch">주소 검색</button> -->
-					<!-- </form> -->
+		<div class="jumbotron" id="jumbotronId">
+		 <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">취미에</span> 낙낙!</strong></h1>
+		 <h3 class="my-4 text-center text-lg-left" id="bang"><strong>관심있는 분야에<span style="color:#2eca6a">&nbsp;체크!</span>&nbsp;해주세요</strong></h3>
+			<div class="row">
+				<div class="col-4" id="checkField">			   
 					<!-- 체크박스 -->
-				<div class="branchThemeField">
-					<label class="field-title"><strong>관심사</strong></label>
+				<div class="checkbox" id="checkboxField">
+					<label class="field-title"><h5><strong>관심사</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme"><input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><label  th:text="${theme}" th:for="${theme}"></label></div>
 					</div>
 				</div>
-						
-			</div>
-
-		</div>
+				
+				<!-- 주소 검색 -->
+				<div class="form-group" id="search">
+					<label class="field-title"><h5><strong>주소검색</strong></h5></label>
+					
+						<div id="categorySearch" class="form-group">
+							<input type="text" th:name="address"  th:id="address"/>
+							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
+						</div>
+					
+				  </div>
+				</div>
+			
 		
 		
-		<div class="basic"  id="basicGallery">
-			<table class="w3-table-all">
-				<tr  class="text-center" style="width: 30px;">
-					<td style="visibility:hidden;">지점 이미지</td>
-					<td>주소</td>
-					<td>테마</td>
-					<td>성별</td>
-					<td>보증금</td>
-					<td>월세</td>
-					<td>입주가능 일자</td>
-					<td>입주가능 인원</td>
+		<div class="col-7">
+		
+		<div class="table-responsive"  id="categoryGallery">
+			<h3 class="my-4 text-center text-lg-left" id="bang"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
+			<table class="table-responsive" id="roomTable">
+				<tr  class="text-center">
+					<th style="visibility:hidden;"><span style="color:#2eca6a">지점 이미지</span></th>
+					<th class="jb-th-1">주소</th>
+					<th class="jb-th-2">테마</th>
+					<th class="jb-th-2">성별</th>
+					<th class="jb-th-1">입주가능 일자</th>
+					<th class="jb-th-1">입주가능 인원</th>
 				</tr>
 			
 			  <tbody id="branchDetailVDTOs">			  
-				<tr  class="text-center" style="width: 30px;" th:each="branchDetailVDTO : ${lists}">
- 	 				<td>
- 	 				<img class='img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'branch.jpg'" alt="branchImg" id='img'>
- 	 				</td>
-					<!-- 		<td> -->
-					<!--             <a th:href="@{'adminEventView?writingNumber=' + ${branchDetailVDTO.writingNumber}}"><p th:text="${branchDetailVDTO.title}"></p></a> -->
-					<!--         </td> -->
+				<tr  class="text-center" th:each="branchDetailVDTO : ${lists}">
+ 	 				<td><a th:href="@{'/roomDetailView/?branchNumber='+${branchDetailVDTO.branchNumber}}" class='d-block mb-4 h-100' id=''>
+ 	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'branch.jpg'" alt="branchImg" id='img'>
+  	 				</a></td>
 					<td th:text="${branchDetailVDTO.address}"></td>
-					
 					<td th:text="${branchDetailVDTO.theme}"></td>
 					<td th:text="${branchDetailVDTO.gender}"></td>
-					<td th:text="${branchDetailVDTO.deposit}"></td>
-					<td th:text="${branchDetailVDTO.monthlyRent}"></td>
 					<td th:text="${branchDetailVDTO.rentableDate}"></td>
 					<td th:text="${branchDetailVDTO.allowNumber}"></td>
+				
 				</tr>
 			  </tbody>
 			</table>
+			</div>	
 	  	</div>
-
+		</div>
+		</div>
 		<script>
 		
 		//카테고리바 체크디자인용
@@ -103,29 +115,13 @@ body{
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory
 					};
-				
-				//	alert(searchCategory);
-					
-					/* var jqxhr= $.get("/categoryRoomSearch?searchKeyWord="+searchCategory,function(){
-						alert("success");
-						})
-						.done(function(data){
-							that.refreshGrid(data);
-							alert("second success");
-						})
-						.fail(function(){
-							alert("error");
-						})
-						.always(function(){
-							alert("finished");
-						}); */
 						
 					$.ajax({
 						url : "categoryRoomSearch",
 						type : 'GET',
 						data : datas,
 						success : function(branchDetailVDTOs) {
-							alert("완료!" + branchDetailVDTOs);						
+// 							alert("완료!" + branchDetailVDTOs);						
 							//기존의 테이블 삭제	
 							$('#branchDetailVDTOs tr').remove();
 							//each를 통해 테이블 출력
@@ -135,12 +131,11 @@ body{
 								<!--새로 표시할 콘텐츠 집어넣기-->
 								$('#branchDetailVDTOs').append(
 										"<tr class='text-center' style='width: 30px;'>"
-	 									+"<td><img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"branch.jpg'"+" alt='' id='img'></td>"
+										+"<td><a href='/roomDetailView/?branchNumber="+branchDetailVDTO.branchNumber+"' class='d-block mb-4 h-100' id=''>"
+	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"branch.jpg'"+" alt='' id='img'/></a></td>"
 										+"<td class='address'>"+branchDetailVDTO.address+"</td>"
 										+"<td class='theme'>"+branchDetailVDTO.theme+"</td>"
 										+"<td class='gender'>"+branchDetailVDTO.gender+"</td>"
-										+"<td class='deposit'>"+branchDetailVDTO.deposit+"</td>"
-										+"<td class='monthlyRent'>"+branchDetailVDTO.monthlyRent+"</td>"
 										+"<td class='monthlyRent'>"+branchDetailVDTO.rentableDate+"</td>"
 										+"<td class='allowNumber'>"+branchDetailVDTO.allowNumber+"</td>"
 										+"</tr>");
@@ -148,8 +143,7 @@ body{
 						});
  				},
 						error : function(jqXHR, textStatus, errorThrown) {
-							alert("에러 발생~~ \n" + textStatus + " : "
-									+ errorThrown);
+// 							alert("에러 발생~~ \n" + textStatus + " : "+ errorThrown);
 
 						}
 					});
@@ -157,7 +151,7 @@ body{
 
 				//a very basic method
 				checkboxEventBind : function(target) {
-					alert("checkboxEventBind target  :" + target);
+// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -165,30 +159,23 @@ body{
 						$("input[name='branchTheme']:checked").each(function(i){
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
-							
-							
 						});
-						
-						
-						
-
 						that.sendToServer(that.searchCategory);
 					 }); 
 				},
-
 				searchInputEventBind : function(target) {
 					var that = this;
-					$(target).change(function(e) {
+					
+					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
-						alert(e.tatget);
+// 						alert(e.tatget);
 						that.sendToServer(that.searchCategory);
 					});
 				}
-
 			};
 			$(document).ready(function() {
-				categoryRoom.checkboxEventBind(".branchThemeField");
-				categoryRoom.searchInputEventBind(".search");
+				categoryRoom.checkboxEventBind(".checkbox");
+				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
 		</script>
 	</div>
