@@ -8,10 +8,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <style>
 
   .jb-th-1{
-  	width : 125px;
+  	width : 128px;
   }
   .jb-th-2{
-  	width : 45px;
+  	width : 50px;
   }
 
  #jumbotronId { 
@@ -21,6 +21,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
     border-radius: 1rem;
  	background-color: white; 
  	font-family: 'Jua', sans-serif;
+ 	
  }
  #img{
  	width : 200px;
@@ -156,30 +157,23 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						$("input[name='branchTheme']:checked").each(function(i){
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
-							
-							
 						});
-						
-						
-						
-
 						that.sendToServer(that.searchCategory);
 					 }); 
 				},
-
 				searchInputEventBind : function(target) {
 					var that = this;
+					
 					$(target).change(function(e) {
 						that.searchCategory.push($(e.target).val());
 // 						alert(e.tatget);
 						that.sendToServer(that.searchCategory);
 					});
 				}
-
 			};
 			$(document).ready(function() {
 				categoryRoom.checkboxEventBind(".checkbox");
-				categoryRoom.searchInputEventBind(".btn btn-outline-success");
+				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
 		</script>
 	</div>
