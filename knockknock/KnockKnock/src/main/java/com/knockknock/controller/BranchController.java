@@ -95,7 +95,15 @@ public class BranchController {
 		
 		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 객체
 		// System.getProperty("user.dir"): 프로젝트가 있는 경로까지 자동으로 가지고 옴
-		String path = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber;
+		
+		//리눅스(서버)에서 절대경로로 가져오도록 수정
+		String path;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if(OS.indexOf("nux") >= 0) {
+			path = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"+branchNumber;
+		} else {
+			path = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber;
+		}
 		
 		File f = new File( path );
 		File[] files = f.listFiles();
@@ -117,8 +125,14 @@ public class BranchController {
 		count= count-1; // main.jpg 제외
 		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
-
-		String pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
+		
+		//리눅스(서버)에서 절대경로로 가져오도록 수정
+		String pathRoom;
+		if(OS.indexOf("nux") >= 0) {
+			pathRoom = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"+branchNumber+"room";
+		} else {
+			pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
+		}
 		
 		File fRoom = new File( pathRoom );
 		File[] filesRoom = fRoom.listFiles();

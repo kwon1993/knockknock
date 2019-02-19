@@ -84,7 +84,14 @@ public class MyPageController {
 		//업로드할 절대경로1
 //		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
 		//테스트경로
-		String uploadFolder = System.getProperty("user.dir")+"/src/main/resources/static/images";
+		//리눅스(서버)에서 절대경로에서 가져오도록 수정
+		String uploadFolder;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if(OS.indexOf("nux") >= 0) {
+			uploadFolder = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images";
+		} else {
+			uploadFolder = System.getProperty("user.dir")+"/src/main/resources/static/images";
+		}
 		
 		//업로드할 절대경로2
 		String uploadFolderPath = "/profile";
