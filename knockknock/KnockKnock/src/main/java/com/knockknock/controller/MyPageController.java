@@ -83,6 +83,7 @@ public class MyPageController {
 //		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
 		//테스트경로
 		String uploadFolder = System.getProperty("user.dir")+"/src/main/resources/static/images";
+		
 		//업로드할 절대경로2
 		String uploadFolderPath = "/profile";
 		//DB에 저장할 상대경로

@@ -97,6 +97,7 @@ public class BranchController {
 //		String path = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber;
 		//테스트(from 성현 : 되면 위의 주석처리 삭제)
 		String path = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber;
+		
 		File f = new File( path );
 		File[] files = f.listFiles();
 
@@ -122,6 +123,7 @@ public class BranchController {
 //		String pathRoom = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images\\branch\\"+branchNumber+"room";
 		//테스트(from 성현 : 되면 위의 주석처리 삭제)
 		String pathRoom = System.getProperty("user.dir")+"/src/main/resources/static/images/branch/"+branchNumber+"room";
+		
 		File fRoom = new File( pathRoom );
 		File[] filesRoom = fRoom.listFiles();
 		
