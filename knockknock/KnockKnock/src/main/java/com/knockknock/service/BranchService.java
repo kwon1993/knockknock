@@ -39,10 +39,6 @@ public class BranchService {
 		return branchMapper.findingCategoryRoomList(branchDetailVDTO);
 	}
 	
-	//관심사로 방찾기 페이징처리
-	//public int categoryCountService(Criteria cri) throws Exception{
-	//	return branchMapper.categoryCount(cri);
-	//}
 	
 	//관심사로 찾기의 방검색
 	 public List<BranchDetailVDTO> categoryRoomSearch( String address,List<String> searchKeyWord) throws

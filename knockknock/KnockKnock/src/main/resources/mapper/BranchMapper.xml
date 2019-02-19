@@ -33,9 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,B.THEME,
-		R.GENDER, R.DEPOSIT,
+		B.THEME, B.GENDER, R.DEPOSIT,
 		R.MONTHLY_RENT monthlyRent,
 		R.RENTABLE_DATE rentableDate,
 		R.ALLOW_NUMBER allowNumber
@@ -62,6 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
+		B.PET,B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
 		R.GENDER, R.DEPOSIT,
@@ -84,9 +87,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY B.BRANCH_NUMBER
 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
+	
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
+		B.PET,B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
 		R.GENDER, R.DEPOSIT,
@@ -109,6 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY B.BRANCH_NUMBER
 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
+	
 	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,

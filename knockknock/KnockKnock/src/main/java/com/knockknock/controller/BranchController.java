@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.BranchDetailVDTO2;
-import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.security.MemberController;
@@ -48,17 +46,17 @@ public class BranchController {
 	}
   
 	  //관심사로 방찾기의 방검색
-	 @RequestMapping(value="/categoryRoomSearch_old",method=RequestMethod.GET) 
-	 @ResponseBody
-	 public List<BranchDetailVDTO> categoryRoomSearch_old(Model model,@RequestParam(value="address") String address, @RequestParam(value="searchKeyWord[]") List<String>searchKeyWord)
-	 throws Exception { 
-	  
-		 System.out.println(searchKeyWord +"   "+ address);
-		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(address,searchKeyWord);
-		 model.addAttribute("lists",branchDetailVDTOs);
-		 System.out.println("  branchDetailVDTOs "+ branchDetailVDTOs);
-	 return branchDetailVDTOs;
-	 }
+//	 @RequestMapping(value="/categoryRoomSearch_old",method=RequestMethod.GET) 
+//	 @ResponseBody
+//	 public List<BranchDetailVDTO> categoryRoomSearch_old(Model model,@RequestParam(value="address") String address, @RequestParam(value="searchKeyWord[]") List<String>searchKeyWord)
+//	 throws Exception { 
+//	  
+//		 System.out.println(searchKeyWord +"   "+ address);
+//		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(address,searchKeyWord);
+//		 model.addAttribute("lists",branchDetailVDTOs);
+//		 System.out.println("  branchDetailVDTOs "+ branchDetailVDTOs);
+//	 return branchDetailVDTOs;
+//	 }
 	 
 	 
 	 @RequestMapping(value="/categoryRoomSearch") 
