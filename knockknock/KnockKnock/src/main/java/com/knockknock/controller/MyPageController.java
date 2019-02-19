@@ -359,7 +359,7 @@ public class MyPageController {
 	}
 
 	// 개설한 모임 취소(사실상 INSERT)
-	@RequestMapping(value = "/cancelMM", method = RequestMethod.POST)
+	@RequestMapping(value = "/cancelMM", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public void cancelMM(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication, Model model) {
 
@@ -374,8 +374,10 @@ public class MyPageController {
 		memberService.cancelMM(meetingVDTO, email);
 
 		// 신청, 개설한 모임 리스트 다시 받아오기
+		
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		 
 	}
 
 }
