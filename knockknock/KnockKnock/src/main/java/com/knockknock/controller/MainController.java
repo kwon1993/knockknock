@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.MemberDTO;
@@ -66,6 +67,7 @@ public class MainController {
 	public String toFindingCategoryRoom(Model model, BranchDetailVDTO branchDetailVDTO) throws Exception {
 		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
 		model.addAttribute("themeLists", branchService.getThemeLists());
+		model.addAttribute("pet", branchService.getIspet());
 //		PageMaker pageMaker = new PageMaker();
 //		pageMaker.setCri(cri);
 //		pageMaker.setTotalCount(branchService.categoryCountService(cri));

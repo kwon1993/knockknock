@@ -41,15 +41,18 @@ public class BranchService {
 	
 	
 	//관심사로 찾기의 방검색
-	 public List<BranchDetailVDTO> categoryRoomSearch( String address,List<String> searchKeyWord) throws
-	  Exception{ 
-	 return branchMapper.categoryRoomSearch(address,searchKeyWord);
-	 }
+//	 public List<BranchDetailVDTO> categoryRoomSearch( String address,List<String> searchKeyWord) throws
+//	  Exception{ 
+//	 return branchMapper.categoryRoomSearch(address,searchKeyWord);
+//	 }
 	
 	//관심사로 찾기의 방검색
 		 public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO2 branchDetailVDTO2) throws
 		  Exception{ 
-		 return branchMapper.categoryRoomSearch2(branchDetailVDTO2);
+			 System.err.println(branchDetailVDTO2);
+			 List<BranchDetailVDTO> searchAndCheckbox=branchMapper.categoryRoomSearch2(branchDetailVDTO2);
+			 System.err.println("categoryRoomSearch    "+searchAndCheckbox);
+		 return  searchAndCheckbox;
 		 }
 	
 	// 지점 상세 정보 - 상세
@@ -85,5 +88,9 @@ public class BranchService {
 	//테마 검색
 	public List<String> getThemeLists(){
 		return branchMapper.getThemeLists();
+	}
+	//반려동물 유무
+	public List<String> getIspet() {
+		return branchMapper.getIspet();
 	}
 }
