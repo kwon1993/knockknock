@@ -63,7 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
     	MT.MEETING_END_TIME meetingEndTime,
-    	JM.MEETING_STATUS meetingStatus
+    	JM.MEETING_STATUS meetingStatus,
+    	MT.CANCEL_REASON cancelReason
     	FROM MEMBER M, MEETING MT, JOIN_MEETING JM 
     	WHERE JM.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
@@ -220,12 +221,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="cancelMM">
-		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
-		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
-		SET M.TITLE='취소된 모임입니다.',
-		M.CANCEL_REASON=#{meetingDTO.cancelReason},
-		JM.MEETING_STATUS='다음 기회에'
-		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
+		UPDATE MEETING 
+		SET 
+		TITLE='취소된 모임입니다.',
+		CANCEL_REASON=#{meetingVDTO.cancelReason}
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
+	</update>
+	
+	<update id="cancelMM2">
+		UPDATE JOIN_MEETING 
+		SET MEETING_STATUS='다음 기회에'
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
 	<select id="getMLBL" resultType="BranchDetailVDTO">

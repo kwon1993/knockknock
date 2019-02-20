@@ -77,13 +77,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				 .anyRequest().authenticated() 
 			//매치 : static 이하
 			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
-					"/js/**","/lib/**","/smarteditor/**","/texteditor/**","/vendor/**","static/**").permitAll()
+					"/js/**","/lib/**","/vendor/**","static/**").permitAll()
 			//매치 : BranchController
 			.antMatchers("/roomSearch","/categoryRoomSearch","/roomDetailView/**").permitAll()
 			//매치 : MainController
 			.antMatchers("/","/simpleRoomSearch","/findingRoom","/findingCategoryRoom","/meetingAndEventMain","/toSharingGuide","/toFAQ").permitAll()
 			//매치 : MeetingAndEventController
 			.antMatchers("/writeBoard","/meetingList","/meetingView","/meetingModify","/eventList","/eventView").permitAll()
+			//매치 : ReplyController
+			.antMatchers("/meetingReplyList").permitAll() //from 민철 추가
 			//매치 : ReviewController
 			.antMatchers("/reviewList").permitAll()
 			//매치 : MemberController
@@ -125,6 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("configureGlobal작동");
 		auth.eraseCredentials(false).userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 	}
+	
 	//회원가입시 비밀번호 인코딩을 위한 패스워드 인코더 Bean
 	@Bean
 	public PasswordEncoder passwordEncoder() {

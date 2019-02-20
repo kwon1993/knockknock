@@ -1,7 +1,6 @@
 package com.knockknock.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.knockknock.dto.event.MeetingDTO;
+import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
 import com.knockknock.security.MemberService;
@@ -260,8 +259,8 @@ public class MyPageController {
 
 		return "member/MyMeetingList";
 	}
-
-	// 개설한 모임 취소
+	
+	// 개설한 모임 취소 - 마이 페이지
 	@RequestMapping("/deleteMM")
 	public String deleteMM(Model model, @RequestParam("writingNumber") int writingNumber) {
 
@@ -358,24 +357,26 @@ public class MyPageController {
 		return "member/MyProfile";
 	}
 
-	// 개설한 모임 취소(사실상 INSERT)
+	// 개설한 모임 취소(사실상 UPDATE) - 모임 상세 페이지에서
 	@RequestMapping(value = "/cancelMM", method = RequestMethod.POST)
 	@ResponseBody
-	public void cancelMM(@RequestBody MeetingDTO meetingDTO, Authentication authentication, Model model) {
+	public void cancelMM(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication, Model model) {
 
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		logger.info(meetingDTO + "");
 		logger.info("POST/cancelMM");
-
-		memberService.cancelMM(meetingDTO, email);
+		logger.info(meetingVDTO+"");
+		
+		memberService.cancelMM(meetingVDTO, email);
+		memberService.cancelMM2(meetingVDTO, email);
 
 		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		
 	}
 
 }

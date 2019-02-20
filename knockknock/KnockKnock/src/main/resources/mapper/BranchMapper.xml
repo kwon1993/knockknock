@@ -6,22 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.BranchMapper">
 	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
-		BRANCH_NUMBER branchNumber,
-		BRANCH_COMMENT branchComment,
-		ADDRESS,
-		ADDRESS_DETAIL addressDetail,
-		MAXIMUM_RESIDENT maximumResident,
-		BRANCH_TYPE branchType,
-		PET,
-		ISPARKING isParking,
-		ISELEVATOR isElevator,
-		FACILITY,
-		RULE,
-		THEME theme
-		FROM BRANCH
+		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_COMMENT branchComment,
+		B.ADDRESS,
+		B.ADDRESS_DETAIL addressDetail,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.BRANCH_TYPE branchType,
+		B.PET,
+		B.ISPARKING isParking,
+		B.ISELEVATOR isElevator,
+		B.FACILITY,
+		B.RULE,
+		B.THEME theme,
+		R.MONTHLY_RENT monthlyRent
+		FROM BRANCH B,ROOM R
+		WHERE B.BRANCH_NUMBER = R.BRANCH_NUMBER
 		<if test="address!=null">
-			WHERE ADDRESS LIKE CONCAT('%',#{address},'%')
+		AND B.ADDRESS LIKE CONCAT('%',#{address},'%')
 		</if>
+		GROUP BY R.BRANCH_NUMBER
 	</select>
 
 	<select id="categoryCount" resultType="int">
@@ -32,6 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
@@ -59,33 +64,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC -->
 		<!-- LIMIT #{pageStart}, #{perPageNum} -->
 		<!-- ]]> -->
-	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
-		SELECT
-		B.BRANCH_NUMBER branchNumber,
-		R.ROOM_NUMBER roomNumber, B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,B.THEME,
-		R.GENDER, R.DEPOSIT,
-		R.MONTHLY_RENT monthlyRent,
-		R.RENTABLE_DATE rentableDate,
-		R.ALLOW_NUMBER allowNumber
-		FROM BRANCH B, ROOM R
-		<trim prefix="where" prefixOverrides="AND|OR">
-		<if test="address!=null">
-			R.BRANCH_NUMBER = B.BRANCH_NUMBER
-			AND ADDRESS like CONCAT('%',#{address},'%')
-		</if>
-		<if test="searchKeyWord.size!=0">
-			and THEME in
-			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
-			#{theme1}
-			</foreach>
-		</if>	
-		</trim>
-		GROUP BY B.BRANCH_NUMBER
-		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
-	</select>
+<!-- 	<select id="categoryRoomSearch" resultType="BranchDetailVDTO"> -->
+<!-- 		SELECT -->
+<!-- 		B.BRANCH_TYPE branchType, -->
+<!-- 		B.ISPARKING, B.ISELEVATOR, B.PET, -->
+<!-- 		B.BRANCH_NUMBER branchNumber, -->
+<!-- 		R.ROOM_NUMBER roomNumber, B.ADDRESS, -->
+<!-- 		B.ADDRESS_DETAIL addressDetail,B.THEME, -->
+<!-- 		R.GENDER, R.DEPOSIT, -->
+<!-- 		R.MONTHLY_RENT monthlyRent, -->
+<!-- 		R.RENTABLE_DATE rentableDate, -->
+<!-- 		R.ALLOW_NUMBER allowNumber -->
+<!-- 		FROM BRANCH B, ROOM R -->
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 		<if test="address!=null"> -->
+<!-- 			R.BRANCH_NUMBER = B.BRANCH_NUMBER -->
+<!-- 			AND ADDRESS like CONCAT('%',#{address},'%') -->
+<!-- 		</if> -->
+<!-- 		<if test="searchKeyWord.size!=0"> -->
+<!-- 			and THEME in -->
+<!-- 			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=","> -->
+<!-- 			#{theme1} -->
+<!-- 			</foreach> -->
+<!-- 		</if>	 -->
+<!-- 		</trim> -->
+<!-- 		GROUP BY B.BRANCH_NUMBER -->
+<!-- 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC -->
+<!-- 	</select> -->
+
+
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
@@ -105,11 +116,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{theme1}
 			</foreach>
 		</if>	
+		<if test="petCategory.size!=0">
+			and PET in
+			<foreach collection="petCategory" item="isPet" open="(" close=")" separator=",">
+			#{isPet}
+			</foreach>
+		</if>
+		<if test="branchTypeCategory.size!=0">
+			and BRANCH_TYPE in
+			<foreach collection="branchTypeCategory" item="branchType" open="(" close=")" separator=",">
+			#{branchType}
+			</foreach>
+		</if>	
 		</trim>
 		GROUP BY B.BRANCH_NUMBER
 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
-	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
+	
+	<!-- <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
 		B.BRANCH_COMMENT branchComment,
@@ -162,7 +186,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</choose>
 			</if>
 		</trim>
-		ORDER BY branchNumber asc
+		ORDER BY branchNumber ASC
+	</select> -->
+	
+	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
+		SELECT
+		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_COMMENT branchComment,
+		B.ADDRESS address,
+		B.ADDRESS_DETAIL addressDetail,
+		B.MAXIMUM_RESIDENT maximumResident,
+		B.BRANCH_TYPE branchType,
+		B.PET pet,
+		B.ISPARKING isParking,
+		B.ISELEVATOR isElevator,
+		B.FACILITY,
+		B.RULE,
+		B.THEME theme,
+		B.GENDER gender,
+		R.MONTHLY_RENT monthlyRent
+		FROM BRANCH B,ROOM R
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			B.BRANCH_NUMBER = R.BRANCH_NUMBER
+			<if test="address!=null">
+				AND B.ADDRESS like CONCAT('%',#{address},'%')
+			</if>
+			<if test="genderList.size!=0">
+				and B.gender in
+				<foreach collection="genderList" item="gender" open="("
+					close=")" separator="," index="index">
+					#{gender}
+				</foreach>
+			</if>
+			<if test="petList.size!=0">
+				and pet in
+				<foreach collection="petList" item="pet" open="(" close=")"
+					separator="," index="index">
+					#{pet}
+				</foreach>
+			</if>
+			<if test="themeList.size==1">
+				<choose>
+					<when test='themeList.get(0).equals(".") and themeList.size!=0'>
+						and theme in
+						<foreach collection="themeList" item="theme" open="("
+							close=")" separator="," index="index">
+							#{theme}
+						</foreach>
+					</when>
+					<when test='themeList.get(0).equals("theme") and themeList.size!=0'>
+						and theme in
+						<foreach collection="themeList" item="theme" open="("
+							close=")" separator="," index="index">
+							'IT','음악','운동','전시관람','요리','영화'
+						</foreach>
+					</when>
+				</choose>
+			</if>
+			<if test="minRent gt 0 and minRent lte maxRent">
+				AND R.MONTHLY_RENT BETWEEN #{minRent} AND #{maxRent}
+			</if>
+		</trim>
+		GROUP BY B.BRANCH_NUMBER
+		ORDER BY branchNumber ASC
 	</select>
 
 	<select id="getDetail" resultType="BranchDetailVDTO">
@@ -244,5 +330,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">
 		SELECT DISTINCT THEME FROM BRANCH
+	</select>
+	<!-- 펫 유무 체크박스 -->
+	<select id="getIspet" resultType="String">
+		SELECT DISTINCT PET FROM BRANCH
+	</select>
+	<!-- 주택유형 체크박스 -->
+	<select id="getBranchType" resultType="String">
+		SELECT DISTINCT BRANCH_TYPE FROM BRANCH
 	</select>
 </mapper>
