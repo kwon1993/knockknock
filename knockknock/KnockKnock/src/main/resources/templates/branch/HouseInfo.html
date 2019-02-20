@@ -1021,9 +1021,11 @@ color:black;
 										position : coords,
 										image:markerImage
 									});
-
+									
+									// alert(coords);
+			
 									// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element 삽입 가능
-									var customContent = '<div style="width:150px;text-align:center;padding:6px 0;">낙낙 '+branchNumber.textContent+'호점</div>';
+									var customContent = '<div style="width:150px;text-align:center;padding:6px 0;">낙낙 '+branchNumber.textContent+'호점<br><a href="http://map.daum.net/link/map/낙낙 '+branchNumber.textContent+'호점,'+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/낙낙 '+branchNumber.textContent+'호점,'+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>';
 									
 									// 인포윈도우로 장소에 대한 설명을 표시합니다
 									var infowindow = new daum.maps.InfoWindow(
