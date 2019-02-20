@@ -4,17 +4,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.knockknock.mapper.MeetingAndEventMapper">
-
+	<!-- 모임글 갯수 -->
     <select id="meetingCount" resultType="int">
         SELECT
             COUNT(*)
         FROM MEETING
     </select>
+    <!-- 이벤트글 갯수 -->
     <select id="eventCount" resultType="int">
         SELECT
             COUNT(*)
         FROM EVENT
     </select>
+   	<!-- 메인페이지 모임글 리스트 -->
     <select id="mMainList" resultType="MeetingVDTO">
     		SELECT
 			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime
@@ -24,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT 5;
     </select>
+    <!-- 메인페이지 이벤트글 리스트 -->
     <select id="eMainList" resultType="EventVDTO">
     		SELECT
 			    WRITING_NUMBER writingNumber, TITLE, WRITE_TIME writeTime
@@ -33,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT 5;
     </select>    
+    <!-- 모임글 리스트 -->
     <select id="meetingList" resultType="MeetingVDTO">
     	<![CDATA[
 			SELECT
@@ -44,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			LIMIT #{pageStart}, #{perPageNum}
     	]]>
     </select>
+    <!-- 이벤트글 리스트 -->
     <select id="eventList" resultType="EventVDTO">
     	<![CDATA[
 			SELECT
@@ -55,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			LIMIT #{pageStart}, #{perPageNum}
     	]]>
     </select>
+    <!-- 모임글 뷰 -->
     <select id="meetingView" resultType="MeetingVDTO" parameterType="int">
         SELECT
             MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.HIT, MT.IMAGE, MT.PLACE, 
@@ -66,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM MEETING MT, MEMBER MB
         WHERE MT.MEMBER_NUMBER=MB.MEMBER_NUMBER AND WRITING_NUMBER = #{writingNumber}
     </select>
+    <!-- 이벤트글 뷰 -->
     <select id="eventView" resultType="EventVDTO" parameterType="int">
         SELECT
             WRITING_NUMBER writingNumber, TITLE, HIT, IMAGE, WRITE_TIME writeTime,
@@ -76,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM EVENT
         WHERE WRITING_NUMBER = #{writingNumber}
     </select>
+    <!-- 모임글 작성 -->
     <insert id="meetingInsert">
     	INSERT INTO MEETING
 	    	(MEMBER_NUMBER, TITLE, MEETING_START_TIME, MEETING_END_TIME,
@@ -86,11 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{acceptStartTime},#{acceptEndTime},#{place},#{placeDetail},
 	    	#{recruitMaxNumber},#{detailIntroduce},#{gender},0,NOW(),#{favorite})
     </insert>
+    <!-- 모임글 조회수(미구현) -->
     <update id="meetingViewHit">
 		UPDATE MEETING
 		SET HIT = HIT + 1
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</update>
+	<!-- 모임글 수정폼 -->
 	<select id="meetingModifyForm" resultType="MeetingVDTO">
 		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
 		MEETING_END_TIME meetingEndTime, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime, GENDER,
@@ -98,6 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MEETING
 		WHERE WRITING_NUMBER = #{writingNumber}
 	</select>
+	<!-- 모임글 수정 -->
     <update id="meetingModify">
     	UPDATE MEETING
     	SET
@@ -107,6 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	DETAIL_INTRODUCE = #{detailIntroduce}, FAVORITE = #{favorite}, GENDER = #{gender}
 	    WHERE WRITING_NUMBER = #{writingNumber}
     </update>
+    <!-- 모임글 내리기 -->
     <update id="cancelMeeting">
 		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
 		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
@@ -115,86 +127,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JM.MEETING_STATUS='다음 기회에'
 		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
 	</update>
-    
-	<insert id="mparticipate"> <!-- 모임 참가하기 -->
+    <!-- 모임 참가하기 -->
+	<insert id="mparticipate"> 
 		INSERT INTO JOIN_MEETING SET 
 		WRITING_NUMBER= #{meetingVDTO.writingNumber},
 		MEMBER_NUMBER= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 	</insert>
-	<insert id="eparticipate"> <!-- 이벤트 참가하기 -->
+	<!-- 이벤트 참가하기 -->
+	<insert id="eparticipate"> 
 		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)
 		VALUES (#{writingNumber}, #{memberNumber})
 	</insert>
-	
-	<!-- ********************** 댓글 관련 쿼리 ********************* -->
-	<!-- 모임 댓글 -->
-	<select id="meetingReplyList" resultType="MeetingReplyDTO">
-		SELECT 
-			MB.NICKNAME,
-			MR.CONTENT,
-			MR.WRITE_TIME writeTime,
-			MR.REPLY_NUMBER replyNumber
-		FROM MEETING_REPLY MR, MEMBER MB
-		WHERE MR.WRITING_NUMBER = #{writingNumber}
-		AND MR.MEMBER_NUMBER = MB.MEMBER_NUMBER
-		ORDER BY WRITING_NUMBER DESC
-	</select>
-	<insert id="meetingReplyInsert" parameterType="MeetingReplyDTO">
-		INSERT INTO MEETING_REPLY SET
-		MEMBER_NUMBER
-		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
-		WRITING_NUMBER=#{replyDTO.writingNumber}, 
-		CONTENT=#{replyDTO.content}, 
-		WRITE_TIME = NOW()
-	</insert>
-	<update id="meetingReplyUpdate" parameterType="MeetingReplyDTO">
-		UPDATE
-			MEETING_REPLY
-		SET
-		CONTENT=#{replyDTO.content}
-		WHERE REPLY_NUMBER=#{replyDTO.replyNumber}
-	</update>
-	<delete id="meetingReplyDelete" parameterType="int">
-		DELETE
-		FROM MEETING_REPLY
-		WHERE REPLY_NUMBER=#{replyNumber}
-	</delete>
-	
-	<!-- 이벤트 댓글 -->
-	<!--<select id="eventReplyList" resultType="EventReplyDTO">
-		SELECT 
-		M.NICKNAME,
-		R.CONTENT,
-		R.WRITE_TIME writeTime,
-		R.WRITING_NUMBER writingNumber
-		FROM REVIEW R, MEMBER M
-		WHERE R.BRANCH_NUMBER = #{branchNumber}
-		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
-		ORDER BY WRITING_NUMBER DESC
-	</select>
-	<insert id="reviewInsert" parameterType="ReplyDTO">
-		INSERT INTO REVIEW SET
-		MEMBER_NUMBER
-		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
-		BRANCH_NUMBER=#{reviewDTO.branchNumber}, 
-		CONTENT=#{reviewDTO.content}, 
-		WRITE_TIME = NOW()
-	</insert>
-	<update id="reviewUpdate" parameterType="ReplyDTO">
-		UPDATE
-		REVIEW
-		SET
-		CONTENT=#{reviewDTO.content}
-		WHERE WRITING_NUMBER=#{reviewDTO.writingNumber}
-	</update>
-	<delete id="reviewDelete" parameterType="int">
-		DELETE
-		FROM REVIEW
-		WHERE WRITING_NUMBER=#{writingNumber}
-	</delete>-->
-	
-	<!-- *****************댓글 쿼리 end******************** -->
-	
+
 	<!-- 이미지 업로드 -->
 <!-- 	<update id="imageUpload"> -->
 <!-- 		UPDATE MEETING -->

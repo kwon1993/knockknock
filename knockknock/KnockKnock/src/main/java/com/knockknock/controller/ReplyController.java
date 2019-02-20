@@ -29,45 +29,43 @@ public class ReplyController {
 	@PostMapping("/meetingReplyList")
 	@ResponseBody
 	public List<MeetingReplyDTO> meetingReplyList(Model model, @RequestBody String writingNumber1) {
-		System.out.println(writingNumber1);
-
 		int writingNumber = Integer.parseInt(writingNumber1);
-
 		return reMapper.meetingReplyList(writingNumber);
 	}
 
 	// 모임 댓글 작성
 	@PostMapping("/meetingReplyInsert")
 	@ResponseBody
-	private int meetingReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {
-
+	private int meetingReplyInsert(@RequestBody MeetingReplyDTO meetingReplyDTO, Authentication authentication) {
+		System.err.println("insert 컨트롤러 진입");
 		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
 		// ReviewDTO replyDTO = new ReviewDTO();
 		// replyDTO.setBranchNumber(branchNumber);
 		// replyDTO.setContent(content);
-		
+		 
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
+		System.err.println(meetingReplyDTO);
 		
 
-		return reMapper.meetingReplyInsert(replyDTO, email);
+		return reMapper.meetingReplyInsert(meetingReplyDTO, email);
 	}
 	
 	// 모임 댓글 수정
 	@RequestMapping("/meetingReplyUpdate")
 	@ResponseBody
-	private int meetingReplyUpdate(@RequestBody ReplyDTO replyDTO) {
-
-		return reMapper.meetingReplyUpdate(replyDTO);
+	private int meetingReplyUpdate(@RequestBody MeetingReplyDTO meetingReplyDTO) {
+		System.err.println("update 컨트롤러 진입");
+		return reMapper.meetingReplyUpdate(meetingReplyDTO);
 	}
 
 	// 모임 댓글 삭제
 	@RequestMapping("/meetingReplyDelete{replyNumber}")
 	@ResponseBody
 	private int meetingReplyDelete(@PathVariable("replyNumber") int replyNumber) {
-
+		System.err.println("delete 컨트롤러 진입");
 		return reMapper.meetingReplyDelete(replyNumber);
 	}
 	

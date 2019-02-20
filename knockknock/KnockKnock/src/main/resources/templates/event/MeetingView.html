@@ -2,7 +2,6 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-<meta charset="UTF-8">
 <title th:text="${MeetingView.title}"></title>
 <style type="text/css">
 
@@ -106,7 +105,7 @@ body{
 			<!-- 세션으로 가져온 닉네임과 글쓴 사람이 맞으면 수정,삭제 활성화 -->
 			<span th:if="${session.nickname}==${MeetingView.nickname}">
 				<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
-				<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'삭제'"></a>
+				<a class="btn btn-danger pull-right" role="button" th:href="@{/meetingDelete(writingNumber=${MeetingView.writingNumber})}" th:text="'모임취소'"></a>
 			</span>
 			<a class="btn" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
 			
@@ -133,7 +132,7 @@ body{
 					<input type='hidden' th:value="${session.nickname}" id='sessionNickname'>
 					
 					<div class="container">
-						<div id="replyList">
+						<div id="meetingReplyList">
 						</div>
 						<!-- <input type="hidden" th:name="${_csrf.parameterName}"
 								th:value="${_csrf.token}"> -->
@@ -161,7 +160,7 @@ body{
 	//from 성현 :로그인한 사람의 닉네임 가져오기
 	var nick =$("#sessionNickname").val();
 	
-	/* var meetingNumber= $("input[name='meetingNumber']").val(); */
+	/* var writingNumber= $("input[name='writingNumber']").val(); */
 
 		function showReplyList(){
 		var writingNumber1= $("input[name='writingNumber']").val();
@@ -176,13 +175,12 @@ body{
 		
 		$.ajax({
 				type:'post',  
-			url:'/replyList',
+			url:'/meetingReplyList',
 				data: writingNumber1, // 값 하나만 받아오기
                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
 			contentType: "application/json",
 			// async:false, async는 deprecated 되었음
 			 success:function(result){
-				
 				$.each(JSON.parse(result), function(key, value) {
 					inner += '<div class="replyArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 					inner += '<div class="replyInfo'+value.replyNumber+'">'
@@ -192,7 +190,7 @@ body{
 							+ value.nickname;
 					
 					if(value.nickname==nick){
-					inner += '&nbsp&nbsp&nbsp&nbsp<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
+					inner += '<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
 							+ value.replyNumber
 							+ ',\''
 							+ value.content
@@ -210,26 +208,27 @@ body{
 					inner += '</div></div>'; 
 				});
 				
-				$("#replyList").html(inner);
+				$("#meetingReplyList").html(inner);
 			},
 			error:function(result){
 				inner+="<br /><h3>에러 발생</h3><br />"
-				$("#replyList").html(inner);
+				$("#meetingReplyList").html(inner);
 			}
 		});
 	}; 
 	
 	// 댓글 등록
  	$('[name=replyInsertBtn]').click(function() { // 댓글 등록 버튼 클릭시 
- 		var meetingNumber= $("input[name='meetingNumber']").val();
+ 		alert("등록")
+ 		var writingNumber= $("input[name='writingNumber']").val();
  		var content = $("input[name='replyContent']").val();
 		// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
 	
 		$.ajax({
-			url : '/replyInsert',
+			url : '/meetingReplyInsert',
 			type : 'post',
 			data : JSON.stringify({
-					"meetingNumber":meetingNumber,
+					"writingNumber":writingNumber,
 					"content":content
 			}),
 			dataType : 'text',
@@ -249,7 +248,7 @@ body{
 
 		a += '<div class="input-group">';
 		a += '<input type="text" class="form-control" name="content_'+replyNumber+'" value="'+content+'"/>';
-		a += '<span class="input-group-btn"><button class="btn btn-default" name="aboutReply" type="button" onclick="replyUpdateProc('
+		a += '<span class="input-group-btn"><button class="btn btn-default" name="aboutReply" type="button" onclick="meetingReplyUpdate('
 				+ replyNumber + ');">수정 완료</button> </span>';
 		a += '</div>';
 
@@ -257,11 +256,11 @@ body{
 	} 
 
  	// 댓글 수정
-	function replyUpdateProc(writingNumber) {
+	function meetingReplyUpdate(replyNumber) {
 		var updateContent = $('[name=content_' + replyNumber + ']').val();
 
 		$.ajax({
-			url : '/replyUpdateProc',
+			url : '/meetingReplyUpdate',
 			type : 'post',
 			data : JSON.stringify({
 				'content' : updateContent,
@@ -271,7 +270,7 @@ body{
 			contentType: "application/json",
 			success : function(data) {
 				if (data == 1)
-					showReplyList(meetingNumber); //댓글 수정후 목록 출력 
+					showReplyList(writingNumber); //댓글 수정후 목록 출력 
 			}
 		});
 	}
@@ -280,20 +279,21 @@ body{
 	function deleteConfirm(replyNumber){
 		var msg = confirm("댓글를 삭제하시겠습니까?");
 		if(msg==true){ // 확인 버튼 클릭 시
-			replyDelete(replyNumber);
+			meetingReplyDelete(replyNumber);
 		} else { // 취소 버튼 클릭 시
 			return false;
 		}
 	}
 	
-	function replyDelete(replyNumber) {
+	function meetingReplyDelete(replyNumber) {
 		$.ajax({
-			url : '/replyDelete'+replyNumber,
+			url : '/meetingReplyDelete'+replyNumber,
 			type : 'post',
 			data : replyNumber,
 			dataType : 'text',
 			success : function(data) {
 				if (data == 1)
+					alert("삭제완료")
 					showReplyList(writingNumber); //댓글 삭제 후 목록 출력 
 			}
 		});
