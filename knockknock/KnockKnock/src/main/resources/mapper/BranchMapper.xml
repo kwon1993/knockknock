@@ -35,6 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
@@ -64,6 +66,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- ]]> -->
 	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
@@ -91,6 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_TYPE branchType,
+		B.ISPARKING, B.ISELEVATOR, B.PET,
 		B.BRANCH_NUMBER branchNumber,
 		R.ROOM_NUMBER roomNumber, B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,B.THEME,
