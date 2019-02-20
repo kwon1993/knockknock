@@ -4,7 +4,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 <head>
 
-
 <title>낙낙-방찾기</title>
 
 <style>
@@ -17,7 +16,6 @@ body{
     padding: 2rem 1rem;
     margin-bottom: 0rem;
     background-color: white;
-    border-radius: 1rem;
 }
 
 .label {margin-bottom: 96px;}
@@ -34,27 +32,29 @@ body{
 
 #theme{
  	position: absolute;
-    top:67%;
+    top:60%;
     left:82%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:11px;
+    font-size:14px;
     font-family: 'Jua', sans-serif;
+    font-weight:bolder;
     color: white;
     z-index: 2;
     text-align: center;
-    padding:12px 15px;
-    background-color: #2eca6a;
-    border-radius: .25rem;
+    padding:2%;
+    background-color: white;
+    border: 1px solid black;
+    color:black;
 }
-
 #option_wrap{
 	display:inline;	
 	position:absolute;
 	float:left;
-	padding:45px 14px;
+	padding:25px 14px;
 	border:1px solid  #2eca6a;
 	border-radius: 1rem;
-	height: 370px;
+	height: 440px;
+	width:20%;
 	font-family: 'Jua', sans-serif;
 	 
 }
@@ -73,7 +73,7 @@ body{
 	font-family: 'Jua', sans-serif;
 }
 
-#roomSearch{
+#roomSearch,#roomPay{
   color: #2eca6a;
   border: 1px solid #2eca6a;
   border-radius: 50px;
@@ -102,6 +102,7 @@ border-top:10px;
 
 #branchNumber{
 font-weight: bolder;
+border-bottom:2px solid #2eca6a;
 }
 
 #img{
@@ -152,7 +153,7 @@ height:250px;
 #js-btn-wrap,#hi{
   color: #2eca6a;
   border: 1px solid #2eca6a;
-  border-radius: 50px;
+  border-radius: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.030em;
   background-color:white;
@@ -165,6 +166,31 @@ height:250px;
 
 }
 
+#img:hover{
+	background-color:black;
+	opacity:0.7;
+}
+
+#ho{
+font-family: 'Jua', sans-serif;
+}
+
+#checkbox8{
+	width:25%;
+	border-radius: .25rem;
+    border: 1px solid #2eca6a;
+}
+#checkbox9{
+	width:25%;
+	border-radius: .25rem;
+    border: 1px solid #2eca6a;
+}
+
+#mapmarker,#calculator{
+	color:#2eca6a;
+}
+
+
 </style>
     
 </head>
@@ -175,16 +201,16 @@ height:250px;
     <div class="jumbotron" id='jumbotronId' style="margin-top:40px;">
     	<!-- 맵 -->
 		<div class="map_wrap" id="map_wrap">
-			<div id="map" style="width:70%;height:83%;position:relative;overflow:hidden;margin-left:20px"></div><br>
+			<div id="map" style="width:70%;height:98%;position:relative;overflow:hidden;margin-left:20px"></div><br>
 		</div>
     
     	<div class="option_wrap" id="option_wrap">
 			<div id="a1">
-				<input type="text" name="address" id='searchAddress'>
+				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<input type="text" name="address" id='searchAddress' placeholder="주소 및 위치">
 				<input type="submit" value="찾기" name='roomSearch' id='roomSearch'/>
 			</div>
 			<br>
-			<div class="genderField">
+			<div class="genderField" style="width:80%;">
 	              <label class="field-title"><strong>성별</strong></label>
 	              <div name="gender" id="gender">
 	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="남" id="checkbox1" name="gender"><label for="checkbox1">&nbsp;남성전용</label></div>
@@ -193,7 +219,7 @@ height:250px;
 	              </div>
 	        </div>
 	        <br><br><br>
-	        <div class="petField">
+	        <div class="petField" style="width:80%;">
 	              <label class="field-title"><strong>반려동물</strong></label>
 	              <div name="pet" id="pet">
 	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="가능" id="checkbox4" name="pet"><label for="checkbox4">&nbsp;가능</label></div>
@@ -201,14 +227,26 @@ height:250px;
 	              </div>
 	        </div>
 	        <br>
-	        <div class="branchThemeField">
+	        <div class="branchThemeField" style="width:80%;">
 	              <label class="field-title"><strong>테마</strong></label>
 	              <div name="branchTheme" id="branchTheme">
 	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">&nbsp;있음</label></div>
 	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">&nbsp;없음</label></div>
 	              </div>
 	        </div>
-        </div>
+	        <br><br>
+			<div>
+				 <label class="field-title" ><strong>월세</strong></label>
+				 <div>
+				 <i class="fa fa-calculator" id='calculator'></i>
+					<input type="text" id="checkbox8" name="branchPay" placeholder="최저가"><label for="checkbox8"></label>
+					-
+					<input type="text" id="checkbox9" name="branchPay" placeholder="최대가"><label for="checkbox9">&nbsp;</label>
+					<input type="button" value="찾기" name='roomPay' id='roomPay'/>
+				 </div>
+	        </div>
+	        <br><br>
+		</div>
     </div>
     <br>
 	<!-- gallery Page Content -->
@@ -220,9 +258,10 @@ height:250px;
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'><!-- 더페LI / class=lists__item js-load -->
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
-	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber' /><br>
-				<span th:text='${dto.address}' name='addressList' id='addressList' />
-				<span th:text='${dto.theme}' name='theme' id='theme' />
+	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber'/><br>
+				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<span th:text='${dto.address}' name='addressList' id='addressList'/><br>
+				<span th:text='${dto.theme}' name='theme' id='theme'/>
+			    <i class="fa fa-calculator" id='calculator'></i><span th:text="${dto.monthlyRent}+'원'" name='monthlyRent' id='monthlyRent'/>
 	          </a>
 	        </div>
 	        <!-- /.thymeleaf gallery-->
@@ -236,8 +275,6 @@ height:250px;
 //제이쿼리 충돌방지 문법 체인지
 $.noConflict();
 
-//마커를 담을 배열 
-var markers = [];
 //맵생성 컨테이너
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -273,6 +310,7 @@ function searchMap(){
 
 jQuery('.checkbox').on('click',multiSearch);
 jQuery('#roomSearch').on('click',multiSearch);
+jQuery('#roomPay').on('click',multiSearch);
 
 //장소검색이 완료됐을 때 호출되는 콜백함수 
 var callback = function(result, status){
@@ -297,9 +335,13 @@ var callback = function(result, status){
     		customOverlay.setMap(null);
         });
         
-    	//var customContent = "<div class ='label'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
-    	var customContent = "<div class ='label'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
-   
+        jQuery("#roomPay").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+        })
+        
+    	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
     	
     	// 인포윈도우로 장소에 대한 설명을 표시
     	var customOverlay = new daum.maps.CustomOverlay({
@@ -311,6 +353,19 @@ var callback = function(result, status){
 		
     }//if end
     	map.setCenter(coords);
+    	//클릭이벤트테스트
+    	var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwRemoveable = true;
+    	
+    	var infowindow = new daum.maps.InfoWindow({
+    	    content : iwContent,
+    	    removable : iwRemoveable
+    	});
+    	
+    	daum.maps.event.addListener(marker, 'click', function() {
+    	      // 마커 위에 인포윈도우를 표시합니다
+    	      infowindow.open(map, marker);  
+    	});
 };
 
 function multiSearch(){
@@ -319,7 +374,9 @@ function multiSearch(){
 		var genderCheckbox = new Array();
 		var petCheckbox = new Array();
 		var themeCheckbox = new Array();
-	 	  
+		var minRent = jQuery("#checkbox8").val();
+		var maxRent = jQuery("#checkbox9").val();
+		
 		jQuery("input[name='gender']:checked").each(function(i){
 			genderCheckbox.push(jQuery(this).val());
 		});//checked end
@@ -333,11 +390,12 @@ function multiSearch(){
 		jQuery.ajax({
 			method : 'post',
 			url : '/roomSearch',
-			data : JSON.stringify({"address":address,"genderList":genderCheckbox,"petList":petCheckbox,"themeList":themeCheckbox}),
+			data : JSON.stringify({"address":address,"genderList":genderCheckbox,"petList":petCheckbox,"themeList":themeCheckbox,"minRent":minRent,"maxRent":maxRent}),
 			dataType : "json",
 			contentType: 'application/json',
 			async : false,
 			success : function(data){
+				alert(data[0].monthlyRent);
 				jQuery("#allGallery").remove();
 				if(data==""){
 					alert("검색결과가 존재하지 않습니다:(");
@@ -345,6 +403,7 @@ function multiSearch(){
 				}
 				else{
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
+					
 					for(i=0; i<data.length; i++){
 						content+=
 						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
@@ -356,12 +415,16 @@ function multiSearch(){
 						
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + "호점</span>"
 						
-						+"<span name='addressList' id='addressList'><br>" + data[i].address + "</span>"
+						+"<span name='addressList' id='addressList'><br>" + data[i].address + "</span><br>"
 						
 						+"<span name='theme' id='theme'>"+data[i].theme+"</span>"
-							
+					
+						+"<span name='monthlyRent' id='monthlyRent'>"+data[i].monthlyRent+"원</span>"
+						
 						+"</a></div>";
+						
 					}
+					
 					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>More</a></div>";
 					jQuery("#container").html(content);
 					
