@@ -375,8 +375,10 @@ public class MyPageController {
 
 		// 신청, 개설한 모임 리스트 다시 받아오기
 		
-		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
-		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		/*
+		 * model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
+		 * model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		 */
 		 
 	}
 

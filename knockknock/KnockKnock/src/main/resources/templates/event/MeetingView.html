@@ -387,7 +387,7 @@ body{
 			modal.style.display = "none";
 		}
 		
-		if (event.target == modal) {
+		if (event.target == modal1) {
 			modal1.style.display = "none";
 		}
 	}
@@ -430,8 +430,8 @@ body{
 	
 	// 모임 삭제
 	$("#cancelMM").click(function(){
-		writingNumber= $(this).val();
-		memo = $("input[name='memo']").val();
+		var writingNumber= $(this).val();
+		var memo = $("input[name='memo']").val();
 		
 		alert(writingNumber);
 		alert(memo);
@@ -453,7 +453,7 @@ body{
 				$("#myModal1").html(inner);
 				
 				$(document).on("click", "#modalx", function(){
-					modal.style.display = "none";
+					modal1.style.display = "none";
 				});
 			},
 			error:function(response){  
