@@ -53,9 +53,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<div class="col-4" id="checkField">			   
 			<!-- 체크박스 -->
 				<div class="themeCheckbox" id="checkboxField">
-					<label class="field-title"><h4>"STEP1"<strong>&nbsp;관심사 체크!!</strong></h4></label>
+					<label class="field-title"><h4>"STEP1"<strong>&nbsp;관심사 검색</strong></h4></label>
 					<br>
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;THEME</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
@@ -63,35 +63,27 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					</div>
 				</div>
 				<br>
-			<!-- 반려동물유무 checkbox -->
+			<!-- pet checkbox -->
 				<div class="petCheckbox" id="checkboxField">										
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물 유무</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;PET</strong></h5></label>
 					<div th:each="pet : ${pet}" th:name="branchPet" th:id="branchPet">
 						<div class="branchPet">
 							<input type="checkbox" th:value="${pet}" th:id="${pet}" th:name="branchPet"><span th:text="${pet}" th:for="${pet}"></span>
 						</div>
 					</div>
-				</div>
-				<br>
-			<!-- 주택유형 checkbox -->
-				<div class="branchTypeCheckbox" id="checkboxField">										
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;주택유형</strong></h5></label>
-					<div th:each="branchType : ${branchType}" th:name="branchType" th:id="branchType">
-						<div class="branchType">
-							<input type="checkbox" th:value="${branchType}" th:id="${branchType}" th:name="branchType"><span th:text="${branchType}" th:for="${branchType}"></span>
-						</div>
-					</div>
-				</div>					
+				</div>				
 				<!-- 주소 검색 -->
 				<br>
 				<div class="form-group" id="search">
-					<label class="field-title"><h4>"STEP2"<strong>&nbsp;주소 검색</strong></h4></label>				
+					<label class="field-title"><h4>"STEP2"<strong>&nbsp;주소 검색</strong></h4></label>
+					
 						<div id="categorySearch" class="form-group">
 							<input type="text" th:name="address"  th:id="address"/>
 							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
-						</div>					
-				</div><!-- 주소검색 end-->
-				</div><!-- 전체 체크박스  end-->
+						</div>
+					
+				  </div>
+				</div>
 			
 		
 		
@@ -147,21 +139,19 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				address : $("#address").val(),
 				searchCategory : [],
 				petCategory: [],
-				branchTypeCategory: [],
 				refreshGrid : function(data) {
 					//todo grid refresh
 				},
 
-				sendToServer : function(searchCategory, petCategory, branchTypeCategory) {
+				sendToServer : function(searchCategory, petCategory) {
 					var that = this;
 					var datas = {
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory,
-						"petCategory" : petCategory,
-						"branchTypeCategory" : branchTypeCategory
+						"petCategory" : petCategory
 					};
 			
-					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+petCategory+",  "+branchTypeCategory);	
+					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+petCategory);	
 					$.ajax({
 						url : "categoryRoomSearch",
 						/* type : 'GET', */
@@ -215,12 +205,13 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
-						
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
-						
+					/* 	if(that.searchCategory.size==0){
+							that.sendToServer(
+						}else{ */
+							that.sendToServer(that.searchCategory,that.petCategory);
+						//}
 					 }); 
 				},
-				
 				petCheckboxEventBind : function(target) {
 // 					alert("checkboxEventBind target  :" + target);
 					var that = this;
@@ -236,46 +227,24 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.petCategory);
 						//}
 					 }); 
 				},
-				
-				branchTypeCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
-					var that = this;
-				
-					 $(target).change(function(e) { 
-							that.branchTypeCategory=[];
-							
-						$("input[name='branchType']:checked").each(function(i){
-							that.branchTypeCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
-						});
-						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
-						//}
-					 }); 
-				},//branchType end
-				
 				searchInputEventBind : function(target) {
 					var that = this;
 					
 					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
  						alert("$(e.target).val()::"+$(e.target).val());
-						that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+						that.sendToServer(that.searchCategory,that.petCategory);
 					});
 				}
-			};//var categoryRoom end
+			};//var categoryRoom = {  end
 					
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
 				categoryRoom.petCheckboxEventBind(".petCheckbox");
-				categoryRoom.branchTypeCheckboxEventBind(".branchTypeCheckbox");
 				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
 

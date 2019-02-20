@@ -70,7 +70,7 @@ public class BranchController {
 	  
 		 System.out.println(data);
 		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(data);
-		
+		 
 		  model.addAttribute("lists",branchDetailVDTOs);
 		  System.out.println("  branchDetailVDTOs   "+ branchDetailVDTOs);
 		 

@@ -57,4 +57,5 @@ public class BranchDetailVDTO {
 	private List<String> payList;
 	private int minRent;
 	private int maxRent;
+	
 }

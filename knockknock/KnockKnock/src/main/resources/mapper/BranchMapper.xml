@@ -64,33 +64,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- B.BRANCH_NUMBER ASC, R.RENTABLE_DATE ASC -->
 		<!-- LIMIT #{pageStart}, #{perPageNum} -->
 		<!-- ]]> -->
-	<select id="categoryRoomSearch" resultType="BranchDetailVDTO">
-		SELECT
-		B.BRANCH_TYPE branchType,
-		B.ISPARKING, B.ISELEVATOR, B.PET,
-		B.BRANCH_NUMBER branchNumber,
-		R.ROOM_NUMBER roomNumber, B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,B.THEME,
-		R.GENDER, R.DEPOSIT,
-		R.MONTHLY_RENT monthlyRent,
-		R.RENTABLE_DATE rentableDate,
-		R.ALLOW_NUMBER allowNumber
-		FROM BRANCH B, ROOM R
-		<trim prefix="where" prefixOverrides="AND|OR">
-		<if test="address!=null">
-			R.BRANCH_NUMBER = B.BRANCH_NUMBER
-			AND ADDRESS like CONCAT('%',#{address},'%')
-		</if>
-		<if test="searchKeyWord.size!=0">
-			and THEME in
-			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
-			#{theme1}
-			</foreach>
-		</if>	
-		</trim>
-		GROUP BY B.BRANCH_NUMBER
-		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
-	</select>
+<!-- 	<select id="categoryRoomSearch" resultType="BranchDetailVDTO"> -->
+<!-- 		SELECT -->
+<!-- 		B.BRANCH_TYPE branchType, -->
+<!-- 		B.ISPARKING, B.ISELEVATOR, B.PET, -->
+<!-- 		B.BRANCH_NUMBER branchNumber, -->
+<!-- 		R.ROOM_NUMBER roomNumber, B.ADDRESS, -->
+<!-- 		B.ADDRESS_DETAIL addressDetail,B.THEME, -->
+<!-- 		R.GENDER, R.DEPOSIT, -->
+<!-- 		R.MONTHLY_RENT monthlyRent, -->
+<!-- 		R.RENTABLE_DATE rentableDate, -->
+<!-- 		R.ALLOW_NUMBER allowNumber -->
+<!-- 		FROM BRANCH B, ROOM R -->
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 		<if test="address!=null"> -->
+<!-- 			R.BRANCH_NUMBER = B.BRANCH_NUMBER -->
+<!-- 			AND ADDRESS like CONCAT('%',#{address},'%') -->
+<!-- 		</if> -->
+<!-- 		<if test="searchKeyWord.size!=0"> -->
+<!-- 			and THEME in -->
+<!-- 			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=","> -->
+<!-- 			#{theme1} -->
+<!-- 			</foreach> -->
+<!-- 		</if>	 -->
+<!-- 		</trim> -->
+<!-- 		GROUP BY B.BRANCH_NUMBER -->
+<!-- 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC -->
+<!-- 	</select> -->
 
 
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
@@ -114,6 +114,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and THEME in
 			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
 			#{theme1}
+			</foreach>
+		</if>	
+		<if test="petCategory.size!=0">
+			and PET in
+			<foreach collection="petCategory" item="isPet" open="(" close=")" separator=",">
+			#{isPet}
+			</foreach>
+		</if>
+		<if test="branchTypeCategory.size!=0">
+			and BRANCH_TYPE in
+			<foreach collection="branchTypeCategory" item="branchType" open="(" close=")" separator=",">
+			#{branchType}
 			</foreach>
 		</if>	
 		</trim>
@@ -318,5 +330,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">
 		SELECT DISTINCT THEME FROM BRANCH
+	</select>
+	<!-- 펫 유무 체크박스 -->
+	<select id="getIspet" resultType="String">
+		SELECT DISTINCT PET FROM BRANCH
+	</select>
+	<!-- 주택유형 체크박스 -->
+	<select id="getBranchType" resultType="String">
+		SELECT DISTINCT BRANCH_TYPE FROM BRANCH
 	</select>
 </mapper>
