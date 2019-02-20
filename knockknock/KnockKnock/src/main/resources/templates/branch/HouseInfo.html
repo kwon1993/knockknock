@@ -288,9 +288,7 @@ color:black;
 	text-align:center;
 } 
 
-#likeBranch{
-background-image:url(/images/like.png) no-repeat;
-}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -304,7 +302,10 @@ background-image:url(/images/like.png) no-repeat;
 		<h1 th:text="${details.branchNumber}" id='branchNumber'
 			style="float: left"></h1>
 		<h1 style="float: left">호점 &nbsp;</h1>
-		<button id="likeBranch" class="btn btn-default"></button>
+		<button id="likeBranch" type="submit" style="border: 0; background: transparent">
+   			<img id="likeImage" src="/images/likeCancel.png" width="45" height="45" style="cursor: pointer;" alt="submit" />
+		</button>
+		
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -655,29 +656,68 @@ background-image:url(/images/like.png) no-repeat;
 
 		<script>
 		$(document).ready(function() { 
-		
+			
 			var branchNumber1= $("input[name='branchNumber']").val();
 			
 			$("#likeBranch").click(function(){
-				if(confirm("해당 지점을 내 관심 지점으로 등록하시겠습니까?")){
+				
+				var toggle = document.getElementById('likeImage');
+				
+				if(toggle.src.match("Cancel")){
+					toggle.src="/images/like.png";
 					
-					// alert(branchNumber1==1);
+					if(confirm("해당 지점을 내 관심 지점으로 등록하시겠습니까?")){
+						
+						// alert(branchNumber1==1);
+						
+						$.ajax({
+			 				type:'post',  
+							url:'/likeBranch',
+			 				data: branchNumber1, // 값 하나만 받아오기
+			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+							contentType: "application/json",
+							// async:false, async는 deprecated 되었음
+							success:function(response){
+								alert("내 관심 지점 등록이 완료되었습니다.");
+								/* $(location).attr('href', '/roomDetailView/?branchNumber='+branchNumber1); */
+							}
+						}) 
+					} else {
+						return false;
+					} 
 					
-					$.ajax({
-		 				type:'post',  
-						url:'/likeBranch',
-		 				data: branchNumber1, // 값 하나만 받아오기
-		                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
-						contentType: "application/json",
-						// async:false, async는 deprecated 되었음
-						success:function(response){
-							alert("내 관심 지점 등록이 완료되었습니다.");
-							$(location).attr('href', '/roomDetailView/?branchNumber='+branchNumber1); 
-						}
-					}) 
 				} else {
-					return false;
+					toggle.src="/images/likeCancel.png";
+					
+					if(confirm("해당 지점을 관심 지점에서 삭제하시겠습니까?")){
+			        	/* var branchNumber1= $(this).val();
+			        	alert(branchNumber1==1); */
+			        	
+			        	$.ajax({
+			        		type:'post',  
+							url:'/deleteLB',
+							data: branchNumber1,
+					        dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+							contentType: "application/json",
+							// async:false, async는 deprecated 되었음
+							success:function(data){
+								alert("관심 지점이 삭제되었습니다.");
+								/* // 리스트 갱신 필요(페이지 이동)
+								$(location).attr('href', '/MyLikeBranch'); */
+
+							},
+							error:function(data){
+								alert("에러 발생");
+							}
+						})
+			        	
+			        } else {
+			        	return false;
+			        }
 				}
+					
+					
+				
 			})
 			
 			});
@@ -948,7 +988,8 @@ background-image:url(/images/like.png) no-repeat;
 			var map = new daum.maps.Map(mapContainer, mapOption);
 
 			// 마커 이미지
-			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+			/* var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다  */  
+			var imageSrc = '/images/hand.png', // 마커이미지의 주소입니다 
    			imageSize = new daum.maps.Size(64, 69), // 마커이미지의 크기입니다
    			imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 			

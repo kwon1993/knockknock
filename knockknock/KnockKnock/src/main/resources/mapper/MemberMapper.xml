@@ -221,13 +221,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="cancelMM">
-		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
-		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
+		UPDATE MEETING 
 		SET 
-		M.TITLE='취소된 모임입니다.',
-		M.CANCEL_REASON=#{meetingVDTO.cancelReason},
-		JM.MEETING_STATUS='다음 기회에'
-		WHERE M.WRITING_NUMBER=#{meetingVDTO.writingNumber};
+		TITLE='취소된 모임입니다.',
+		CANCEL_REASON=#{meetingVDTO.cancelReason}
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
+	</update>
+	
+	<update id="cancelMM2">
+		UPDATE JOIN_MEETING 
+		SET MEETING_STATUS='다음 기회에'
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
 	<select id="getMLBL" resultType="BranchDetailVDTO">
