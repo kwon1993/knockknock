@@ -266,7 +266,7 @@
 		bankName, DEPOSITOR, BRANCH_ACCOUNT branchAccount, GENDER,
 		BRANCH_COMMENT branchComment, ADDRESS,
 		ADDRESS_DETAIL addressDetail,
-		ADDRESS_NAME addressName, BRANCH_TYPE branchType, ISPARKING,
+		BRANCH_TYPE branchType, ISPARKING,
 		ISELEVATOR,
 		FACILITY, PET, MAXIMUM_RESIDENT maximumResident, RULE
 		FROM
@@ -275,7 +275,7 @@
 		#{param1}
 	</select>
 	<select id="roomModifyView" resultType="roomVDTO">
-		SELECT ROOM_NUMBER,
+		SELECT ROOM_NUMBER roomNumber,
 		GENDER, ALLOW_NUMBER allowNumber, SPACE, DEPOSIT, MONTHLY_RENT
 		monthlyRent, RENTABLE_DATE rentableDate,
 		FACILITY
