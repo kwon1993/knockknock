@@ -20,4 +20,5 @@ public class BranchDetailVDTO2 implements Serializable{
 		
 	private ArrayList<String> searchKeyWord;
 	private ArrayList<String> petCategory;
+	private ArrayList<String> branchTypeCategory;
 }

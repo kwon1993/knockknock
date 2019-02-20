@@ -47,5 +47,7 @@ public interface BranchMapper {
 	public List<String> getThemeLists();
 	//펫 유무 체크박스
 	public List<String> getIspet();
+	//주택유형 체크박스
+	public List<String> getBranchType();
 
 }

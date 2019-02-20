@@ -93,4 +93,8 @@ public class BranchService {
 	public List<String> getIspet() {
 		return branchMapper.getIspet();
 	}
+	//주택유형 분류
+	public List<String> getBranchType() {
+		return branchMapper.getBranchType();
+	}
 }

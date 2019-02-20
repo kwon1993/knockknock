@@ -68,6 +68,7 @@ public class MainController {
 		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
 		model.addAttribute("themeLists", branchService.getThemeLists());
 		model.addAttribute("pet", branchService.getIspet());
+		model.addAttribute("branchType", branchService.getBranchType());
 //		PageMaker pageMaker = new PageMaker();
 //		pageMaker.setCri(cri);
 //		pageMaker.setTotalCount(branchService.categoryCountService(cri));
