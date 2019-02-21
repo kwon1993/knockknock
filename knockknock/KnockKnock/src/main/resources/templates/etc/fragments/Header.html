@@ -48,7 +48,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
       	<span sec:authorize="isAuthenticated()">
 			<th:block class="nav-item" id='nick'>
 	      		<img th:src="${session.profileImage}" id="profileImage" style="width:22%; height:22%; border-radius: 100%"/>
-		    	<span th:text="${session.nickname}+'님 어서오세요'"></span>
+		    	<span th:text="${session.nickname}+'님 반가워요'"></span>
 			</th:block>
 	    </span>
       
