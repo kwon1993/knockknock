@@ -133,6 +133,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WRITING_NUMBER= #{meetingVDTO.writingNumber},
 		MEMBER_NUMBER= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 	</insert>
+	<!-- 모임 참가인원 갱신 -->
+	<!-- <update id="mparticipate">
+		UPDATE MEETING M INNER JOIN MEETING_REPLY MR
+		ON M.WRITING_NUMBER = MR.WRITING_NUMBER
+		SET M.RECRUIT_NUMBER = (SELECT COUNT(*) FROM MEETING_REPLY WHERE WRITING_NUMBER=#{writingNumber})
+		WHERE M.WRITING_NUMBER = MR.WRITING_NUMBER AND M.WRITING_NUMBER=#{writingNumber}
+		AND M.RECRUIT_MAX_NUMBER <= M.RECRUIT_NUMBER;
+	</update> -->
 	<!-- 이벤트 참가하기 -->
 	<insert id="eparticipate"> 
 		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)
