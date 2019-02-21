@@ -42,7 +42,7 @@ body{
 <body>
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-			<h3>모임 게시판</h3>
+			<h3><span style="color:#2eca6a">모임</span> 게시판</h3>
 			<div class="row">
 				<div class="col-2">
 					<img class="d-block" width="150" height="150" id="foo" src="#" onerror="this.src='/images/meeting/default.png';"/>
@@ -50,7 +50,7 @@ body{
 					<span th:text="${MeetingView.nickname}"></span>
 				</div>
 			<div class="col">
-			<h1 th:text="${MeetingView.title}">제목</h1>
+			<h1><span id="title" th:text="${MeetingView.title}">제목</span></h1>
 <!-- 			<span th:text="${MeetingView.nickname} + ' | '">닉네임</span> -->
 			<span th:text="'작성일 : '+${MeetingView.writeTime} + ' | '">작성일</span>
 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
@@ -108,6 +108,9 @@ body{
 				<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
 				<a id="cancelBtn" name="cancelBtn" class="btn btn-danger pull-right" role="button" th:value="${MeetingView.writingNumber}" th:text="'모임취소'"></a>
 			</span>
+<!-- 			<input type="text" name="cancelReason" th:value="${MeetingView.cancelReason}"> -->
+			<input type="hidden" name="cancelTitle" th:value="${MeetingView.title}"><!-- 취소사유가 있는지 검토 -->
+			
 			<a class="btn" role="button" th:href="@{/meetingList}" th:text="'목록'"></a>
 			
 			<!-- 개설한 모임 취소 시 취소 사유 작성 모달 -->
@@ -394,7 +397,7 @@ var nick =$("#sessionNickname").val();
 	//참가하기 처리
 	$("#mparticipate").click(function() {
 			
-		writingNumber= $("input[name='writingNumber']").val();
+		var writingNumber= $("input[name='writingNumber']").val();
 // 		memberNumber= $("input[name='memberNumber']").val();
 		// var ss = $("#visitBookingForm").serialize();
 		 inner ="";
@@ -462,6 +465,17 @@ var nick =$("#sessionNickname").val();
 	$(document).on("click", "#modalx", function(){
 		modal.style.display = "none";
 	});
+	
+	//모임취소 후 버튼 보이지 않게하기
+	$(function() {
+		var cancelTitle= $("input[name='cancelTitle']").val();
+		var cancelTitle2="취소된 모임입니다."
+		if(cancelTitle===cancelTitle2){
+			$('#cancelBtn').css("display", "none");
+		}else{
+			$('#cancelBtn').css("display", "block");
+		}
+	}); 
 </script>
 </div>
 </body>

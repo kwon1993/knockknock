@@ -136,7 +136,7 @@ public class MeetingAndEventController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		meMapper.mparticipate(meetingVDTO, email);		
-	}
+	}	
 	
 	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기
 	private void eparticipate(@RequestBody EventVDTO eventVDTO, Authentication authentication){
