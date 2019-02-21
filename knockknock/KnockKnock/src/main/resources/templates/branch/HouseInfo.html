@@ -643,10 +643,7 @@ color:black;
 					<br />
 					<button id="myBtn1" class='btn btn-default'
 						onclick="location.href='/toSharingGuide'">입주 안내</button>
-					<!-- <sec:authentication property="principal" var="user" /> -->	
-					
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
-					
 					<br />
 				</div>
 			</div>
@@ -739,6 +736,7 @@ color:black;
 				xhr.setRequestHeader(header, token);
 			});
 		});
+		
 		//from 성현 :로그인한 사람의 닉네임 가져오기
 		var nick =$("#sessionNickname").val();
 		
@@ -854,7 +852,7 @@ color:black;
 				contentType: "application/json",
 				success : function(data) {
 					if (data == 1)
-						showReviewList(branchNumber); //댓글 수정후 목록 출력 
+						showReviewList(); //댓글 수정후 목록 출력 
 				}
 			});
 		}
@@ -877,7 +875,7 @@ color:black;
 				dataType : 'text',
 				success : function(data) {
 					if (data == 1)
-						showReviewList(branchNumber); //댓글 삭제 후 목록 출력 
+						showReviewList(); //댓글 삭제 후 목록 출력 
 				}
 			});
 		} 
@@ -933,9 +931,9 @@ color:black;
 			
 	 		visitBooking.onclick = function(){
 	 			
-				branchNumber= $("input[name='branchNumber']").val();
-				reservationTime = $("input[name='reservationTime']").val();
-				memo = $("input[name='memo']").val();
+				var branchNumber= $("input[name='branchNumber']").val();
+				var reservationTime = $("input[name='reservationTime']").val();
+				var memo = $("input[name='memo']").val();
 				
 				// var ss = $("#visitBookingForm").serialize();
 				 inner ="";
