@@ -135,7 +135,7 @@ body{
 					</div>
 				</div>
 			
-			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★리뷰 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
+			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★댓글 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
 			
 			<div id="reply">
 				<strong>댓글</strong>
@@ -448,6 +448,7 @@ var nick =$("#sessionNickname").val();
 				
 				$(document).on("click", "#modalx", function(){
 					modal1.style.display = "none";
+					location.reload();
 				});
 			},
 			error:function(response){  
