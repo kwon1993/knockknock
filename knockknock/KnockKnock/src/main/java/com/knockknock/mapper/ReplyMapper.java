@@ -15,9 +15,9 @@ public interface ReplyMapper {
 	// 미팅 댓글 목록
 	public List<MeetingReplyDTO> meetingReplyList(int writingNumber);
 	//미팅 댓글 작성
-	public int meetingReplyInsert(@Param("meetingReplyDTO") MeetingReplyDTO meetingReplyDTO, String email);
+	public int meetingReplyInsert(@Param("meetingReplyDTO") MeetingReplyDTO meetingReplyDTO, @Param("email") String email);
 	//미팅 댓글수정
-	public int meetingReplyUpdate(@Param("meetingReplyDTO") MeetingReplyDTO meetingReplyDTO);
+	public int meetingReplyUpdate(MeetingReplyDTO meetingReplyDTO);
 	//댓글 삭제
 	public int meetingReplyDelete(int replyNumber);
 	/*

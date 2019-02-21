@@ -137,15 +137,15 @@ body{
 			
 			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★리뷰 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
 			
-			<div id="reply" class="w3-container">
-				<h3><strong>댓글</strong></h3>
-				<br />
+			<div id="reply">
+				<strong>댓글</strong>
 				<div class="row">
 					<div class="form-group">
 						<form name="replyInsertForm">
 							<div class="input-group">
-								<input type="text" name="writingNumber">
-								<input type="text" style="width: 763.5px" class="form-control" id="content" name="replyContent" placeholder="내용을 입력하세요.">
+								<input type="hidden" name="replyNumber">
+								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
+								<input type="text" class="form-control" id="content" name="replyContent" placeholder="내용을 입력하세요.">
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button" name="replyInsertBtn">등록</button> 
 								</span>
@@ -174,164 +174,159 @@ body{
 </script>
 
 <script> <!-- 댓글 Ajax -->
-	
-	//카테고리바 체크디자인용
-	window.onload = function(){
-		$('#categoryFindingRoomNav').addClass('active').css('color','#2eca6a');;
-	}
-	
-	<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	$(function() {
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
+<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(function() {
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
 	});
-	//from 성현 :로그인한 사람의 닉네임 가져오기
-	var nick =$("#sessionNickname").val();
-	
-	/* var branchNumber= $("input[name='branchNumber']").val(); */
+});
+//from 성현 :로그인한 사람의 닉네임 가져오기
+var nick =$("#sessionNickname").val();
 
-		function showReplyList(){
-		var branchNumber1= $("input[name='branchNumber']").val();
-		inner="";
+/* var writingNumber= $("input[name='writingNumber']").val(); */
 
-	//본인글만 수정,삭제버튼이 활성화되게 해야 한다.
-	//하우스인포를 띄울 때, 작성자의 이름은 가져와진다.
-	//로그인 한 사람의 이름과, 실제 뜨는 닉네임을 if로 처리한다.
-	//if내용이 맞다면, 수정삭제를 활성화한다.
+	function showReplyList(){
+	var writingNumber1= $("input[name='writingNumber']").val();
+	inner="";
+
+//본인글만 수정,삭제버튼이 활성화되게 해야 한다.
+//하우스인포를 띄울 때, 작성자의 이름은 가져와진다.
+//로그인 한 사람의 이름과, 실제 뜨는 닉네임을 if로 처리한다.
+//if내용이 맞다면, 수정삭제를 활성화한다.
+
+	//from 성현 : 시큐리티 적용중
 	
-		//from 성현 : 시큐리티 적용중
-		
-		$.ajax({
-				type:'post',  
-			url:'/replyList',
-				data: branchNumber1, // 값 하나만 받아오기
-               dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
-			contentType: "application/json",
-			// async:false, async는 deprecated 되었음
-			 success:function(result){
+	$.ajax({
+			type:'post',  
+		url:'/meetingReplyList',
+			data: writingNumber1, // 값 하나만 받아오기
+           dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+		contentType: "application/json",
+		// async:false, async는 deprecated 되었음
+		 success:function(result){
+			$.each(JSON.parse(result), function(key, value) {
+				inner += '<div class="replyArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+				inner += '<div class="replyInfo'+value.replyNumber+'">'
+						+ '작성일자 : '
+						+ value.writeTime
+						+ ' / 작성자 : '
+						+ value.nickname;
 				
-				$.each(JSON.parse(result), function(key, value) {
-					inner += '<div class="replyArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-					inner += '<div class="replyInfo'+value.writingNumber+'">'
-							+ '작성일자 : '
-							+ value.writeTime
-							+ ' / 작성자 : '
-							+ value.nickname;
+				if(value.nickname==nick){
+				inner += '<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
+						+ value.replyNumber
+						+ ',\''
+						+ value.content
+						+ '\');"> 수정 </button>';
+				inner += '&nbsp<button name="aboutReply" class="btn btn-default" onclick="deleteConfirm('
+						+ value.replyNumber
+						+ ');"> 삭제 </button> </div>';
+				}else{
+				inner += '</div>';	
 					
-					if(value.nickname==nick){
-					inner += '&nbsp&nbsp&nbsp&nbsp<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
-							+ value.writingNumber
-							+ ',\''
-							+ value.content
-							+ '\');"> 수정 </button>';
-					inner += '&nbsp<button name="aboutReply" class="btn btn-default" onclick="deleteConfirm('
-							+ value.writingNumber
-							+ ');"> 삭제 </button> </div>';
-					}else{
-					inner += '</div>';	
-						
-					}
-					inner += '<div class="replyContent'+value.writingNumber+'"> <p> 내용 : '
-							+ value.content
-							+ '</p>';
-					inner += '</div></div>'; 
-				});
-				
-				$("#replyList").html(inner);
-			},
-			error:function(result){
-				inner+="<br /><h3>에러 발생</h3><br />"
-				$("#replyList").html(inner);
-			}
-		});
-	}; 
-	
-	// 리뷰 등록
- 	$('[name=replyInsertBtn]').click(function() { // 리뷰 등록 버튼 클릭시 
- 		var branchNumber= $("input[name='branchNumber']").val();
- 		var content = $("input[name='replyContent']").val();
-		// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
-	
-		$.ajax({
-			url : '/replyInsert',
-			type : 'post',
-			data : JSON.stringify({
-					"branchNumber":branchNumber,
-					"content":content
-			}),
-			dataType : 'text',
-			contentType: "application/json",
-			success : function(data) {
-				if (data == 1) {
-					showReplyList(); // 리뷰 작성 후 댓글 목록 reload
-					$('[name=replyContent]').val(''); 
 				}
-			}
-		});
-	})
-	
-	// 리뷰 수정 - 리뷰 내용 출력을 input 폼으로 변경 
-	function replyUpdate(writingNumber, content) {
-		var a = '';
-
-		a += '<div class="input-group">';
-		a += '<input type="text" class="form-control" name="content_'+writingNumber+'" value="'+content+'"/>';
-		a += '<span class="input-group-btn"><button class="btn btn-default" name="aboutReply" type="button" onclick="replyUpdateProc('
-				+ writingNumber + ');">수정 완료</button> </span>';
-		a += '</div>';
-
-		$('.replyContent' + writingNumber).html(a);
-	} 
-
- 	// 리뷰 수정
-	function replyUpdateProc(writingNumber) {
-		var updateContent = $('[name=content_' + writingNumber + ']').val();
-
-		$.ajax({
-			url : '/replyUpdateProc',
-			type : 'post',
-			data : JSON.stringify({
-				'content' : updateContent,
-				'writingNumber' : writingNumber
-			}),
-			dataType : 'text',
-			contentType: "application/json",
-			success : function(data) {
-				if (data == 1)
-					showReplyList(branchNumber); //댓글 수정후 목록 출력 
-			}
-		});
-	}
-
-	// 리뷰 삭제 
-	function deleteConfirm(writingNumber){
-		var msg = confirm("리뷰를 삭제하시겠습니까?");
-		if(msg==true){ // 확인 버튼 클릭 시
-			replyDelete(writingNumber);
-		} else { // 취소 버튼 클릭 시
-			return false;
+				inner += '<div class="replyContent'+value.replyNumber+'"> <p> 내용 : '
+						+ value.content
+						+ '</p>';
+				inner += '</div></div>'; 
+			});
+			
+			$("#meetingReplyList").html(inner);
+		},
+		error:function(result){
+			inner+="<br /><h3>에러 발생</h3><br />"
+			$("#meetingReplyList").html(inner);
 		}
-	}
-	
-	function replyDelete(writingNumber) {
-		$.ajax({
-			url : '/replyDelete'+writingNumber,
-			type : 'post',
-			data : writingNumber,
-			dataType : 'text',
-			success : function(data) {
-				if (data == 1)
-					showReplyList(branchNumber); //댓글 삭제 후 목록 출력 
+	});
+}; 
+
+// 댓글 등록
+	$('[name=replyInsertBtn]').click(function() { // 댓글 등록 버튼 클릭시 
+		alert("등록")
+		var writingNumber= $("input[name='writingNumber']").val();
+		var content = $("input[name='replyContent']").val();
+	// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
+
+	$.ajax({
+		url : '/meetingReplyInsert',
+		type : 'post',
+		data : JSON.stringify({
+				"writingNumber":writingNumber,
+				"content":content
+		}),
+		dataType : 'text',
+		contentType: "application/json",
+		success : function(data) {
+			if (data == 1) {
+				showReplyList(); // 댓글 작성 후 댓글 목록 reload
+				$('[name=replyContent]').val(''); 
 			}
-		});
-	} 
-	
-	$(document).ready(function() {
-		showReplyList(); //페이지 로딩시 리뷰 목록 출력 
-	}); 
+		}
+	});
+})
+
+// 댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+function replyUpdate(replyNumber, content) {
+	var a = '';
+
+	a += '<div class="input-group">';
+	a += '<input type="text" class="form-control" name="content_'+replyNumber+'" value="'+content+'"/>';
+	a += '<span class="input-group-btn"><button class="btn btn-default" name="aboutReply" type="button" onclick="meetingReplyUpdate('
+			+ replyNumber + ');">수정 완료</button> </span>';
+	a += '</div>';
+
+	$('.replyContent' + replyNumber).html(a);
+} 
+
+	// 댓글 수정
+function meetingReplyUpdate(replyNumber) {
+	var updateContent = $('[name=content_' + replyNumber + ']').val();
+
+	$.ajax({
+		url : '/meetingReplyUpdate',
+		type : 'post',
+		data : JSON.stringify({
+			'content' : updateContent,
+			'replyNumber' : replyNumber
+		}),
+		dataType : 'json',
+		contentType: "application/json",
+		success : function(data) {
+			if (data == 1)
+				showReplyList(); //댓글 수정후 목록 출력 
+		}
+	});
+}
+
+// 댓글 삭제 
+function deleteConfirm(replyNumber){
+	var msg = confirm("댓글를 삭제하시겠습니까?");
+	if(msg==true){ // 확인 버튼 클릭 시
+		meetingReplyDelete(replyNumber);
+	} else { // 취소 버튼 클릭 시
+		return false;
+	}
+}
+
+function meetingReplyDelete(replyNumber) {
+	$.ajax({
+		url : '/meetingReplyDelete'+replyNumber,
+		type : 'post',
+		data : replyNumber,
+		dataType : 'text',
+		success : function(data) {
+			if (data == 1)
+				alert("삭제완료")
+				showReplyList(); //댓글 삭제 후 목록 출력 
+		}
+	});
+} 
+
+$(document).ready(function() {
+	showReplyList(); //페이지 로딩시 댓글 목록 출력 
+}); 
 	
 </script>
 <!-- 참가하기 모달 -->

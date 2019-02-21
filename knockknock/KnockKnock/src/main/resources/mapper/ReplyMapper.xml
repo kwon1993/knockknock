@@ -17,15 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND MR.MEMBER_NUMBER = MB.MEMBER_NUMBER
 		ORDER BY REPLY_NUMBER DESC
 	</select>
-	<insert id="meetingReplyInsert" parameterType="MeetingReplyDTO" >
+	<insert id="meetingReplyInsert">
 		INSERT INTO MEETING_REPLY SET
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
-		WRITING_NUMBER=#{MeetingReplyDTO.writingNumber}, 
-		CONTENT=#{MeetingReplyDTO.content}, 
+		WRITING_NUMBER=#{meetingReplyDTO.writingNumber}, 
+		CONTENT=#{meetingReplyDTO.content}, 
 		WRITE_TIME = NOW()
 	</insert>
-	<update id="meetingReplyUpdate" parameterType="MeetingReplyDTO">
+	<update id="meetingReplyUpdate">
 		UPDATE
 			MEETING_REPLY
 		SET

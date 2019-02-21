@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.event.MeetingReplyDTO;
-import com.knockknock.dto.event.ReplyDTO;
 import com.knockknock.mapper.ReplyMapper;
 
 @Controller
