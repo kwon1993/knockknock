@@ -66,28 +66,16 @@ public class MeetingAndEventController {
 	String uploadFileDir;
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
-	private String writeBoard(MeetingVDTO meetingVDTO){/*@RequestPart MultipartFile image*/
-		
+	private String writeBoard(MeetingVDTO meetingVDTO){
 		meMapper.meetingInsert(meetingVDTO);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/meetingImageUploade")
+	private String meetingImageUploade() {
 		
-//		if(image.isEmpty()){ //이미지 업로드가 없을때
-//		}else {
-//			String ImageName = image.getOriginalFilename(); //파일의 이름을 함수에 저장
-////			String ImageNameExtension = FilenameUtils.getExtension(ImageName).toLowerCase();
-//			File FileUrl; //경로와 이미지 이름이 섞일 함수선언
-//			
-//			do {
-//				FileUrl = new File(uploadFileDir+ImageName); //경로+이미지
-//			}while(FileUrl.exists());
-//				
-//			FileUrl.getParentFile().mkdirs();
-//			image.transferTo(FileUrl);
-//			
-//			meeting.setImage(FileUrl);
-//			
-//			meMapper.meetingInsertService(meeting); //게시글 insert
-//			meMapper.imageUploadService(image); //이미지 insert
-//		}
+		int writingNumber = meMapper.
+		
 		return "redirect:/meetingList";
 	}
 
