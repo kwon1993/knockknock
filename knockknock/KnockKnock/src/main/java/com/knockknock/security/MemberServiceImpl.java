@@ -54,6 +54,16 @@ public class MemberServiceImpl implements MemberService{
 		return maxMemberNumber;
 	}
 
+	//펫체크
+	public ProfileVDTO petCheck(ProfileVDTO profileVDTO) {
+		return memberMapper.petCheck(profileVDTO);
+	}
+	
+	//펫딜리트
+	public void deletePet(ProfileVDTO profileVDTO) {
+		memberMapper.deletePet(profileVDTO);
+	}
+	
 	@Override
 	public List<MeetingVDTO> getMMLJ(String email) {
 		return memberMapper.getMMLJ(email);
@@ -117,7 +127,11 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> getPet(String username) {
 		return memberMapper.getPet(username);
 	}
-
+	
+	public void firstMyPetUpdate(ProfileVDTO profileVDTO) {
+		memberMapper.firstMyPetUpdate(profileVDTO);
+	}
+	
 	/*ash
 	 * @Override public List<VisitVDTO> myVisitList(int memberNumber) { return
 	 * memberMapper.myVisitList(memberNumber); }
@@ -174,6 +188,6 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.deleteLB(branchNumber, email);
 		return 1;
 	}
-
+	
 
 }

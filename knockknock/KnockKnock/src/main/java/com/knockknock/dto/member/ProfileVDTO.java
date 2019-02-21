@@ -18,7 +18,7 @@ public class ProfileVDTO {
 	private int petNumber;
 	private String animal;
 	private int amount;
-	//
+	
 	private String introduce;
-
+	private String phoneNumber;
 }

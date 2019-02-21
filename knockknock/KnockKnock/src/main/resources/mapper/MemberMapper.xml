@@ -101,6 +101,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
     
+    <select id='petCheck' resultType="ProfileVDTO">
+    	SELECT
+    	P.ANIMAL animal
+    	FROM PET P
+    	WHERE P.MEMBER_NUMBER = #{memberNumber}
+    </select>
+    
     <select id="getProfile" resultType="memberDTO">
     	SELECT
     	M.MEMBER_NUMBER memberNumber,
@@ -112,23 +119,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.EMAIL email,
     	M.NICKNAME nickname,
     	M.INTRODUCE introduce,
-    	M.IMAGE_PROFILE imageProfile
+    	M.IMAGE_PROFILE imageProfile,
+    	M.PHONE_NUMBER phoneNumber
     	FROM MEMBER M
     	WHERE M.EMAIL = #{username}
     </select>
     
     <update id="profileUpdate">
 			   UPDATE MEMBER m,PET p
-			   SET m.NICKNAME=#{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
-			   WEHERE m.MEMBER_NUMBER = p.MEMBER_NUMBER
+			   SET m.NICKNAME=#{nickname}, m.INTRODUCE= #{introduce}, m.PHONE_NUMBER = #{phoneNumber}, p.ANIMAL=#{animal}
+			   WEHRE m.MEMBER_NUMBER = p.MEMBER_NUMBER
 			   AND m.MEMBER_NUMBER = #{memberNumber}
     </update>
     
     <update id="profileUpdate2">
-	   		   UPDATE MEMBER m, PET p
-			   SET m.NICKNAME = #{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
+	   		   UPDATE MEMBER m
+			   SET m.NICKNAME = #{nickname}, m.INTRODUCE= #{introduce}, m.PHONE_NUMBER = #{phoneNumber}
 			   WHERE m.MEMBER_NUMBER = #{memberNumber}
     </update>
+    
+    <insert id='firstMyPetUpdate'>
+    	INSERT INTO PET
+    	(MEMBER_NUMBER, ANIMAL,AMOUNT)
+    	VALUES
+    	(#{memberNumber},#{animal},1)
+    </insert>
+    
+    <delete id='deletePet'>
+    	DELETE FROM PET
+    	WHERE MEMBER_NUMBER = #{memberNumber} 
+    </delete>
     
     <update id="saveImageDir">
 	   		   UPDATE MEMBER

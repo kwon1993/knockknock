@@ -58,38 +58,40 @@ body {
 /* 모달창  */
 /* The Modal (background) */
 .modal {
-display: none; /* Hidden by default */
-position: fixed; /* Stay in place */
-z-index: 1; /* Sit on top */
-left: 0;
-top: 0;
-width: 100%; /* Full width */
-height: 100%; /* Full height */
-overflow: auto; /* Enable scroll if needed */
-background-color: rgb(0,0,0); /* Fallback color */
-background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
     
 /* Modal Content/Box */
 .modal-content {
-background-color: #fefefe;
-margin: 15% auto; /* 15% from the top and centered */
-padding: 20px;
-border: 1px solid #888;
-width: 50%; /* Could be more or less, depending on screen size */                          
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */                          
 }
+
 /* The Close Button */
 .close {
-color: #aaa;
-float: right;
-font-size: 28px;
-font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
-color: black;
-text-decoration: none;
-cursor: pointer;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 #sidenav{
@@ -98,7 +100,6 @@ cursor: pointer;
 	color:#2eca6a;
 	font-weight:bolder;
 	border-radius: 1rem;
-
 }
 
 #title{
@@ -110,34 +111,39 @@ cursor: pointer;
 
 /*input tag 공통 스타일*/
 input {             
-  width: 20%;
-  height: 50%;
-  border-radius: 3px;
-  font-weight: 600;
-  border-color: transparent;
-  font-size: 25px;
-  background: #2eca6a;
-  color: #fff;
- cursor: pointer;
+	width: 20%;
+	height: 50%;
+	border-radius: 3px;
+	font-weight: 600;
+	border-color: transparent;
+	font-size: 25px;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
 }
 input.uploadButton {  
-  opacity: 0;       /*input type="file" tag 투명하게 처리*/
-  position: relative;
+	opacity: 0;       /*input type="file" tag 투명하게 처리*/
+	position: relative;
 }
 button.replace {    /*button tag 에 원하는 스타일 적용*/
-  position: absolute;
-  width: 20%;
-  height: 50%px;
-  border-radius: 3px;
-  font-weight: 600;
-  border-color: transparent;
-  font-size: 25px;
-  background: #2eca6a;
-  color: #fff;
-  cursor: pointer;
+	position: absolute;
+	width: 20%;
+	height: 50%px;
+	border-radius: 3px;
+	font-weight: 600;
+	border-color: transparent;
+	font-size: 25px;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
 }
 
 #profileChange{
+	font-size:20px;
+	font-weight: bolder;
+}
+
+#afterChangeProfile{
 	font-size:20px;
 	font-weight: bolder;
 }
@@ -152,11 +158,15 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 	background-color:#2eca6a;
 }
 
+#updateProfileComplete{
+	background-color: #2eca6a;
+	color: white;
+	border-radius: 1rem;
+	font-size:20px;
+}
 
 </style>
-
 </head>
-
 <body>
 
 <div layout:fragment="content" class="container">
@@ -182,7 +192,6 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 				<form action="/profileUpdate" method="post" enctype="multipart/form-data">
 					<button class="replace">사진올리기</button><br>
 					<input type="file" name="uploadFileShot" value="사진변경" id="uploadProfileShot" class='uploadButton' multiple><br>
-					<a class="upload" id='profileChange' href="javascript:uploadProfileShot();">변경하기</a><br>
 				</form><br>
 		</div>
 		<br>
@@ -197,6 +206,7 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 				<label for="name">이름: <span th:text='${profile.name}' name='name' id='name'/> </label><br>
 				<label for="id">아이디(이메일): <span th:text='${profile.email}' name='email' id='email'/> </label><br>
 				<label for="nickname">닉네임: <span th:text='${profile.nickname}' name='nickname' id='nickname'/> </label><br>
+				<label for="phoneNumber">핸드폰: <span th:text='${profile.phoneNumber}' name='phoneNumber' id='phoneNumber'/></label><br>
 				<label for="introduce">자기소개: <span th:text='${profile.introduce}' name='introduce' id='introduce'/> </label><br>
 				<label for="grade">회원등급: <span th:text='${profile.grade}' name='grade' id='grade'/> </label><br>
 			</div>
@@ -204,7 +214,6 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 		<div>
 			<div th:each="getPet:${getPet}"> 
 				<label for="animal">반려동물: <span th:text='${getPet.animal}' name='animal' id='animal'/> </label><br>
-				<label for="amount">마리수: <span th:text='${getPet.amount}' name='amount' id='amount'/> </label><br>
 			</div>
 		</div>
 		<div>
@@ -213,7 +222,7 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 		</div>
 	</div>
 	
-				<!-- modal modal modal modal modal(profileUpdate) -->		
+				<!-- modal 프로필정보 업데이트★★★ -->		
 			    <!-- The Modal -->
 			    <div id="myProfileModal" class="modal">
 				    <!-- Modal content -->
@@ -233,6 +242,13 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
 										<input type="text" name="introduce" class="form-control"><br>
+									</div>
+								</div>
+								<label for="phoneNumber" class="cols-sm-2 control-label">핸드폰</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
+										<input type="text" name="phoneNumber" class="form-control"><br>
 									</div>
 								</div>
 								<label for="animal" class="cols-sm-2 control-label">반려동물</label>
@@ -256,9 +272,9 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 						</form>
 				    </div>
 			    </div>
-				<!-- modal modal modal modal modal(profileUpdate) -->
+				<!-- modal 프로필정보 업데이트★★★ -->
 	
-				<!-- modal modal modal modal modal(changePass) -->		
+				<!-- modal 비밀번호변경 업데이트★★★ -->		
 			    <!-- The Modal -->
 			    <div id="myChangePassModal" class="modal">
 				    <!-- Modal content -->
@@ -294,67 +310,60 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 						</form>
 				    </div>
 			    </div>
-				<!-- modal modal modal modal modal(changePass) -->
-	
-	
-	
-	
-	
+				<!-- modal 비밀번호변경 업데이트★★★ -->	
 </div>
 <script>
 
-/* var memberNumber= document.getElementById('hidden').value;
-$("#href4").on('click',function(){
-	$("#href4").prop('href','/MyVisitList/?memberNumber='+memberNumber);
-}); */
-
 //Get the modal
-var profileModal = document.getElementById('myProfileModal');
-var modalButton = document.getElementById('popupButton');
-var updateProfile = document.getElementById('updateProfileComplete');
+var profileModal = document.getElementById('myProfileModal');//프로필수정창
+var modalButton = document.getElementById('popupButton');//프로필수정 버튼
 
+//프로필 수정 클릭하면 프로필 수정 창 띄우기
 $(modalButton).on('click',function(){
 	profileModal.style.display = "block";
 });
 
 //Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];                                          
+var span = document.getElementsByClassName("close");                                          
 
-//When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    profileModal.style.display = "none";
+//프로필업데이트 수정창 닫기
+span[0].onclick = function() {
+	profileModal.style.display = "none";
+	location.reload();
 }
 
-//When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == profileModal) {
-        profileModal.style.display = "none";
-    }
-}
-
-//----------------------------------업로드----------------------------
+//프로필정보업데이트--
 $(updateProfile).on('click',function(){
 	memberNumber = $("#hidden").val();
 	nickname = $("input[name='nickname']").val();
 	introduce = $("input[name='introduce']").val();
+	phoneNumber = $("input[name='phoneNumber']").val();
 	animal = $("input[name='animal']").val();
+	var content = "";
 	
 	$.ajax({
 		method:'post',
 		url:'/updateProfileComplete',
-		data:JSON.stringify({'nickname':nickname,'introduce':introduce,'animal':animal,"memberNumber":memberNumber}),
+		data:JSON.stringify({'nickname':nickname,'introduce':introduce,'animal':animal,"memberNumber":memberNumber,"phoneNumber":phoneNumber}),
 		dataType:"json",
 		contentType:"application/json",
 		success:function(data){
-			location.reload();
+			content+="<div class='modal-content' id='afterChangeProfile'><span id='modalx' class='close'>&times;</span>"+data[0].nickname+"님의 프로필이 변경되었어요:)</div>"
+			$("#myProfileModal").html(content);
 		},
 		error:function(data){
-			alert("error");			
+			content+="<div class='modal-content' id='afterChangeProfile'><span id='modalx' class='close'>&times;</span>"+data[0].nickname+"님의 프로필이 변경이 정상적으로 안 되었어요:(</div>"
+			$("#myProfileModal").html(content);	
 		}
 	});
 })
 
-//프로필 미리보기-------------------------------------
+//파일올리기버튼 클릭시 readURL호출
+$("#uploadProfileShot").change(function(){
+	readURL(this);
+})
+
+//프로필 미리보기
 function readURL(input){
 	if(input.files && input.files[0]){
 		var reader = new FileReader();
@@ -365,14 +374,10 @@ function readURL(input){
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
+	uploadProfileShot();
 }
 
-//파일올리기버튼 클릭시 readURL호출
-$("#uploadProfileShot").change(function(){
-	readURL(this);
-})
-
-//프로필사진 업데이트
+//프로필사진 업데이트--
 function uploadProfileShot(){
 	var formData = new FormData();
 	var inputFile = $("input[name='uploadFileShot']");
@@ -394,32 +399,37 @@ function uploadProfileShot(){
 		error:function(error){
 			location.reload();
 			alert("업로드실패");
-			
 		}
 	});
 }
 
 //비밀번호변경
 var changePassModal = document.getElementById('myChangePassModal');
-var btns = document.getElementById('popupButton2');
+var btns = document.getElementById('popupButton2');//비밀번호 변경 버튼
+
 btns.onclick = function(){
 	changePassModal.style.display = "block";
 }
-var span = document.getElementsByClassName("close");  
-span[0].onclick = function() {
+
+//비번변경 모달창 닫기
+span[1].onclick = function() {
     changePassModal.style.display = "none";
+    location.reload();
 }
 
 //When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == changePassModal) {
+    if (event.target == changePassModal || event.target == profileModal) {
         changePassModal.style.display = "none";
+        profileModal.style.display = "none";
+        location.reload();
     }
 }
 
 //동적으로 생성된 태그에 이벤트 걸기
 $(document).on("click", "#modalx", function(){
-	modal.style.display = "none";
+	profileModal.style.display = "none";
+	location.reload();
 });
 
 //패스워드 체크 관련
@@ -429,8 +439,6 @@ $(document).on("click", "#modalx", function(){
   	var pwd = document.getElementById('password');
   	var pwdConfirm = document.getElementById('confirm');
   	var pwdResult = document.getElementById('passwordResult');
-  	
-  	//pwdConfirm.addEventListener('blur',check);
  
   	function check(){
   		if(pwd.value!=pwdConfirm.value){
