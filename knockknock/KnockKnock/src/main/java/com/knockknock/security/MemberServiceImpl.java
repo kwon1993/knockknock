@@ -148,9 +148,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int deleteMM(int writingNumber, String email) {
+	public void deleteMM(int writingNumber, String email) {
 		memberMapper.deleteMM(writingNumber, email);
-		return 1;
 	}
 	
 	@Override
@@ -175,6 +174,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void cancelMM(MeetingVDTO meetingVDTO, String email) {
 		memberMapper.cancelMM(meetingVDTO, email);
+	}
+	
+	@Override
+	public void cancelMM2(MeetingVDTO meetingVDTO, String email) {
+		memberMapper.cancelMM2(meetingVDTO, email);
 	}
 	
 	@Override

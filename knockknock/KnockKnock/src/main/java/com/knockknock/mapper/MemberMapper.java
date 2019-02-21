@@ -68,6 +68,7 @@ public interface MemberMapper {
 	public ArrayList<Integer> getMemberNumber();
 	
 	public void cancelMM(@Param("meetingVDTO") MeetingVDTO meetingVDTO, String email);
+	public void cancelMM2(@Param("meetingVDTO") MeetingVDTO meetingVDTO, String email);
 	
 	// 내 관심 지점 리스트
 	public List<BranchDetailVDTO> getMLBL(String email);

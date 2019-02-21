@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
@@ -303,7 +304,7 @@ public class AdminService {
 	}
 
 	public void roomImageRegist(int branchNumber, RoomDTO roomDTO) {
-		
+
 		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
 				+ branchNumber + "room";
 
@@ -334,8 +335,7 @@ public class AdminService {
 				e.printStackTrace();
 			} // end catch
 		}
-		
-		
+
 //		int loop = 0;
 //		int Numbering = 1;
 //		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
@@ -364,7 +364,7 @@ public class AdminService {
 //			}
 //			loop++;
 //		}
-		
+
 //		int rooms = 0;
 //		int loop = 0;
 //		int Numbering = 1;
@@ -406,8 +406,69 @@ public class AdminService {
 //		}
 
 	}
-	
-	
+
+	public BranchDTO branchModifyView(int branchNumber) {
+		return adminMapper.branchModifyView(branchNumber);
+	}
+
+	public List<roomVDTO> roomModifyView(int branchNumber) {
+		return adminMapper.roomModifyView(branchNumber);
+	}
+
+	public List<String> branchModifyViewImages(int branchNumber) {
+		String path;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			path = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/" + branchNumber;
+		} else {
+			path = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/" + branchNumber;
+		}
+
+		File f = new File(path);
+		File[] files = f.listFiles();
+		// files
+		int count = 0;
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < files.length - 1; i++) {
+
+			if (files[i].isFile()) {
+				count++;
+				list.add(files[i].getName());
+				System.out.println( "파일 : " + files[i].getName() );
+			} else {
+				System.out.println( "디렉토리명 : " + files[i].getName() );
+			}
+		} // end of for
+		count = count - 1; // main.jpg 제외
+		return list;
+	}
+
+	public List<String> roomModifyViewImages(int branchNumber) {
+		String pathRoom;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			pathRoom = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"
+					+ branchNumber + "room";
+		} else {
+			pathRoom = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/" + branchNumber
+					+ "room";
+		}
+
+		File fRoom = new File(pathRoom);
+		File[] filesRoom = fRoom.listFiles();
+
+		List<String> roomList = new ArrayList<String>();
+
+		for (int i = 0; i < filesRoom.length - 1; i++) {
+			if (filesRoom[i].isFile()) {
+				roomList.add(filesRoom[i].getName());
+				System.out.println("파일 : " + filesRoom[i].getName());
+			} else {
+				System.out.println("디렉토리명 : " + filesRoom[i].getName());
+			}
+		}
+		return roomList;
+	}
 
 	public void testBranchRegist(BranchDTO branchDTO) {
 		adminMapper.testBranchRegist(branchDTO);

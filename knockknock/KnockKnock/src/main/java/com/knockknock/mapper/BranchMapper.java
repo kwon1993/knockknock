@@ -24,7 +24,7 @@ public interface BranchMapper {
 	//관심사로 방찾기 페이징 처리
 	public int categoryCount(Criteria cri) throws Exception;
 	//관심사로 찾기의 방검색
-	public  List<BranchDetailVDTO> categoryRoomSearch(String address, List<String> searchKeyWord) throws Exception;
+//	public  List<BranchDetailVDTO> categoryRoomSearch(String address, List<String> searchKeyWord) throws Exception;
 	//관심사로 찾기의 방검색
 	public  List<BranchDetailVDTO> categoryRoomSearch2(BranchDetailVDTO2 branchDetailVDTO2) throws Exception;
 	
@@ -45,5 +45,9 @@ public interface BranchMapper {
 
 	//테마 체크박스
 	public List<String> getThemeLists();
+	//펫 유무 체크박스
+	public List<String> getIspet();
+	//주택유형 체크박스
+	public List<String> getBranchType();
 
 }

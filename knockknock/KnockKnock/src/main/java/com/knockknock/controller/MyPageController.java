@@ -1,7 +1,6 @@
 package com.knockknock.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -262,8 +261,8 @@ public class MyPageController {
 
 		return "member/MyMeetingList";
 	}
-
-	// 개설한 모임 취소
+	
+	// 개설한 모임 취소 - 마이 페이지
 	@RequestMapping("/deleteMM")
 	public String deleteMM(Model model, @RequestParam("writingNumber") int writingNumber) {
 
@@ -360,7 +359,7 @@ public class MyPageController {
 		return "member/MyProfile";
 	}
 
-	// 개설한 모임 취소(사실상 INSERT)
+	// 개설한 모임 취소(사실상 UPDATE) - 모임 상세 페이지에서
 	@RequestMapping(value = "/cancelMM", method = RequestMethod.POST)
 	@ResponseBody
 	public void cancelMM(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication, Model model) {
@@ -370,14 +369,16 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		logger.info(meetingVDTO + "");
 		logger.info("POST/cancelMM");
-
+		logger.info(meetingVDTO+"");
+		
 		memberService.cancelMM(meetingVDTO, email);
+		memberService.cancelMM2(meetingVDTO, email);
 
 		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
+		
 	}
 
 }
