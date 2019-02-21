@@ -53,21 +53,23 @@ public class MyPageController {
 	@RequestMapping("/updateProfileComplete")
 	@ResponseBody
 	public List<MemberDTO> profileUpdate(Model model, @RequestBody ProfileVDTO profileVDTO,
-			Authentication authentication) {
+		Authentication authentication) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
-		// 업데이트매퍼 실행->업데이트
-		// 셀렉트매퍼 실행->셀렉트
+		
 		if (profileVDTO.getAnimal().length() > 0) {
 			System.out.println("Animal이 있다");
-			memberService.profileUpdate(profileVDTO);
+			memberService.deletePet(profileVDTO);//펫초기화
+			memberService.firstMyPetUpdate(profileVDTO);//펫값있으면 넣기
+			memberService.profileUpdate2(profileVDTO);//업뎃
+			
 		} else {
 			System.out.println("Animal이 없다");
-			memberService.profileUpdate2(profileVDTO);
+			memberService.deletePet(profileVDTO);//펫초기화
+			memberService.profileUpdate2(profileVDTO);//값없는채로 업뎃
 		}
 		return memberService.getProfile(username);
-
 	}
 
 	// 프로필사진업로드

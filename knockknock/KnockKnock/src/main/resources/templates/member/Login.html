@@ -3,56 +3,53 @@
 	layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <!-- sign up form -->
-<script
-	th:src="@{//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
-<script
-	th:src="@{//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
+<script th:src="@{//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
 <!-- sign up -->
-<link
-	th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css}"
-	rel="stylesheet" id="bootstrap-css">
+<link th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css}" rel="stylesheet" id="bootstrap-css">
 	
 <style>
+
 .row{
-margin-top: 20px;
-margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 /* 모달창  */
 /* The Modal (background) */
 .modal {
-display: none; /* Hidden by default */
-position: fixed; /* Stay in place */
-z-index: 1; /* Sit on top */
-left: 0;
-top: 0;
-width: 100%; /* Full width */
-height: 100%; /* Full height */
-overflow: auto; /* Enable scroll if needed */
-background-color: rgb(0,0,0); /* Fallback color */
-background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
     
 /* Modal Content/Box */
 .modal-content {
-background-color: #fefefe;
-margin: 15% auto; /* 15% from the top and centered */
-padding: 20px;
-border: 1px solid #888;
-width: 50%; /* Could be more or less, depending on screen size */                          
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */                          
 }
 /* The Close Button */
 .close {
-color: #aaa;
-float: right;
-font-size: 28px;
-font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 .close:hover,
 .close:focus {
-color: black;
-text-decoration: none;
-cursor: pointer;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 #card-header{
@@ -76,10 +73,6 @@ cursor: pointer;
 #allLogin{
 	font-family: 'Jua', sans-serif;
 	font-size:25px;
-}
-
-#myBtn{
-	
 }
 </style>
 </head>
@@ -172,7 +165,7 @@ cursor: pointer;
 								<div class="cols-sm-10">
 									<div class="input-group">
 										<input type="button" name='findId' id="findId" value="아이디찾기" class="form-control">
-										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									</div>
 								</div>
 							</div>
@@ -202,7 +195,7 @@ cursor: pointer;
 								<div class="cols-sm-10">
 									<div class="input-group">
 										<input type="submit" name='findPass' id="findPass" value="비밀번호찾기" class="form-control">
-										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									</div>
 								</div>
 							</div>
@@ -210,6 +203,7 @@ cursor: pointer;
 				    </div>
 			    </div>
 				<!-- modal modal modal modal modal(findPass) -->
+				
 			</div>
 		</div>
 	</div>
@@ -279,45 +273,14 @@ $(document).ready(function(){
 	$("input[name='findPass']").on('click',function(){
 		//누르면 비번값을 이메일로 보낸다.
 		//이후 새로운 모달창을 만든다. 임시비밀번호란, 신규비밀번호란, 신규비밀번호재확인란을 만든다.
-		//새로운 모달창에서 
-		
 	});
 })
 $(document).on("click", "#modalx", function(){
 	modal.style.display = "none";
 });
 
-/* //구글 로그인
-function checkLoginStatus(){
-	  var form =$(".form-horizontal");
-	  var loginBtn = document.querySelector('#loginBtn');
-	  if(gauth.isSignedIn.get()){
-		  console.log('logined');
-		  loginBtn.value = 'Logout';
-	  }else{
-		  console.log('logouted');
-		  loginBtn.value = 'Login';
-	  }
-}
-
-function init() {
-	  console.log('init');
-	  gapi.load('auth2', function() { 
-	  console.log('auth2');
-	  window.gauth = gapi.auth2.init({
-		  client_id: '966331465571-1tfu8u3b61su87dn53ai3ro38pljvpt0.apps.googleusercontent.com'
-	  })
-	  gauth.then(
-		function(){
-		  console.log('googleAuth success'); 
-		  checkLoginStatus();
-	  },function(){
-		  console.log('googleAuth fail');
-	  })
-	  });
-} */
 </script>	
-<!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
+
 </div>
 </body>
 </html>

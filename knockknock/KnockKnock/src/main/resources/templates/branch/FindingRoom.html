@@ -53,7 +53,7 @@ body{
 	padding:25px 14px;
 	border:1px solid  #2eca6a;
 	border-radius: 1rem;
-	height: 440px;
+	height: 470px;
 	width:20%;
 	font-family: 'Jua', sans-serif;
 	 
@@ -63,7 +63,7 @@ body{
 	float:right;
 	border-bottom:2px solid #2eca6a;
 	margin-bottom:10px;
-	height:450px;
+	height:480px;
 	font-family: 'Jua', sans-serif;
 }
 #map{
@@ -190,6 +190,10 @@ font-family: 'Jua', sans-serif;
 	color:#2eca6a;
 }
 
+#reset{
+	text-align: right;
+}
+
 
 </style>
     
@@ -205,6 +209,9 @@ font-family: 'Jua', sans-serif;
 		</div>
     
     	<div class="option_wrap" id="option_wrap">
+    		<div id='reset'>
+    		<a href="#" id='resetA'><i class="fas fa-undo-alt" >Reset</i></a>
+    		</div><br>
 			<div id="a1">
 				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<input type="text" name="address" id='searchAddress' placeholder="주소 및 위치">
 				<input type="submit" value="찾기" name='roomSearch' id='roomSearch'/>
@@ -353,20 +360,9 @@ var callback = function(result, status){
 		
     }//if end
     	map.setCenter(coords);
-    	//클릭이벤트테스트
-    	var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwRemoveable = true;
-    	
-    	var infowindow = new daum.maps.InfoWindow({
-    	    content : iwContent,
-    	    removable : iwRemoveable
-    	});
-    	
-    	daum.maps.event.addListener(marker, 'click', function() {
-    	      // 마커 위에 인포윈도우를 표시합니다
-    	      infowindow.open(map, marker);  
-    	});
 };
+
+
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -473,6 +469,10 @@ function load(id, cnt, btn) {
     $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
 
+//리셋
+$("#resetA").on('click',function(){
+window.onload();
+})
 
 
 </script>

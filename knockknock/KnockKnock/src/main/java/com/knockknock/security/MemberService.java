@@ -43,6 +43,15 @@ public interface MemberService{
 	
 	//겟펫
 	public List<MemberDTO> getPet(String username);
+	
+	//펫체크
+	public ProfileVDTO petCheck(ProfileVDTO profileVDTO); 
+	
+	//펫없던사람의 첫 펫 업데이트
+	public void firstMyPetUpdate(ProfileVDTO profileVDTO);
+	
+	//펫삭제
+	public void deletePet(ProfileVDTO profileVDTO);
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);

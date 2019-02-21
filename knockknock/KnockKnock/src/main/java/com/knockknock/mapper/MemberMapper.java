@@ -40,6 +40,12 @@ public interface MemberMapper {
 	public void profileUpdate(ProfileVDTO profileVDTO);
 	//마이페이지-프로필수정(강아지없을때)
 	public void profileUpdate2(ProfileVDTO profileVDTO);
+	//마이페이지-펫체크
+	public ProfileVDTO petCheck(ProfileVDTO profileVDTO);
+	//마이페이지-퍼스트마이펫
+	public void firstMyPetUpdate(ProfileVDTO profileVDTO);
+	//마이페이지-딜리트펫
+	public void deletePet(ProfileVDTO profileVDTO);
 	//마이페이지-프로필사진겟
 	public MemberDTO getImageDir(String username);
 	
