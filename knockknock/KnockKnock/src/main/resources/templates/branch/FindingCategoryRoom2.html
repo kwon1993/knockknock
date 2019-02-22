@@ -38,8 +38,37 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	padding:0;
 	line-height: 0; 
  }
- 
- 
+ #bangTable:after{
+ 	content:"";
+ 	display : block;
+ 	width : 240px;
+ 	border-bottom: 3px solid #2eca6a;
+ }
+ #search{
+  	border: 1px solid #2eca6a;
+    border-radius: 10px;
+    padding : 5% 5%;
+    margin : 0px 15px;
+   
+ }
+ #checkboxField{
+ 	border: 1px solid #2eca6a;
+    border-radius: 10px;
+    padding : 2% 5%;
+    margin : 10px 15px;
+ }
+ #branchTheme{
+ 	margin : 0px 15px;
+ }
+ #branchPet{
+ 	margin : 0px 15px;
+ }
+ #branchType{
+ 	margin : 0px 15px;
+ }
+ #branchGender{
+ 	margin : 0px 15px;
+ }
 </style>
 
 </head>
@@ -52,10 +81,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			<div class="row">
 				<div class="col-4" id="checkField">			   
 			<!-- 체크박스 -->
-				<div class="themeCheckbox" id="checkboxField">
-					<label class="field-title"><h4>"STEP1"<strong>&nbsp;관심사 검색</strong></h4></label>
-					<br>
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;THEME</strong></h5></label>
+				<label class="field-title"><h4>"STEP1"<strong>&nbsp;선택항목에 체크!!</strong></h4></label>
+				<div id="checkboxField">
+				<div class="themeCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
@@ -63,38 +92,58 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					</div>
 				</div>
 				<br>
-			<!-- pet checkbox -->
-				<div class="petCheckbox" id="checkboxField">										
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;PET</strong></h5></label>
+			<!-- 성별 checkbox -->
+				<div class="genderCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여 </strong></h5></label>
+					<div  th:each="genderCheck : ${genderCheckbox}" th:name="branchGender" th:id="branchGender">
+							<div class="branchGender">
+							<input type="checkbox" th:value="${genderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
+							</div>
+					</div>
+				</div>
+				<br>
+			<!-- 반려동물유무 checkbox -->
+				<div class="petCheckbox">										
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물 유무</strong></h5></label>
 					<div th:each="pet : ${pet}" th:name="branchPet" th:id="branchPet">
 						<div class="branchPet">
 							<input type="checkbox" th:value="${pet}" th:id="${pet}" th:name="branchPet"><span th:text="${pet}" th:for="${pet}"></span>
 						</div>
 					</div>
-				</div>				
-				<!-- 주소 검색 -->
+				</div>
 				<br>
-				<div class="form-group" id="search">
-					<label class="field-title"><h4>"STEP2"<strong>&nbsp;주소 검색</strong></h4></label>
-					
+			<!-- 주택유형 checkbox -->
+				<div class="branchTypeCheckbox">										
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;주택유형</strong></h5></label>
+					<div th:each="branchType : ${branchType}" th:name="branchType" th:id="branchType">
+						<div class="branchType">
+							<input type="checkbox" th:value="${branchType}" th:id="${branchType}" th:name="branchType"><span th:text="${branchType}" th:for="${branchType}"></span>
+						</div>
+					</div>
+					</div>
+				</div>
+				<br>					
+				<!-- 주소 검색 -->
+				<label class="field-title"><h4>&nbsp;&nbsp;"STEP2"<strong>&nbsp;주소 검색!!</strong></h4></label>				
+				<div class="" id="search">
+					<h7><strong>세부주소를 찾아봐요!</strong></h7>
 						<div id="categorySearch" class="form-group">
 							<input type="text" th:name="address"  th:id="address"/>
 							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
-						</div>
-					
-				  </div>
-				</div>
+						</div>					
+				</div><!-- 주소검색 end-->
+				</div><!-- 전체 체크박스  end-->
 			
 		
 		
 		<div class="col-7">	
 		<div class="table-responsive"  id="categoryGallery">
-			<h3 class="my-4 text-center text-lg-left" id="bang"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
+			<h3 class="my-4 text-center text-lg-left" id="bangTable"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
 			<table class="table-responsive" id="roomTable">
 				<tr  class="text-center">
 					<th class="jb-th-0">지점 이미지</th>
 					<th class="jb-th-1">주소</th>
-					<th class="jb-th-2">테마</th>
+					<th class="jb-th-2">관심사</th>
 					<th class="jb-th-2">성별</th>
 					<th class="jb-th-2">주차장</th>
 					<th class="jb-th-3">엘리베이터</th>
@@ -138,20 +187,24 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 				address : $("#address").val(),
 				searchCategory : [],
+				genderCategory: [],
 				petCategory: [],
+				branchTypeCategory: [],
 				refreshGrid : function(data) {
 					//todo grid refresh
 				},
 
-				sendToServer : function(searchCategory, petCategory) {
+				sendToServer : function(searchCategory, genderCategory, petCategory, branchTypeCategory) {
 					var that = this;
 					var datas = {
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory,
-						"petCategory" : petCategory
+						"genderCategory" : genderCategory,
+						"petCategory" : petCategory,
+						"branchTypeCategory" : branchTypeCategory
 					};
 			
-					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+petCategory);	
+					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+genderCategory+", "+petCategory+",  "+branchTypeCategory);	
 					$.ajax({
 						url : "categoryRoomSearch",
 						/* type : 'GET', */
@@ -204,14 +257,31 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory);
-						//}
+// 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
+						
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						
 					 }); 
 				},
+				//성별 이벤트 바인드
+				genderCheckboxEventBind : function(target) {
+// 					alert("checkboxEventBind target  :" + target);
+					var that = this;
+				
+					 $(target).change(function(e) { 
+							that.genderCategory=[];
+							
+						$("input[name='branchGender']:checked").each(function(i){
+							that.genderCategory[i] = $(this).val();
+							console.log($(this).val()+"  " +that.genderCategory[i]);
+						});
+						console.log("genderCheckboxEventBind  size:"+that.genderCategory.length);
+						
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						
+					 }); 
+				},
+				//반려동물 유무 이벤트 바인드
 				petCheckboxEventBind : function(target) {
 // 					alert("checkboxEventBind target  :" + target);
 					var that = this;
@@ -223,58 +293,54 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.petCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("petCheckboxEventBind size:"+that.petCategory.length);
+// 						console.log("petCheckboxEventBind size:"+that.petCategory.length);
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						//}
 					 }); 
 				},
+				
+				branchTypeCheckboxEventBind : function(target) {
+// 					alert("checkboxEventBind target  :" + target);
+					var that = this;
+				
+					 $(target).change(function(e) { 
+							that.branchTypeCategory=[];
+							
+						$("input[name='branchType']:checked").each(function(i){
+							that.branchTypeCategory[i] = $(this).val();
+							//console.log($(this).val()+"  " +that.searchCategory[i]);
+						});
+// 						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
+					/* 	if(that.searchCategory.size==0){
+							that.sendToServer(
+						}else{ */
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						//}
+					 }); 
+				},//branchType end
+				
 				searchInputEventBind : function(target) {
 					var that = this;
 					
 					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
- 						alert("$(e.target).val()::"+$(e.target).val());
-						that.sendToServer(that.searchCategory,that.petCategory);
+//  						alert("$(e.target).val()::"+$(e.target).val());
+						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 					});
 				}
-			};//var categoryRoom = {  end
+			};//var categoryRoom end
 					
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
+				categoryRoom.genderCheckboxEventBind(".genderCheckbox");
 				categoryRoom.petCheckboxEventBind(".petCheckbox");
+				categoryRoom.branchTypeCheckboxEventBind(".branchTypeCheckbox");
 				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
-
-			
-			
-//div class 페이지 나타낼 수  class="pager"
-//span 으로 페이지 나타내기 class="page-number clickable active"
-//table class="sortable paginated" =>table-responsive
-// 			$(document).ready(function(){
-// 				$('table.paginated').each(function(){
-// 					var currentPage = 0;
-// 					var numPerPage = 5;
-// 					var $table = $(this);
-					
-// 					$table.bind('repaginate',function(){
-// 						$table.find('tbody tr').hide().slice(currentPage*numPerPage,(currentPage+1)*numPerPage).show();
-// 						});
-					
-// 				var numRows=$table.find('tbody tr').length;
-// 				var numPages=Math.ceil(numRows/numPerPage);
-// 				var $pager=$('<div class="pager"></div>');
-// 				for(var page=0; page<numPages; page++){
-// 					$('<span class="page-number"></span>').text(page+1).bind('click',{newPage:page},function(event){
-// 						currentPage = event.data['newPage'];
-// 					$table.trigger('repaginage');
-// 					$(this).addClass('active').siblings().removeClass('active');
-// 					}).appendTo($pager).addClass('clickable');
-// 				}
-// 				$pager.insertBefore($table).find('span.page-number:first').addClass('active';)});
-// 			});
+		
 		</script>
 	</div>
 </body>

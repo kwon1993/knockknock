@@ -12,6 +12,6 @@ public class VisitDTO {
 	private Date writeTime;
 	private Date reservationTime;
 	private String memo;
-	private String confirm;
-	private String isCheck;
+
+	private String ischeck;
 }

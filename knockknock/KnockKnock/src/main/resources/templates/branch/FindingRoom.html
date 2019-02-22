@@ -301,6 +301,12 @@ var coords; */
 var branchNumber = document.getElementsByName('branchNumber');
 //branchNumber 증가 변수
 var i=0;
+//마커이미지 변경
+var imageSrc = '/images/findingRoomMarker.png', // 마커이미지의 주소입니다 
+	imageSize = new daum.maps.Size(34, 39), // 마커이미지의 크기입니다
+	imageOption = {offset: new daum.maps.Point(17, 39)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
 //갤러리,주소를 지도 위에 띄우기
 window.onload = function(){
@@ -312,6 +318,8 @@ window.onload = function(){
 function searchMap(){
 	for(k=0; k<addressList.length; k++){
 		geocoder.addressSearch(addressList[k].textContent, callback);
+		
+		
 	}
 }
 
@@ -326,8 +334,22 @@ var callback = function(result, status){
         // 결과값으로 받은 위치를 마커로 표시
         var marker = new daum.maps.Marker({
             map: map,
-            position: coords
+            position: coords,
+            image:markerImage
         });
+        
+    	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"
+    	+branchNumber[i++].innerText+
+    	"</span><span class='right'></span></div>";
+    	
+    	// 인포윈도우로 장소에 대한 설명을 표시
+    	var customOverlay = new daum.maps.CustomOverlay({
+    	  	position : coords,
+    	 	content : customContent
+    	});
+
+		customOverlay.setMap(map);
+        
         
         //'검색'을 눌렀을 때, 마커 삭제
        jQuery("#roomSearch").on('click',function(){
@@ -347,22 +369,9 @@ var callback = function(result, status){
     		marker.setMap(null);
     		customOverlay.setMap(null);
         })
-        
-    	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
-    	
-    	// 인포윈도우로 장소에 대한 설명을 표시
-    	var customOverlay = new daum.maps.CustomOverlay({
-    	  	position : coords,
-    	 	content : customContent
-    	});
-
-		customOverlay.setMap(map);
-		
     }//if end
     	map.setCenter(coords);
 };
-
-
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
