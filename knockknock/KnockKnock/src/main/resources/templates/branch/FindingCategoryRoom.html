@@ -82,7 +82,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<label class="field-title"><h4>"STEP1"<strong>&nbsp;선택항목에 체크!!</strong></h4></label>
 				<div id="checkboxField">
 				<div class="themeCheckbox">
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;취미(관심사)</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
@@ -131,7 +131,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tr  class="text-center">
 					<th class="jb-th-0">지점 이미지</th>
 					<th class="jb-th-1">주소</th>
-					<th class="jb-th-2">테마</th>
+					<th class="jb-th-2">관심사</th>
 					<th class="jb-th-2">성별</th>
 					<th class="jb-th-2">주차장</th>
 					<th class="jb-th-3">엘리베이터</th>
