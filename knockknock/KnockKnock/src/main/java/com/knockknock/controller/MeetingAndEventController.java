@@ -1,6 +1,6 @@
 package com.knockknock.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
@@ -26,13 +25,15 @@ import com.knockknock.dto.event.PageMaker;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.security.MemberController;
+import com.knockknock.service.MeetingAndEventService;
 
 @Controller
 public class MeetingAndEventController {
 	@Autowired
 	MeetingAndEventMapper meMapper;
 	
-//	MeetingAndEventServiceImpl meMapper;
+	@Autowired
+	MeetingAndEventService meService;
 
 	//from 성현 : 로그인시 상단 정보표시 관련(신경안쓰셔도됨)
 	@Autowired
@@ -64,19 +65,12 @@ public class MeetingAndEventController {
 		return "event/WriteBoard";
 	}
 	
-	/*
-	 * @Value("${file.upload.directory}") String uploadFileDir;
-	 */
-	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoard(MeetingVDTO meetingVDTO){
-		meMapper.meetingInsert(meetingVDTO);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/meetingImageUploade")
-	private String meetingImageUploade(List<MultipartFile> Image) {
-//		int writingNumber = meMapper.
+		System.err.println(meetingVDTO);
+		int writingNumber = meService.getWritingNumber();
+		meService.meetingInsert(meetingVDTO);
+		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		
 		return "redirect:/meetingList";
 	}
@@ -126,6 +120,7 @@ public class MeetingAndEventController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		meMapper.mparticipate(meetingVDTO, email);		
+		meMapper.mpartNumUp(meetingVDTO);
 	}	
 	
 	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기
