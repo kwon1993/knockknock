@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.BranchMapper">
 	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
-		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_NUMBER branchNumber, 
 		B.BRANCH_COMMENT branchComment,
 		B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,
@@ -35,19 +35,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findingCategoryRoomList" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_NUMBER branchNumber,
+		B.ADDRESS, B.THEME, B.GENDER,
 		B.BRANCH_TYPE branchType,
 		B.ISPARKING, B.ISELEVATOR, B.PET,
-		B.BRANCH_NUMBER branchNumber,
-		R.ROOM_NUMBER roomNumber, B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,B.THEME,
-		R.GENDER, R.DEPOSIT,
-		R.MONTHLY_RENT monthlyRent,
-		R.RENTABLE_DATE rentableDate,
-		R.ALLOW_NUMBER allowNumber
-		FROM BRANCH B, ROOM R
-		WHERE R.BRANCH_NUMBER = B.BRANCH_NUMBER
-		GROUP BY B.BRANCH_NUMBER
-		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
+		B.BRANCH_TYPE branchType
+		FROM BRANCH B
+		WHERE BRANCH_NUMBER
 	</select>
 
 		<!-- <![CDATA[ -->
@@ -95,19 +89,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
+		B.BRANCH_NUMBER branchNumber,
+		B.ADDRESS, B.THEME, B.GENDER,
 		B.BRANCH_TYPE branchType,
 		B.ISPARKING, B.ISELEVATOR, B.PET,
-		B.BRANCH_NUMBER branchNumber,
-		R.ROOM_NUMBER roomNumber, B.ADDRESS,
-		B.ADDRESS_DETAIL addressDetail,B.THEME,
-		R.GENDER, R.DEPOSIT,
-		R.MONTHLY_RENT monthlyRent,
-		R.RENTABLE_DATE rentableDate,
-		R.ALLOW_NUMBER allowNumber
-		FROM BRANCH B, ROOM R
+		B.BRANCH_TYPE branchType
+		FROM BRANCH B
 		<trim prefix="where" prefixOverrides="AND|OR">
 		<if test="address!=null">
-			R.BRANCH_NUMBER = B.BRANCH_NUMBER
+			BRANCH_NUMBER
 			AND ADDRESS like CONCAT('%',#{address},'%')
 		</if>
 		<if test="searchKeyWord.size!=0">
@@ -115,7 +105,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<foreach collection="searchKeyWord" item="theme1" open="(" close=")" separator=",">
 			#{theme1}
 			</foreach>
-		</if>	
+		</if>
+		<if test="genderCategory.size!=0">
+			and GENDER in
+			<foreach collection="genderCategory" item="Gender" open="(" close=")" separator=",">
+			#{Gender}
+			</foreach>
+		</if>		
 		<if test="petCategory.size!=0">
 			and PET in
 			<foreach collection="petCategory" item="isPet" open="(" close=")" separator=",">
@@ -129,8 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</if>	
 		</trim>
-		GROUP BY B.BRANCH_NUMBER
-		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC
 	</select>
 	
 	<!-- <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
@@ -330,6 +324,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 테마 체크박스 -->
 	<select id="getThemeLists" resultType="String">
 		SELECT DISTINCT THEME FROM BRANCH
+	</select>
+	<!-- 주택유형 체크박스 -->
+	<select id="getIsGender" resultType="String">
+		select distinct GENDER FROM BRANCH
 	</select>
 	<!-- 펫 유무 체크박스 -->
 	<select id="getIspet" resultType="String">

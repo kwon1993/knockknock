@@ -27,6 +27,7 @@ public class EventVDTO {
 	private Date replyWriteDate; //댓글작성시간
 	private Date replyWriteTime; //댓글작성시간
 	private int parentNumber; //부모댓글 번호
+	private String cancelReason; //이벤트 취소 사유
 	
 	private List<Integer> writingNumberList;
 }

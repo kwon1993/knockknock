@@ -17,7 +17,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
   	width : 128px;
   }
   .jb-th-2{
-  	width : 50px;
+  	width : 55px;
   }
   .jb-th-3{
   	width : 70px;
@@ -66,7 +66,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
  #branchType{
  	margin : 0px 15px;
  }
- 
+ #branchGender{
+ 	margin : 0px 15px;
+ }
 </style>
 
 </head>
@@ -82,10 +84,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<label class="field-title"><h4>"STEP1"<strong>&nbsp;선택항목에 체크!!</strong></h4></label>
 				<div id="checkboxField">
 				<div class="themeCheckbox">
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;취미(관심사)</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;테마</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
+							</div>
+					</div>
+				</div>
+				<br>
+			<!-- 성별 checkbox -->
+				<div class="genderCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여 </strong></h5></label>
+					<div  th:each="genderCheck : ${genderCheckbox}" th:name="branchGender" th:id="branchGender">
+							<div class="branchGender">
+							<input type="checkbox" th:value="${genderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
 							</div>
 					</div>
 				</div>
@@ -131,7 +143,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tr  class="text-center">
 					<th class="jb-th-0">지점 이미지</th>
 					<th class="jb-th-1">주소</th>
-					<th class="jb-th-2">테마</th>
+					<th class="jb-th-2">지점테마</th>
 					<th class="jb-th-2">성별</th>
 					<th class="jb-th-2">주차장</th>
 					<th class="jb-th-3">엘리베이터</th>
@@ -150,20 +162,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					<td th:text="${branchDetailVDTO.isParking}"></td>
 					<td th:text="${branchDetailVDTO.isElevator}"></td>
 					<td th:text="${branchDetailVDTO.pet}"></td>
-					<td th:text="${branchDetailVDTO.branchType}"></td>
-				
+					<td th:text="${branchDetailVDTO.branchType}"></td>				
 				</tr>
 			  </tbody>
-			</table>
+			 </table>
 			</div>	
-	  	</div>
-<!-- 	  	<div class="pager"> -->
-<!-- 	  		<span class="page-number Clickable active">1</span> -->
-<!-- 	  		<span class="page-number">2</span> -->
-<!-- 	  		<span class="page-number">3</span> -->
-<!-- 	  	</div> -->
-		</div>
-		</div>
+	  	   </div>
+		  </div>
+		 </div>
 		<script>
 		
 		//카테고리바 체크디자인용
@@ -175,22 +181,24 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 				address : $("#address").val(),
 				searchCategory : [],
+				genderCategory: [],
 				petCategory: [],
 				branchTypeCategory: [],
 				refreshGrid : function(data) {
 					//todo grid refresh
 				},
 
-				sendToServer : function(searchCategory, petCategory, branchTypeCategory) {
+				sendToServer : function(searchCategory, genderCategory, petCategory, branchTypeCategory) {
 					var that = this;
 					var datas = {
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory,
+						"genderCategory" : genderCategory,
 						"petCategory" : petCategory,
 						"branchTypeCategory" : branchTypeCategory
 					};
 			
-					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+petCategory+",  "+branchTypeCategory);	
+					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+genderCategory+", "+petCategory+",  "+branchTypeCategory);	
 					$.ajax({
 						url : "categoryRoomSearch",
 						/* type : 'GET', */
@@ -243,13 +251,31 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
+// 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
 						
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				//성별 이벤트 바인드
+				genderCheckboxEventBind : function(target) {
+// 					alert("checkboxEventBind target  :" + target);
+					var that = this;
 				
+					 $(target).change(function(e) { 
+							that.genderCategory=[];
+							
+						$("input[name='branchGender']:checked").each(function(i){
+							that.genderCategory[i] = $(this).val();
+							console.log($(this).val()+"  " +that.genderCategory[i]);
+						});
+						console.log("genderCheckboxEventBind  size:"+that.genderCategory.length);
+						
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						
+					 }); 
+				},
+				//반려동물 유무 이벤트 바인드
 				petCheckboxEventBind : function(target) {
 // 					alert("checkboxEventBind target  :" + target);
 					var that = this;
@@ -261,11 +287,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.petCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("petCheckboxEventBind size:"+that.petCategory.length);
+// 						console.log("petCheckboxEventBind size:"+that.petCategory.length);
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						//}
 					 }); 
 				},
@@ -281,11 +307,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.branchTypeCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
+// 						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						//}
 					 }); 
 				},//branchType end
@@ -296,45 +322,19 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
 //  						alert("$(e.target).val()::"+$(e.target).val());
-						that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 					});
 				}
 			};//var categoryRoom end
 					
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
+				categoryRoom.genderCheckboxEventBind(".genderCheckbox");
 				categoryRoom.petCheckboxEventBind(".petCheckbox");
 				categoryRoom.branchTypeCheckboxEventBind(".branchTypeCheckbox");
 				categoryRoom.searchInputEventBind("#categoryRoomSearch");
 			});
-
-			
-			
-//div class 페이지 나타낼 수  class="pager"
-//span 으로 페이지 나타내기 class="page-number clickable active"
-//table class="sortable paginated" =>table-responsive
-// 			$(document).ready(function(){
-// 				$('table.paginated').each(function(){
-// 					var currentPage = 0;
-// 					var numPerPage = 5;
-// 					var $table = $(this);
-					
-// 					$table.bind('repaginate',function(){
-// 						$table.find('tbody tr').hide().slice(currentPage*numPerPage,(currentPage+1)*numPerPage).show();
-// 						});
-					
-// 				var numRows=$table.find('tbody tr').length;
-// 				var numPages=Math.ceil(numRows/numPerPage);
-// 				var $pager=$('<div class="pager"></div>');
-// 				for(var page=0; page<numPages; page++){
-// 					$('<span class="page-number"></span>').text(page+1).bind('click',{newPage:page},function(event){
-// 						currentPage = event.data['newPage'];
-// 					$table.trigger('repaginage');
-// 					$(this).addClass('active').siblings().removeClass('active');
-// 					}).appendTo($pager).addClass('clickable');
-// 				}
-// 				$pager.insertBefore($table).find('span.page-number:first').addClass('active';)});
-// 			});
+		
 		</script>
 	</div>
 </body>
