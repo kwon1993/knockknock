@@ -42,8 +42,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.BRANCH_TYPE branchType
 		FROM BRANCH B
 		WHERE BRANCH_NUMBER
-		GROUP BY BRANCH_NUMBER
-		ORDER BY BRANCH_NUMBER ASC
 	</select>
 
 		<!-- <![CDATA[ -->
@@ -127,8 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</if>	
 		</trim>
-		GROUP BY BRANCH_NUMBER
-		ORDER BY BRANCH_NUMBER ASC
 	</select>
 	
 	<!-- <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
@@ -331,7 +327,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 주택유형 체크박스 -->
 	<select id="getIsGender" resultType="String">
-		select distinct GENDER from BRANCH
+		select distinct GENDER FROM BRANCH
 	</select>
 	<!-- 펫 유무 체크박스 -->
 	<select id="getIspet" resultType="String">
