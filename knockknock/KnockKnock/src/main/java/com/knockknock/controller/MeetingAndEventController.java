@@ -1,9 +1,10 @@
 package com.knockknock.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
@@ -62,8 +64,9 @@ public class MeetingAndEventController {
 		return "event/WriteBoard";
 	}
 	
-	@Value("${file.upload.directory}")
-	String uploadFileDir;
+	/*
+	 * @Value("${file.upload.directory}") String uploadFileDir;
+	 */
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoard(MeetingVDTO meetingVDTO){
@@ -72,7 +75,8 @@ public class MeetingAndEventController {
 	}
 	
 	@RequestMapping("/meetingImageUploade")
-	private String meetingImageUploade() {
+	private String meetingImageUploade(List<MultipartFile> Image) {
+//		int writingNumber = meMapper.
 		
 		return "redirect:/meetingList";
 	}
