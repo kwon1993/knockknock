@@ -31,7 +31,7 @@
 		E.WRITE_TIME writeTime, E.CONTENT,
 		E.ACCEPT_START_TIME acceptStartTime,
 		E.ACCEPT_END_TIME acceptEndTime, E.EVENT_START_TIME eventStartTime,
-		E.EVENT_END_TIME eventEndTime, E.RECRUIT_NUMBER recruitNumber, E.LIKE,
+		E.EVENT_END_TIME eventEndTime, E.RECRUIT_NUMBER recruitNumber, E.RECRUIT_MAX_NUMBER recruitMaxNumber, E.LIKE,
 		M.NICKNAME
 		FROM EVENT E,
 		MEMBER M
@@ -53,10 +53,15 @@
 		CONTENT,
 		ACCEPT_START_TIME, ACCEPT_END_TIME,
 		EVENT_START_TIME, EVENT_END_TIME,
-		RECRUIT_NUMBER, HIT, WRITE_TIME)
+		RECRUIT_MAX_NUMBER, HIT, WRITE_TIME)
 		VALUES
-		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},0,NOW())
+		(#{param1},#{eventDTO.title},#{evnetDTO.content},#{eventDTO.acceptStartTime},#{eventDTO.acceptEndTime},
+		#{eventDTO.eventStartTime},#{eventDTO.eventEndTime},#{eventDTO.recruitMaxNumber},0,NOW())
 	</insert>
+	<select id="getWritingNumber" resultType="Integer">
+		SELECT WRITING_NUMBER writingNumber
+		FROM EVENT
+	</select>
 	<select id="eventWriteNumber" resultType="Integer">
 		SELECT WRITING_NUMBER
 		writingNumber

@@ -28,8 +28,9 @@ public interface AdminMapper {
 	
 	public Integer getMemberNumber(String email);
 
-	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+	public void eventWrite(int memberNumber, @Param("eventDTO") EventDTO eventDTO);
+	
+	public ArrayList<Integer> getWritingNumber();
 
 	public ArrayList<Integer> eventWriteNumber(int memberNumber, String title, String content, Date eventStartTime,
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);

@@ -40,16 +40,45 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber, Authentication authentication) {
+	public void eventWrite(EventDTO eventDTO, Authentication authentication) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		int memberNumber = adminMapper.getMemberNumber(email);
 		//이메일로 멤버넘버 가져와서 넘겨줘야함
 		
-		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitNumber);
+		adminMapper.eventWrite(memberNumber, eventDTO);
+		int writingNumber = Collections.max(adminMapper.getWritingNumber()) + 1;
+		
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
+					+ writingNumber;
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+					+ writingNumber;
+		}
+
+		File EventUploadPath = new File(resourceToString);
+
+		if (EventUploadPath.exists() == false) {
+			EventUploadPath.mkdirs();
+		}
+		
+		MultipartFile image = eventDTO.getEventImage();
+		
+		String extension = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+		String uploadFileName = "mainImage" + extension;
+		
+		try {
+			File saveFile = new File(EventUploadPath, uploadFileName);
+			image.transferTo(saveFile);
+		} catch (Exception e) {
+			System.err.println("EventImageUploadFail");
+			e.printStackTrace();
+		}
+		
 //		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
 //				eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
 //		Integer maxValue = Collections.max(writingNumber);

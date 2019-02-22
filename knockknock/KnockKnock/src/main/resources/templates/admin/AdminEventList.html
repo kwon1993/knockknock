@@ -84,15 +84,16 @@ body{
 							<td>제목</td>
 							<td>조회수</td>
 							<td>작성시간</td>
+							<td>취소여부</td>
 						</tr>
 						<tr th:each="list : ${eventListView}">
 							<td th:text="${list.writingNumber}"></td>
 							<td th:text="${list.nickname}"></td>
-							<td><a
-								th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}"><p
-										th:text="${list.title}"></p></a></td>
+							<td><a th:href="@{'adminEventView?writingNumber=' + ${list.writingNumber}}">
+								<p th:text="${list.title}"></p></a></td>
 							<td th:text="${list.hit}"></td>
 							<td th:text="${list.writeTime}"></td>
+							<td>취소됨 안됨</td>
 						</tr>
 						<tr>
 							<td colspan="5">

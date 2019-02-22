@@ -7,12 +7,14 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
-body{
-font-family: 'Jua', sans-serif;
+body {
+	font-family: 'Jua', sans-serif;
 }
 </style>
 
-<script type="text/javascript" src="../../static/admineditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="../../static/admineditor/js/service/HuskyEZCreator.js"
+	charset="utf-8"></script>
 </head>
 <body>
 	<div layout:fragment="content" class="container">
@@ -23,73 +25,36 @@ font-family: 'Jua', sans-serif;
 			<div class="col-md-2">
 				<h3>관리 메뉴</h3>
 				<div class="sidenav">
-					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
-						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
-						th:href="@{adminVisitList}">방문문의관리</a><br> <a
-						th:href="@{adminBranchRegistView}">지점등록</a><br>
+					<a th:href="@{adminEventListView}">이벤트관리</a><br>
+					<a th:href="@{adminMemberSearchView}">회원관리</a><br>
+					<a th:href="@{adminVisitList}">방문문의관리</a><br>
+					<a th:href="@{adminBranchRegistView}">지점등록</a><br>
 				</div>
 			</div>
 			<div class="col-md-10">
-				<table id="table" class="w3-table-all">
-					<tr>
-						<td>글번호</td>
-						<td>제목</td>
-						<td>조회수</td>
-						<td>작성시간</td>
-					</tr>
-					<tr>
-						<td th:text="${eventView.writingNumber}"></td>
-						<td th:text="${eventView.title}"></td>
-						<td th:text="${eventView.hit}"></td>
-						<td th:text="${eventView.writeTime}"></td>
-					</tr>
-					<tr>
-						<td colspan="1">이벤트 시작 시간</td>
-						<td colspan="3" th:text=${eventView.eventStartTime}></td>
-					</tr>
-					<tr>
-						<td colspan="1">이벤트 종료 시간</td>
-						<td colspan="3" th:text=${eventView.eventEndTime}></td>
-					</tr>
-					<tr>
-						<td colspan="1">모집 시작 시간</td>
-						<td colspan="3" th:text=${eventView.acceptStartTime}></td>
-					</tr>
-					<tr>
-						<td colspan="1">모집 종료 시간</td>
-						<td colspan="3" th:text=${eventView.acceptEndTime}></td>
-					</tr>
-					<tr>
-						<td colspan="1">모집 인원</td>
-						<td colspan="3" th:text=${eventView.recruitNumber}></td>
-					</tr>
-					<tr>
-						<td colspan="1">내용</td>
-						<td colspan="3" th:text="${eventView.content}"></td>
-					</tr>
-					<tr>
-						<td colspan="1"></td>
-						<td colspan="1">
-							<form action="adminEventDelete">
-								<input type="hidden" name="writingNumber"
-									th:value="${eventView.writingNumber}"> <input
-									type="submit" value="delete">
-							</form>
-						</td>
-						<td colspan="1">
-							<form action="adminEventModifyView">
-								<input type="hidden" name="writingNumber"
-									th:value="${eventView.writingNumber}"> <input
-									type="submit" value="modify">
-							</form>
-						</td>
-						<td colspan="1">
-							<form action="/">
-								<input type="submit" value="main">
-							</form>
-						</td>
-					</tr>
-				</table>
+				<h2 th:text="${eventView.title}"></h2>
+				<label style="width: 100px;">작성자</label><span th:text="${eventView.nickname}"></span><br />
+				<label style="width: 100px;">조회수</label><span th:text="${eventView.hit}"></span><br />
+				<label style="width: 100px;">작성시간</label><span th:text="${eventView.writeTime}"></span>
+				<label style="width: 100px;">이벤트 모집기간</label><span th:text="${eventView.acceptStartTime}"></span>
+				<label> ~ </label><span th:text="${eventView.acceptEndTime}"></span><br />
+				<label style="width: 100px;">이벤트 기간</label><span th:text="${eventView.eventStartTime}"></span>
+				<span th:text="${eventView.eventEndTime}"></span><br />
+				<label style="width: 100px;">모집인원</label><span th:text="${eventView.recruitNumber}"></span>
+				<label> / </label><span th:text="${eventView.recruitMaxNumber}"></span><br />
+				<label>모집인원 누르면 인원목록 쭉 뜨게 할 것</label><br />
+				<div th:utext="${eventView.content}"></div>
+				<form action="adminEventDelete">
+					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+					<input type="submit" value="delete">
+				</form>
+				<form action="adminEventModifyView">
+					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
+					<input type="submit" value="modify">
+				</form>
+				<form action="/">
+					<input type="submit" value="main">
+				</form>
 			</div>
 		</div>
 	</div>

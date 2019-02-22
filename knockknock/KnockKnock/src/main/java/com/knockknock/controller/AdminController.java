@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.event.EventDTO;
 import com.knockknock.service.AdminService;
 
 @Controller
@@ -48,14 +49,9 @@ public class AdminController {
 
 	// 이벤트 등록
 	@RequestMapping("adminEventWrite")
-	public String eventWrite(Model model,
-			@RequestParam("title") String title, @RequestParam("content") String content,
-			@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
-			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-			@RequestParam("recruitNumber") int recruitNumber, Authentication authentication) {
+	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
 //		int writingNumber = 
-		adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitNumber, authentication);
+		adminService.eventWrite(eventDTO, authentication);
 //		model.addAttribute("eventView", adminService.eventView(writingNumber));
 //		return "redirect:admin/AdminEventPost";
 		return "redirect:adminEventListView";

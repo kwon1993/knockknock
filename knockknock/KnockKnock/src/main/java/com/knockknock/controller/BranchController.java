@@ -127,20 +127,28 @@ public class BranchController {
 		// files
 		int count = 0;
 		List<String> list = new ArrayList<String>();
-		for (int i = 0; i < files.length-1; i++) {
-
-		if ( files[i].isFile() ) {
-		count++;
-		list.add(files[i].getName());
-		System.out.println( "파일 : " + files[i].getName() );
-		} else {
-		System.out.println( "디렉토리명 : " + files[i].getName() );
-		}
+		List<String> main = new ArrayList<String>();
+		for (int i = 0; i < files.length; i++) {
+			if(i < files.length-1) {
+				if ( files[i].isFile() ) {
+					count++;
+					list.add(files[i].getName());
+					System.out.println( "파일 : " + files[i].getName() );
+				} else {
+					System.out.println( "디렉토리명 : " + files[i].getName() );
+				}
+			} else {
+				if( files[i].isFile() ) {
+					main.add(files[i].getName());
+				}
+			}
+			
 		} // end of for
 		System.out.println(list);
 		count= count-1; // main.jpg 제외
 		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
+		model.addAttribute("mainImage", main);
 		
 		//리눅스(서버)에서 절대경로로 가져오도록 수정
 		String pathRoom;
