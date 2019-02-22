@@ -66,7 +66,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
  #branchType{
  	margin : 0px 15px;
  }
- 
+ #branchGender{
+ 	margin : 0px 15px;
+ }
 </style>
 
 </head>
@@ -91,11 +93,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</div>
 				<br>
 			<!-- 성별 checkbox -->
-				<div class="sexCheckbox">
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여</strong></h5></label>
+				<div class="genderCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여 </strong></h5></label>
 					<div  th:each="genderCheck : ${genderCheckbox}" th:name="branchGender" th:id="branchGender">
 							<div class="branchGender">
-							<input type="checkbox" th:value="${GenderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
+							<input type="checkbox" th:value="${genderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
 							</div>
 					</div>
 				</div>
@@ -185,22 +187,24 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 				address : $("#address").val(),
 				searchCategory : [],
+				genderCategory: [],
 				petCategory: [],
 				branchTypeCategory: [],
 				refreshGrid : function(data) {
 					//todo grid refresh
 				},
 
-				sendToServer : function(searchCategory, petCategory, branchTypeCategory) {
+				sendToServer : function(searchCategory, genderCategory, petCategory, branchTypeCategory) {
 					var that = this;
 					var datas = {
 						"address" : $("#address").val(),
 						"searchKeyWord" : searchCategory,
+						"genderCategory" : genderCategory,
 						"petCategory" : petCategory,
 						"branchTypeCategory" : branchTypeCategory
 					};
 			
-					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+petCategory+",  "+branchTypeCategory);	
+					console.log(datas+" 8888 "+JSON.stringify(datas)+"  "+searchCategory+", "+genderCategory+", "+petCategory+",  "+branchTypeCategory);	
 					$.ajax({
 						url : "categoryRoomSearch",
 						/* type : 'GET', */
@@ -253,13 +257,31 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.searchCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
+// 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
 						
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				//성별 이벤트 바인드
+				genderCheckboxEventBind : function(target) {
+// 					alert("checkboxEventBind target  :" + target);
+					var that = this;
 				
+					 $(target).change(function(e) { 
+							that.genderCategory=[];
+							
+						$("input[name='branchGender']:checked").each(function(i){
+							that.genderCategory[i] = $(this).val();
+							console.log($(this).val()+"  " +that.genderCategory[i]);
+						});
+						console.log("genderCheckboxEventBind  size:"+that.genderCategory.length);
+						
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						
+					 }); 
+				},
+				//반려동물 유무 이벤트 바인드
 				petCheckboxEventBind : function(target) {
 // 					alert("checkboxEventBind target  :" + target);
 					var that = this;
@@ -271,11 +293,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.petCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("petCheckboxEventBind size:"+that.petCategory.length);
+// 						console.log("petCheckboxEventBind size:"+that.petCategory.length);
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						//}
 					 }); 
 				},
@@ -291,11 +313,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							that.branchTypeCategory[i] = $(this).val();
 							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
+// 						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
 					/* 	if(that.searchCategory.size==0){
 							that.sendToServer(
 						}else{ */
-							that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						//}
 					 }); 
 				},//branchType end
@@ -306,13 +328,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
 //  						alert("$(e.target).val()::"+$(e.target).val());
-						that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
+						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 					});
 				}
 			};//var categoryRoom end
 					
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
+				categoryRoom.genderCheckboxEventBind(".genderCheckbox");
 				categoryRoom.petCheckboxEventBind(".petCheckbox");
 				categoryRoom.branchTypeCheckboxEventBind(".branchTypeCheckbox");
 				categoryRoom.searchInputEventBind("#categoryRoomSearch");
