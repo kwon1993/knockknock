@@ -89,6 +89,10 @@ public class BranchService {
 	public List<String> getThemeLists(){
 		return branchMapper.getThemeLists();
 	}
+	//남 or 여
+	public List<String> getIsGender() {
+		return branchMapper.getIsGender();
+	}
 	//반려동물 유무
 	public List<String> getIspet() {
 		return branchMapper.getIspet();
@@ -97,4 +101,5 @@ public class BranchService {
 	public List<String> getBranchType() {
 		return branchMapper.getBranchType();
 	}
+	
 }

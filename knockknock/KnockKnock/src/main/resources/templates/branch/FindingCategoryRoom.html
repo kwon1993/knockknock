@@ -90,6 +90,16 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					</div>
 				</div>
 				<br>
+			<!-- 성별 checkbox -->
+				<div class="sexCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여</strong></h5></label>
+					<div  th:each="genderCheck : ${genderCheckbox}" th:name="branchGender" th:id="branchGender">
+							<div class="branchGender">
+							<input type="checkbox" th:value="${GenderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
+							</div>
+					</div>
+				</div>
+				<br>
 			<!-- 반려동물유무 checkbox -->
 				<div class="petCheckbox">										
 					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물 유무</strong></h5></label>

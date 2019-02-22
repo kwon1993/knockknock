@@ -67,6 +67,7 @@ public class MainController {
 	public String toFindingCategoryRoom(Model model, BranchDetailVDTO branchDetailVDTO) throws Exception {
 		model.addAttribute("lists", branchService.findingCategoryRoomList(branchDetailVDTO));
 		model.addAttribute("themeLists", branchService.getThemeLists());
+		model.addAttribute("genderCheck",branchService.getIsGender());
 		model.addAttribute("pet", branchService.getIspet());
 		model.addAttribute("branchType", branchService.getBranchType());
 //		PageMaker pageMaker = new PageMaker();

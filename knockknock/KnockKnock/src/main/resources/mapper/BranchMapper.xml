@@ -331,6 +331,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getThemeLists" resultType="String">
 		SELECT DISTINCT THEME FROM BRANCH
 	</select>
+	<!-- 주택유형 체크박스 -->
+	<select id="getIsGender" resultType="String">
+		select distinct GENDER from BRANCH
+	</select>
 	<!-- 펫 유무 체크박스 -->
 	<select id="getIspet" resultType="String">
 		SELECT DISTINCT PET FROM BRANCH
