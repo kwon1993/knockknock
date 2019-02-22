@@ -19,6 +19,7 @@ public class BranchDetailVDTO2 implements Serializable{
 	private String branchType;
 		
 	private ArrayList<String> searchKeyWord;
+	private ArrayList<String> genderCategory;
 	private ArrayList<String> petCategory;
 	private ArrayList<String> branchTypeCategory;
 }

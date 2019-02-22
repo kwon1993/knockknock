@@ -278,4 +278,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND BRANCH_NUMBER=#{branchNumber}
 	</delete>
 
+	
+	<select id="ConfirmReason" resultType="MeetingVDTO">
+		SELECT 
+		(SELECT NICKNAME
+		FROM MEMBER M
+		WHERE M. MEMBER_NUMBER = (SELECT MEMBER_NUMBER FROM MEETING MT WHERE MT.WRITING_NUMBER=#{writingNumber})) NICKNAME,
+		MT.CANCEL_REASON cancelReason
+		FROM MEETING MT
+		WHERE MT.WRITING_NUMBER=#{writingNumber}
+	</select>
+
 </mapper>

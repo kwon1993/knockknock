@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,14 +48,14 @@ public class AdminController {
 
 	// 이벤트 등록
 	@RequestMapping("adminEventWrite")
-	public String eventWrite(Model model, @RequestParam("memberNumber") int memberNumber,
+	public String eventWrite(Model model,
 			@RequestParam("title") String title, @RequestParam("content") String content,
 			@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
 			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-			@RequestParam("recruitNumber") int recruitNumber) {
+			@RequestParam("recruitNumber") int recruitNumber, Authentication authentication) {
 //		int writingNumber = 
-		adminService.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitNumber);
+		adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
+				acceptEndTime, recruitNumber, authentication);
 //		model.addAttribute("eventView", adminService.eventView(writingNumber));
 //		return "redirect:admin/AdminEventPost";
 		return "redirect:adminEventListView";

@@ -171,6 +171,7 @@ cursor: pointer;
 	color:white;
 }
 
+
 </style>
 </head>
 <body>
@@ -228,8 +229,8 @@ cursor: pointer;
 							<td th:text="${MMLJ.meetingEndTime}"></td>
 							<td name="meetingStatus" th:text="${MMLJ.meetingStatus}"></td>
 							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
-							<!-- <td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a></td> -->
-							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" id="confirmReason" role="button" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}">취소 사유 확인</a></td>
+							<!-- <td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" id="confirmReason" role="button" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}">취소 사유 확인</a></td> -->
+							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
@@ -238,8 +239,48 @@ cursor: pointer;
 				<br />
 			</div>
 			
-			<script>
+			
+			<!-- 모임 취소 사유 확인 모달 -->
+			<div id="myModal" class="modal">
+				<div class="modal-content" th:each="confirmReason:${confirmReason}">
+					<span class="close">&times;</span>
+					<h3>모임 취소 사유</h3><br />
+					<p th:text="|*{confirmReason.nickname}님이 남기신 메모입니다.|"></p><br />
+					<h2 th:text="${confirmReason.cancelReason}"></h2>
+					<button type="button" class="btn btn-default" id="closeModal"
+					data-dismiss="modal">완료</button>
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
+				</div>
+			</div> 
+			
+			
+			<script th:inline="javascript">
 			$(document).ready(function(){
+				
+			var modal = document.getElementById('myModal');				
+			var span = document.getElementsByClassName("close")[0];
+						
+			var closeModal = document.getElementById("closeModal");
+					
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+			
+			window.onclick = function(event) {
+				if (event.target == modal) {
+						modal.style.display = "none";
+				}
+			}
+				
+			closeModal.onclick = function(){
+				modal.style.display = "none";
+			} 	
+				
+			var confirmReason = [[${confirmReason}]];
+
+			if(confirmReason!=null){
+				modal.style.display = "block";
+			}
 		
 				$("#checkAll").click(function(){
 					if($("#checkAll").prop("checked")){
@@ -283,9 +324,7 @@ cursor: pointer;
 		    
 			}) // checkedDelete
 			
-			})	// ready
-			     
-	
+			})
 			</script>
 			
 
@@ -306,208 +345,13 @@ cursor: pointer;
 							<td th:text="${MMLM.acceptEndTime}"></td>
 							<td th:text="${MMLM.meetingStartTime}"></td>
 							<td th:text="${MMLM.meetingEndTime}"></td>
-							<!-- <input type="hidden" th:value=${MMLM.cancelReason}" id=cancelReason" /> -->
-							<!-- <td><button id="cancelBtns" name="cancelBtns" class="btn btn-default" th:value="${MMLM.writingNumber}" >개설 취소</button></td> -->
-							<!-- <td><a role="button" id="myBtn" class="btn btn-default" th:href="@{'/deleteMM/?writingNumber='+${MMLM.writingNumber}}">개설 취소</a></td> -->
-							<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> -->
 						</tr>
 					</table>
 				</div>
 				
 				<br />
 			</div>
-			
-			<!-- 개설한 모임 취소 시 취소 사유 작성 모달 -->
-			<div id="myModal" class="modal">
-					<div th:each="MMLM:${MMLM}" class="modal-content">
-						<form action="cancelMM" method="post" id="cancleMMForm">
-							<span class="close">&times;</span>
-							<h3 style="float: left">개설 모임 취소</h3><br />
-														
-							<br />
-							<input type="text"
-								class="form-control" name="memo" placeholder="모임 개설 취소 사유를 작성해주세요" /> 
-								<br /> <br />
-							<div class="row">
-								<div class="col-md-6">
-									<button type="button" class="btn btn-default" id="closeModal">취소</button>
-								</div>
-								<div class="col-md-6">
-									<button type="button" class="btn btn-default" id="cancelMM"
-									data-dismiss="modal" th:value="${MMLM.writingNumber}" >완료</button>
-									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			<script>
-			
-/* 				// Get the modal
-				var modal = document.getElementById('myModal');
 	
-				// Get the button that opens the modal
-				var btn = document.getElementsByName("cancelBtns");
-				
-			    // When the user clicks the button, open the modal 
-				btn.onclick = function() {
-					modal.style.display = "block";
-			    }
-			    
-				// Get the <span> element that closes the modal
-				var span = document.getElementsByClassName("close")[0];
-				
-				var closeModal = document.getElementById("closeModal");
-				var visitBooking = document.getElementById("visitBooking");
-				
-				// When the user clicks on <span> (x), close the modal
-				span.onclick = function() {
-					modal.style.display = "none";
-				}
-	
-				// When the user clicks anywhere outside of the modal, close it
-				window.onclick = function(event) {
-					if (event.target == modal) {
-						modal.style.display = "none";
-					}
-				}
-			
-				closeModal.onclick = function(){
-					modal.style.display = "none";
-				}
-				
-				cancelMM.onclick =function(){
-				
-					writingNumber= $("#wantToCancle").val();
-					memo = $("input[name='memo']").val();
-					
-					 inner ="";
-					
-					$.ajax({
-						method:'post',
-						url: '/cancelMM',
-						data:
-							JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
-							"writingNumber":writingNumber,
-							"cancelReason":memo 
-						}),
-						dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
-						contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
-						success:function(response){
-							inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>개설 모임 취소가 완료되었습니다</h3><br /></div>"
-							$("#myModal").html(inner);
-							
-				            // 취소 사유 값이 있는 경우 checkbox와 신청 취소 버튼 숨기기
-				            if(${"MMLM.cancelReason"}!=null){
-				            	
-				            }
-							
-						},
-						error:function(response){  
-							inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
-							$("#myModal").html(inner);
-						}
-					});
-				};
-				
-				// 동적으로 생성된 태그에 이벤트 걸기
-				$(document).on("click", "#modalx", function(){
-					modal.style.display = "none";
-				}); */
-				
-				
-				// Get the modal
-				var modal = document.getElementById('myModal');
-
-				$("[id^=cancelBtns]").on('click', function(event){ 
-					modal.style.display = "block";
-				})		
-	
-				// Get the <span> element that closes the modal
-				var span = document.getElementsByClassName("close")[0];
-				
-				var closeModal = document.getElementById("closeModal");
-				
-				// When the user clicks on <span> (x), close the modal
-				span.onclick = function() {
-					modal.style.display = "none";
-				}
-	
-				// When the user clicks anywhere outside of the modal, close it
-				window.onclick = function(event) {
-					if (event.target == modal) {
-						modal.style.display = "none";
-					}
-				}
-			
-				closeModal.onclick = function(){
-					modal.style.display = "none";
-				}
-				
-				$("[id^=cancelMM]").on('click', function(event){ 
-					
-					// this로 클릭 이벤트가 발생한 요소의 값을 가지고 와야 해
-					/* var writingNumber=$(this).val();
-					alert(writingNumber);
-					 */
-					/* var writingNumber= $("#wantToCancle").val();
-					var memo = $("input[name='memo']").val();
-					
-					inner ="";
-					
-					$.ajax({
-						method:'post',
-						url: '/cancelMM',
-						data:
-							JSON.stringify({ // form에서 받아온 값들을 json 형식의 데이터로 처리
-							"writingNumber":writingNumber,
-							"cancelReason":memo 
-						}),
-						dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
-						contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
-						success:function(response){
-							inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>개설 모임 취소가 완료되었습니다</h3><br /></div>"
-							$("#myModal").html(inner);
-						
-						},
-						error:function(response){  
-							inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h3>에러 발생</h3><br /></div>"
-							$("#myModal").html(inner);
-						}
-					}) */
-				})
-				
-				// 동적으로 생성된 태그에 이벤트 걸기
-				$(document).on("click", "#modalx", function(){
-					modal.style.display = "none";
-				});
-				
-		</script>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 			<!-- 탭 -->
 			<script>
 				function openCity(evt, cityName) {

@@ -192,6 +192,12 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.deleteLB(branchNumber, email);
 		return 1;
 	}
-	
+
+
+	@Override
+	public MeetingVDTO ConfirmReason(int writingNumber) {
+		 return memberMapper.ConfirmReason(writingNumber);
+	}
+
 
 }

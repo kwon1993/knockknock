@@ -1,9 +1,10 @@
 package com.knockknock.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
@@ -62,32 +64,20 @@ public class MeetingAndEventController {
 		return "event/WriteBoard";
 	}
 	
-	@Value("${file.upload.directory}")
-	String uploadFileDir;
+	/*
+	 * @Value("${file.upload.directory}") String uploadFileDir;
+	 */
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
-	private String writeBoard(MeetingVDTO meetingVDTO){/*@RequestPart MultipartFile image*/
-		
+	private String writeBoard(MeetingVDTO meetingVDTO){
 		meMapper.meetingInsert(meetingVDTO);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/meetingImageUploade")
+	private String meetingImageUploade(List<MultipartFile> Image) {
+//		int writingNumber = meMapper.
 		
-//		if(image.isEmpty()){ //이미지 업로드가 없을때
-//		}else {
-//			String ImageName = image.getOriginalFilename(); //파일의 이름을 함수에 저장
-////			String ImageNameExtension = FilenameUtils.getExtension(ImageName).toLowerCase();
-//			File FileUrl; //경로와 이미지 이름이 섞일 함수선언
-//			
-//			do {
-//				FileUrl = new File(uploadFileDir+ImageName); //경로+이미지
-//			}while(FileUrl.exists());
-//				
-//			FileUrl.getParentFile().mkdirs();
-//			image.transferTo(FileUrl);
-//			
-//			meeting.setImage(FileUrl);
-//			
-//			meMapper.meetingInsertService(meeting); //게시글 insert
-//			meMapper.imageUploadService(image); //이미지 insert
-//		}
 		return "redirect:/meetingList";
 	}
 
@@ -136,7 +126,7 @@ public class MeetingAndEventController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		meMapper.mparticipate(meetingVDTO, email);		
-	}
+	}	
 	
 	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기
 	private void eparticipate(@RequestBody EventVDTO eventVDTO, Authentication authentication){

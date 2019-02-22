@@ -74,4 +74,7 @@ public interface MemberMapper {
 	public List<BranchDetailVDTO> getMLBL(String email);
 
 	public int deleteLB(int branchNumber, String email);
+	
+	public MeetingVDTO ConfirmReason(int writingNumber);
+
 }

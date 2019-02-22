@@ -76,12 +76,19 @@
 }
 
 #kakao{
-	margin-left:88%;
+
+	padding: 100px;
+	margin: 90px;
 	background-color:#2eca6a;
 	color:white;
 	border-radius: 1rem;
 	padding: 1rem 1rem;
 	border:1px solid #2eca6a;
+	position: fixed;
+	text-align: center;
+	right: 20px;
+	width: 150px;
+	height: 100px;
 }
 
 #moreQ{
@@ -99,16 +106,14 @@
 </style>
 </head>
 <body id='FAQBody'>
-	<div layout:fragment="content" class="container" id="accordian">
+	<div layout:fragment="content" class="container" >
 	
+	
+	<div class="row">
+			<div class="col-md-11">
+		<div id="accordian">
 		<h1 id='title'>궁금한 점이 있으신가요 <span id='q1'>?</span><span id='q2'>?</span></h1>
-		<div id='kakao'>
-			<div id="plusfriend-addfriend-button"></div>
-   		 	<a href="http://developers.kakao.com/logout"></a>
-   		 	<div id="plusfriend-chat-button"></div>
-   		 	<a href="javascript:void plusFriendChat()" id='moreQ'>1:1 문의하기</a>
-		</div>
-		
+
 		<button class="accordion">1. 입주신청 과정은 어떻게 되나요?</button>
 		<div class="panel">
 			<p>입주하고 싶은 쉐어하우스가 있으면, 방문신청을 합니다. 이후 방문 후, 계약의사가 있을시 직접 입주신청서를 작성해주시면 입주 가능합니다.</p>
@@ -218,7 +223,24 @@
 		<div class="panel">
 			<p>아니오. 지점 내에서는 낙낙 직원이 상주하고 있지 않습니다.</p>
 		</div>
-
+		
+		
+		
+		</div> <!-- // accordion -->
+		
+		</div> <!-- // 11 -->
+			<div class="col-md-1">
+				<div id='kakao' style="bottom:300px;">
+					<div id="plusfriend-addfriend-button"></div>
+		   		 	<a href="http://developers.kakao.com/logout"></a>
+		   		 	<div id="plusfriend-chat-button"></div>
+		   		 	<a href="javascript:void plusFriendChat()" id='moreQ'>1:1 문의하기</a>
+				</div>
+			</div>
+		
+		</div>  <!-- // row -->
+		
+		
 		<script>
 		
 			//카테고리바 체크디자인용

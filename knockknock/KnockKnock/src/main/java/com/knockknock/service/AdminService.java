@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,8 +40,14 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
+	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
+			Date acceptStartTime, Date acceptEndTime, int recruitNumber, Authentication authentication) {
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		int memberNumber = adminMapper.getMemberNumber(email);
+		//이메일로 멤버넘버 가져와서 넘겨줘야함
+		
 		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitNumber);
 //		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
@@ -120,7 +129,10 @@ public class AdminService {
 	public void branchRegist(BranchDTO branchDTO, RoomDTO roomDTO) {
 		int maximumResident = 0;
 //		List<String> allowNumber = roomDTO.getAllowNumber();
-		for (int i = 0; i < roomDTO.getAllowNumber().size(); i++) {
+		for (int i = 0; i < roomDTO.getRoomNumber().size()
+				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
+				|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
+				|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
 			switch (roomDTO.getAllowNumber().get(i).toString()) {
 			case "1인실":
 				maximumResident += 1;
@@ -270,8 +282,15 @@ public class AdminService {
 //		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
 //		System.out.println(resource);
 
-		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
-				+ branchNumber;
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"
+					+ branchNumber;
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+					+ branchNumber;
+		}
 
 		File BranchUploadPath = new File(resourceToString);
 
@@ -284,7 +303,13 @@ public class AdminService {
 		for (MultipartFile multipartFile : branchDTO.getBranchImages()) {
 			String extension = multipartFile.getOriginalFilename()
 					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-			String uploadFileName = ++Numbering + extension; // 브랜치넘버+파일명
+			String uploadFileName;
+			if(Numbering == 0) {
+				uploadFileName = "mainImage" + extension;
+				Numbering++;
+			} else {
+				uploadFileName = Numbering++ + extension;
+			}
 			try {
 				File saveFile = new File(BranchUploadPath, uploadFileName);
 				// 경로를 파일화시킨다.(실제파일생성)
@@ -305,8 +330,15 @@ public class AdminService {
 
 	public void roomImageRegist(int branchNumber, RoomDTO roomDTO) {
 
-		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
-				+ branchNumber + "room";
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"
+					+ branchNumber + "room";
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+					+ branchNumber + "room";
+		}
 
 		File RoomUploadPath = new File(resourceToString);
 
@@ -319,7 +351,13 @@ public class AdminService {
 		for (MultipartFile multipartFile : roomDTO.getRoomImages()) {
 			String extension = multipartFile.getOriginalFilename()
 					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-			String uploadFileName = ++Numbering + extension;
+			String uploadFileName;
+			if(Numbering == 0) {
+				uploadFileName = "mainImage" + extension;
+				Numbering++;
+			} else {
+				uploadFileName = Numbering++ + extension;
+			}
 			try {
 				File saveFile = new File(RoomUploadPath, uploadFileName);
 				// 경로를 파일화시킨다.(실제파일생성)
@@ -434,9 +472,9 @@ public class AdminService {
 			if (files[i].isFile()) {
 				count++;
 				list.add(files[i].getName());
-				System.out.println( "파일 : " + files[i].getName() );
+				System.out.println("파일 : " + files[i].getName());
 			} else {
-				System.out.println( "디렉토리명 : " + files[i].getName() );
+				System.out.println("디렉토리명 : " + files[i].getName());
 			}
 		} // end of for
 		count = count - 1; // main.jpg 제외
