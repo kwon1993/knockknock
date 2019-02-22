@@ -74,8 +74,6 @@ public class MeetingAndEventController {
 	@RequestMapping("/meetingImageUploade")
 	private String meetingImageUploade() {
 		
-		int writingNumber = meMapper.
-		
 		return "redirect:/meetingList";
 	}
 
