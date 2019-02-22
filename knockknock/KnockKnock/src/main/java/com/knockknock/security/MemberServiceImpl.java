@@ -54,6 +54,16 @@ public class MemberServiceImpl implements MemberService{
 		return maxMemberNumber;
 	}
 
+	//펫체크
+	public ProfileVDTO petCheck(ProfileVDTO profileVDTO) {
+		return memberMapper.petCheck(profileVDTO);
+	}
+	
+	//펫딜리트
+	public void deletePet(ProfileVDTO profileVDTO) {
+		memberMapper.deletePet(profileVDTO);
+	}
+	
 	@Override
 	public List<MeetingVDTO> getMMLJ(String email) {
 		return memberMapper.getMMLJ(email);
@@ -117,7 +127,11 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> getPet(String username) {
 		return memberMapper.getPet(username);
 	}
-
+	
+	public void firstMyPetUpdate(ProfileVDTO profileVDTO) {
+		memberMapper.firstMyPetUpdate(profileVDTO);
+	}
+	
 	/*ash
 	 * @Override public List<VisitVDTO> myVisitList(int memberNumber) { return
 	 * memberMapper.myVisitList(memberNumber); }
@@ -134,9 +148,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int deleteMM(int writingNumber, String email) {
+	public void deleteMM(int writingNumber, String email) {
 		memberMapper.deleteMM(writingNumber, email);
-		return 1;
 	}
 	
 	@Override
@@ -164,6 +177,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public void cancelMM2(MeetingVDTO meetingVDTO, String email) {
+		memberMapper.cancelMM2(meetingVDTO, email);
+	}
+	
+	@Override
 	// 내 관심 지점 리스트
 	public List<BranchDetailVDTO> getMLBL(String email){
 		return memberMapper.getMLBL(email);
@@ -173,6 +191,12 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteLB(int branchNumber, String email) {
 		memberMapper.deleteLB(branchNumber, email);
 		return 1;
+	}
+
+
+	@Override
+	public MeetingVDTO ConfirmReason(int writingNumber) {
+		 return memberMapper.ConfirmReason(writingNumber);
 	}
 
 

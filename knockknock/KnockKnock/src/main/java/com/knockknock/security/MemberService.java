@@ -43,6 +43,15 @@ public interface MemberService{
 	
 	//겟펫
 	public List<MemberDTO> getPet(String username);
+	
+	//펫체크
+	public ProfileVDTO petCheck(ProfileVDTO profileVDTO); 
+	
+	//펫없던사람의 첫 펫 업데이트
+	public void firstMyPetUpdate(ProfileVDTO profileVDTO);
+	
+	//펫삭제
+	public void deletePet(ProfileVDTO profileVDTO);
 
 	// 내 이벤트 리스트
 	public List<EventVDTO> getMEL(String email);
@@ -62,7 +71,9 @@ public interface MemberService{
 	public int deleteJM(int writingNumber, String email);
 
 	// 모임 개설 취소
-	public int deleteMM(int writingNumber, String email);
+	public void deleteMM(int writingNumber, String email);
+	public void cancelMM(MeetingVDTO meetingVDTO, String email);
+	public void cancelMM2(MeetingVDTO meetingVDTO, String email);
 	
 	// 이벤트 참가 취소 - 각각
 	public int deleteJE(int writingNumber, String email);
@@ -72,9 +83,9 @@ public interface MemberService{
 
 	// 방문 신청 취소
 	public int deleteV(int writingNumber, String email);
-
-	// 개설 모임 취소
-	public void cancelMM(MeetingVDTO meetingDTO, String email);
+	
+	// 모임 취소 사유 확인
+	public MeetingVDTO ConfirmReason(int writingNumber);
 	
 	int getMemberNumber();
 

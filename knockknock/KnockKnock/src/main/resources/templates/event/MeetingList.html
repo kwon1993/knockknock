@@ -27,7 +27,7 @@ body{
 <body>
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-			<h1>모임게시판</h1>
+			<h1><span style="color:#2eca6a">모임</span>게시판</h1>
 			<!-- 베너 -->
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
@@ -56,64 +56,17 @@ body{
 					class="sr-only">다음</span>
 				</a>
 			</div>
-			<div class=row>
-				<div class="col">				
-					<h3>관심사로 모임을 검색해보세요</h3>
-				</div>
-				<div class="col-1">				
-					<input type="button" value="검색">
+			<div class="themeCheckbox">
+				<label class="field-title"><h3><span style="color:#2eca6a">관심사</span>로 모임을 검색해보세요</h3></label>
+				<br>
+				<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
+				<div  th:each="favorite : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
+					<div class="branchTheme">
+						<input type="checkbox" th:value="${favorite}" th:id="${favorite}" th:name="branchTheme"><span  th:text="${favorite}" th:for="${favorite}"></span>
+					</div>
 				</div>
 			</div>
-<!-- 			<div class="col dlk-radio btn-group"> -->
-				 <label class="btn btn-success">
-				     <input name="favorite" class="form-control" type="radio" value="IT">
-				     <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사1
-				</label>
-				<label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="컴퓨터">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사2
-			   </label>
-				<label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="요리">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사3
-			   </label>
-				<label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="공연/전시">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사4
-			   </label>
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사5
-			   </label>
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사6
-			   </label>
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사7
-			   </label>
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사8
-			   </label>
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사9
-			   </label>			
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사10
-			   </label>	
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class="form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사11
-			   </label>					   
-		   	   <label class="btn btn-success">
-				    <input name="favorite" class=" form-control" type="radio" value="영화">
-				    <i class="fa fa-check glyphicon glyphicon-ok"></i> 관심사12
-			   </label>		
-<!-- 			</div> -->
+			
 			<table class="table table-hover">
 				<thead>
 					<tr>

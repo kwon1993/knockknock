@@ -1,8 +1,10 @@
 package com.knockknock.config;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -24,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder;
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
+
+	@Autowired
+	private Environment env;
 	
 	//요거 추가해주니 로긴 로그아웃창 수정완료
 	@Bean
@@ -39,44 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//기존설정----------------------------------------------------------
-//		http.csrf().disable().
-//		authorizeRequests()
-//			.antMatchers("/**","/reviewList").permitAll()
-//			.antMatchers("/admin").hasRole("A")
-//			.anyRequest().authenticated()
-//			.and()
-//		.formLogin()
-//			.loginPage("/login")
-//			.defaultSuccessUrl("/")
-//			.failureUrl("/login")
-//			.and()
-//		.logout()
-//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/")
-//			.permitAll();
-//		//loginProcessingUrl없애니 됨
-//		
-//		http
-//	    	.csrf()
-//	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-//		
-		//스마트에디터 관련 설정
-//	    http
-//		    .headers()
-//		    .frameOptions()
-//		    .disable();	
-//	    
-	    //실제필요설정------------------------------------------------------------
-//	    http.csrf().disable()
+
+		//기존설정
 		http
 		.authorizeRequests()
-		//애니리퀘스트를 빼고, 해즈롤로 처리한다.
-//			.antMatchers("/**","/lib/**",""
-//					+ "/login","/findingRoom","simpleRoomSearch", "/reviewList","/categoryRoomSearch").permitAll()
-//				 .anyRequest().authenticated() 
 			//매치 : static 이하
-			.antMatchers("/ckeditor/**","/contactform/**","/css/**","/images/**","/img/**",
+			.antMatchers("/contactform/**","/css/**","/images/**","/img/**",
 					"/js/**","/lib/**","/vendor/**","static/**").permitAll()
 			//매치 : BranchController
 			.antMatchers("/roomSearch","/categoryRoomSearch","/roomDetailView/**").permitAll()
@@ -84,10 +57,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/","/simpleRoomSearch","/findingRoom","/findingCategoryRoom","/meetingAndEventMain","/toSharingGuide","/toFAQ").permitAll()
 			//매치 : MeetingAndEventController
 			.antMatchers("/writeBoard","/meetingList","/meetingView","/meetingModify","/eventList","/eventView").permitAll()
+			//매치 : ReplyController
+			.antMatchers("/meetingReplyList").permitAll() //from 민철 추가
 			//매치 : ReviewController
 			.antMatchers("/reviewList").permitAll()
 			//매치 : MemberController
-			.antMatchers("/register","/create","/checkEmail","/findId","/findPass").permitAll()
+			.antMatchers("/register","/create","/checkEmail","/findId","/findPass","/login/facebook").permitAll()
 			//매치 : MailController
 			.antMatchers("/sendpass").permitAll()
 			//매치 : 방문신청 인증 필요
@@ -105,20 +80,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll();
 		//loginProcessingUrl없애니 됨
 		
+		//이 코드가 없으면 CSRF 토큰을 발급하지 않는다.CSRF 위험에 노출.(개발자도구->네트워크->어플리케이션에서 확인)
 		http
 	    	.csrf()
 	    	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-
-//        http
-//        	.csrf().disable();
-		
-		//스마트에디터 관련 설정
-	    http
-		    .headers()
-		    .frameOptions()
-		    .disable();	
 	}
-
+	
 	//로그인 처리 시 인증에 대한 처리
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -131,7 +98,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-
-			
 }

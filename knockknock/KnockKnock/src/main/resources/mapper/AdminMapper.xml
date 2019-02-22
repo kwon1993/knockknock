@@ -43,6 +43,11 @@
 		UPDATE EVENT SET HIT = HIT + 1 WHERE WRITING_NUMBER =
 		#{param1}
 	</update>
+	<select id="getMemberNumber" resultType="Integer">
+		SELECT MEMBER_NUMBER memberNumber
+		FROM MEMBER
+		WHERE EMAIL = #{param1}
+	</select>
 	<insert id="eventWrite">
 		INSERT INTO EVENT(MEMBER_NUMBER, TITLE,
 		CONTENT,
@@ -196,7 +201,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		'V.CONFIRM'‎,
+		V.ISCHECK,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
@@ -217,7 +222,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		'V.CONFIRM',
+		V.ISCHECK,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
@@ -230,7 +235,7 @@
 
 	<update id="visitCheck">
 		UPDATE VISIT
-		SET CONFIRM = '완료'
+		SET ISCHECK = '완료'
 		WHERE WRITING_NUMBER =
 		#{param1}
 	</update>
@@ -260,8 +265,29 @@
 		ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
 		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
 	</insert>
-
-
+	<select id="branchModifyView" resultType="BranchDTO">
+		SELECT THEME,
+		BANK_NAME
+		bankName, DEPOSITOR, BRANCH_ACCOUNT branchAccount, GENDER,
+		BRANCH_COMMENT branchComment, ADDRESS,
+		ADDRESS_DETAIL addressDetail,
+		BRANCH_TYPE branchType, ISPARKING,
+		ISELEVATOR,
+		FACILITY, PET, MAXIMUM_RESIDENT maximumResident, RULE
+		FROM
+		BRANCH
+		WHERE BRANCH_NUMBER =
+		#{param1}
+	</select>
+	<select id="roomModifyView" resultType="roomVDTO">
+		SELECT ROOM_NUMBER roomNumber,
+		GENDER, ALLOW_NUMBER allowNumber, SPACE, DEPOSIT, MONTHLY_RENT
+		monthlyRent, RENTABLE_DATE rentableDate,
+		FACILITY
+		FROM ROOM
+		WHERE
+		BRANCH_NUMBER = #{param1}
+	</select>
 
 
 
@@ -295,8 +321,10 @@
 
 
 	<insert id="testRoomRegist" parameterType="java.util.List">
-		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE,
-		DEPOSIT, MONTHLY_RENT, RENTABLE_DATE)
+		INSERT INTO
+		ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER, ALLOW_NUMBER, SPACE,
+		DEPOSIT,
+		MONTHLY_RENT, RENTABLE_DATE)
 		VALUES(#{branchNumber},#{roomNumber2},#{gender2},#{allowNumber2},#{space2},#{deposit2},#{monthlyRent2},#{rentableDate2})
 	</insert>
 

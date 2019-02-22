@@ -1,0 +1,28 @@
+#facebook:
+#    client:
+#      clientId: 548796295615937
+#      clientSecret: 6557662f2b21a6d5b3f4792faeee2582
+#      accessTokenUri: https://graph.facebook.com/oauth/access_token
+#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#      tokenName: oauth_token
+#      authenticationScheme: query
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: https://graph.facebook.com/me
+#      
+#spring: 
+#  security: 
+#    oauth2: 
+#     client:  
+#      registration: 
+#        # 페이스북 앱 정보 
+#        facebook:
+#        client-id: 548796295615937 
+#        client-secret: 6557662f2b21a6d5b3f4792faeee2582
+#        
+# 
+# 
+##소셜 로그인 사용할 SNS 종류. 이번 샘플에는 구글 연동을 하지 않았습니다. 
+#spring.social.auths: facebook,google
+
+     

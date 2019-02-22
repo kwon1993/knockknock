@@ -12,7 +12,7 @@ public class VisitVDTO {
 	private Date writeTime;
 	private Date reservationTime;
 	private String memo;
-	private String confirm;
+	private String ischeck;
 	private String nickname;
 	private String name;
 	private String phoneNumber;

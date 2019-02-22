@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.knockknock.mapper.ReplyMapper">
+	<!-- ********************** 댓글 관련 쿼리 ********************* -->
+	<!-- 모임 댓글 -->
+	<select id="meetingReplyList" resultType="MeetingReplyDTO">
+		SELECT 
+			MB.NICKNAME,
+			MR.CONTENT,
+			MR.WRITE_TIME writeTime,
+			MR.REPLY_NUMBER replyNumber
+		FROM MEETING_REPLY MR, MEMBER MB
+		WHERE MR.WRITING_NUMBER = #{writingNumber}
+		AND MR.MEMBER_NUMBER = MB.MEMBER_NUMBER
+		ORDER BY REPLY_NUMBER DESC
+	</select>
+	<insert id="meetingReplyInsert">
+		INSERT INTO MEETING_REPLY SET
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
+		WRITING_NUMBER=#{meetingReplyDTO.writingNumber}, 
+		CONTENT=#{meetingReplyDTO.content}, 
+		WRITE_TIME = NOW()
+	</insert>
+
+	<update id="meetingReplyUpdate">
+		UPDATE
+			MEETING_REPLY
+		SET
+		CONTENT=#{content}
+		WHERE REPLY_NUMBER = #{replyNumber}
+	</update>
+	<delete id="meetingReplyDelete" parameterType="int">
+		DELETE
+		FROM MEETING_REPLY
+		WHERE REPLY_NUMBER = #{replyNumber}
+	</delete>
+	
+	<!-- 이벤트 댓글 -->
+	<!--<select id="eventReplyList" resultType="EventReplyDTO">
+		SELECT 
+		M.NICKNAME,
+		R.CONTENT,
+		R.WRITE_TIME writeTime,
+		R.WRITING_NUMBER writingNumber
+		FROM REVIEW R, MEMBER M
+		WHERE R.BRANCH_NUMBER = #{branchNumber}
+		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
+		ORDER BY WRITING_NUMBER DESC
+	</select>
+	<insert id="reviewInsert" parameterType="ReplyDTO">
+		INSERT INTO REVIEW SET
+		MEMBER_NUMBER
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
+		BRANCH_NUMBER=#{reviewDTO.branchNumber}, 
+		CONTENT=#{reviewDTO.content}, 
+		WRITE_TIME = NOW()
+	</insert>
+	<update id="reviewUpdate" parameterType="ReplyDTO">
+		UPDATE
+		REVIEW
+		SET
+		CONTENT=#{reviewDTO.content}
+		WHERE WRITING_NUMBER=#{reviewDTO.writingNumber}
+	</update>
+	<delete id="reviewDelete" parameterType="int">
+		DELETE
+		FROM REVIEW
+		WHERE WRITING_NUMBER=#{writingNumber}
+	</delete>-->
+	
+	<!-- *****************댓글 쿼리 end******************** -->
+</mapper>

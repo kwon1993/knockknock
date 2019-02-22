@@ -63,7 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		MT.ACCEPT_END_TIME acceptEndTime,
     	MT.MEETING_START_TIME meetingStartTime,
     	MT.MEETING_END_TIME meetingEndTime,
-    	JM.MEETING_STATUS meetingStatus
+    	JM.MEETING_STATUS meetingStatus,
+    	MT.CANCEL_REASON cancelReason
     	FROM MEMBER M, MEETING MT, JOIN_MEETING JM 
     	WHERE JM.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
@@ -101,6 +102,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	AND M.MEMBER_NUMBER = P.MEMBER_NUMBER
     </select>
     
+    <select id='petCheck' resultType="ProfileVDTO">
+    	SELECT
+    	P.ANIMAL animal
+    	FROM PET P
+    	WHERE P.MEMBER_NUMBER = #{memberNumber}
+    </select>
+    
     <select id="getProfile" resultType="memberDTO">
     	SELECT
     	M.MEMBER_NUMBER memberNumber,
@@ -112,23 +120,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	M.EMAIL email,
     	M.NICKNAME nickname,
     	M.INTRODUCE introduce,
-    	M.IMAGE_PROFILE imageProfile
+    	M.IMAGE_PROFILE imageProfile,
+    	M.PHONE_NUMBER phoneNumber
     	FROM MEMBER M
     	WHERE M.EMAIL = #{username}
     </select>
     
     <update id="profileUpdate">
 			   UPDATE MEMBER m,PET p
-			   SET m.NICKNAME=#{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
-			   WEHERE m.MEMBER_NUMBER = p.MEMBER_NUMBER
+			   SET m.NICKNAME=#{nickname}, m.INTRODUCE= #{introduce}, m.PHONE_NUMBER = #{phoneNumber}, p.ANIMAL=#{animal}
+			   WEHRE m.MEMBER_NUMBER = p.MEMBER_NUMBER
 			   AND m.MEMBER_NUMBER = #{memberNumber}
     </update>
     
     <update id="profileUpdate2">
-	   		   UPDATE MEMBER m, PET p
-			   SET m.NICKNAME = #{nickname}, m.INTRODUCE= #{introduce}, p.ANIMAL=#{animal}
+	   		   UPDATE MEMBER m
+			   SET m.NICKNAME = #{nickname}, m.INTRODUCE= #{introduce}, m.PHONE_NUMBER = #{phoneNumber}
 			   WHERE m.MEMBER_NUMBER = #{memberNumber}
     </update>
+    
+    <insert id='firstMyPetUpdate'>
+    	INSERT INTO PET
+    	(MEMBER_NUMBER, ANIMAL,AMOUNT)
+    	VALUES
+    	(#{memberNumber},#{animal},1)
+    </insert>
+    
+    <delete id='deletePet'>
+    	DELETE FROM PET
+    	WHERE MEMBER_NUMBER = #{memberNumber} 
+    </delete>
     
     <update id="saveImageDir">
 	   		   UPDATE MEMBER
@@ -220,12 +241,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="cancelMM">
-		UPDATE MEETING M INNER JOIN JOIN_MEETING JM 
-		ON M.WRITING_NUMBER = JM.WRITING_NUMBER
-		SET M.TITLE='취소된 모임입니다.',
-		M.CANCEL_REASON=#{meetingDTO.cancelReason},
-		JM.MEETING_STATUS='다음 기회에'
-		WHERE M.WRITING_NUMBER=#{meetingDTO.writingNumber};
+		UPDATE MEETING 
+		SET 
+		TITLE='취소된 모임입니다.',
+		CANCEL_REASON=#{meetingVDTO.cancelReason}
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
+	</update>
+	
+	<update id="cancelMM2">
+		UPDATE JOIN_MEETING 
+		SET MEETING_STATUS='다음 기회에'
+		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
 	<select id="getMLBL" resultType="BranchDetailVDTO">
@@ -251,4 +277,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 		AND BRANCH_NUMBER=#{branchNumber}
 	</delete>
+	
+	<select id="ConfirmReason" resultType="MeetingVDTO">
+		SELECT 
+		(SELECT NICKNAME
+		FROM MEMBER M
+		WHERE M. MEMBER_NUMBER = (SELECT MEMBER_NUMBER FROM MEETING MT WHERE MT.WRITING_NUMBER=#{writingNumber})) NICKNAME,
+		MT.CANCEL_REASON cancelReason
+		FROM MEETING MT
+		WHERE MT.WRITING_NUMBER=#{writingNumber}
+	</select>
 </mapper>
