@@ -25,6 +25,8 @@ public interface AdminMapper {
 	public EventVDTO eventView(int writingNumber);
 
 	public void eventViewHit(int writingNumber);
+	
+	public Integer getMemberNumber(String email);
 
 	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
 			Date acceptStartTime, Date acceptEndTime, int recruitNumber);

@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,8 +40,14 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
+	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
+			Date acceptStartTime, Date acceptEndTime, int recruitNumber, Authentication authentication) {
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		int memberNumber = adminMapper.getMemberNumber(email);
+		//이메일로 멤버넘버 가져와서 넘겨줘야함
+		
 		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitNumber);
 //		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
