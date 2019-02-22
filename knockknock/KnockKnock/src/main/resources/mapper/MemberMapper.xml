@@ -277,4 +277,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 		AND BRANCH_NUMBER=#{branchNumber}
 	</delete>
+
 </mapper>

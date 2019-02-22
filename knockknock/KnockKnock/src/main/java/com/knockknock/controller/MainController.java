@@ -6,11 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.member.MemberDTO;
@@ -18,6 +19,7 @@ import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.mapper.MemberMapper;
 import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
+import com.knockknock.social.SocialService;
 
 @Controller
 public class MainController {
@@ -30,11 +32,13 @@ public class MainController {
 	MeetingAndEventMapper meMapper;
 	@Autowired
 	MemberController mc;
+
+	@Autowired
+	OAuth2ClientContext oauth2ClientContext;
 	
 	//메인화면 스타트
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO, BranchDetailVDTO branchDetailVDTO, Authentication authentication, HttpSession hs) {
-		mc.getSession(authentication,hs,memberDTO);
 		
 		List temp = branchService.findingRoomList(branchDetailVDTO);
 		BranchDetailVDTO mainBranch1 = (BranchDetailVDTO)temp.get(temp.size()-1);
@@ -45,7 +49,29 @@ public class MainController {
 		model.addAttribute("mb2",mainBranch2);
 		model.addAttribute("mb3",mainBranch3);
 		
+		//소셜로그인모드면
+		if(oauth2ClientContext.getAccessToken()!=null) {
+			//소셜로그인 모드면 + 인증이 되었으면
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			MemberDTO sc = (MemberDTO)authentication.getPrincipal();
+			MemberDTO nickname = memberMapper.findByEmail(sc); 
+			
+			if(nickname.getProvider()!=null){
+				mc.getSocialSession(authentication,hs,memberDTO);
+				System.out.println("로그인 되었다");
+				return "home/Home";
+			}
+			else {
+				return "redirect:/chuga";
+			}
+		}
+		mc.getSession(authentication,hs,memberDTO);
 		return "home/Home";
+	}
+	
+	@RequestMapping("/chuga")
+	public String chuga(Model model) {
+		return "member/suvRegister";
 	}
 	
 	//메인화면 심플방검색
