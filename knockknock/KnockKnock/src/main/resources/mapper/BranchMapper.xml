@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.BranchMapper">
 	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
-		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_NUMBER branchNumber, 
 		B.BRANCH_COMMENT branchComment,
 		B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,

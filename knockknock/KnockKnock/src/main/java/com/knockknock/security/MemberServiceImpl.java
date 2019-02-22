@@ -195,8 +195,12 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public MeetingVDTO ConfirmReason(int writingNumber) {
-		 return memberMapper.ConfirmReason(writingNumber);
+	public MeetingVDTO confirmReason(int writingNumber) {
+		 return memberMapper.confirmReason(writingNumber);
+	}
+	@Override
+	public EventVDTO confirmReasonEvent(int writingNumber) {
+		return memberMapper.confirmReasonEvent(writingNumber);
 	}
 
 
