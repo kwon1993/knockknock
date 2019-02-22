@@ -43,6 +43,11 @@
 		UPDATE EVENT SET HIT = HIT + 1 WHERE WRITING_NUMBER =
 		#{param1}
 	</update>
+	<select id="getMemberNumber" resultType="Integer">
+		SELECT MEMBER_NUMBER memberNumber
+		FROM MEMBER
+		WHERE EMAIL = #{param1}
+	</select>
 	<insert id="eventWrite">
 		INSERT INTO EVENT(MEMBER_NUMBER, TITLE,
 		CONTENT,
@@ -196,7 +201,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		'V.CONFIRM'‎,
+		V.ISCHECK,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
@@ -217,7 +222,7 @@
 		V.RESERVATION_TIME
 		reservationTime,
 		V.MEMO,
-		'V.CONFIRM',
+		V.ISCHECK,
 		M.NICKNAME,
 		M.NAME,
 		M.PHONE_NUMBER
@@ -230,7 +235,7 @@
 
 	<update id="visitCheck">
 		UPDATE VISIT
-		SET CONFIRM = '완료'
+		SET ISCHECK = '완료'
 		WHERE WRITING_NUMBER =
 		#{param1}
 	</update>

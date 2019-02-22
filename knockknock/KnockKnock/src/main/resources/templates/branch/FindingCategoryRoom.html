@@ -38,7 +38,34 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	padding:0;
 	line-height: 0; 
  }
- 
+ #bangTable:after{
+ 	content:"";
+ 	display : block;
+ 	width : 240px;
+ 	border-bottom: 3px solid #2eca6a;
+ }
+ #search{
+  	border: 1px solid #2eca6a;
+    border-radius: 10px;
+    padding : 5% 5%;
+    margin : 0px 15px;
+   
+ }
+ #checkboxField{
+ 	border: 1px solid #2eca6a;
+    border-radius: 10px;
+    padding : 2% 5%;
+    margin : 10px 15px;
+ }
+ #branchTheme{
+ 	margin : 0px 15px;
+ }
+ #branchPet{
+ 	margin : 0px 15px;
+ }
+ #branchType{
+ 	margin : 0px 15px;
+ }
  
 </style>
 
@@ -52,10 +79,10 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			<div class="row">
 				<div class="col-4" id="checkField">			   
 			<!-- 체크박스 -->
-				<div class="themeCheckbox" id="checkboxField">
-					<label class="field-title"><h4>"STEP1"<strong>&nbsp;관심사 체크!!</strong></h4></label>
-					<br>
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
+				<label class="field-title"><h4>"STEP1"<strong>&nbsp;선택항목에 체크!!</strong></h4></label>
+				<div id="checkboxField">
+				<div class="themeCheckbox">
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;취미(관심사)</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
@@ -64,7 +91,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</div>
 				<br>
 			<!-- 반려동물유무 checkbox -->
-				<div class="petCheckbox" id="checkboxField">										
+				<div class="petCheckbox">										
 					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물 유무</strong></h5></label>
 					<div th:each="pet : ${pet}" th:name="branchPet" th:id="branchPet">
 						<div class="branchPet">
@@ -74,18 +101,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</div>
 				<br>
 			<!-- 주택유형 checkbox -->
-				<div class="branchTypeCheckbox" id="checkboxField">										
+				<div class="branchTypeCheckbox">										
 					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;주택유형</strong></h5></label>
 					<div th:each="branchType : ${branchType}" th:name="branchType" th:id="branchType">
 						<div class="branchType">
 							<input type="checkbox" th:value="${branchType}" th:id="${branchType}" th:name="branchType"><span th:text="${branchType}" th:for="${branchType}"></span>
 						</div>
 					</div>
-				</div>					
+					</div>
+				</div>
+				<br>					
 				<!-- 주소 검색 -->
-				<br>
-				<div class="form-group" id="search">
-					<label class="field-title"><h4>"STEP2"<strong>&nbsp;주소 검색</strong></h4></label>				
+				<label class="field-title"><h4>&nbsp;&nbsp;"STEP2"<strong>&nbsp;주소 검색!!</strong></h4></label>				
+				<div class="" id="search">
+					<h7><strong>세부주소를 찾아봐요!</strong></h7>
 						<div id="categorySearch" class="form-group">
 							<input type="text" th:name="address"  th:id="address"/>
 							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
@@ -97,7 +126,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 		
 		<div class="col-7">	
 		<div class="table-responsive"  id="categoryGallery">
-			<h3 class="my-4 text-center text-lg-left" id="bang"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
+			<h3 class="my-4 text-center text-lg-left" id="bangTable"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
 			<table class="table-responsive" id="roomTable">
 				<tr  class="text-center">
 					<th class="jb-th-0">지점 이미지</th>
@@ -266,7 +295,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					
 					$(target).on('click',function(e) {
 						that.searchCategory.push($(e.target).val());
- 						alert("$(e.target).val()::"+$(e.target).val());
+//  						alert("$(e.target).val()::"+$(e.target).val());
 						that.sendToServer(that.searchCategory,that.petCategory,that.branchTypeCategory);
 					});
 				}
