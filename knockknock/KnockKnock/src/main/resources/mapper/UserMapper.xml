@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE EMAIL = #{email}
 	</select>
 	
-	<insert id='signUp'>
+	<insert id="signUp">
 		INSERT INTO MEMBER
 		(MEMBER_NUMBER, NICKNAME, GENDER, BIRTH, GRADE, EMAIL, PASSWORD, NAME,JOIN_TIME)
 		VALUES

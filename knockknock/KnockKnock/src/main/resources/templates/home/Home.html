@@ -52,7 +52,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
                       <span class="color-b">입주하는 방법이 </span>
                       <br>궁금하세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">바로가기</span></a>
+                      <a href="/toSharingGuide"><span class="price-a">바로가기</span></a>
                     </p>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
                       <span class="color-b">입주관련 </span> 궁금한 점이 
                       <br> 있으세요?</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">바로가기</span></a>
+                      <a href="/toFAQ"><span class="price-a">바로가기</span></a>
                     </p>
                   </div>
                 </div>
@@ -194,7 +194,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
         <div class="carousel-item-b">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img th:src="'/images/branch/'+${mb1.branchNumber}+'branch.jpg'" alt="" class="img-a img-fluid">
+              <img th:src="'/images/branch/'+${mb1.branchNumber}+'/mainImage.jpg'" alt="" class="img-a img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -205,31 +205,39 @@ layout:decorate="~{etc/fragments/Main_layout}">
                 </div>
                 <div class="card-body-a">
                   <div class="price-box d-flex">
-                    <span class="price-a">rent | $ 12.000</span>
+                    <span class="price-a">
+						<span th:text="'월세 '+${mb1.monthlyRent}+'원'"/>
+					</span>
                   </div>
-                  <a href="#" class="link-a">Click here to view
+                  <a href="#" class="link-a">추가정보
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
                     <li>
-                      <h4 class="card-info-title">Area</h4>
-                      <span>340m
-                        <sup>2</sup>
+                      <h4 class="card-info-title">반려동물</h4>
+                      <span>
+                        <span th:text="${mb1.pet}"/>
                       </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Beds</h4>
-                      <span>2</span>
+                      <h4 class="card-info-title">최대거주인원</h4>
+                      <span>
+                      	<span th:text="${mb1.maximumResident}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Baths</h4>
-                      <span>4</span>
+                      <h4 class="card-info-title">주차</h4>
+                      <span>
+                      	 <span th:text="${mb1.isParking}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Garages</h4>
-                      <span>1</span>
+                      <h4 class="card-info-title">엘리베이터</h4>
+                      <span>
+                      	 <span th:text="${mb1.isElevator}"/>
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -241,7 +249,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
         <div class="carousel-item-b">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img th:src="'/images/branch/'+${mb2.branchNumber}+'branch.jpg'" alt="" class="img-a img-fluid">
+              <img th:src="'/images/branch/'+${mb2.branchNumber}+'/mainImage.jpg'" alt="" class="img-a img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -250,33 +258,41 @@ layout:decorate="~{etc/fragments/Main_layout}">
                     <a th:href="@{/property-single.html}"><span th:text="${mb2.address}"></span></a>
                   </h2>
                 </div>
-                <div class="card-body-a">
+  				<div class="card-body-a">
                   <div class="price-box d-flex">
-                    <span class="price-a">rent | $ 12.000</span>
+                    <span class="price-a">
+						<span th:text="'월세 '+${mb2.monthlyRent}+'원'"/>
+					</span>
                   </div>
-                  <a th:href="@{/property-single.html}" class="link-a">Click here to view
+                  <a href="#" class="link-a">추가정보
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
                     <li>
-                      <h4 class="card-info-title">Area</h4>
-                      <span>340m
-                        <sup>2</sup>
+                      <h4 class="card-info-title">반려동물</h4>
+                      <span>
+                        <span th:text="${mb2.pet}"/>
                       </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Beds</h4>
-                      <span>2</span>
+                      <h4 class="card-info-title">최대거주인원</h4>
+                      <span>
+                      	<span th:text="${mb2.maximumResident}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Baths</h4>
-                      <span>4</span>
+                      <h4 class="card-info-title">주차</h4>
+                      <span>
+                      	 <span th:text="${mb2.isParking}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Garages</h4>
-                      <span>1</span>
+                      <h4 class="card-info-title">엘리베이터</h4>
+                      <span>
+                      	 <span th:text="${mb2.isElevator}"/>
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -288,7 +304,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
         <div class="carousel-item-b">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img th:src="'/images/branch/'+${mb3.branchNumber}+'branch.jpg'" alt="" class="img-a img-fluid">
+              <img th:src="'/images/branch/'+${mb3.branchNumber}+'/mainImage.jpg'" alt="" class="img-a img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -297,33 +313,41 @@ layout:decorate="~{etc/fragments/Main_layout}">
                     <a th:href="@{/property-single.html}"><span th:text="${mb3.address}"></span></a>
                   </h2>
                 </div>
-                <div class="card-body-a">
+             	<div class="card-body-a">
                   <div class="price-box d-flex">
-                    <span class="price-a">rent | $ 12.000</span>
+                    <span class="price-a">
+						<span th:text="'월세 '+${mb3.monthlyRent}+'원'"/>
+					</span>
                   </div>
-                  <a th:href="@{/property-single.html}" class="link-a">Click here to view
+                  <a href="#" class="link-a">추가정보
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
                     <li>
-                      <h4 class="card-info-title">Area</h4>
-                      <span>340m
-                        <sup>2</sup>
+                      <h4 class="card-info-title">반려동물</h4>
+                      <span>
+                        <span th:text="${mb3.pet}"/>
                       </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Beds</h4>
-                      <span>2</span>
+                      <h4 class="card-info-title">최대거주인원</h4>
+                      <span>
+                      	<span th:text="${mb3.maximumResident}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Baths</h4>
-                      <span>4</span>
+                      <h4 class="card-info-title">주차</h4>
+                      <span>
+                      	 <span th:text="${mb3.isParking}"/>
+                      </span>
                     </li>
                     <li>
-                      <h4 class="card-info-title">Garages</h4>
-                      <span>1</span>
+                      <h4 class="card-info-title">엘리베이터</h4>
+                      <span>
+                      	 <span th:text="${mb3.isElevator}"/>
+                      </span>
                     </li>
                   </ul>
                 </div>

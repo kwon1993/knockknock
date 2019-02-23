@@ -7,11 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="register">
 		INSERT INTO MEMBER
 		(MEMBER_NUMBER, GRADE, EMAIL, PASSWORD, PHONE_NUMBER, NICKNAME, NAME, BIRTH, GENDER,
-		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3)
+		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3, IMAGE_PROFILE)
 		VALUES
-		(0, 'NORMAL', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
-		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3})
+		(0, 'NORMAL', #{email}, #{password}, #{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
+		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3}, 'images/profiles/default.gif')
     </insert>
+
+	<update id="suvRegister">
+		UPDATE MEMBER
+		SET PHONE_NUMBER=#{phoneNumber}, NICKNAME=#{nickname}, 
+		GENDER=#{gender}, ADDRESS=#{address}, ADDRESS_DETAIL=#{addressDetail}, 
+		INTRODUCE=#{introduce}, FAVORITE1=#{favorite1}, FAVORITE2=#{favorite2}, FAVORITE3=#{favorite3},IMAGE_PROFILE = 'images/profiles/default.gif'
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>
 
 	<insert id="petRegister">
 			INSERT INTO PET
@@ -39,14 +47,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1 FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     
     <select id="findByName" resultType="MemberDTO">
     	select 
     	M.EMAIL email,
-    	M.NAME name
+    	M.NAME name 	
     	from MEMBER M
     	where 
     	M.NAME = #{name}

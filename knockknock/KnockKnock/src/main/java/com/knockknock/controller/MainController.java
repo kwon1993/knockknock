@@ -1,5 +1,6 @@
 package com.knockknock.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.mapper.MemberMapper;
 import com.knockknock.security.MemberController;
 import com.knockknock.service.BranchService;
-import com.knockknock.social.SocialService;
+import com.knockknock.service.UserService;
 
 @Controller
 public class MainController {
@@ -32,7 +33,8 @@ public class MainController {
 	MeetingAndEventMapper meMapper;
 	@Autowired
 	MemberController mc;
-
+	@Autowired
+    UserService userService;
 	@Autowired
 	OAuth2ClientContext oauth2ClientContext;
 	
@@ -40,6 +42,7 @@ public class MainController {
 	@RequestMapping("/")
 	public String start(Model model, MemberDTO memberDTO, BranchDetailVDTO branchDetailVDTO, Authentication authentication, HttpSession hs) {
 		
+		//메인페이지 최근 등록지점 3개 보여주기
 		List temp = branchService.findingRoomList(branchDetailVDTO);
 		BranchDetailVDTO mainBranch1 = (BranchDetailVDTO)temp.get(temp.size()-1);
 		BranchDetailVDTO mainBranch2 = (BranchDetailVDTO)temp.get(temp.size()-2);
@@ -49,28 +52,31 @@ public class MainController {
 		model.addAttribute("mb2",mainBranch2);
 		model.addAttribute("mb3",mainBranch3);
 		
-		//소셜로그인모드면
+		//소셜토큰이 있는 경우(소셜로그인모드)
 		if(oauth2ClientContext.getAccessToken()!=null) {
-			//소셜로그인 모드면 + 인증이 되었으면
 			authentication = SecurityContextHolder.getContext().getAuthentication();
 			MemberDTO sc = (MemberDTO)authentication.getPrincipal();
 			MemberDTO nickname = memberMapper.findByEmail(sc); 
 			
-			if(nickname.getProvider()!=null){
+			//첫 로그인 후 추가 회원가입이 되어 있는 경우
+			if(nickname.getFavorite1()!=null){
 				mc.getSocialSession(authentication,hs,memberDTO);
-				System.out.println("로그인 되었다");
 				return "home/Home";
 			}
+			//첫 로그인 후 추가 회원가입이 되어 있지 않은 경우
 			else {
-				return "redirect:/chuga";
+				mc.getSocialSession(authentication,hs,memberDTO);
+				return "redirect:/suvRegister";
 			}
 		}
+		
 		mc.getSession(authentication,hs,memberDTO);
 		return "home/Home";
 	}
 	
-	@RequestMapping("/chuga")
-	public String chuga(Model model) {
+	@RequestMapping("/suvRegister")
+	public String chuga(Model model, Authentication authentication, HttpSession hs, MemberDTO memberDTO) {
+		mc.getSocialSession(authentication,hs,memberDTO);
 		return "member/suvRegister";
 	}
 	
@@ -147,11 +153,4 @@ public class MainController {
 	public String toFAQ() {
 		return "etc/FAQ";
 	}
-	
-	//구글로그인
-	@RequestMapping("/googleLogin")
-	public String googleLogin() {
-		return "branch/test";
-	}
-
 }
