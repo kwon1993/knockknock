@@ -48,21 +48,7 @@ public class BranchController {
 		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
-  
-	  //관심사로 방찾기의 방검색
-//	 @RequestMapping(value="/categoryRoomSearch_old",method=RequestMethod.GET) 
-//	 @ResponseBody
-//	 public List<BranchDetailVDTO> categoryRoomSearch_old(Model model,@RequestParam(value="address") String address, @RequestParam(value="searchKeyWord[]") List<String>searchKeyWord)
-//	 throws Exception { 
-//	  
-//		 System.out.println(searchKeyWord +"   "+ address);
-//		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(address,searchKeyWord);
-//		 model.addAttribute("lists",branchDetailVDTOs);
-//		 System.out.println("  branchDetailVDTOs "+ branchDetailVDTOs);
-//	 return branchDetailVDTOs;
-//	 }
-	 
-	 
+  	 
 	 @RequestMapping(value="/categoryRoomSearch") 
 	 @ResponseBody
 	 public List<BranchDetailVDTO> categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO2 data)

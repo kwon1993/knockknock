@@ -24,18 +24,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
   }
 
  #jumbotronId { 
-	padding: 4rem 0rem;
+	padding: 0rem;
     margin-bottom: 0rem;
     background-color: white;
     border-radius: 1rem;
- 	background-color: white; 
  	font-family: 'Jua', sans-serif;
+ 	margin-top: 80px;
  	
  }
  #img{
-	float:; 
-	margin:0; 
-	padding:0;
+ 	height: 92px;
+ 	width: 140px;
+	float: left; 
+	margin: 0; 
+	padding: 0;
 	line-height: 0; 
  }
  #bangTable:after{
@@ -49,13 +51,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
     border-radius: 10px;
     padding : 5% 5%;
     margin : 0px 15px;
-   
+   	height : 92px;
+   	width : 300px;
  }
  #checkboxField{
  	border: 1px solid #2eca6a;
     border-radius: 10px;
     padding : 2% 5%;
     margin : 10px 15px;
+    width : 300px;
  }
  #branchTheme{
  	margin : 0px 15px;
@@ -70,6 +74,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
  	margin : 0px 15px;
  }
 </style>
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
 
 </head>
 <body>
@@ -134,8 +139,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				</div><!-- 주소검색 end-->
 				</div><!-- 전체 체크박스  end-->
 			
-		
-		
 		<div class="col-7">	
 		<div class="table-responsive"  id="categoryGallery">
 			<h3 class="my-4 text-center text-lg-left" id="bangTable"><strong>입주가능<span style="color:#2eca6a">&nbsp;지점</span>&nbsp;목록</strong></h3>
@@ -320,13 +323,13 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					var that = this;
 					
 					$(target).on('click',function(e) {
-						that.searchCategory.push($(e.target).val());
+// 						that.searchCategory.push($(e.target).val());
 //  						alert("$(e.target).val()::"+$(e.target).val());
-						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
+						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);4
 					});
 				}
 			};//var categoryRoom end
-					
+			$.noConflict();
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
 				categoryRoom.genderCheckboxEventBind(".genderCheckbox");
