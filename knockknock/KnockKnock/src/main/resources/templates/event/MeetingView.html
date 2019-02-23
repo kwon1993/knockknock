@@ -2,7 +2,6 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-<meta charset="UTF-8">
 <title th:text="${MeetingView.title}"></title>
 <style type="text/css">
 
@@ -52,8 +51,8 @@ body{
 			<div class="col">
 			<h1><span id="title" th:text="${MeetingView.title}">제목</span></h1>
 <!-- 			<span th:text="${MeetingView.nickname} + ' | '">닉네임</span> -->
-			<span th:text="'작성일 : '+${MeetingView.writeTime} + ' | '">작성일</span>
-			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
+			<span th:text="'작성일 : '+${MeetingView.writeTime}">작성일</span>
+<!-- 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span> -->
 				<form>
 					<div>
 						<br/>

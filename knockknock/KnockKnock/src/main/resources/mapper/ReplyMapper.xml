@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.ReplyMapper">
 	<!-- ********************** 댓글 관련 쿼리 ********************* -->
 	<!-- 모임 댓글 -->
-	<select id="meetingReplyList" resultType="MeetingReplyDTO">
+	<select id="meetingReplyList" resultType="replyDTO">
 		SELECT 
 			MB.NICKNAME,
 			MR.CONTENT,
@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO MEETING_REPLY SET
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
-		WRITING_NUMBER=#{meetingReplyDTO.writingNumber}, 
-		CONTENT=#{meetingReplyDTO.content}, 
+		WRITING_NUMBER=#{replyDTO.writingNumber}, 
+		CONTENT=#{replyDTO.content}, 
 		WRITE_TIME = NOW()
 	</insert>
 
@@ -39,38 +39,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE REPLY_NUMBER = #{replyNumber}
 	</delete>
 	
+	
 	<!-- 이벤트 댓글 -->
-	<!--<select id="eventReplyList" resultType="EventReplyDTO">
+	<select id="eventReplyList" resultType="replyDTO">
 		SELECT 
-		M.NICKNAME,
-		R.CONTENT,
-		R.WRITE_TIME writeTime,
-		R.WRITING_NUMBER writingNumber
-		FROM REVIEW R, MEMBER M
-		WHERE R.BRANCH_NUMBER = #{branchNumber}
-		AND R.MEMBER_NUMBER = M.MEMBER_NUMBER
-		ORDER BY WRITING_NUMBER DESC
+			MB.NICKNAME,
+			ER.CONTENT,
+			ER.WRITE_TIME writeTime,
+			ER.REPLY_NUMBER replyNumber
+		FROM EVENT_REPLY ER, MEMBER MB
+		WHERE ER.WRITING_NUMBER = #{writingNumber}
+		AND ER.MEMBER_NUMBER = MB.MEMBER_NUMBER
+		ORDER BY REPLY_NUMBER DESC
 	</select>
-	<insert id="reviewInsert" parameterType="ReplyDTO">
-		INSERT INTO REVIEW SET
+	<insert id="eventReplyInsert">
+		INSERT INTO EVENT_REPLY SET
 		MEMBER_NUMBER
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email}), 
-		BRANCH_NUMBER=#{reviewDTO.branchNumber}, 
-		CONTENT=#{reviewDTO.content}, 
+		WRITING_NUMBER=#{replyDTO.writingNumber}, 
+		CONTENT=#{replyDTO.content}, 
 		WRITE_TIME = NOW()
 	</insert>
-	<update id="reviewUpdate" parameterType="ReplyDTO">
+	<update id="eventReplyUpdate">
 		UPDATE
-		REVIEW
+			EVENT_REPLY
 		SET
-		CONTENT=#{reviewDTO.content}
-		WHERE WRITING_NUMBER=#{reviewDTO.writingNumber}
+		CONTENT=#{content}
+		WHERE REPLY_NUMBER = #{replyNumber}
 	</update>
-	<delete id="reviewDelete" parameterType="int">
+	<delete id="eventReplyDelete" parameterType="int">
 		DELETE
-		FROM REVIEW
-		WHERE WRITING_NUMBER=#{writingNumber}
-	</delete>-->
+		FROM EVENT_REPLY
+		WHERE REPLY_NUMBER = #{replyNumber}
+	</delete>
 	
 	<!-- *****************댓글 쿼리 end******************** -->
 </mapper>
