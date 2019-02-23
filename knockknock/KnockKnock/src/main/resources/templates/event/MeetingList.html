@@ -11,17 +11,6 @@ body{
 #jumbotronId{
     background-color: white;
 }
-.dlk-radio input[type="radio"]
-{
-/* 	margin-left:-99999px; */
-	display:none;
-}
-.dlk-radio input[type="radio"] + .fa{
-     opacity:0.15
-}
-.dlk-radio input[type="radio"]:checked + .fa{
-    opacity:1
-}
 </style>
 </head>
 <body>
@@ -56,62 +45,112 @@ body{
 					class="sr-only">다음</span>
 				</a>
 			</div>
-			<div class="themeCheckbox">
-				<label class="field-title"><h3><span style="color:#2eca6a">관심사</span>로 모임을 검색해보세요</h3></label>
-				<br>
-				<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
-				<div  th:each="favorite : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
-					<div class="branchTheme">
-						<input type="checkbox" th:value="${favorite}" th:id="${favorite}" th:name="branchTheme"><span  th:text="${favorite}" th:for="${favorite}"></span>
-					</div>
+		 <!--  <span style="color:#2eca6a">관심사</span>로 검색하기
+				<form action="/meetingList">
+				<div>				
+					<input class="form-check-input" type="radio" name="favorite" id="favorite1" value="전체보기">
+					<label class="form-check-label" for="favorite1">전체보기</label>
 				</div>
-			</div>
-			
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>관심사</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>조회수</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="mt : ${MeetingList}">
-						<td th:text="${mt.writingNumber}">번호</td>
-						<td th:text="${mt.favorite}">관심사</td>
-						<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber},page=${pageMaker.cri.page},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${mt.title}">제목</a></td>
-						<td th:text="${mt.nickname}">작성자</td>
-						<td th:text="${mt.hit}">조회수</td>
-						<td th:text="${mt.writeTime}">작성일</td>
-					</tr>
-				</tbody>
-			</table>
-			<a th:href="@{/writeBoardForm}" class="btn btn-outline-success font-weight-bold pull-right" role="button">모임 만들기</a>
-			
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite2" value="IT">
+					<label class="form-check-label" for="favorite2">IT</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite3" value="게임">
+					<label class="form-check-label" for="favorite3">게임</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite4" value="쿠킹">
+					<label class="form-check-label" for="favorite4">쿠킹</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite5" value="커피">
+					<label class="form-check-label" for="favorite5">커피</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite6" value="와인">
+					<label class="form-check-label" for="favorite6">와인</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite7" value="영화">
+					<label class="form-check-label" for="favorite7">영화</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite8" value="음악">
+					<label class="form-check-label" for="favorite8">음악</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite9" value="전시/공연">
+					<label class="form-check-label" for="favorite9">전시/공연</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite10" value="패션">
+					<label class="form-check-label" for="favorite10">패션</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite11" value="드로잉">
+					<label class="form-check-label" for="favorite11">드로잉</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite12" value="운동">
+					<label class="form-check-label" for="favorite12">운동</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite13" value="스터디">
+					<label class="form-check-label" for="favorite13">스터디</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite14" value="어학">
+					<label class="form-check-label" for="favorite14">어학</label>
+				</div>
+				<div>
+					<input class="form-check-input" type="radio" name="favorite" id="favorite15" value="독서">
+					<label class="form-check-label" for="favorite15">독서</label>
+				</div>
+				<div>
+					<input type="submit" value="검색">
+				</div>
+				</form> -->	
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>관심사</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>조회수</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="mt : ${MeetingList}">
+							<td th:text="${mt.writingNumber}">번호</td>
+							<td th:text="${mt.favorite}">관심사</td>
+							<td><a th:href="@{/meetingView(writingNumber=${mt.writingNumber},page=${pageMaker.cri.page},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${mt.title}">제목</a></td>
+							<td th:text="${mt.nickname}">작성자</td>
+							<td th:text="${mt.hit}">조회수</td>
+							<td th:text="${mt.writeTime}">작성일</td>
+						</tr>
+					</tbody>
+				</table>
 			<!-- 게시판 하단의 페이징 버튼 -->
-<!--             <div class="box-footer"> -->
-            <nav aria-label="Page navigation example" style="text-align: center;">
-              <ul class="pagination">
-              
-              <li class="page-item" th:if="${pageMaker.prev} == true">
-              	<a th:href="@{/event/meetingList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
-              </li>
-              
-              <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-                <a th:href="@{/meetingList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
-              </li>
-              
-              <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-              	<a th:href="@{/meetingList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
-              </li>
-              
-              </ul>
-              </nav>
-<!--             </div> -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item" th:if="${pageMaker.prev} == true">
+						<a class="page-link" th:href="@{/event/meetingList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+					</li>
+					<li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+						<a class="page-link" th:href="@{/meetingList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+					</li>
+					<li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+						<a class="page-link" th:href="@{/meetingList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+					</li>
+				</ul>
+			</nav>
+		<a th:href="@{/writeBoardForm}" class="btn btn-outline-success font-weight-bold pull-right" role="button">모임 만들기</a>
+			
 		</div>
+
 	</div>
 </body>
 </html>

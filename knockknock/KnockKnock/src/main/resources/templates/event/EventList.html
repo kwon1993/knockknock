@@ -66,22 +66,22 @@ body{
 					</tbody>
 				</table>
 	 			<!-- 게시판 하단의 페이징 버튼 -->
-	          <div class="box-footer">
-	            <ul class="pagination">
+ 			<nav aria-label="Page navigation example">
+	            <ul class="pagination justify-content-center">
 	            
 	            <li class="page-item" th:if="${pageMaker.prev} == true">
-	            	<a th:href="@{/event/eventList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+	            	<a class="page-link" th:href="@{/event/eventList(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
 	            </li>
 	            
 	            <li class="page-item" th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-	              <a th:href="@{/eventList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+	              <a class="page-link" th:href="@{/eventList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
 	            </li>
 	            
 	            <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-	            	<a th:href="@{/eventList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+	            	<a class="page-link" th:href="@{/eventList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
 	            </li>
 	            </ul>
-	          </div>
+	          </nav>
 	    </div>
 	</div>
 </body>

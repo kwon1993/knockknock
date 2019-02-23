@@ -9,12 +9,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT
             COUNT(*)
         FROM MEETING
+        WHERE CANCEL_REASON IS NULL
     </select>
     <!-- 이벤트글 갯수 -->
     <select id="eventCount" resultType="int">
         SELECT
             COUNT(*)
         FROM EVENT
+        WHERE CANCEL_REASON IS NULL
     </select>
    	<!-- 메인페이지 모임글 리스트 -->
     <select id="mMainList" resultType="MeetingVDTO">
@@ -43,7 +45,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.WRITE_TIME writeTime, MT.HIT, MT.FAVORITE, MB.NICKNAME
 			FROM
 			    MEETING MT, MEMBER MB
-			WHERE WRITING_NUMBER > 0 AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER AND CANCEL_REASON IS NULL
+			WHERE WRITING_NUMBER > 0
+			AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER
+			AND CANCEL_REASON IS NULL
 			ORDER BY WRITING_NUMBER DESC, WRITE_TIME DESC
 			LIMIT #{pageStart}, #{perPageNum}
     	]]>
@@ -141,20 +145,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 모임 참가인원 갱신 -->
 	<update id="mpartNumUp">
-   	<![CDATA[
-		UPDATE MEETING M INNER JOIN MEETING_REPLY MR
-		ON M.WRITING_NUMBER = MR.WRITING_NUMBER
-		SET M.RECRUIT_NUMBER = (SELECT COUNT(*) FROM MEETING_REPLY WHERE WRITING_NUMBER=#{writingNumber})
-		WHERE M.WRITING_NUMBER = MR.WRITING_NUMBER AND M.WRITING_NUMBER=#{writingNumber}
-		AND M.RECRUIT_MAX_NUMBER <= M.RECRUIT_NUMBER;
-   	]]>
+   	<![CDATA[		
+		UPDATE MEETING M INNER JOIN JOIN_MEETING JM
+		SET M.RECRUIT_NUMBER = (SELECT COUNT(*) FROM JOIN_MEETING WHERE WRITING_NUMBER=#{writingNumber})
+		WHERE M.WRITING_NUMBER = JM.WRITING_NUMBER AND M.WRITING_NUMBER=#{writingNumber}
+		AND M.RECRUIT_MAX_NUMBER >= M.RECRUIT_NUMBER;
+   	]]> 
 	</update>
 	<!-- 이벤트 참가하기 -->
 	<insert id="eparticipate"> 
-		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)
-		VALUES (#{writingNumber}, #{memberNumber})
+		INSERT INTO JOIN_EVENT SET 
+		WRITING_NUMBER= #{eventVDTO.writingNumber},
+		MEMBER_NUMBER= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 	</insert>
-
+	<!-- 이벤트 참가인원 갱신 -->
+	<update id="epartNumUp">
+   	<![CDATA[		
+		UPDATE EVENT E INNER JOIN JOIN_EVENT JE
+		SET E.RECRUIT_NUMBER = (SELECT COUNT(*) FROM JOIN_EVENT WHERE WRITING_NUMBER=#{writingNumber})
+		WHERE E.WRITING_NUMBER = JE.WRITING_NUMBER AND E.WRITING_NUMBER=#{writingNumber}
+		AND E.RECRUIT_MAX_NUMBER >= E.RECRUIT_NUMBER;
+   	]]> 
+	</update>
 	<!-- 이미지 업로드 -->
 <!-- 	<update id="imageUpload"> -->
 <!-- 		UPDATE MEETING -->
