@@ -20,7 +20,7 @@ public interface MemberMapper {
 	//회원가입
 	public void register(MemberDTO memberDTO);
 	public void petRegister(@Param("memberDTO") MemberDTO memberDTO, @Param("petDTO") PetDTO petDTO);
-	
+	public void suvRegister(MemberDTO memberDTO);
 	//찾기관련
 	public MemberDTO findById(String id);
 	public MemberDTO findByEmail(MemberDTO memberDTO);
@@ -75,6 +75,8 @@ public interface MemberMapper {
 
 	public int deleteLB(int branchNumber, String email);
 	
-	public MeetingVDTO ConfirmReason(int writingNumber);
+	public MeetingVDTO confirmReason(int writingNumber);
+	
+	public EventVDTO confirmReasonEvent(int writingNumber);
 
 }

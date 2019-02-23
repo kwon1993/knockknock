@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.knockknock.mapper.BranchMapper">
 	<select id="findingRoomList" resultType="BranchDetailVDTO">
 		SELECT
-		B.BRANCH_NUMBER branchNumber,
+		B.BRANCH_NUMBER branchNumber, 
 		B.BRANCH_COMMENT branchComment,
 		B.ADDRESS,
 		B.ADDRESS_DETAIL addressDetail,
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BRANCH B,ROOM R
 		WHERE B.BRANCH_NUMBER = R.BRANCH_NUMBER
 		<if test="address!=null">
-		AND B.ADDRESS LIKE CONCAT('%',#{address},'%')
+			AND B.ADDRESS LIKE CONCAT('%',#{address},'%')
 		</if>
 		GROUP BY R.BRANCH_NUMBER
 	</select>
@@ -86,7 +86,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 		ORDER BY B.BRANCH_NUMBER ASC, R.ROOM_NUMBER ASC -->
 <!-- 	</select> -->
 
-
 <select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
@@ -126,62 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 	</select>
 	
-	<!-- <select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
-		SELECT
-		B.BRANCH_NUMBER branchNumber,
-		B.BRANCH_COMMENT branchComment,
-		B.ADDRESS address,
-		B.ADDRESS_DETAIL addressDetail,
-		B.MAXIMUM_RESIDENT maximumResident,
-		B.BRANCH_TYPE branchType,
-		B.PET pet,
-		B.ISPARKING isParking,
-		B.ISELEVATOR isElevator,
-		B.FACILITY,
-		B.RULE,
-		B.THEME theme,
-		B.GENDER gender
-		FROM BRANCH B
-		<trim prefix="where" prefixOverrides="AND|OR">
-			<if test="address!=null">
-				ADDRESS like CONCAT('%',#{address},'%')
-			</if>
-			<if test="genderList.size!=0">
-				and gender in
-				<foreach collection="genderList" item="gender" open="("
-					close=")" separator="," index="index">
-					#{gender}
-				</foreach>
-			</if>
-			<if test="petList.size!=0">
-				and pet in
-				<foreach collection="petList" item="pet" open="(" close=")"
-					separator="," index="index">
-					#{pet}
-				</foreach>
-			</if>
-			<if test="themeList.size==1">
-				<choose>
-					<when test='themeList.get(0).equals(".") and themeList.size!=0'>
-						and theme in
-						<foreach collection="themeList" item="theme" open="("
-							close=")" separator="," index="index">
-							#{theme}
-						</foreach>
-					</when>
-					<when test='themeList.get(0).equals("theme") and themeList.size!=0'>
-						and theme in
-						<foreach collection="themeList" item="theme" open="("
-							close=")" separator="," index="index">
-							'IT','음악','운동','전시관람','요리','영화'
-						</foreach>
-					</when>
-				</choose>
-			</if>
-		</trim>
-		ORDER BY branchNumber ASC
-	</select> -->
-	
 	<select id="roomList" resultType="BranchDetailVDTO" parameterType="java.util.List">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
@@ -199,20 +142,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.GENDER gender,
 		R.MONTHLY_RENT monthlyRent
 		FROM BRANCH B,ROOM R
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<trim prefix="WHERE" prefixOverrides="AND">
 			B.BRANCH_NUMBER = R.BRANCH_NUMBER
 			<if test="address!=null">
 				AND B.ADDRESS like CONCAT('%',#{address},'%')
 			</if>
 			<if test="genderList.size!=0">
-				and B.gender in
+				AND B.GENDER IN
 				<foreach collection="genderList" item="gender" open="("
 					close=")" separator="," index="index">
 					#{gender}
 				</foreach>
 			</if>
 			<if test="petList.size!=0">
-				and pet in
+				AND PET IN
 				<foreach collection="petList" item="pet" open="(" close=")"
 					separator="," index="index">
 					#{pet}
@@ -220,18 +163,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="themeList.size==1">
 				<choose>
-					<when test='themeList.get(0).equals(".") and themeList.size!=0'>
-						and theme in
-						<foreach collection="themeList" item="theme" open="("
+					<when test='themeList.get(0) eq "없음"'>
+						AND THEME IN
+						<foreach collection="themeList" item="item" open="("
 							close=")" separator="," index="index">
-							#{theme}
+							 #{item}
 						</foreach>
 					</when>
-					<when test='themeList.get(0).equals("theme") and themeList.size!=0'>
+					<when test='themeList.get(0) neq "없음"'>
 						and theme in
-						<foreach collection="themeList" item="theme" open="("
+						<foreach collection="themeList" item="item" open="("
 							close=")" separator="," index="index">
-							'IT','음악','운동','전시관람','요리','영화'
+							'IT', '음악', '쿠킹', '전시/공연', '커피', '드로잉', '영화', '어학', '패션', '운동', '게임', '독서', '와인', '스터디' 
 						</foreach>
 					</when>
 				</choose>

@@ -1,6 +1,9 @@
 package com.knockknock.dto.member;
 
 import java.util.Date;
+
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+
 import lombok.Data;
 
 @Data
@@ -26,4 +29,18 @@ public class MemberDTO{
 	private String introduce;
 	//임시추가(from 성현)
 	private String animal;
+	//소셜용
+	public String provider;
+	private String providerId;
+	public String accessToken;
+	public long expireTime;
+	
+	public void setAccessToken(OAuth2AccessToken accessToken) {
+		System.out.println("FacebookUserDetails()의 setAccessToken(accessToken)입니다");
+		this.accessToken = accessToken.getValue();
+		this.expireTime = accessToken.getExpiration().getTime();
+	}
+	
+
+   
 }

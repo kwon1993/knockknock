@@ -41,10 +41,9 @@ public class MyPageController {
 
 		String username = user.getUsername();
 
-		// 프로필정보를 불러오기 위한 모델
+		//프로필정보를 불러오기
 		model.addAttribute("profile", memberService.getProfile(username));
 		model.addAttribute("getPet", memberService.getPet(username));
-//		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
 		model.addAttribute("image", memberService.getImageDir(username));
 
 		return "member/MyProfile";
@@ -390,13 +389,29 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		
-		model.addAttribute("confirmReason", memberService.ConfirmReason(writingNumber));
+		model.addAttribute("confirmReason", memberService.confirmReason(writingNumber));
 		
 		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(email));
 		model.addAttribute("MMLM", memberService.getMMLM(email));
 		
 		return "member/MyMeetingList";
+	}
+	
+	// 이벤트 취소 사유 확인(SELECT)
+	@RequestMapping("/confirmReasonEvent")
+	public String ConfirmReasonEvent(Model model, @RequestParam int writingNumber, Authentication authentication) {
+		// 현재 로그인 사용자 정보에 접근
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		
+		model.addAttribute("confirmReasonEvent", memberService.confirmReasonEvent(writingNumber));
+				
+		// 이벤트 리스트 다시 받아오기
+		model.addAttribute("MEL", memberService.getMEL(email));
+				
+		return "member/MyEventList";
 	}
 
 }

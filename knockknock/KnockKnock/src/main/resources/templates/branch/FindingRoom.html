@@ -209,7 +209,6 @@ font-family: 'Jua', sans-serif;
     
     	<div class="option_wrap" id="option_wrap">
     		<div id='reset'>
-    		<a href="#" id='resetA'><i class="fas fa-undo-alt" >Reset</i></a>
     		</div><br>
 			<div id="a1">
 				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<input type="text" name="address" id='searchAddress' placeholder="주소 및 위치">
@@ -236,8 +235,8 @@ font-family: 'Jua', sans-serif;
 	        <div class="branchThemeField" style="width:80%;">
 	              <label class="field-title"><strong>테마</strong></label>
 	              <div name="branchTheme" id="branchTheme">
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="theme" id="checkbox6" name="branchTheme"><label for="checkbox6">&nbsp;있음</label></div>
-	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="." id="checkbox7" name="branchTheme"><label for="checkbox7">&nbsp;없음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="있음" id="checkbox6" name="branchTheme"><label for="checkbox6">&nbsp;있음</label></div>
+	                <div class="checkbox" style="float: left; width: 50%;"><input type="checkbox" value="없음" id="checkbox7" name="branchTheme"><label for="checkbox7">&nbsp;없음</label></div>
 	              </div>
 	        </div>
 	        <br><br>
@@ -255,15 +254,14 @@ font-family: 'Jua', sans-serif;
 		</div>
     </div>
     <br>
-	<!-- gallery Page Content -->
-	<!-- src="http://placehold.it/400x300"  -->
+	<!--지점목록 출력 -->
     <div class="container" id="container"> <!-- 더페 ID=js-load/CLASS=main -->
       <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">입주가능</span> 방 목록</strong></h1>
 	      <div class='row text-center text-lg-left' id='allGallery'><!-- 더페UI / class=lists-->
 	      	<!-- thymeleaf gallery-->
 	        <div th:each='dto:${lists}' class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'><!-- 더페LI / class=lists__item js-load -->
 	          <a th:href="@{'/roomDetailView/?branchNumber='+${dto.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
-	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'branch.jpg'" alt="" id='img'>
+	            <img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${dto.branchNumber}+'/mainImage.jpg'" alt="" id='img'>
 	          	<span th:text="${dto.branchNumber}+'호점'" name='branchNumber' id='branchNumber'/><br>
 				<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<span th:text='${dto.address}' name='addressList' id='addressList'/><br>
 				<span th:text='${dto.theme}' name='theme' id='theme'/>
@@ -275,7 +273,7 @@ font-family: 'Jua', sans-serif;
 	      <!-- 더보기 페이징 -->
 	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">More</a></div>
   	</div>
-<!-- /.container -->
+	<!--지점목록 출력-->
 <script>
 
 //제이쿼리 충돌방지 문법 체인지
@@ -294,8 +292,6 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 var geocoder = new daum.maps.services.Geocoder();
 //리스트 출력한 name="addressList"를 getElementsByName으로 받아서 addressList 변수에 대입
 var addressList = document.getElementsByName("addressList");
-/* //좌표를 담는 메서드
-var coords; */
 //호점 배열담기
 var branchNumber = document.getElementsByName('branchNumber');
 //branchNumber 증가 변수
@@ -304,7 +300,7 @@ var i=0;
 //갤러리,주소를 지도 위에 띄우기
 window.onload = function(){
 	searchMap();
-	$('#findingRoomNav').addClass('active').css('color','#2eca6a');
+	jQuery('#findingRoomNav').addClass('active').css('color','#2eca6a');
 }
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
@@ -328,6 +324,17 @@ var callback = function(result, status){
             position: coords
         });
         
+    	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+    	
+    	// 인포윈도우로 장소에 대한 설명을 표시
+    	var customOverlay = new daum.maps.CustomOverlay({
+    	  	position : coords,
+    	 	content : customContent
+    	});
+
+		customOverlay.setMap(map);
+        
+        
         //'검색'을 눌렀을 때, 마커 삭제
        jQuery("#roomSearch").on('click',function(){
         	i=0;
@@ -346,22 +353,9 @@ var callback = function(result, status){
     		marker.setMap(null);
     		customOverlay.setMap(null);
         })
-        
-    	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
-    	
-    	// 인포윈도우로 장소에 대한 설명을 표시
-    	var customOverlay = new daum.maps.CustomOverlay({
-    	  	position : coords,
-    	 	content : customContent
-    	});
-
-		customOverlay.setMap(map);
-		
     }//if end
     	map.setCenter(coords);
 };
-
-
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -390,12 +384,13 @@ function multiSearch(){
 			contentType: 'application/json',
 			async : false,
 			success : function(data){
-				alert(data[0].monthlyRent);
 				jQuery("#allGallery").remove();
+				
 				if(data==""){
 					alert("검색결과가 존재하지 않습니다:(");
 					return false;
 				}
+				
 				else{
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					
@@ -406,14 +401,18 @@ function multiSearch(){
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'>"
 						
-						+"<img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"branch.jpg'" + " alt='' id='img'>" 
+						+"<img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"/mainImage.jpg'" + " alt='' id='img'>" 
 						
-						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + "호점</span>"
+						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + "호점</span><br>"
 						
-						+"<span name='addressList' id='addressList'><br>" + data[i].address + "</span><br>"
+						+"<i class='fas fa-map-marker-alt' id='mapmarker'></i>"
+						
+						+"<span name='addressList' id='addressList'>" + data[i].address + "</span><br>"
 						
 						+"<span name='theme' id='theme'>"+data[i].theme+"</span>"
 					
+						+"<i class='fa fa-calculator' id='calculator'></i>"
+						
 						+"<span name='monthlyRent' id='monthlyRent'>"+data[i].monthlyRent+"원</span>"
 						
 						+"</a></div>";
@@ -437,20 +436,17 @@ function multiSearch(){
 			}
 		});
 	};
-	
-	
-	
 //더보기페이징
-$(window).on('load', function () {
+jQuery(window).on('load', function () {
     load('#container', '4');
-    $("#js-btn-wrap .button").on("click", function () {
+    jQuery("#js-btn-wrap .button").on("click", function () {
         load('#container', '4', '#js-btn-wrap');
     })
 });
  
 function morePage(){ 
 	load('#container', '4');
-	$("#js-btn-wrap .button").on("click", function () {
+	jQuery("#js-btn-wrap .button").on("click", function () {
 	    load('#container', '4', '#js-btn-wrap');
 	}) 
 }
@@ -463,16 +459,10 @@ function load(id, cnt, btn) {
         girls_total_cnt = cnt;
     } else {
         girls_total_cnt = girls_length;
-        $('.button').hide()
+        jQuery('.button').hide()
     }
-    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
+    jQuery(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
-
-//리셋
-$("#resetA").on('click',function(){
-window.onload();
-})
-
 
 </script>
 </div>
