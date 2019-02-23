@@ -48,6 +48,18 @@
 		FROM MEMBER
 		WHERE EMAIL = #{param1}
 	</select>
+	<select id="getEventJoinMember" resultType="EventJoinMemberVDTO">
+		SELECT J.WRITING_NUMBER writingNumber,
+		J.MEMBER_NUMBER memberNumber,
+		M.NAME,
+		M.NICKNAME,
+		M.GENDER,
+		M.PHONE_NUMBER phoneNumber
+		FROM JOIN_EVENT J,
+		MEMBER M
+		WHERE J.MEMBER_NUMBER = M.MEMBER_NUMBER AND
+		J.WRITING_NUMBER = #{param1}
+	</select>
 	<insert id="eventWrite">
 		INSERT INTO EVENT(MEMBER_NUMBER, TITLE,
 		CONTENT,
@@ -98,6 +110,11 @@
 		ACCEPT_END_TIME = #{param8},
 		RECRUIT_NUMBER = #{param9}
 		WHERE WRITING_NUMBER = #{param1}
+	</update>
+	<update id="eventCancel">
+		UPDATE EVENT
+		SET CANCEL_REASON = #{param2}
+		WHERE WRITONG_NUMBER = #{param1}
 	</update>
 	<delete id="eventDelete">
 		DELETE FROM EVENT

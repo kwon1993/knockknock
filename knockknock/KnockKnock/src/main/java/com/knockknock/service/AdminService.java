@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +24,7 @@ import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.EventJoinMemberVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
 import com.knockknock.dto.member.MemberDTO;
@@ -40,23 +43,27 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(EventDTO eventDTO, Authentication authentication) {
+	public void eventWrite(EventDTO eventDTO, Authentication authentication, HttpSession session) {
+		System.out.println("1");
 		authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("2");
 		User user = (User) authentication.getPrincipal();
+		System.out.println("3");
 		String email = user.getUsername();
+		System.out.println("4");
 		int memberNumber = adminMapper.getMemberNumber(email);
 		//이메일로 멤버넘버 가져와서 넘겨줘야함
-		
+		System.out.println("5");
 		adminMapper.eventWrite(memberNumber, eventDTO);
 		int writingNumber = Collections.max(adminMapper.getWritingNumber()) + 1;
-		
+		System.out.println("6");
 		String resourceToString;
 		String OS = System.getProperty("os.name").toLowerCase();
 		if (OS.indexOf("nux") >= 0) {
 			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
 					+ writingNumber;
 		} else {
-			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
 					+ writingNumber;
 		}
 
@@ -89,6 +96,10 @@ public class AdminService {
 		adminMapper.eventViewHit(writingNumber);
 		return adminMapper.eventView(writingNumber);
 	}
+	
+	public EventJoinMemberVDTO getEventJoinMember(int writingNumber) {
+		return adminMapper.getEventJoinMember(writingNumber);
+	}
 
 	public EventDTO eventModifyView(int writingNumber) {
 		return adminMapper.eventModifyView(writingNumber);
@@ -98,6 +109,10 @@ public class AdminService {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
 		adminMapper.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
 				acceptStartTime, acceptEndTime, recruitNumber);
+	}
+	
+	public void eventCancel(int writingNumber, String cancelReason) {
+		adminMapper.eventCancel(writingNumber, cancelReason);
 	}
 
 	public void eventDelete(int writingNumber) {

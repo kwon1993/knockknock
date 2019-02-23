@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,6 +39,7 @@ public class AdminController {
 	@RequestMapping("adminEventView")
 	public String eventView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventView", adminService.eventView(writingNumber));
+		model.addAttribute("joinMember", adminService.getEventJoinMember(writingNumber));
 		return "admin/AdminEventPost";
 	}
 
@@ -49,9 +51,10 @@ public class AdminController {
 
 	// 이벤트 등록
 	@RequestMapping("adminEventWrite")
-	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
+	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication, HttpSession session) {
 //		int writingNumber = 
-		adminService.eventWrite(eventDTO, authentication);
+		System.out.println("0");
+		adminService.eventWrite(eventDTO, authentication, session);
 //		model.addAttribute("eventView", adminService.eventView(writingNumber));
 //		return "redirect:admin/AdminEventPost";
 		return "redirect:adminEventListView";
@@ -73,6 +76,13 @@ public class AdminController {
 			@RequestParam("acceptEndTime") Date acceptEndTime, @RequestParam("recruitNumber") int recruitNumber) {
 		adminService.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
 				acceptStartTime, acceptEndTime, recruitNumber);
+		return "redirect:adminEventListView";
+	}
+	
+	//이벤트 취소
+	@RequestMapping("adminEventCancel")
+	public String eventCancel(Model model, @RequestParam("writingNumber") int writingNumber, @RequestParam("cancelReason") String cancelReason) {
+		
 		return "redirect:adminEventListView";
 	}
 

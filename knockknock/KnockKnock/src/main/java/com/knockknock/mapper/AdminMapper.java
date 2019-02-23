@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.EventJoinMemberVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
 import com.knockknock.dto.member.MemberDTO;
@@ -27,6 +28,8 @@ public interface AdminMapper {
 	public void eventViewHit(int writingNumber);
 	
 	public Integer getMemberNumber(String email);
+	
+	public EventJoinMemberVDTO getEventJoinMember(int writingNumber);
 
 	public void eventWrite(int memberNumber, @Param("eventDTO") EventDTO eventDTO);
 	
@@ -39,6 +42,8 @@ public interface AdminMapper {
 
 	public void eventModify(int writingNumber, int memberNumber, String title, String content, Date eventStartTime,
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+	
+	public void eventCancel(int writingNumber, String cancelReason);
 
 	public void eventDelete(int writingNumber);
 
