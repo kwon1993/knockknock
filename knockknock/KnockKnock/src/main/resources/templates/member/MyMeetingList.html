@@ -217,20 +217,19 @@ cursor: pointer;
 							<th>신청 마감일</th>
 							<th>모임 시작일</th>
 							<th>모임 종료일</th>
-							<th>상태</th>
 							<th></th>
 						</tr>
 						<tr th:each="MMLJ:${MMLJ}">
-							<td><input th:if="${MMLJ.cancelReason}==null" type='checkbox' name='checkRow' th:value="${MMLJ.writingNumber}"/></td>
+							<td><input th:if="${MMLJ.cancelReason}==null" type='checkbox' name='checkRow' th:value="${MMLJ.writingNumber}"/>
+							<a th:unless="${MMLJ.cancelReason}==null" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}" data-toggle="tooltip" data-placement="left" title="목록에서 제거" ><img id="trash" src="/images/trash.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<td th:text="${MMLJ.nickname}"></td>
 							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLJ.writingNumber}}" th:text="${MMLJ.title}"></a></td>
-							<td th:text="${MMLJ.acceptEndTime}"></td>
-							<td th:text="${MMLJ.meetingStartTime}"></td>
-							<td th:text="${MMLJ.meetingEndTime}"></td>
-							<td name="meetingStatus" th:text="${MMLJ.meetingStatus}"></td>
+							<td><div th:if="${MMLJ.cancelReason}==null" th:text="${MMLJ.acceptEndTime}"></div><div th:unless="${MMLJ.cancelReason}==null">-</div></td>
+							<td><div th:if="${MMLJ.cancelReason}==null" th:text="${MMLJ.meetingStartTime}"></div><div th:unless="${MMLJ.cancelReason}==null">-</div></td>
+							<td><div th:if="${MMLJ.cancelReason}==null" th:text="${MMLJ.meetingEndTime}"></div><div th:unless="${MMLJ.cancelReason}==null">-</div></td>
 							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
 							<!-- <td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" id="confirmReason" role="button" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}">취소 사유 확인</a></td> -->
-							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
+							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="모임 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
@@ -245,17 +244,49 @@ cursor: pointer;
 				<div class="modal-content" th:each="confirmReason:${confirmReason}">
 					<span class="close">&times;</span>
 					<h3>모임 취소 사유</h3><br />
-					<p th:text="|*{confirmReason.nickname}님이 남기신 메모입니다.|"></p><br />
+					<p th:text="|*{confirmReason.title}, 모임의 주최자인 *{confirmReason.nickname}님이 남기신 메모입니다.|"></p><br />
 					<h2 th:text="${confirmReason.cancelReason}"></h2>
 					<button type="button" class="btn btn-default" id="closeModal"
-					data-dismiss="modal">완료</button>
+					data-dismiss="modal">확인 완료</button>
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
 				</div>
 			</div> 
 			
+			<div id="Make" class="tabcontent">
+				<!-- <h3 class="font-weight-bold">개설한 모임</h3> -->
+				<br /> 
+				<div class="w3-container">
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>제목</th>
+							<th>모집 마감일</th>
+							<th>모임 시작일</th>
+							<th>모임 종료일</th>
+							<th>개설 상태</th>
+						</tr>
+						<tr th:each="MMLM:${MMLM}">
+							<td><div th:unless="${MMLM.cancelReason}==null"><a id="hideRow" data-toggle="tooltip" data-placement="left" title="목록에서 제거"><img id="trash" src="/images/trash.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></div></td>
+							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
+							<td th:text="${MMLM.acceptEndTime}"></td>
+							<td th:text="${MMLM.meetingStartTime}"></td>
+							<td th:text="${MMLM.meetingEndTime}"></td>
+							<td th:unless="${MMLM.cancelReason}==null">취소됨</td>
+						</tr>
+					</table>
+				</div>
+				
+				<br />
+			</div>
 			
 			<script th:inline="javascript">
 			$(document).ready(function(){
+				
+			$("#hideRow").onclick = function(){
+				$("#hideRow").text="";
+			}
+				
+			$('[data-toggle="tooltip"]').tooltip();
 				
 			var modal = document.getElementById('myModal');				
 			var span = document.getElementsByClassName("close")[0];
@@ -328,29 +359,6 @@ cursor: pointer;
 			</script>
 			
 
-			<div id="Make" class="tabcontent">
-				<!-- <h3 class="font-weight-bold">개설한 모임</h3> -->
-				<br /> 
-				<div class="w3-container">
-					<table class="table table-striped">
-						<tr>
-							<th>제목</th>
-							<th>모집 마감일</th>
-							<th>모임 시작일</th>
-							<th>모임 종료일</th>
-							<!-- <th></th> -->
-						</tr>
-						<tr th:each="MMLM:${MMLM}">
-							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
-							<td th:text="${MMLM.acceptEndTime}"></td>
-							<td th:text="${MMLM.meetingStartTime}"></td>
-							<td th:text="${MMLM.meetingEndTime}"></td>
-						</tr>
-					</table>
-				</div>
-				
-				<br />
-			</div>
 	
 			<!-- 탭 -->
 			<script>
@@ -371,7 +379,6 @@ cursor: pointer;
 
 				// Get the element with id="defaultOpen" and click on it
 				document.getElementById("defaultOpen").click();
-				
 			</script>
 		</div>
 	</div>

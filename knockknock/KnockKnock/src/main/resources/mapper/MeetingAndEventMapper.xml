@@ -94,6 +94,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{acceptStartTime},#{acceptEndTime},#{place},#{placeDetail},
 	    	#{recruitMaxNumber},#{detailIntroduce},#{gender},0,NOW(),#{favorite})
     </insert>
+    <!-- 모임 글 넘버가져오기 -->
+    <select id="getWritingNumber" resultType="Integer">
+		SELECT WRITING_NUMBER
+		writinghNumber
+		FROM MEETING
+	</select>
     <!-- 모임글 조회수(미구현) -->
     <update id="meetingViewHit">
 		UPDATE MEETING
@@ -134,13 +140,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		MEMBER_NUMBER= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 	</insert>
 	<!-- 모임 참가인원 갱신 -->
-	<!-- <update id="mparticipate">
+	<update id="mpartNumUp">
+   	<![CDATA[
 		UPDATE MEETING M INNER JOIN MEETING_REPLY MR
 		ON M.WRITING_NUMBER = MR.WRITING_NUMBER
 		SET M.RECRUIT_NUMBER = (SELECT COUNT(*) FROM MEETING_REPLY WHERE WRITING_NUMBER=#{writingNumber})
 		WHERE M.WRITING_NUMBER = MR.WRITING_NUMBER AND M.WRITING_NUMBER=#{writingNumber}
 		AND M.RECRUIT_MAX_NUMBER <= M.RECRUIT_NUMBER;
-	</update> -->
+   	]]>
+	</update>
 	<!-- 이벤트 참가하기 -->
 	<insert id="eparticipate"> 
 		INSERT INTO JOIN_EVENT (WRITING_NUMBER, MEMBER_NUMBER)

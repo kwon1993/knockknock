@@ -75,6 +75,8 @@ public interface MemberMapper {
 
 	public int deleteLB(int branchNumber, String email);
 	
-	public MeetingVDTO ConfirmReason(int writingNumber);
+	public MeetingVDTO confirmReason(int writingNumber);
+	
+	public EventVDTO confirmReasonEvent(int writingNumber);
 
 }

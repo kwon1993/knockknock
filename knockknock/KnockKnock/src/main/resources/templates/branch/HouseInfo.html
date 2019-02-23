@@ -341,10 +341,10 @@ color:black;
 								style="float: left"></h3>
 							<h3 style="float: left">호점 방문 신청</h3>
 							<input type="hidden" name="branchNumber"
-								th:value="${details.branchNumber}">
-							<p>방문을 원하는 날짜와 시간을 선택해주세요</p>
-							<input type="date" name="reservationTime" /> <input type="text"
-								class="form-control" name="memo" placeholder="방문을 원하는 시간을 입력해주세요. ex)오후 4시 반" />
+								th:value="${details.branchNumber}"><br />
+							<p>방문을 원하는 날짜와 시간을 선택해주세요</p><br />
+							<input type="date" name="reservationTime" /><br /> <input type="text"
+								class="form-control" name="memo" placeholder="방문을 원하는 시간을 입력해주세요. ex)오후 4시 반" /><br />
 							<p>방문 신청 후 3일 이내 해당 지점 매니저가 확인 연락을 드립니다.</p>
 							<div class="row">
 								<div class="col-md-6">
@@ -594,10 +594,13 @@ color:black;
 					<div class="clear"></div>
 					
 					<br /> <br /> <br />
+					<div th:each="petInfo:${petInfoList}">
 					<h3><strong>반려 동물 정보</strong></h3>
 					<br />
-					<div th:each="petInfo:${petInfoList}">
-						<p th:text="|*{petInfo.animal}, *{petInfo.amount}마리|"></p>
+					<div>
+						<h4 th:if="${petInfo.animal}==null">있다, 사람만, 오직.</h4>
+						<h4 th:unless="${petInfo.animal}==null" th:text="${petInfo.animal}"></h4>
+					</div>
 					</div>
 				</div>
 

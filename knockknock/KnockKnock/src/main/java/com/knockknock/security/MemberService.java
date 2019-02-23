@@ -63,7 +63,9 @@ public interface MemberService{
 	// 방문 신청 취소
 	public int deleteV(int writingNumber, String email);
 	// 모임 취소 사유 확인
-	public MeetingVDTO ConfirmReason(int writingNumber);
+	public MeetingVDTO confirmReason(int writingNumber);
+	
+	public EventVDTO confirmReasonEvent(int writingNumber);
 	
 	int getMemberNumber();
 }

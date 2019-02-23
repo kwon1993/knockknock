@@ -45,7 +45,7 @@ body{
 			<h3><span style="color:#2eca6a">모임</span> 게시판</h3>
 			<div class="row">
 				<div class="col-2">
-					<img class="d-block" width="150" height="150" id="foo" src="#" onerror="this.src='/images/meeting/default.png';"/>
+					<img class="d-block" width="150" height="150" id="foo" th:src="@{'/images/meeting/'+${MeetingView.writingNumber}+'/mainImage'}" onerror="this.src='/images/meeting/default.png';"/>
 					<h6>개설자 정보</h6>
 					<span th:text="${MeetingView.nickname}"></span>
 				</div>
@@ -333,14 +333,6 @@ var nick =$("#sessionNickname").val();
 </script>
 <!-- 참가하기 모달 -->
 <script>
-// 	<!-- 시큐리티 + 에이젝스 에러 방지 설정222 -->
-// 	var token = $("meta[name='_csrf']").attr("content");
-// 	var header = $("meta[name='_csrf_header']").attr("content");
-// 	$(function() {
-// 		$(document).ajaxSend(function(e, xhr, options) {
-// 			xhr.setRequestHeader(header, token);
-// 		});
-// 	});
 	//from 성현 :로그인한 사람의 닉네임 가져오기
 	var nick =$("#sessionNickname").val();
 	
@@ -413,7 +405,7 @@ var nick =$("#sessionNickname").val();
 			dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
 			contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
 			success:function(data){
-				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>모임참여신청이 완료되었습니다</h4><br /><a class='btn btn-default pull-rigth' href='/profileMain'>신청확인하기</a><br /></div>"
+				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>모임참여신청이 완료되었습니다</h4><br /><a class='btn btn-default pull-rigth' href='/MyMeetingLis'>신청확인하기</a><br /></div>"
 
 				$("#myModal").html(inner);
 			} ,
@@ -425,7 +417,7 @@ var nick =$("#sessionNickname").val();
 	});
 	
 	
-	// 모임 삭제
+	// 모임 취소
 	$("#cancelMM").click(function(){
 		var writingNumber= $(this).val();
 		var memo = $("input[name='memo']").val();

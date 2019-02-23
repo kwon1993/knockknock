@@ -177,7 +177,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	E.WRITING_NUMBER writingNumber,
     	E.ACCEPT_END_TIME acceptEndTime,
     	E.EVENT_START_TIME eventStartTime,
-    	E.EVENT_END_TIME eventEndTime
+    	E.EVENT_END_TIME eventEndTime,
+    	E.CANCEL_REASON cancelReason
     	FROM JOIN_EVENT JE, EVENT E
     	WHERE JE.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
@@ -197,22 +198,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMVL" resultType="VisitDTO">
     	SELECT
-    	BRANCH_NUMBER branchNumber, 
+    	BRANCH_NUMBER branchNumber,
     	WRITING_NUMBER writingNumber,
     	MEMO,
-    	RESERVATION_TIME reservationTime, 'CONFIRM'‎
+    	RESERVATION_TIME reservationTime,
+    	ISCHECK isCheck
     	FROM VISIT
     	WHERE
     	MEMBER_NUMBER
     	= (SELECT MEMBER_NUMBER FROM MEMBER WHERE EMAIL = #{email})
-    	ORDER BY 'CONFIRM' ASC, RESERVATION_TIME DESC
+    	ORDER BY WRITING_NUMBER ASC, RESERVATION_TIME DESC
     </select>
 
 	<delete id="deleteJM">
 		DELETE FROM JOIN_MEETING
 		WHERE
 		MEMBER_NUMBER
-		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
 		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 	
@@ -251,14 +253,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cancelMM">
 		UPDATE MEETING 
 		SET 
-		TITLE='취소된 모임입니다.',
-		CANCEL_REASON=#{meetingVDTO.cancelReason}
+		CANCEL_REASON=#{meetingVDTO.cancelReason},
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
 	<update id="cancelMM2">
 		UPDATE JOIN_MEETING 
-		SET MEETING_STATUS='다음 기회에'
+		SET MEETING_STATUS='취소됨'
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
@@ -287,14 +288,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	
-	<select id="ConfirmReason" resultType="MeetingVDTO">
+	<select id="confirmReason" resultType="MeetingVDTO">
 		SELECT 
+		TITLE,
 		(SELECT NICKNAME
 		FROM MEMBER M
 		WHERE M. MEMBER_NUMBER = (SELECT MEMBER_NUMBER FROM MEETING MT WHERE MT.WRITING_NUMBER=#{writingNumber})) NICKNAME,
 		MT.CANCEL_REASON cancelReason
 		FROM MEETING MT
 		WHERE MT.WRITING_NUMBER=#{writingNumber}
+	</select>
+	
+	<select id="confirmReasonEvent" resultType="EventVDTO">
+		SELECT
+		TITLE,
+		CANCEL_REASON cancelReason
+		FROM EVENT
+		WHERE WRITING_NUMBER=#{writingNumber}
 	</select>
 
 </mapper>
