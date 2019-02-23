@@ -47,7 +47,6 @@ public class MeetingAndEventController {
 		pageMaker.setTotalCount(meMapper.meetingCount(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);  // 게시판 하단의 페이징 관련, 이전페이지, 페이지 링크 , 다음 페이지
-		System.err.println(model);
 		return "event/MeetingList";
 	}
 	
