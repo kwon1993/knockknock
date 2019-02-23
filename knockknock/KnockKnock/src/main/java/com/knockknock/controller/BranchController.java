@@ -2,7 +2,6 @@ package com.knockknock.controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,32 +36,15 @@ public class BranchController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BranchController.class);
 
-	// Ajax 방리스트받기(체크박스,주소)
+	//ajax 방리스트받기(체크박스,주소)
 	@RequestMapping("/roomSearch")
 	@ResponseBody
 	public List<BranchDetailVDTO> roomCheckbox(Model model, @RequestBody BranchDetailVDTO branchDetailVDTO) {
-		System.out.println("최소방가격:"+branchDetailVDTO.getMinRent());
-		System.out.println("최소방가격:"+branchDetailVDTO.getMaxRent());
-		System.out.println("주소:"+branchDetailVDTO.getAddress());
-		
+
 		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
-  
-	  //관심사로 방찾기의 방검색
-//	 @RequestMapping(value="/categoryRoomSearch_old",method=RequestMethod.GET) 
-//	 @ResponseBody
-//	 public List<BranchDetailVDTO> categoryRoomSearch_old(Model model,@RequestParam(value="address") String address, @RequestParam(value="searchKeyWord[]") List<String>searchKeyWord)
-//	 throws Exception { 
-//	  
-//		 System.out.println(searchKeyWord +"   "+ address);
-//		 List<BranchDetailVDTO>  branchDetailVDTOs =branchService.categoryRoomSearch(address,searchKeyWord);
-//		 model.addAttribute("lists",branchDetailVDTOs);
-//		 System.out.println("  branchDetailVDTOs "+ branchDetailVDTOs);
-//	 return branchDetailVDTOs;
-//	 }
-	 
-	 
+  	 
 	 @RequestMapping(value="/categoryRoomSearch") 
 	 @ResponseBody
 	 public List<BranchDetailVDTO> categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO2 data)
@@ -101,7 +83,6 @@ public class BranchController {
 	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model, Authentication authentication, MemberDTO memberDTO, HttpSession hs) {
-		//from 성현 : 로그인시 세션유지가 안되서 테스트로 세션관련된걸 넣어놨는데 테스트 끝나면 삭제할게요
 		mc.getSession(authentication,hs,memberDTO);
 		
 		model.addAttribute("details", branchService.getDetail(branchNumber));

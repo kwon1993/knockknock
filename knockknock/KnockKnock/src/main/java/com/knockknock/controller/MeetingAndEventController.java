@@ -1,6 +1,6 @@
 package com.knockknock.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.event.Criteria;
 import com.knockknock.dto.event.EventVDTO;
@@ -26,13 +25,15 @@ import com.knockknock.dto.event.PageMaker;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.security.MemberController;
+import com.knockknock.service.MeetingAndEventService;
 
 @Controller
 public class MeetingAndEventController {
 	@Autowired
 	MeetingAndEventMapper meMapper;
 	
-//	MeetingAndEventServiceImpl meMapper;
+	@Autowired
+	MeetingAndEventService meService;
 
 	//from 성현 : 로그인시 상단 정보표시 관련(신경안쓰셔도됨)
 	@Autowired
@@ -46,7 +47,6 @@ public class MeetingAndEventController {
 		pageMaker.setTotalCount(meMapper.meetingCount(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);  // 게시판 하단의 페이징 관련, 이전페이지, 페이지 링크 , 다음 페이지
-		
 		return "event/MeetingList";
 	}
 	
@@ -64,19 +64,11 @@ public class MeetingAndEventController {
 		return "event/WriteBoard";
 	}
 	
-	/*
-	 * @Value("${file.upload.directory}") String uploadFileDir;
-	 */
-	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoard(MeetingVDTO meetingVDTO){
-		meMapper.meetingInsert(meetingVDTO);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/meetingImageUploade")
-	private String meetingImageUploade(List<MultipartFile> Image) {
-//		int writingNumber = meMapper.
+		int writingNumber = meService.getWritingNumber();
+		meService.meetingInsert(meetingVDTO);
+		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		
 		return "redirect:/meetingList";
 	}
@@ -89,8 +81,6 @@ public class MeetingAndEventController {
 	
 	@PostMapping("/meetingModify")
 	private String meetingModify(MeetingVDTO meetingVDTO){
-		System.err.println("수정 컨트롤러 진입"+meetingVDTO);
-		
 		meMapper.meetingModify(meetingVDTO);
 		return "redirect:/meetingList";
 	}
@@ -119,20 +109,23 @@ public class MeetingAndEventController {
 		return "event/EventView";
 	}
 	
-	@RequestMapping(value="/mparticipate", method= RequestMethod.POST) //참가하기
+	@RequestMapping(value="/mparticipate", method= RequestMethod.POST) //모임 참가하기
 	@ResponseBody
 	private void mparticipate(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication){
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		meMapper.mparticipate(meetingVDTO, email);		
+		meMapper.mpartNumUp(meetingVDTO.getWritingNumber()); //모임인원 갱신
 	}	
 	
-	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //참가하기
+	@RequestMapping(value="/eparticipate", method= RequestMethod.POST) //이벤트 참가하기
+	@ResponseBody
 	private void eparticipate(@RequestBody EventVDTO eventVDTO, Authentication authentication){
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		meMapper.eparticipate(eventVDTO, email);
+		meMapper.epartNumUp(eventVDTO.getWritingNumber()); //모임인원 갱신
 	}
 }

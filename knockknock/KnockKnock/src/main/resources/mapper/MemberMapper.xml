@@ -7,11 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="register">
 		INSERT INTO MEMBER
 		(MEMBER_NUMBER, GRADE, EMAIL, PASSWORD, PHONE_NUMBER, NICKNAME, NAME, BIRTH, GENDER,
-		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3)
+		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3, IMAGE_PROFILE)
 		VALUES
-		(0, 'NORMAL', #{email}, #{password},#{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
-		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3})
+		(0, 'NORMAL', #{email}, #{password}, #{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
+		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3}, 'images/profiles/default.gif')
     </insert>
+
+	<update id="suvRegister">
+		UPDATE MEMBER
+		SET PHONE_NUMBER=#{phoneNumber}, NICKNAME=#{nickname}, 
+		GENDER=#{gender}, ADDRESS=#{address}, ADDRESS_DETAIL=#{addressDetail}, 
+		INTRODUCE=#{introduce}, FAVORITE1=#{favorite1}, FAVORITE2=#{favorite2}, FAVORITE3=#{favorite3},IMAGE_PROFILE = 'images/profiles/default.gif'
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>
 
 	<insert id="petRegister">
 			INSERT INTO PET
@@ -39,14 +47,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1 FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     
     <select id="findByName" resultType="MemberDTO">
     	select 
     	M.EMAIL email,
-    	M.NAME name
+    	M.NAME name 	
     	from MEMBER M
     	where 
     	M.NAME = #{name}
@@ -169,7 +177,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	E.WRITING_NUMBER writingNumber,
     	E.ACCEPT_END_TIME acceptEndTime,
     	E.EVENT_START_TIME eventStartTime,
-    	E.EVENT_END_TIME eventEndTime
+    	E.EVENT_END_TIME eventEndTime,
+    	E.CANCEL_REASON cancelReason
     	FROM JOIN_EVENT JE, EVENT E
     	WHERE JE.MEMBER_NUMBER 
     	= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
@@ -189,22 +198,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMVL" resultType="VisitDTO">
     	SELECT
-    	BRANCH_NUMBER branchNumber, 
+    	BRANCH_NUMBER branchNumber,
     	WRITING_NUMBER writingNumber,
     	MEMO,
-    	RESERVATION_TIME reservationTime, 'CONFIRM'‎
+    	RESERVATION_TIME reservationTime,
+    	ISCHECK isCheck
     	FROM VISIT
     	WHERE
     	MEMBER_NUMBER
     	= (SELECT MEMBER_NUMBER FROM MEMBER WHERE EMAIL = #{email})
-    	ORDER BY 'CONFIRM' ASC, RESERVATION_TIME DESC
+    	ORDER BY WRITING_NUMBER ASC, RESERVATION_TIME DESC
     </select>
 
 	<delete id="deleteJM">
 		DELETE FROM JOIN_MEETING
 		WHERE
 		MEMBER_NUMBER
-		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL = #{email})
 		AND WRITING_NUMBER=#{writingNumber}
 	</delete>
 	
@@ -243,14 +253,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cancelMM">
 		UPDATE MEETING 
 		SET 
-		TITLE='취소된 모임입니다.',
-		CANCEL_REASON=#{meetingVDTO.cancelReason}
+		CANCEL_REASON=#{meetingVDTO.cancelReason},
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
 	<update id="cancelMM2">
 		UPDATE JOIN_MEETING 
-		SET MEETING_STATUS='다음 기회에'
+		SET MEETING_STATUS='취소됨'
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
@@ -277,9 +286,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		= (SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
 		AND BRANCH_NUMBER=#{branchNumber}
 	</delete>
+
 	
-	<select id="ConfirmReason" resultType="MeetingVDTO">
+	<select id="confirmReason" resultType="MeetingVDTO">
 		SELECT 
+		TITLE,
 		(SELECT NICKNAME
 		FROM MEMBER M
 		WHERE M. MEMBER_NUMBER = (SELECT MEMBER_NUMBER FROM MEETING MT WHERE MT.WRITING_NUMBER=#{writingNumber})) NICKNAME,
@@ -287,4 +298,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MEETING MT
 		WHERE MT.WRITING_NUMBER=#{writingNumber}
 	</select>
+	
+	<select id="confirmReasonEvent" resultType="EventVDTO">
+		SELECT
+		TITLE,
+		CANCEL_REASON cancelReason
+		FROM EVENT
+		WHERE WRITING_NUMBER=#{writingNumber}
+	</select>
+
 </mapper>

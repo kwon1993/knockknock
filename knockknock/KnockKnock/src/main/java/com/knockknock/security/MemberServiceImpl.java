@@ -48,6 +48,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public void suvRegister(MemberDTO memberDTO, PetDTO petDTO) {
+		int memberNumber = getMemberNumber();
+		memberDTO.setMemberNumber(memberNumber);
+		memberMapper.suvRegister(memberDTO);
+		System.out.println(memberDTO.getMemberNumber());
+		memberMapper.petRegister(memberDTO, petDTO);
+	}
+	
+	@Override
 	public int getMemberNumber() {
 		ArrayList<Integer> memberNumber = memberMapper.getMemberNumber();
 		int maxMemberNumber = Collections.max(memberNumber);
@@ -195,8 +204,12 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public MeetingVDTO ConfirmReason(int writingNumber) {
-		 return memberMapper.ConfirmReason(writingNumber);
+	public MeetingVDTO confirmReason(int writingNumber) {
+		 return memberMapper.confirmReason(writingNumber);
+	}
+	@Override
+	public EventVDTO confirmReasonEvent(int writingNumber) {
+		return memberMapper.confirmReasonEvent(writingNumber);
 	}
 
 

@@ -158,18 +158,11 @@
 		
 		<!-- 소셜로그인을 위한 oauth2 -->
 		<dependency>
-    		<groupId>org.springframework.security.oauth</groupId>
-    		<artifactId>spring-security-oauth2</artifactId>
-    		<version>2.3.3.RELEASE</version>
-		</dependency>
-		
-		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-oauth2-client</artifactId>
+    		<groupId>org.springframework.security.oauth.boot</groupId>
+    		<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+    		<version>2.0.1.RELEASE</version>
 		</dependency>
 	
-	
-
 	</dependencies>
 
 	<build>

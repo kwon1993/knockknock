@@ -47,11 +47,11 @@ public class BranchService {
 //	 }
 	
 	//관심사로 찾기의 방검색
-		 public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO2 branchDetailVDTO2) throws
-		  Exception{ 
-			 System.err.println(branchDetailVDTO2);
-			 List<BranchDetailVDTO> searchAndCheckbox=branchMapper.categoryRoomSearch2(branchDetailVDTO2);
-			 System.err.println("categoryRoomSearch    "+searchAndCheckbox);
+	public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO2 branchDetailVDTO2) throws
+		Exception{ 
+//			 System.err.println(branchDetailVDTO2);
+		List<BranchDetailVDTO> searchAndCheckbox=branchMapper.categoryRoomSearch2(branchDetailVDTO2);
+//			 System.err.println("categoryRoomSearch    "+searchAndCheckbox);
 		 return  searchAndCheckbox;
 		 }
 	
@@ -89,6 +89,10 @@ public class BranchService {
 	public List<String> getThemeLists(){
 		return branchMapper.getThemeLists();
 	}
+	//남 or 여
+	public List<String> getIsGender() {
+		return branchMapper.getIsGender();
+	}
 	//반려동물 유무
 	public List<String> getIspet() {
 		return branchMapper.getIspet();
@@ -97,4 +101,5 @@ public class BranchService {
 	public List<String> getBranchType() {
 		return branchMapper.getBranchType();
 	}
+	
 }
