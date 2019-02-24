@@ -36,7 +36,7 @@ public interface AdminMapper {
 //			Date eventStartTime, Date eventEndTime);
 	
 	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 	
 	public ArrayList<Integer> getWritingNumber();
 

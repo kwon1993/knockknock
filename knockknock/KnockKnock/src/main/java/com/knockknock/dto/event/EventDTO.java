@@ -1,6 +1,7 @@
 package com.knockknock.dto.event;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,5 +25,5 @@ public class EventDTO {
 	private String image; //이미지
 	private int like; //좋아요
 	
-	MultipartFile eventImage;
+	private List<MultipartFile> eventImage;
 }

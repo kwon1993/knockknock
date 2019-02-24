@@ -48,69 +48,57 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
+	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
+			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber, List<MultipartFile> eventImage, Authentication authentication) {
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+		int memberNumber = adminMapper.getMemberNumber(email);
+		//이메일로 멤버넘버 가져와서 넘겨줘야함
+		
 		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitNumber);
-//		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
-//				eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
-//		Integer maxValue = Collections.max(writingNumber);
-//		return maxValue;
+				acceptEndTime, recruitMaxNumber);
+		
+//		int writingNumber = Collections.max(adminMapper.getWritingNumber());
+//		
+//		String resourceToString;
+//		String OS = System.getProperty("os.name").toLowerCase();
+//		if (OS.indexOf("nux") >= 0) {
+//			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
+//					+ writingNumber;
+//		} else {
+//			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
+//					+ writingNumber;
+//		}
+//
+//		File EventUploadPath = new File(resourceToString);
+//
+//		if (EventUploadPath.exists() == false) {
+//			EventUploadPath.mkdirs();
+//		}
+//
+//		int Numbering = 0;
+//
+//		for (MultipartFile multipartFile : eventImage) {
+//			String extension = multipartFile.getOriginalFilename()
+//					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+//			String uploadFileName;
+//			if (Numbering == 0) {
+//				uploadFileName = "mainImage" + extension;
+//				Numbering++;
+//			} else {
+//				uploadFileName = Numbering++ + extension;
+//			}
+//			try {
+//				File saveFile = new File(EventUploadPath, uploadFileName);
+//				multipartFile.transferTo(saveFile);
+//			} catch (Exception e) {
+//				System.out.println("실패");
+//				e.printStackTrace();
+//			} // end catch
+//		}
 	}
 	
-//	public void eventWrite(String title, String content, String acceptStartTime, String acceptEndTime, String recruitMaxNumber,
-//			String eventStartTime, String eventEndTime, MultipartFile eventImage/*, Authentication authentication*/) {
-//		System.out.println("1");
-////		authentication = SecurityContextHolder.getContext().getAuthentication();
-////		User user = (User) authentication.getPrincipal();
-////		String email = user.getUsername();
-////		int memberNumber = adminMapper.getMemberNumber(email);
-//		// 이메일로 멤버넘버 가져와서 넘겨줘야함
-//		int memberNumber = 403;
-//
-//		Date acceptStartTimeDate = dateChanger(acceptStartTime);
-//		Date acceptEndTimeDate = dateChanger(acceptEndTime);
-//		Date eventStartTimeDate = dateChanger(eventStartTime);
-//		Date eventEndTimeDate = dateChanger(eventEndTime);
-//
-//		adminMapper.eventWrite(memberNumber, title, content, acceptStartTimeDate, acceptEndTimeDate, recruitMaxNumber,
-//				eventStartTimeDate, eventEndTimeDate);
-//		
-////		int writingNumber = Collections.max(adminMapper.getWritingNumber());
-////		String resourceToString;
-////		String OS = System.getProperty("os.name").toLowerCase();
-////		if (OS.indexOf("nux") >= 0) {
-////			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
-////					+ writingNumber;
-////		} else {
-////			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
-////					+ writingNumber;
-////		}
-////
-////		File EventUploadPath = new File(resourceToString);
-////
-////		if (EventUploadPath.exists() == false) {
-////			EventUploadPath.mkdirs();
-////		}
-////
-////		MultipartFile image = eventImage;
-////
-////		String extension = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
-////		String uploadFileName = "mainImage" + extension;
-////
-////		try {
-////			File saveFile = new File(EventUploadPath, uploadFileName);
-////			image.transferTo(saveFile);
-////		} catch (Exception e) {
-////			System.err.println("EventImageUploadFail");
-////			e.printStackTrace();
-////		}
-//
-////		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
-////				eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
-////		Integer maxValue = Collections.max(writingNumber);
-////		return maxValue;
-//	}
 
 	public EventVDTO eventView(int writingNumber) {
 		adminMapper.eventViewHit(writingNumber);

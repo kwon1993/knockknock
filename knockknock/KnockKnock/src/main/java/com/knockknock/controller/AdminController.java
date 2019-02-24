@@ -48,21 +48,6 @@ public class AdminController {
 	public String eventWriteView(Model model) {
 		return "admin/AdminEventWrite";
 	}
-
-	// 이벤트 등록
-//	@RequestMapping("adminEventWrite")
-//	public String eventWrite(Model model, @RequestParam("title") String title,
-//			@RequestParam("content") String content,
-//			@RequestParam("acceptStartTime") String acceptStartTime,
-//			@RequestParam("acceptEndTime") String acceptEndTime,
-//			@RequestParam("recruitMaxNumber") String recruitMaxNumber,
-//			@RequestParam("eventStartTime") String eventStartTime, @RequestParam("eventEndTime") String eventEndTime,
-//			@RequestParam("eventImage") MultipartFile eventImage/*, Authentication authentication*/) {
-//		System.out.println("0");
-//		adminService.eventWrite(title, content, acceptStartTime, acceptEndTime, recruitMaxNumber, eventStartTime, eventEndTime,
-//				eventImage/*, authentication*/);
-//		return "redirect:adminEventListView";
-//	}
 	
 	// 이벤트 등록
 		@RequestMapping("adminEventWrite")
@@ -70,11 +55,10 @@ public class AdminController {
 				@RequestParam("title") String title, @RequestParam("content") String content,
 				@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
 				@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-				@RequestParam("recruitNumber") int recruitNumber) {
+				@RequestParam("recruitNumber") int recruitMaxNumber, @RequestParam("eventImage") List<MultipartFile> eventImage, Authentication authentication) {
 //			int writingNumber = 
-			int memberNumber = 403;
-			adminService.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
-					acceptEndTime, recruitNumber);
+			adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
+					acceptEndTime, recruitMaxNumber, eventImage, authentication);
 //			model.addAttribute("eventView", adminService.eventView(writingNumber));
 //			return "redirect:admin/AdminEventPost";
 			return "redirect:adminEventListView";
