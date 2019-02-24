@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.knockknock.dto.event.MeetingReplyDTO;
+import com.knockknock.dto.event.ReplyDTO;
 import com.knockknock.mapper.ReplyMapper;
 
 @Controller
@@ -27,7 +27,7 @@ public class ReplyController {
 	// 모임 댓글 목록
 	@PostMapping("/meetingReplyList")
 	@ResponseBody
-	public List<MeetingReplyDTO> meetingReplyList(Model model, @RequestBody String writingNumber1) {
+	public List<ReplyDTO> meetingReplyList(Model model, @RequestBody String writingNumber1) {
 		int writingNumber = Integer.parseInt(writingNumber1);
 		return reMapper.meetingReplyList(writingNumber);
 	}
@@ -35,7 +35,7 @@ public class ReplyController {
 	// 모임 댓글 작성
 	@PostMapping("/meetingReplyInsert")
 	@ResponseBody
-	private int meetingReplyInsert(@RequestBody MeetingReplyDTO meetingReplyDTO, Authentication authentication) {
+	private int meetingReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {
 		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
 		// ReviewDTO replyDTO = new ReviewDTO();
 		// replyDTO.setBranchNumber(branchNumber);
@@ -46,21 +46,61 @@ public class ReplyController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		return reMapper.meetingReplyInsert(meetingReplyDTO, email);
+		return reMapper.meetingReplyInsert(replyDTO, email);
 	}
 	
 	// 모임 댓글 수정
 	@RequestMapping("/meetingReplyUpdate")
 	@ResponseBody
-	private int meetingReplyUpdate(@RequestBody MeetingReplyDTO meetingReplyDTO) {
-		return reMapper.meetingReplyUpdate(meetingReplyDTO);
+	private int meetingReplyUpdate(@RequestBody ReplyDTO replyDTO) {
+		return reMapper.meetingReplyUpdate(replyDTO);
 	}
 
-	// 모임 댓글 삭제
+	// 이벤트 댓글 삭제
 	@RequestMapping("/meetingReplyDelete{replyNumber}")
 	@ResponseBody
 	private int meetingReplyDelete(@PathVariable("replyNumber") int replyNumber) {
 		return reMapper.meetingReplyDelete(replyNumber);
+	}
+	
+	
+	// 이벤트 댓글 목록
+	@PostMapping("/eventReplyList")
+	@ResponseBody
+	public List<ReplyDTO> eventReplyList(Model model, @RequestBody String writingNumber1) {
+		int writingNumber = Integer.parseInt(writingNumber1);
+		return reMapper.eventReplyList(writingNumber);
+	}
+
+	// 이벤트 댓글 작성
+	@PostMapping("/eventReplyInsert")
+	@ResponseBody
+	private int eventReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {
+		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
+		// ReviewDTO replyDTO = new ReviewDTO();
+		// replyDTO.setBranchNumber(branchNumber);
+		// replyDTO.setContent(content);
+		 
+		// 현재 로그인 사용자 정보에 접근
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+
+		return reMapper.eventReplyInsert(replyDTO, email);
+	}
+	
+	// 이벤트 댓글 수정
+	@RequestMapping("/eventReplyUpdate")
+	@ResponseBody
+	private int eventReplyUpdate(@RequestBody ReplyDTO replyDTO) {
+		return reMapper.eventReplyUpdate(replyDTO);
+	}
+
+	// 이벤트 댓글 삭제
+	@RequestMapping("/eventReplyDelete{replyNumber}")
+	@ResponseBody
+	private int eventReplyDelete(@PathVariable("replyNumber") int replyNumber) {
+		return reMapper.eventReplyDelete(replyNumber);
 	}
 	
 }

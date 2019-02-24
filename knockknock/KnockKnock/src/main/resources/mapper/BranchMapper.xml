@@ -95,8 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.BRANCH_TYPE branchType
 		FROM BRANCH B
 		<trim prefix="where" prefixOverrides="AND|OR">
-		<if test="address!=null">
-			BRANCH_NUMBER
+		<if test="address!=null">			
 			AND ADDRESS like CONCAT('%',#{address},'%')
 		</if>
 		<if test="searchKeyWord.size!=0">

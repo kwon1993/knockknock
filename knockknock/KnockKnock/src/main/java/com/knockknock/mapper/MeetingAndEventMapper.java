@@ -26,7 +26,7 @@ public interface MeetingAndEventMapper {
 	public int meetingDelete(int writingNumber) ; //모임 취소
 	public int meetingSearch() ; //관심사로 검색하기
 	public void mparticipate(@Param("meetingVDTO") MeetingVDTO meetingVDTO, String email) ; //모임 참가하기
-	public void mpartNumUp(@Param("meetingVDTO") MeetingVDTO meetingVDTO); //모임인원 갱신
+	public void mpartNumUp(int writingNumber); //모임인원 갱신
 	public int meetingPlace() ;
 	public int meetingPlaceDetail() ;
 	
@@ -36,7 +36,8 @@ public interface MeetingAndEventMapper {
 	public List<EventVDTO> eventList(Criteria cri) ;
 	public EventVDTO eventView(int writingNumber) ;
 	public int eventSearch() ;
-	public void eparticipate(@Param("eventVDTO") EventVDTO eventVDTO, String email) ;
+	public void eparticipate(@Param("eventVDTO")EventVDTO eventVDTO, String email) ;
+	public void epartNumUp(int writingNumber); //모집인원 갱신
 	
 	//기타
 	public int imageUpload(MultipartFile meetingImage) ;
