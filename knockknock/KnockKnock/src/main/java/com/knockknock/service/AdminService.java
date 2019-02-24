@@ -38,8 +38,8 @@ public class AdminService {
 	// event
 
 	public ArrayList<EventVDTO> eventList() {
-		for(int i = 0; i < adminMapper.eventListView().size(); i++) {
-			if(adminMapper.eventListView().get(i).getCancelReason() == null) {
+		for (int i = 0; i < adminMapper.eventListView().size(); i++) {
+			if (adminMapper.eventListView().get(i).getCancelReason() == null) {
 				adminMapper.eventListView().get(i).setCancelReason("");
 			} else {
 				adminMapper.eventListView().get(i).setCancelReason("취소됨");
@@ -48,19 +48,56 @@ public class AdminService {
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber, List<MultipartFile> eventImage, Authentication authentication) {
-		System.out.println("서비스 진입");
+	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime, Date acceptStartTime,
+			Date acceptEndTime, int recruitMaxNumber, List<MultipartFile> eventImage, Authentication authentication) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		int memberNumber = adminMapper.getMemberNumber(email);
-		//이메일로 멤버넘버 가져와서 넘겨줘야함
-		System.out.println("중간");
+		// 이메일로 멤버넘버 가져와서 넘겨줘야함
 		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitMaxNumber);
-		System.out.println("끝");
-		
+
+		int writingNumber = Collections.max(adminMapper.getWritingNumber());
+
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
+					+ writingNumber;
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
+					+ writingNumber;
+		}
+
+		File EventUploadPath = new File(resourceToString);
+
+		if (EventUploadPath.exists() == false) {
+			EventUploadPath.mkdirs();
+		}
+
+		int Numbering = 0;
+
+		for (MultipartFile multipartFile : eventImage) {
+			String extension = multipartFile.getOriginalFilename()
+					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+			String uploadFileName;
+			if (Numbering == 0) {
+				uploadFileName = "mainImage" + extension;
+				Numbering++;
+			} else {
+				uploadFileName = Numbering++ + extension;
+			}
+			try {
+				File saveFile = new File(EventUploadPath, uploadFileName);
+				multipartFile.transferTo(saveFile);
+			} catch (Exception e) {
+				System.out.println("실패");
+				e.printStackTrace();
+			} // end catch
+		}
+	}
+//	public void eventImageUpload(int writingNumber, EventDTO eventDTO) {
 //		int writingNumber = Collections.max(adminMapper.getWritingNumber());
 //		
 //		String resourceToString;
@@ -81,7 +118,7 @@ public class AdminService {
 //
 //		int Numbering = 0;
 //
-//		for (MultipartFile multipartFile : eventImage) {
+//		for (MultipartFile multipartFile : eventDTO.getEventImage()) {
 //			String extension = multipartFile.getOriginalFilename()
 //					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 //			String uploadFileName;
@@ -99,8 +136,7 @@ public class AdminService {
 //				e.printStackTrace();
 //			} // end catch
 //		}
-	}
-	
+//	}
 
 	public EventVDTO eventView(int writingNumber) {
 		adminMapper.eventViewHit(writingNumber);
@@ -217,64 +253,6 @@ public class AdminService {
 	public void roomRegist(int branchNumber, RoomDTO roomDTO) {
 		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
 
-//		for (int i = 0; i < roomNumber.length && (roomNumber[i] != 0 && roomGender[i] != "" && roomType[i] != ""
-//				&& roomSpace[i] != "" && roomDeposit[i] != 0 && roomMonthlyRent[i] != 0
-//				&& !(roomRentableDate[i].equals(null))); i++) {
-//
-//			int allowNumber = roomType[i] == "1인실" ? 1
-//					: roomType[i] == "2인실" ? 2 : roomType[i] == "3인실" ? 3 : roomType[i] == "4인실" ? 4 : 0;
-//			adminMapper.roomRegist(branchNumber, roomNumber[i], roomGender[i], allowNumber, roomSpace[i],
-//					roomDeposit[i], roomMonthlyRent[i], rentableDate[i], privateFacility);
-//		}
-
-//		int roomNumberSize = roomDTO.getRoomNumber().size();
-//		int roomGenderSize = roomDTO.getRoomGender().size();
-//		int allowNumberSize = roomDTO.getAllowNumber().size();
-//		int spaceSize = roomDTO.getSpace().size();
-//		int depositSize = roomDTO.getDeposit().size();
-//		int monthlyRentSize = roomDTO.getMonthlyRent().size();
-//		int rentableDateSize = roomDTO.getRentableDate().size();
-//
-//		int[] roomNumber = new int[roomNumberSize];
-//		String[] roomGender = new String[roomGenderSize];
-//		String[] allowNumber = new String[allowNumberSize];
-//		String[] roomSpace = new String[spaceSize];
-//		int[] roomDeposit = new int[depositSize];
-//		int[] roomMonthlyRent = new int[monthlyRentSize];
-//		String[] roomRentableDateToString = new String[rentableDateSize];
-//
-//		for(int i = 0; i < roomNumberSize; i++) {
-//			roomNumber[i] = roomDTO.getRoomNumber().get(i);
-//			roomGender[i] = roomDTO.getRoomGender().get(i);
-//			allowNumber[i] = roomDTO.getAllowNumber().get(i);
-//			roomSpace[i] = roomDTO.getSpace().get(i);
-//			roomDeposit[i] = roomDTO.getDeposit().get(i);
-//			roomMonthlyRent[i] = roomDTO.getMonthlyRent().get(i);
-//			roomRentableDateToString[i] = roomDTO.getRentableDate().get(i);
-//		}
-
-//		Date[] roomRentableDate = new Date[roomRentableDateToString.length];
-//		for (int i = 0; i < roomRentableDateToString.length; i++) {
-//			if (Pattern.matches(dateForm, roomRentableDateToString[i])) {
-//				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//				try {
-//					java.util.Date parsed = (java.util.Date) formatter.parse(roomRentableDateToString[i]);
-//					roomRentableDate[i] = new Date(parsed.getTime());
-//				} catch (ParseException e) {
-//					roomRentableDate[i] = null;
-//				}
-//			} else {
-//				roomRentableDate[i] = null;
-//			}
-//		}
-
-//		for (int i = 0; i < roomNumber.length && (roomNumber[i] != 0 && roomGender[i] != "" && allowNumber[i] != ""
-//				&& roomSpace[i] != "" && roomDeposit[i] != 0 && roomMonthlyRent[i] != 0); i++) {
-//
-//			adminMapper.roomRegist(branchNumber, roomNumber[i], roomGender[i], allowNumber[i], roomSpace[i],
-//					roomDeposit[i], roomMonthlyRent[i], roomRentableDate[i], roomDTO.getRoomFacility());
-//		}
-
 		// String으로 받은 날짜
 		Iterator<String> iterator = roomDTO.getRentableDate().iterator();
 		List<Date> rentableDate = new ArrayList<Date>();
@@ -316,25 +294,9 @@ public class AdminService {
 					roomDTO.getMonthlyRent().get(i), roomRentableDate[i], roomDTO.getRoomFacility());
 		}
 
-//		private List<Integer> roomNumber;
-//		private List<Integer> branchNumber;
-//		private List<String> roomGender;
-//		private List<String> allowNumber;
-//		private List<String> space;
-//		private List<Integer> deposit;
-//		private List<Integer> monthlyRent;
-//		private List<Date> rentableDate;
-//		private String roomFacility;
-////		private String imageRoom;
-//		
-//		private List<List<MultipartFile>> roomImages;
-
 	}
 
 	public void branchImageRegist(int branchNumber, BranchDTO branchDTO) {
-//		DefaultResourceLoader defaultresourceloader = new DefaultResourceLoader();
-//		Resource resource = defaultresourceloader.getResource("file:src/main/resource/static/" + branchNumber);
-//		System.out.println(resource);
 
 		String resourceToString;
 		String OS = System.getProperty("os.name").toLowerCase();
@@ -427,75 +389,6 @@ public class AdminService {
 				e.printStackTrace();
 			} // end catch
 		}
-
-//		int loop = 0;
-//		int Numbering = 1;
-//		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
-//				+ branchNumber + "room";
-//		File RoomUploadPath = new File(resourceToString);
-//		if(RoomUploadPath.exists() == false) {
-//			RoomUploadPath.mkdirs();
-//		}
-//		for(MultipartFile multipartFile : roomDTO.getRoomImages()) {
-//			if (!(roomDTO.getRoomNumber().get(loop) == null || roomDTO.getDeposit().get(loop) == null
-//					|| roomDTO.getMonthlyRent().get(loop) == null || roomDTO.getRentableDate().equals(null)
-//					|| roomDTO.getSpace().get(loop).equals(null) || roomDTO.getSpace().get(loop) == "")) {
-//				System.out.println("Numbering: " + Numbering + "번째 이미지");
-//				String extension = multipartFile.getOriginalFilename()
-//						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-//				String uploadFileName = Numbering++ + extension; // 브랜치넘버+파일명
-//				try {
-//					File saveFile = new File(RoomUploadPath, uploadFileName);
-//					// 경로를 파일화시킨다.(실제파일생성)
-//					multipartFile.transferTo(saveFile);
-//					System.out.println("saveFile: " + saveFile);
-//				} catch (Exception e) {
-//					System.out.println("파일업로드 실패");
-//					e.printStackTrace();
-//				} // end catch
-//			}
-//			loop++;
-//		}
-
-//		int rooms = 0;
-//		int loop = 0;
-//		int Numbering = 1;
-//		String resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/branch/"
-//				+ branchNumber + "room";
-//		
-//		File RoomUploadPath = new File(resourceToString);
-//		
-//		if (RoomUploadPath.exists() == false) {
-//			RoomUploadPath.mkdirs();
-//		}
-//		
-//		for (Integer roomNumber : roomDTO.getRoomNumber()) {
-//			if (!(roomDTO.getRoomNumber().get(loop) == null || roomDTO.getDeposit().get(loop) == null
-//					|| roomDTO.getMonthlyRent().get(loop) == null || roomDTO.getRentableDate().equals(null)
-//					|| roomDTO.getSpace().get(loop).equals(null) || roomDTO.getSpace().get(loop) == "")) {
-//
-//				System.out.println("rooms: " + rooms + "번째 방");
-//
-//				List<MultipartFile> multipartFileList = roomDTO.getRoomImages().get(rooms++);
-//				multipartFileList.toString();
-//				for (MultipartFile multipartFile : multipartFileList) {
-//					System.out.println("Numbering: " + Numbering + "번째 이미지");
-//					String extension = multipartFile.getOriginalFilename()
-//							.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-//					String uploadFileName = Numbering++ + extension; // 브랜치넘버+파일명
-//					try {
-//						File saveFile = new File(RoomUploadPath, uploadFileName);
-//						// 경로를 파일화시킨다.(실제파일생성)
-//						multipartFile.transferTo(saveFile);
-//						System.out.println("saveFile: " + saveFile);
-//					} catch (Exception e) {
-//						System.out.println("파일업로드 실패");
-//						e.printStackTrace();
-//					} // end catch
-//				}
-//			}
-//			loop++;
-//		}
 
 	}
 

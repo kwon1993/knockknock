@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,20 +49,23 @@ public class AdminController {
 	public String eventWriteView(Model model) {
 		return "admin/AdminEventWrite";
 	}
-	
+
+//	@RequestParam("title") String title, @RequestParam("content") String content,
+//	@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
+//	@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
+//	@RequestParam("recruitMaxNumber") int recruitMaxNumber, /*@RequestParam("eventImage") List<MultipartFile> eventImage,*/
+//	, Authentication authentication
+
 	// 이벤트 등록
-		@RequestMapping("adminEventWrite")
-		public String eventWrite(Model model,
-				@RequestParam("title") String title, @RequestParam("content") String content,
-				@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
-				@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-				@RequestParam("recruitNumber") int recruitMaxNumber, @RequestParam("eventImage") List<MultipartFile> eventImage, Authentication authentication) {
-			System.out.println("컨트롤러 진입");
-			adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
-					acceptEndTime, recruitMaxNumber, eventImage, authentication);
-			System.out.println("컨틀롤러 끝");
-			return "redirect:adminEventListView";
-		}
+	@RequestMapping(value = "adminEventWrite")
+	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
+		adminService.eventWrite(eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
+				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
+				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
+
+//		adminService.eventImageUpload(writingNumber, eventDTO);
+		return "redirect:adminEventListView";
+	}
 
 	// 이벤트 수정 페이지
 	@RequestMapping("adminEventModifyView")
