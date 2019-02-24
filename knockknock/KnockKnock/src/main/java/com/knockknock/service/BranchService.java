@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.BranchDetailVDTO2;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.mapper.BranchMapper;
@@ -101,5 +102,10 @@ public class BranchService {
 	public List<String> getBranchType() {
 		return branchMapper.getBranchType();
 	}
+	
+	public LikeBranchDTO getHeartStatus(int branchNumber, String email) {
+		return branchMapper.getHeartStatus(branchNumber, email);
+	}
+
 	
 }

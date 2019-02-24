@@ -279,4 +279,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBranchType" resultType="String">
 		SELECT DISTINCT BRANCH_TYPE FROM BRANCH
 	</select>
+	
+	<select id="getHeartStatus" resultType="LikeBranchDTO">
+		SELECT
+		BRANCH_NUMBER branchNumber, 
+		MEMBER_NUMBER memberNumber
+		FROM LIKE_BRANCH
+		WHERE BRANCH_NUMBER=#{branchNumber}
+		AND MEMBER_NUMBER=(SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+	</select>
 </mapper>

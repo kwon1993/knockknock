@@ -68,7 +68,5 @@ public interface MemberService{
 	
 	public EventVDTO confirmReasonEvent(int writingNumber);
 	
-	public LikeBranchDTO getHeartStatus(int branchNumber, String email);
-	
 	int getMemberNumber();
 }

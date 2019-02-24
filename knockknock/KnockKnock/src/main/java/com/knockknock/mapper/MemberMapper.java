@@ -80,6 +80,4 @@ public interface MemberMapper {
 	
 	public EventVDTO confirmReasonEvent(int writingNumber);
 
-	public LikeBranchDTO getHeartStatus(int branchNumber, String email);
-
 }

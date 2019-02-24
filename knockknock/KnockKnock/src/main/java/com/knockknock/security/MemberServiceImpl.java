@@ -211,10 +211,4 @@ public class MemberServiceImpl implements MemberService{
 	public EventVDTO confirmReasonEvent(int writingNumber) {
 		return memberMapper.confirmReasonEvent(writingNumber);
 	}
-	
-	@Override
-	public LikeBranchDTO getHeartStatus(int branchNumber, String email) {
-		return memberMapper.getHeartStatus(branchNumber, email);
-	}
-
 }

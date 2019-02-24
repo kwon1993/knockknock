@@ -583,7 +583,7 @@ color:black;
 						    <div class="card-text">
 								닉네임: <div th:text="${memberInfo.nickname}"></div>
 								성별: <div th:text="${memberInfo.memberGender}"></div>
-								나이: <div th:text="${memberInfo.birth}"></div>
+								생일: <div th:text="${memberInfo.birth}"></div>
 								관심사: <div th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
 								소개글: <div th:text="${memberInfo.introduce}"></div>
 						    </div>
@@ -653,28 +653,51 @@ color:black;
 		<script th:inline="javascript">
 		$(document).ready(function() { 
 			
-			var toggle = document.getElementById('likeImage');
-			var branchNumber1= $("input[name='branchNumber']").val();
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			$(function() {
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+			});
 			
-			$.ajax({
+			var toggle = document.getElementById('likeImage');
+			var branchNumber1 = $("input[name='branchNumber']").val();
+			
+			 $(function(){
+				
+				// alert("넘어가기 전: "+branchNumber1);
+				// alert("heartStatus 값: " +heartStatus);
+			
+			 $.ajax({
 				type:'post',
 				url: '/getHeartStatus',
 				data: branchNumber1,
-				dataType:'text',
+				dataType:'json',
 				contentType: "application/json",
-				success: function(response){
-					var heartStatus = [[${heartStatus}]];
-
-					if(heartStatus!=null){
-						toggle.src="/images/like.png";
+				success: function(data){
+					
+					//alert("성공");
+					console.log("data: "+data.branchNumber);
+					
+					if(data.branchNumber!=null){
+						toggle.src='/images/like.png';
 					}
+			
 				},
-				error: function(response){
+				/* error: function(data){
 					alert("에러 발생");
-				}
+				} */
+			}) 
 			})
 			
+				/* var heartStatus = [[${heartStatus}]];
+				// console.log(heartStatus);
 			
+				if(heartStatus!=null){
+					toggle.src="/images/like.png";
+				}  */
 			
 			$("#likeBranch").click(function(){
 				
@@ -706,8 +729,8 @@ color:black;
 			        		type:'post',  
 							url:'/deleteLB',
 							data: branchNumber1,
-					        dataType:"text", 
-							contentType: "application/json",
+					        dataType:"text",
+					        contentType: "application/json",
 							success:function(data){
 								alert("관심 지점이 삭제되었습니다.");
 							},

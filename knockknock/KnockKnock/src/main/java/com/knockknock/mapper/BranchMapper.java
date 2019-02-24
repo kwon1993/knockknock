@@ -9,6 +9,7 @@ import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.BranchDetailVDTO2;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.Criteria;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.VisitDTO;
 
@@ -52,5 +53,6 @@ public interface BranchMapper {
 	//주택유형 체크박스
 	public List<String> getBranchType();
 	
+	public LikeBranchDTO getHeartStatus(int branchNumber, String email);
 
 }

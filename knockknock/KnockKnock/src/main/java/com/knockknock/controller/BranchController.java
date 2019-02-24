@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.branch.BranchDetailVDTO2;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.security.MemberController;
@@ -32,8 +33,7 @@ import com.knockknock.service.BranchService;
 public class BranchController {
 	@Autowired
 	public BranchService branchService;
-	@Autowired
-	public MemberService memberService;
+
 	@Autowired
 	public MemberController mc;
 
@@ -165,6 +165,7 @@ public class BranchController {
 	@ResponseBody
 	public void likeBranch(Model model, @RequestBody String branchNumber1, Authentication authentication) {
 		
+		// System.out.println("likeBranch: "+branchNumber1);
 		int branchNumber = Integer.parseInt(branchNumber1);
 		
 		authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -174,15 +175,22 @@ public class BranchController {
 		branchService.likeBranch(branchNumber, email);
 	}
 	
-	@RequestMapping(value="/getHeartStatus")
+	@RequestMapping(value="/getHeartStatus", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public void getHeartStatus(Model model, @RequestBody String branchNumber1, Authentication authentication) {
-		int branchNumber = Integer.parseInt(branchNumber1);
+	public LikeBranchDTO getHeartStatus(Model model, @RequestBody String branchNumber1, Authentication authentication) {
 		
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		String email = user.getUsername();
+		System.out.println("하트 상태: "+branchNumber1);
+				
+		 int branchNumber = Integer.parseInt(branchNumber1);
+		 
+		 authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		 User user = (User) authentication.getPrincipal(); 
+		 String email = user.getUsername();
+		 
+		 System.out.println(branchService.getHeartStatus(branchNumber, email));
+		 
+		 model.addAttribute("heartStatus", branchService.getHeartStatus(branchNumber, email));
+		 return branchService.getHeartStatus(branchNumber, email);
 
-		model.addAttribute("heartStatus", memberService.getHeartStatus(branchNumber, email));
 	}
 }

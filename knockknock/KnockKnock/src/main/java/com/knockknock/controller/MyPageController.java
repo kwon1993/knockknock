@@ -371,7 +371,7 @@ public class MyPageController {
 		String email = user.getUsername();
 		
 		model.addAttribute("confirmReason", memberService.confirmReason(writingNumber));
-		
+		System.out.println(memberService.confirmReason(writingNumber));
 		model.addAttribute("MMLJ", memberService.getMMLJ(email));
 		model.addAttribute("MMLM", memberService.getMMLM(email));
 		
