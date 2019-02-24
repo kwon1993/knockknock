@@ -49,17 +49,17 @@ body{
 	color: #064579;
 }
 
-
-
-
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-bottom:30px;
+}
 </style>
 
 </head>
 <body>
 	<div layout:fragment="content" class="container">
-		<div class="jumbotron">
-			<h1>회원 정보</h1>
-		</div>
 		<div class="row">
 			<div class="col-md-2">
 				<h3>관리 메뉴</h3>
@@ -72,6 +72,7 @@ body{
 			</div>
 			<div class="col-md-10">
 				<div class="w3-container">
+					<h1 id='title'>회원 정보</h1>
 					<table class="w3-table-all">
 						<tr>
 							<td colspan="1">회원번호</td>

@@ -7,20 +7,59 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
-body{
-font-family: 'Jua', sans-serif;
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Jua', sans-serif;
 }
 
+body{
+	font-family: 'Jua', sans-serif;
+	margin-top:80px;
+}
 
+.sidenav {
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 130px;
+	left: 60px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
+	margin-right: 40px;
+}
+
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+.sidenav a {
+	padding: 10px 10px 10px 16px;
+	text-decoration: none;
+	font-size: 30px;
+	color: #2eca6a;
+	display: block;
+}
+
+.sidenav a:hover {
+	color: #064579;
+}
+
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-bottom:30px;
+}
 </style>
 
 </head>
 <body>
-	<div layout:fragment="content" class="container"
-		style="margin-top: 7em;">
-		<div class="jumbotron">
-			<h1>계약 정보 등록</h1>
-		</div>
+	<div layout:fragment="content" class="container">
 		<div class="row">
 			<div class="col-md-2">
 				<h3>관리 메뉴</h3>
@@ -32,6 +71,7 @@ font-family: 'Jua', sans-serif;
 				</div>
 			</div>
 			<div class="col-md-10">
+				<h1 id='title'>계약정보 등록</h1>
 				<form action="adminContractRegist">
 					<table>
 						<tr>

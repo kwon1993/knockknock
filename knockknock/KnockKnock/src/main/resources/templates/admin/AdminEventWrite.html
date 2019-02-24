@@ -7,20 +7,60 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style>
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Jua', sans-serif;
+}
+
 body{
-font-family: 'Jua', sans-serif;
+	font-family: 'Jua', sans-serif;
+	margin-top:80px;
+}
+
+.sidenav {
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 130px;
+	left: 60px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
+	margin-right: 40px;
+}
+
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+.sidenav a {
+	padding: 10px 10px 10px 16px;
+	text-decoration: none;
+	font-size: 30px;
+	color: #2eca6a;
+	display: block;
+}
+
+.sidenav a:hover {
+	color: #064579;
+}
+
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-bottom:30px;
 }
 </style>
 </head>
 <body>
-	<div layout:fragment="content" class="container"
-		style="margin-top: 7em;">
-		<div class="jumbotron">
-			<h1>이벤트 작성 페이지</h1>
-		</div>
+	<div layout:fragment="content" class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<h3>관리 메뉴</h3>
 				<div class="sidenav">
 					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
 						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
@@ -29,6 +69,7 @@ font-family: 'Jua', sans-serif;
 				</div>
 			</div>
 			<div class="col-md-10">
+				<h1 id='title'>이벤트 등록</h1>
 				<form action="adminEventWrite" method="post" enctype="multipart/form-data" id="form">
 					<label style="width: 100px;">제목</label><input type=text name="title"><br />
 					<label style="width: 100px;">모집 시작 시간</label><input type="date" name="acceptStartTime"><br />

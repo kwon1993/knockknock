@@ -11,8 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,64 +38,86 @@ public class AdminService {
 	// event
 
 	public ArrayList<EventVDTO> eventList() {
+		for(int i = 0; i < adminMapper.eventListView().size(); i++) {
+			if(adminMapper.eventListView().get(i).getCancelReason() == null) {
+				adminMapper.eventListView().get(i).setCancelReason("");
+			} else {
+				adminMapper.eventListView().get(i).setCancelReason("취소됨");
+			}
+		}
 		return adminMapper.eventListView();
 	}
 
-	public void eventWrite(EventDTO eventDTO, Authentication authentication, HttpSession session) {
-		System.out.println("1");
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("2");
-		User user = (User) authentication.getPrincipal();
-		System.out.println("3");
-		String email = user.getUsername();
-		System.out.println("4");
-		int memberNumber = adminMapper.getMemberNumber(email);
-		//이메일로 멤버넘버 가져와서 넘겨줘야함
-		System.out.println("5");
-		adminMapper.eventWrite(memberNumber, eventDTO);
-		int writingNumber = Collections.max(adminMapper.getWritingNumber()) + 1;
-		System.out.println("6");
-		String resourceToString;
-		String OS = System.getProperty("os.name").toLowerCase();
-		if (OS.indexOf("nux") >= 0) {
-			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
-					+ writingNumber;
-		} else {
-			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
-					+ writingNumber;
-		}
-
-		File EventUploadPath = new File(resourceToString);
-
-		if (EventUploadPath.exists() == false) {
-			EventUploadPath.mkdirs();
-		}
-		
-		MultipartFile image = eventDTO.getEventImage();
-		
-		String extension = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
-		String uploadFileName = "mainImage" + extension;
-		
-		try {
-			File saveFile = new File(EventUploadPath, uploadFileName);
-			image.transferTo(saveFile);
-		} catch (Exception e) {
-			System.err.println("EventImageUploadFail");
-			e.printStackTrace();
-		}
-		
+	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
+			Date acceptStartTime, Date acceptEndTime, int recruitNumber) {
+		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
+				acceptEndTime, recruitNumber);
 //		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
 //				eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
 //		Integer maxValue = Collections.max(writingNumber);
 //		return maxValue;
 	}
+	
+//	public void eventWrite(String title, String content, String acceptStartTime, String acceptEndTime, String recruitMaxNumber,
+//			String eventStartTime, String eventEndTime, MultipartFile eventImage/*, Authentication authentication*/) {
+//		System.out.println("1");
+////		authentication = SecurityContextHolder.getContext().getAuthentication();
+////		User user = (User) authentication.getPrincipal();
+////		String email = user.getUsername();
+////		int memberNumber = adminMapper.getMemberNumber(email);
+//		// 이메일로 멤버넘버 가져와서 넘겨줘야함
+//		int memberNumber = 403;
+//
+//		Date acceptStartTimeDate = dateChanger(acceptStartTime);
+//		Date acceptEndTimeDate = dateChanger(acceptEndTime);
+//		Date eventStartTimeDate = dateChanger(eventStartTime);
+//		Date eventEndTimeDate = dateChanger(eventEndTime);
+//
+//		adminMapper.eventWrite(memberNumber, title, content, acceptStartTimeDate, acceptEndTimeDate, recruitMaxNumber,
+//				eventStartTimeDate, eventEndTimeDate);
+//		
+////		int writingNumber = Collections.max(adminMapper.getWritingNumber());
+////		String resourceToString;
+////		String OS = System.getProperty("os.name").toLowerCase();
+////		if (OS.indexOf("nux") >= 0) {
+////			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
+////					+ writingNumber;
+////		} else {
+////			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
+////					+ writingNumber;
+////		}
+////
+////		File EventUploadPath = new File(resourceToString);
+////
+////		if (EventUploadPath.exists() == false) {
+////			EventUploadPath.mkdirs();
+////		}
+////
+////		MultipartFile image = eventImage;
+////
+////		String extension = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+////		String uploadFileName = "mainImage" + extension;
+////
+////		try {
+////			File saveFile = new File(EventUploadPath, uploadFileName);
+////			image.transferTo(saveFile);
+////		} catch (Exception e) {
+////			System.err.println("EventImageUploadFail");
+////			e.printStackTrace();
+////		}
+//
+////		ArrayList<Integer> writingNumber = adminMapper.eventWriteNumber(memberNumber, title, content, eventStartTime,
+////				eventEndTime, acceptStartTime, acceptEndTime, recruitNumber);
+////		Integer maxValue = Collections.max(writingNumber);
+////		return maxValue;
+//	}
 
 	public EventVDTO eventView(int writingNumber) {
 		adminMapper.eventViewHit(writingNumber);
 		return adminMapper.eventView(writingNumber);
 	}
-	
-	public EventJoinMemberVDTO getEventJoinMember(int writingNumber) {
+
+	public ArrayList<EventJoinMemberVDTO> getEventJoinMember(int writingNumber) {
 		return adminMapper.getEventJoinMember(writingNumber);
 	}
 
@@ -110,7 +130,7 @@ public class AdminService {
 		adminMapper.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
 				acceptStartTime, acceptEndTime, recruitNumber);
 	}
-	
+
 	public void eventCancel(int writingNumber, String cancelReason) {
 		adminMapper.eventCancel(writingNumber, cancelReason);
 	}
@@ -175,8 +195,8 @@ public class AdminService {
 //		List<String> allowNumber = roomDTO.getAllowNumber();
 		for (int i = 0; i < roomDTO.getRoomNumber().size()
 				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
-				|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
-				|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
+						|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
+						|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
 			switch (roomDTO.getAllowNumber().get(i).toString()) {
 			case "1인실":
 				maximumResident += 1;
@@ -348,7 +368,7 @@ public class AdminService {
 			String extension = multipartFile.getOriginalFilename()
 					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 			String uploadFileName;
-			if(Numbering == 0) {
+			if (Numbering == 0) {
 				uploadFileName = "mainImage" + extension;
 				Numbering++;
 			} else {
@@ -396,7 +416,7 @@ public class AdminService {
 			String extension = multipartFile.getOriginalFilename()
 					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 			String uploadFileName;
-			if(Numbering == 0) {
+			if (Numbering == 0) {
 				uploadFileName = "mainImage" + extension;
 				Numbering++;
 			} else {
@@ -562,4 +582,21 @@ public class AdminService {
 				monthlyRent2);
 	}
 
+	public Date dateChanger(String string) {
+		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
+		Date date;
+		if (Pattern.matches(dateForm, string)) {
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date parsed = (java.util.Date) formatter.parse(string);
+				date = new Date(parsed.getTime());
+			} catch (ParseException e) {
+				date = null;
+				e.printStackTrace();
+			}
+		} else {
+			date = null;
+		}
+		return date;
+	}
 }

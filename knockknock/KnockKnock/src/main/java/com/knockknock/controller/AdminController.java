@@ -50,15 +50,35 @@ public class AdminController {
 	}
 
 	// 이벤트 등록
-	@RequestMapping("adminEventWrite")
-	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication, HttpSession session) {
-//		int writingNumber = 
-		System.out.println("0");
-		adminService.eventWrite(eventDTO, authentication, session);
-//		model.addAttribute("eventView", adminService.eventView(writingNumber));
-//		return "redirect:admin/AdminEventPost";
-		return "redirect:adminEventListView";
-	}
+//	@RequestMapping("adminEventWrite")
+//	public String eventWrite(Model model, @RequestParam("title") String title,
+//			@RequestParam("content") String content,
+//			@RequestParam("acceptStartTime") String acceptStartTime,
+//			@RequestParam("acceptEndTime") String acceptEndTime,
+//			@RequestParam("recruitMaxNumber") String recruitMaxNumber,
+//			@RequestParam("eventStartTime") String eventStartTime, @RequestParam("eventEndTime") String eventEndTime,
+//			@RequestParam("eventImage") MultipartFile eventImage/*, Authentication authentication*/) {
+//		System.out.println("0");
+//		adminService.eventWrite(title, content, acceptStartTime, acceptEndTime, recruitMaxNumber, eventStartTime, eventEndTime,
+//				eventImage/*, authentication*/);
+//		return "redirect:adminEventListView";
+//	}
+	
+	// 이벤트 등록
+		@RequestMapping("adminEventWrite")
+		public String eventWrite(Model model,
+				@RequestParam("title") String title, @RequestParam("content") String content,
+				@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
+				@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
+				@RequestParam("recruitNumber") int recruitNumber) {
+//			int writingNumber = 
+			int memberNumber = 403;
+			adminService.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
+					acceptEndTime, recruitNumber);
+//			model.addAttribute("eventView", adminService.eventView(writingNumber));
+//			return "redirect:admin/AdminEventPost";
+			return "redirect:adminEventListView";
+		}
 
 	// 이벤트 수정 페이지
 	@RequestMapping("adminEventModifyView")
@@ -78,11 +98,12 @@ public class AdminController {
 				acceptStartTime, acceptEndTime, recruitNumber);
 		return "redirect:adminEventListView";
 	}
-	
-	//이벤트 취소
+
+	// 이벤트 취소
 	@RequestMapping("adminEventCancel")
-	public String eventCancel(Model model, @RequestParam("writingNumber") int writingNumber, @RequestParam("cancelReason") String cancelReason) {
-		
+	public String eventCancel(Model model, @RequestParam("writingNumber") int writingNumber,
+			@RequestParam("cancelReason") String cancelReason) {
+		adminService.eventCancel(writingNumber, cancelReason);
 		return "redirect:adminEventListView";
 	}
 

@@ -75,7 +75,7 @@ body{
 				</div>
 			</div>
 			<div class="col-md-10">
-				<h1 id='title'>이벤트 등록</h1>
+				<h1 id='title'>이벤트 목록</h1>
 				<div class="w3-container">
 					<table class="w3-table-all">
 						<tr>
@@ -93,12 +93,12 @@ body{
 								<p th:text="${list.title}"></p></a></td>
 							<td th:text="${list.hit}"></td>
 							<td th:text="${list.writeTime}"></td>
-							<td>취소됨 안됨</td>
+							<td th:text="${list.cancelReason}"></td>
 						</tr>
 						<tr>
-							<td colspan="5">
+							<td colspan="6">
 								<form action="adminEventWriteView">
-									<input type="submit" value="Write">
+									<input type="submit" class="btn btn-success" value="이벤트 작성" style="float: right;">
 								</form>
 							</td>
 						</tr>

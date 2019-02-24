@@ -1,5 +1,6 @@
 package com.knockknock.mapper;
 
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,13 @@ public interface AdminMapper {
 	
 	public Integer getMemberNumber(String email);
 	
-	public EventJoinMemberVDTO getEventJoinMember(int writingNumber);
+	public ArrayList<EventJoinMemberVDTO> getEventJoinMember(int writingNumber);
 
-	public void eventWrite(int memberNumber, @Param("eventDTO") EventDTO eventDTO);
+//	public void eventWrite(int memberNumber, String title, String content, Date acceptStartTime, Date acceptEndTime, String recruitMaxNumber,
+//			Date eventStartTime, Date eventEndTime);
+	
+	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
+			Date acceptStartTime, Date acceptEndTime, int recruitNumber);
 	
 	public ArrayList<Integer> getWritingNumber();
 
