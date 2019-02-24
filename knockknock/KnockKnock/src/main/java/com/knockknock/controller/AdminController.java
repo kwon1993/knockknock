@@ -56,11 +56,10 @@ public class AdminController {
 				@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
 				@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
 				@RequestParam("recruitNumber") int recruitMaxNumber, @RequestParam("eventImage") List<MultipartFile> eventImage, Authentication authentication) {
-//			int writingNumber = 
+			System.out.println("컨트롤러 진입");
 			adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
 					acceptEndTime, recruitMaxNumber, eventImage, authentication);
-//			model.addAttribute("eventView", adminService.eventView(writingNumber));
-//			return "redirect:admin/AdminEventPost";
+			System.out.println("컨틀롤러 끝");
 			return "redirect:adminEventListView";
 		}
 

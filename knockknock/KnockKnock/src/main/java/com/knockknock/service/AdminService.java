@@ -50,14 +50,16 @@ public class AdminService {
 
 	public void eventWrite(String title, String content, Date eventStartTime, Date eventEndTime,
 			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber, List<MultipartFile> eventImage, Authentication authentication) {
+		System.out.println("서비스 진입");
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		int memberNumber = adminMapper.getMemberNumber(email);
 		//이메일로 멤버넘버 가져와서 넘겨줘야함
-		
+		System.out.println("중간");
 		adminMapper.eventWrite(memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
 				acceptEndTime, recruitMaxNumber);
+		System.out.println("끝");
 		
 //		int writingNumber = Collections.max(adminMapper.getWritingNumber());
 //		
