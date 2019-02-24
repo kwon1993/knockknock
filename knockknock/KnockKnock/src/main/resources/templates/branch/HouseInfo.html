@@ -659,8 +659,8 @@ color:black;
 			$.ajax({
 				type:'post',
 				url: '/getHeartStatus',
-				data: branchNumber1,
-				dataType:'text',
+				data: {"branchNumber":branchNumber1},
+				dataType:'json',
 				contentType: "application/json",
 				success: function(response){
 					var heartStatus = [[${heartStatus}]];
@@ -690,7 +690,7 @@ color:black;
 			                dataType:"text", 
 							contentType: "application/json",
 							success:function(response){
-								alert("내 관심 지점 등록이 완료되었습니다.");
+								walert("내 관심 지점 등록이 완료되었습니다.");
 							}
 						}) 
 					} else {
