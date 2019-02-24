@@ -17,25 +17,26 @@ layout:decorate="~{etc/fragments/Main_layout}">
   	width : 128px;
   }
   .jb-th-2{
-  	width : 50px;
+  	width : 55px;
   }
   .jb-th-3{
   	width : 70px;
   }
 
  #jumbotronId { 
-	padding: 4rem 0rem;
+	padding: 0rem;
     margin-bottom: 0rem;
     background-color: white;
     border-radius: 1rem;
- 	background-color: white; 
  	font-family: 'Jua', sans-serif;
  	
  }
  #img{
-	float:; 
-	margin:0; 
-	padding:0;
+ 	height: 92px;
+ 	width: 140px;
+	float: left; 
+	margin: 0; 
+	padding: 0;
 	line-height: 0; 
  }
  #bangTable:after{
@@ -49,13 +50,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
     border-radius: 10px;
     padding : 5% 5%;
     margin : 0px 15px;
-   
+   	height : 92px;
+   	width : 300px;
  }
  #checkboxField{
  	border: 1px solid #2eca6a;
     border-radius: 10px;
     padding : 2% 5%;
     margin : 10px 15px;
+    width : 300px;
  }
  #branchTheme{
  	margin : 0px 15px;
@@ -84,7 +87,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<label class="field-title"><h4>"STEP1"<strong>&nbsp;선택항목에 체크!!</strong></h4></label>
 				<div id="checkboxField">
 				<div class="themeCheckbox">
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;관심사</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;테마</strong></h5></label>
 					<div  th:each="theme : ${themeLists}" th:name="branchTheme" th:id="branchTheme">
 							<div class="branchTheme">
 							<input type="checkbox" th:value="${theme}" th:id="${theme}" th:name="branchTheme"><span  th:text="${theme}" th:for="${theme}"></span>
@@ -143,7 +146,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tr  class="text-center">
 					<th class="jb-th-0">지점 이미지</th>
 					<th class="jb-th-1">주소</th>
-					<th class="jb-th-2">관심사</th>
+					<th class="jb-th-2">지점테마</th>
 					<th class="jb-th-2">성별</th>
 					<th class="jb-th-2">주차장</th>
 					<th class="jb-th-3">엘리베이터</th>
@@ -162,20 +165,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					<td th:text="${branchDetailVDTO.isParking}"></td>
 					<td th:text="${branchDetailVDTO.isElevator}"></td>
 					<td th:text="${branchDetailVDTO.pet}"></td>
-					<td th:text="${branchDetailVDTO.branchType}"></td>
-				
+					<td th:text="${branchDetailVDTO.branchType}"></td>				
 				</tr>
 			  </tbody>
-			</table>
+			 </table>
 			</div>	
-	  	</div>
-<!-- 	  	<div class="pager"> -->
-<!-- 	  		<span class="page-number Clickable active">1</span> -->
-<!-- 	  		<span class="page-number">2</span> -->
-<!-- 	  		<span class="page-number">3</span> -->
-<!-- 	  	</div> -->
-		</div>
-		</div>
+	  	   </div>
+		  </div>
+		 </div>
 		<script>
 		
 		//카테고리바 체크디자인용

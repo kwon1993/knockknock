@@ -39,16 +39,21 @@ public class MemberController {
 		return "member/Register";
 	}
 
-	// 회원가입폼
+	// 회원가입폼(일반회원가입)
 	// 1.회원등록
 	@RequestMapping("/create")
 	public String member(Model model, MemberDTO memberDTO, PetDTO petDTO) {
-		System.out.println(memberDTO.getMemberNumber());
-		System.out.println(petDTO.getAnimal());
-
 		// 2.memberService의 register호출
 		memberService.register(memberDTO, petDTO);
 
+		return "member/RegisterComplete";
+	}
+	
+	@RequestMapping("/suvCreate")
+	public String socialMember(Model model, MemberDTO memberDTO, PetDTO petDTO) {
+		
+		memberService.suvRegister(memberDTO,petDTO);
+		
 		return "member/RegisterComplete";
 	}
 
@@ -113,14 +118,13 @@ public class MemberController {
 			SecurityMember sc = (SecurityMember)auth.getPrincipal();
 		    memberDTO.setEmail(sc.getUsername());
 			  
-			MemberDTO nickname = memberMapper.findByEmail(memberDTO); MemberDTO
-			profileImage = memberMapper.getImageDir(sc.getUsername());
+			MemberDTO nickname = memberMapper.findByEmail(memberDTO); 
+			MemberDTO profileImage = memberMapper.getImageDir(sc.getUsername());
 			session.setAttribute("nickname", nickname.getNickname());
 			session.setAttribute("memberNumber", nickname.getMemberNumber());
 		  
 			if (profileImage != null) { 
-				session.setAttribute("profileImage",
-				profileImage.getImageProfile()); 
+				session.setAttribute("profileImage", profileImage.getImageProfile()); 
 			}
 		}
 	}
@@ -133,6 +137,9 @@ public class MemberController {
 			MemberDTO sc = (MemberDTO)auth.getPrincipal();
 			MemberDTO nickname = memberMapper.findByEmail(sc); 
 			MemberDTO profileImage = memberMapper.getImageDir(sc.getEmail());
+			
+			session.setAttribute("email",nickname.getEmail());
+			session.setAttribute("name",nickname.getName());
 			session.setAttribute("nickname", nickname.getNickname());
 			session.setAttribute("memberNumber", nickname.getMemberNumber());
 		  

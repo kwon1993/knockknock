@@ -20,15 +20,15 @@ public class UserConnectionDTO {
 		
 	}
 	
-	public UserConnectionDTO(FacebookUserDetails userDetails) {
-		this.accessToken = userDetails.getAccessToken();
-		this.nickname = userDetails.getNickname();
-		this.name = userDetails.getName();
-		this.email = userDetails.getEmail();
-		this.expireTime = userDetails.getExpireTime();
-		this.profileUrl = userDetails.getProfileUrl();
-		this.provider = userDetails.getProvider();
-		this.providerId = userDetails.getProviderId();
-		this.memberNumber = userDetails.getMemberNumber();
+	public UserConnectionDTO(FacebookUserDetails memberDTO) {
+		this.accessToken = memberDTO.getAccessToken();
+		this.nickname = memberDTO.getNickname();
+		this.name = memberDTO.getName();
+		this.email = memberDTO.getEmail();
+		this.expireTime = memberDTO.getExpireTime();
+		this.profileUrl = memberDTO.getProfileUrl();
+		this.provider = memberDTO.getProvider();
+		this.providerId = memberDTO.getProviderId();
+		this.memberNumber = memberDTO.getMemberNumber();
 	}
 }

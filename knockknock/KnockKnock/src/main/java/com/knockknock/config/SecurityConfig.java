@@ -62,8 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/**")
-		.permitAll().and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
 		// 기존설정
 		http.authorizeRequests()
@@ -78,8 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/toSharingGuide", "/toFAQ")
 				.permitAll()
 				// 매치 : MeetingAndEventController
-				.antMatchers("/writeBoard", "/meetingList", "/meetingView", "/meetingModify", "/eventList",
-						"/eventView")
+				.antMatchers("/meetingList", "/meetingView", "/meetingModify", "/eventList","/eventView")
 				.permitAll()
 				// 매치 : ReplyController
 				.antMatchers("/meetingReplyList").permitAll() // from 민철 추가
@@ -91,7 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 매치 : MailController
 				.antMatchers("/sendpass").permitAll()
 				// 매치 : 방문신청 인증 필요
-				.antMatchers("/visitBooking").authenticated().anyRequest().authenticated().and()
+				.antMatchers("/visitBooking").authenticated()
+				.anyRequest().authenticated().and()
 				.formLogin().loginPage("/login")
 				.defaultSuccessUrl("/")
 //			.failureUrl("/login")
@@ -99,7 +97,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll();
 		// loginProcessingUrl없애니 됨
 
-		// 이 코드가 없으면 CSRF 토큰을 발급하지 않는다.CSRF 위험에 노출.(개발자도구->네트워크->어플리케이션에서 확인)
+		http.authorizeRequests().antMatchers("/**")
+		.permitAll().and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+
+		
+		//이 코드가 없으면 CSRF 토큰을 발급하지 않는다.CSRF 위험에 노출.(개발자도구->네트워크->어플리케이션에서 확인)
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 	}
 
@@ -111,48 +113,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.eraseCredentials(false).userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 	}
 
-	// 회원가입시 비밀번호 인코딩을 위한 패스워드 인코더 Bean
+	//회원가입시 비밀번호 인코딩을 위한 패스워드 인코더 Bean
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
-//	// 소셜로그인
-//	private Filter ssoFilter() {
-//		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-//				"/login/facebook");
-//		OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
-//		facebookFilter.setRestTemplate(facebookTemplate);
-//		UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(),
-//				facebook().getClientId());
-//		tokenServices.setRestTemplate(facebookTemplate);
-//		facebookFilter.setTokenServices(tokenServices);
-//		System.out.println("ssoFilter()실행");
-//		return facebookFilter;
-//	}
-
-//	// 페북빈
-//	@Bean
-//	@ConfigurationProperties("facebook.client")
-//	public AuthorizationCodeResourceDetails facebook() {
-//		System.out.println("facebook.client");
-//		return new AuthorizationCodeResourceDetails();
-//	}
-	
 	@Bean
 	//@ConfigurationProperties는 yaml이나 properties를 탐색하게 도와주는 어노테이션
     @ConfigurationProperties("facebook")
     public ClientResources facebook() {
         return new ClientResources();
     }
-
-//	// 페북빈
-//	@Bean
-//	@ConfigurationProperties("facebook.resource")
-//	public ResourceServerProperties facebookResource() {
-//		System.out.println("facebook.resource");
-//		return new ResourceServerProperties();
-//	}
 
 	// 페북빈
 	@Bean
@@ -169,7 +141,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<Filter> filters = new ArrayList<>();
         filters.add(ssoFilter(facebook(), new FacebookOAuth2ClientAuthenticationProcessingFilter(socialService)));
         filter.setFilters(filters);
-        System.out.println("ssoFilter()입니다");
+        System.out.println("ssoFilter()");
         return filter;
     } 
 	
@@ -181,7 +153,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         filter.setTokenServices(tokenServices);
         tokenServices.setRestTemplate(restTemplate);
-        System.out.println("ssoFilter(client,filter)입니다");
+        System.out.println("ssoFilter(client,filter)");
         return filter;
     }
 }

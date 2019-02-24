@@ -24,14 +24,14 @@ public class UserService {
     public MemberDTO findBySocial(UserConnectionDTO userConnectionDTO) {
     	System.out.println("UserService의 findBySocial메서드입니다");
         final MemberDTO memberDTO = userMapper.findBySocial(userConnectionDTO);
-        if (memberDTO == null) throw new RuntimeException();
+//        if (memberDTO == null) throw new RuntimeException();
         return memberDTO;
     }
 
     public boolean isExistUser(UserConnectionDTO userConnectionDTO) {
-    	System.out.println("UserService의 isExistUser메서드입니다");
+    	System.out.println("UserService: isExistUser메서드 실행");
         final MemberDTO memberDTO = userMapper.findBySocial(userConnectionDTO);
-        System.out.println("findBySocial의 리턴값:"+memberDTO);
+        System.out.println("UserService: findBySocial 결과 "+memberDTO);
         return (memberDTO != null);
     }
 }

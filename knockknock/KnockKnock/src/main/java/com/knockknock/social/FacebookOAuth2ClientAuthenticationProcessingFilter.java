@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 import com.knockknock.dto.member.UserConnectionDTO;
+import com.knockknock.security.CustomUserDetailsService;
 
 public class FacebookOAuth2ClientAuthenticationProcessingFilter extends OAuth2ClientAuthenticationProcessingFilter {
 	  	
@@ -25,7 +26,8 @@ public class FacebookOAuth2ClientAuthenticationProcessingFilter extends OAuth2Cl
 	    private SocialService socialService;
 	    @Autowired
 	    private FacebookUserDetails facebookUserDetails;
-	    
+	    @Autowired
+	    CustomUserDetailsService custom;
 	    //socialService는 DB뒤져서 회원인가 아닌가 판단후 인증정보 넘겨주는 클래스.
 	    public FacebookOAuth2ClientAuthenticationProcessingFilter(SocialService socialService) {
 	        super("/login/facebook");
@@ -36,23 +38,21 @@ public class FacebookOAuth2ClientAuthenticationProcessingFilter extends OAuth2Cl
 	    @Override
 	    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 	    	
-	    	System.out.println("FacebookOAuth2ClientAuthenticationProcessingFilter(socialService)입니다.");
+	    	System.out.println("FacebookOAuth2ClientAuthenticationProcessingFilter");
 	        
 	    	final OAuth2AccessToken accessToken = restTemplate.getAccessToken(); // 토큰 정보 가져옴
 //	    	facebookUserDetails.setAccessToken(accessToken);
 //	        System.out.println("입력한 accessToken:"+facebookUserDetails.getAccessToken());
 	        
 	        final OAuth2Authentication auth = (OAuth2Authentication) authResult;
-	        HashMap<String, String> map = (HashMap<String,String>)auth.getUserAuthentication().getDetails();
-	        System.out.println("auth:"+map.get("email"));
 	        
 	        final Object details = auth.getUserAuthentication().getDetails(); // 소셜에서 넘겨 받은 정보를 details에 저장
-	        System.out.println("소셜정보(이름,id):"+details);
+	        System.out.println("FacebookOAuth2ClientAuthenticationProcessingFilter:소셜정보(이름,id) "+details);
 	        final FacebookUserDetails userDetails = mapper.convertValue(details, FacebookUserDetails.class); // Object mapper를 이용해서 객체 변환
 	        
 	        userDetails.setAccessToken(accessToken); // access token 정보도 저장
 	        
-	        System.out.println("userDetails:"+userDetails);
+	        System.out.println("FacebookOAuth2ClientAuthenticationProcessingFilter: userDetails 결과."+userDetails);
 	        final UserConnectionDTO userConnectionDTO =new UserConnectionDTO(userDetails); // UserConnection를 userDetails 기반으로 생성
 	        final UsernamePasswordAuthenticationToken authenticationToken = socialService.doAuthentication(userConnectionDTO); // SocialService를 이용해서 인증 절차 진행
 	        super.successfulAuthentication(request, response, chain, authenticationToken);
