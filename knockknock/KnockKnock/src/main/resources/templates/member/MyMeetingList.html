@@ -239,7 +239,6 @@ cursor: pointer;
 			</div>
 			
 			
-			<!-- 모임 취소 사유 확인 모달 -->
 			<div id="myModal" class="modal">
 				<div class="modal-content" th:each="confirmReason:${confirmReason}">
 					<span class="close">&times;</span>
@@ -334,14 +333,12 @@ cursor: pointer;
 		            $.ajax({
 							type:'post',  
 							url:'/checkedDeleteJM',
-			 				data: JSON.stringify(checkBoxArr), // key, value로 이뤄지지 않은 단순 배열은 JSON.stringify로 보내야 함
-			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+			 				data: JSON.stringify(checkBoxArr), 
+			                dataType:"text", 
 							contentType: "application/json",
-							// async:false, async는 deprecated 되었음
 							 success:function(response){
 					            alert("선택한 모임 신청이 취소되었습니다.");
 					            
-					            // 미팅 리스트 갱신 필요(페이지 이동)
 					            $(location).attr('href', '/MyMeetingList');
 
 							 },
@@ -353,14 +350,13 @@ cursor: pointer;
 		            return false;
 		        }
 		    
-			}) // checkedDelete
+			}) 
 			
 			})
 			</script>
 			
 
 	
-			<!-- 탭 -->
 			<script>
 				function openCity(evt, cityName) {
 					var i, tabcontent, tablinks;
@@ -377,7 +373,6 @@ cursor: pointer;
 					evt.currentTarget.className += " active";
 				}
 
-				// Get the element with id="defaultOpen" and click on it
 				document.getElementById("defaultOpen").click();
 			</script>
 		</div>

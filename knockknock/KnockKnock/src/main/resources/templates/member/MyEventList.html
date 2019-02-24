@@ -154,7 +154,6 @@ cursor: pointer;
 				<br />
 			</div>
 			
-			<!-- 이벤트 취소 사유 확인 모달 -->
 			<div id="myModal" class="modal">
 				<div class="modal-content" th:each="confirmReasonEvent:${confirmReasonEvent}">
 					<span class="close">&times;</span>
@@ -219,24 +218,17 @@ cursor: pointer;
 
 		        	})
 
-					alert(checkBoxArr);
-		        	
 		        	inner=""
-		        	
-		        	// 배열값을 Ajax로 넘기기 위한 세팅
-		        	//jQuery.ajaxSettings.traditional = true;
 		        	
 		        	 $.ajax({
 							type:'post',  
 							url:'/checkedDeleteJE',
-			 				data: JSON.stringify(checkBoxArr), // key, value로 이뤄지지 않은 단순 배열은 JSON.stringify로 보내야 함
-			                dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+			 				data: JSON.stringify(checkBoxArr),
+			                dataType:"text", 
 							contentType: "application/json",
-							// async:false, async는 deprecated 되었음
 							 success:function(response){
 					            alert("선택한 이벤트 참가가 취소되었습니다.");
 					            
-					            // 이벤트 리스트 갱신 필요
 					            $(location).attr('href', '/MyEventList');
 
 							 },
@@ -248,7 +240,7 @@ cursor: pointer;
 		        	} else {
 		            	return false;
 		        	}
-		   		}) // 끝
+		   		}) 
 			})	
 	
 			</script>

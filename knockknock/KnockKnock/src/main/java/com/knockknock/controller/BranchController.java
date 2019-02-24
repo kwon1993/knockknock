@@ -25,12 +25,15 @@ import com.knockknock.dto.branch.BranchDetailVDTO2;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitDTO;
 import com.knockknock.security.MemberController;
+import com.knockknock.security.MemberService;
 import com.knockknock.service.BranchService;
 
 @Controller
 public class BranchController {
 	@Autowired
 	public BranchService branchService;
+	@Autowired
+	public MemberService memberService;
 	@Autowired
 	public MemberController mc;
 
@@ -90,10 +93,6 @@ public class BranchController {
 		model.addAttribute("memberInfoList", branchService.getMemberInfo(branchNumber));
 		model.addAttribute("petInfoList", branchService.getPetInfo(branchNumber));
 		
-		// 해당 지점의 이미지 디렉토리에 저장되어 있는 파일 객체
-		// System.getProperty("user.dir"): 프로젝트가 있는 경로까지 자동으로 가지고 옴
-		
-		//리눅스(서버)에서 절대경로로 가져오도록 수정
 		String path;
 		String OS = System.getProperty("os.name").toLowerCase();
 		if(OS.indexOf("nux") >= 0) {
@@ -105,7 +104,6 @@ public class BranchController {
 		File f = new File( path );
 		File[] files = f.listFiles();
 
-		// files
 		int count = 0;
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < files.length-1; i++) {
@@ -117,13 +115,12 @@ public class BranchController {
 		} else {
 		System.out.println( "디렉토리명 : " + files[i].getName() );
 		}
-		} // end of for
+		} 
 		System.out.println(list);
-		count= count-1; // main.jpg 제외
+		count= count-1;
 		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
 		
-		//리눅스(서버)에서 절대경로로 가져오도록 수정
 		String pathRoom;
 		if(OS.indexOf("nux") >= 0) {
 			pathRoom = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/branch/"+branchNumber+"room";
@@ -150,12 +147,10 @@ public class BranchController {
 		return "branch/HouseInfo";
 	}
 
-	// 방문 신청
 	@RequestMapping(value = "/visitBooking", method = RequestMethod.POST)
 	@ResponseBody
 	public void visitBooking(@RequestBody VisitDTO visitDTO, Authentication authentication) {
 
-		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
@@ -166,20 +161,28 @@ public class BranchController {
 		branchService.visitBooking(visitDTO, email);
 	}
 	
-	// 관심 지점 등록
 	@RequestMapping(value="/likeBranch", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public void likeBranch(@RequestBody String branchNumber1, Authentication authentication) {
-		
-		System.out.println("관심 지점: "+branchNumber1);
+	public void likeBranch(Model model, @RequestBody String branchNumber1, Authentication authentication) {
 		
 		int branchNumber = Integer.parseInt(branchNumber1);
 		
-		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		
 		branchService.likeBranch(branchNumber, email);
+	}
+	
+	@RequestMapping(value="/getHeartStatus")
+	@ResponseBody
+	public void getHeartStatus(Model model, @RequestBody String branchNumber1, Authentication authentication) {
+		int branchNumber = Integer.parseInt(branchNumber1);
+		
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		String email = user.getUsername();
+
+		model.addAttribute("heartStatus", memberService.getHeartStatus(branchNumber, email));
 	}
 }
