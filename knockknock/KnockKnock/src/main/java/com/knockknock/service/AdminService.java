@@ -77,7 +77,8 @@ public class AdminService {
 		}
 
 		int Numbering = 0;
-
+		String imageName = "";
+		
 		for (MultipartFile multipartFile : eventImage) {
 			String extension = multipartFile.getOriginalFilename()
 					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
@@ -90,12 +91,14 @@ public class AdminService {
 			}
 			try {
 				File saveFile = new File(EventUploadPath, uploadFileName);
+				imageName = uploadFileName;
 				multipartFile.transferTo(saveFile);
 			} catch (Exception e) {
 				System.out.println("실패");
 				e.printStackTrace();
 			} // end catch
 		}
+		adminMapper.setEventImageName(writingNumber, imageName);
 	}
 //	public void eventImageUpload(int writingNumber, EventDTO eventDTO) {
 //		int writingNumber = Collections.max(adminMapper.getWritingNumber());
@@ -141,6 +144,13 @@ public class AdminService {
 	public EventVDTO eventView(int writingNumber) {
 		adminMapper.eventViewHit(writingNumber);
 		return adminMapper.eventView(writingNumber);
+	}
+	
+	public String eventImagePath(int writingNumber) {
+		String path;
+		String name = adminMapper.getEventImageName(writingNumber);
+		path = "/images/event/"+writingNumber+"/"+name;
+		return path;
 	}
 
 	public ArrayList<EventJoinMemberVDTO> getEventJoinMember(int writingNumber) {

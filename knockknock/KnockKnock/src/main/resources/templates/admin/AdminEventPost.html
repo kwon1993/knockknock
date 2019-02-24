@@ -129,6 +129,7 @@ body{
 						<td th:text="${list.gender}"></td>
 					</tr>
 				</table>
+				<img th:src="${imgPath}" style="width:288px;">
 				<div th:utext="${eventView.content}"></div>
 				<form name="myForm" method="post">
 					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">

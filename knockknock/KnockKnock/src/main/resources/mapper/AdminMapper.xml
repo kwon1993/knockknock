@@ -69,6 +69,16 @@
 		VALUES
 		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},0,NOW())
 	</insert>
+	<update id="setEventImageName">
+		UPDATE EVENT
+		SET IMAGE = #{param2}
+		WHERE WRITING_NUMBER = #{param1}
+	</update>
+	<select id="getEventImageName" resultType="String">
+		SELECT IMAGE
+		FROM EVENT
+		WHERE WRITING_NUMBER = #{param1}
+	</select>
 	<select id="getWritingNumber" resultType="Integer">
 		SELECT WRITING_NUMBER writingNumber
 		FROM EVENT

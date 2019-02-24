@@ -41,6 +41,7 @@ public class AdminController {
 	public String eventView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventView", adminService.eventView(writingNumber));
 		model.addAttribute("joinMember", adminService.getEventJoinMember(writingNumber));
+		model.addAttribute("imgPath", adminService.eventImagePath(writingNumber));
 		return "admin/AdminEventPost";
 	}
 

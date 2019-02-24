@@ -38,6 +38,10 @@ public interface AdminMapper {
 	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
 			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 	
+	public void setEventImageName(int writingNumber, String imageName);
+	
+	public String getEventImageName(int writingNumber);
+	
 	public ArrayList<Integer> getWritingNumber();
 
 	public ArrayList<Integer> eventWriteNumber(int memberNumber, String title, String content, Date eventStartTime,
