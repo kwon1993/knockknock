@@ -1,5 +1,6 @@
 package com.knockknock.mapper;
 
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.event.EventJoinMemberVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
 import com.knockknock.dto.member.MemberDTO;
@@ -27,17 +29,30 @@ public interface AdminMapper {
 	public void eventViewHit(int writingNumber);
 	
 	public Integer getMemberNumber(String email);
+	
+	public ArrayList<EventJoinMemberVDTO> getEventJoinMember(int writingNumber);
 
+//	public void eventWrite(int memberNumber, String title, String content, Date acceptStartTime, Date acceptEndTime, String recruitMaxNumber,
+//			Date eventStartTime, Date eventEndTime);
+	
 	public void eventWrite(int memberNumber, String title, String content, Date eventStartTime, Date eventEndTime,
-			Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
+	
+	public void setEventImageName(int writingNumber, String imageName);
+	
+	public String getEventImageName(int writingNumber);
+	
+	public ArrayList<Integer> getWritingNumber();
 
 	public ArrayList<Integer> eventWriteNumber(int memberNumber, String title, String content, Date eventStartTime,
-			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 
 	public EventDTO eventModifyView(int writingNumber);
 
 	public void eventModify(int writingNumber, int memberNumber, String title, String content, Date eventStartTime,
-			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
+	
+	public void eventCancel(int writingNumber, String cancelReason);
 
 	public void eventDelete(int writingNumber);
 

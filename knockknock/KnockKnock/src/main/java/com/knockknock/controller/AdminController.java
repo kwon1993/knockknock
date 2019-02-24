@@ -5,17 +5,20 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.event.EventDTO;
 import com.knockknock.service.AdminService;
 
 @Controller
@@ -37,6 +40,8 @@ public class AdminController {
 	@RequestMapping("adminEventView")
 	public String eventView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventView", adminService.eventView(writingNumber));
+		model.addAttribute("joinMember", adminService.getEventJoinMember(writingNumber));
+		model.addAttribute("imgPath", adminService.eventImagePath(writingNumber));
 		return "admin/AdminEventPost";
 	}
 
@@ -47,17 +52,13 @@ public class AdminController {
 	}
 
 	// 이벤트 등록
-	@RequestMapping("adminEventWrite")
-	public String eventWrite(Model model,
-			@RequestParam("title") String title, @RequestParam("content") String content,
-			@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
-			@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-			@RequestParam("recruitNumber") int recruitNumber, Authentication authentication) {
-//		int writingNumber = 
-		adminService.eventWrite(title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitNumber, authentication);
-//		model.addAttribute("eventView", adminService.eventView(writingNumber));
-//		return "redirect:admin/AdminEventPost";
+	@RequestMapping(value = "adminEventWrite")
+	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
+		adminService.eventWrite(eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
+				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
+				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
+
+//		adminService.eventImageUpload(writingNumber, eventDTO);
 		return "redirect:adminEventListView";
 	}
 
@@ -70,13 +71,18 @@ public class AdminController {
 
 	// 이벤트 수정
 	@RequestMapping("adminEventModify")
-	public String eventModify(Model model, @RequestParam("writingNumber") int writingNumber,
-			@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
-			@RequestParam("content") String content, @RequestParam("eventStartTime") Date eventStartTime,
-			@RequestParam("eventEndTime") Date eventEndTime, @RequestParam("acceptStartTime") Date acceptStartTime,
-			@RequestParam("acceptEndTime") Date acceptEndTime, @RequestParam("recruitNumber") int recruitNumber) {
-		adminService.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
-				acceptStartTime, acceptEndTime, recruitNumber);
+	public String eventModify(Model model, EventDTO eventDTO, Authentication authentication) {
+		adminService.eventModify(eventDTO.getWritingNumber(), eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
+				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
+				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
+		return "redirect:adminEventListView";
+	}
+
+	// 이벤트 취소
+	@RequestMapping("adminEventCancel")
+	public String eventCancel(Model model, @RequestParam("writingNumber") int writingNumber,
+			@RequestParam("cancelReason") String cancelReason) {
+		adminService.eventCancel(writingNumber, cancelReason);
 		return "redirect:adminEventListView";
 	}
 
