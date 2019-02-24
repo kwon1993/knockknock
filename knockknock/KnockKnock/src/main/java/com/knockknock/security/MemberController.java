@@ -75,6 +75,12 @@ public class MemberController {
 		return "home/Home";
 	}
 
+	@RequestMapping("/loginFail")
+	public String loginFail(Model model) {
+		model.addAttribute("checkFail","로그인을 실패했습니다");
+		return "member/Login";
+	}
+	
 	// 아이디찾기
 	@RequestMapping("/findId")
 	@ResponseBody // ajax로 받을때 쓰는 어노테이션

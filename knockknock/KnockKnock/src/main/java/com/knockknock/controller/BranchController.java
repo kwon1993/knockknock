@@ -176,8 +176,8 @@ public class BranchController {
 	
 	@RequestMapping(value="/getHeartStatus")
 	@ResponseBody
-	public void getHeartStatus(Model model, int branchNumber, Authentication authentication) {
-//		int branchNumber = Integer.parseInt(branchNumber1);
+	public void getHeartStatus(Model model, @RequestBody String branchNumber1, Authentication authentication) {
+		int branchNumber = Integer.parseInt(branchNumber1);
 		
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
