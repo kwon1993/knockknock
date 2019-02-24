@@ -306,5 +306,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM EVENT
 		WHERE WRITING_NUMBER=#{writingNumber}
 	</select>
-
+	
+	<select id="getHeartStatus">
+		SELECT
+		BRANCH_NUMBER, MEMBER_NUMBER
+		FROM LIKE_BRANCH
+		WHERE BRANCH_NUMBER=#{branchNumber}
+		AND MEMBER_NUMBER=(SELECT M.MEMBER_NUMBER FROM MEMBER M WHERE M.EMAIL =#{email})
+	</select>
+	
 </mapper>

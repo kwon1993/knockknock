@@ -172,12 +172,10 @@ $(document).ready(function(){
         		type:'post',  
 				url:'/deleteLB',
 				data: branchNumber1,
-		        dataType:"text", // ajax 호출후 리턴받는 결과에 대한 데이터 타입
+		        dataType:"text", \
 				contentType: "application/json",
-				// async:false, async는 deprecated 되었음
 				success:function(data){
 					alert("관심 지점이 삭제되었습니다.");
-					// 리스트 갱신 필요(페이지 이동)
 					$(location).attr('href', '/MyLikeBranch');
 
 				},

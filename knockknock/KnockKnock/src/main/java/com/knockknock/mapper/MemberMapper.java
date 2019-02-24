@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -78,5 +79,7 @@ public interface MemberMapper {
 	public MeetingVDTO confirmReason(int writingNumber);
 	
 	public EventVDTO confirmReasonEvent(int writingNumber);
+
+	public LikeBranchDTO getHeartStatus(int branchNumber, String email);
 
 }
