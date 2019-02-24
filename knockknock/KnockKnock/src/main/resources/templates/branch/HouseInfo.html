@@ -310,8 +310,8 @@ color:black;
 		
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   		  <div class="carousel-inner">
-		    <div class="carousel-item active">
-		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'/mainImage.jpg'" alt="First slide">
+		    <div class="carousel-item active" th:each="main : ${mainImage}">
+		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'/'+${main}" alt="First slide">
 		    </div>
 			 <div class="carousel-item" th:each="item : ${fileList}">
 			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
@@ -686,19 +686,11 @@ color:black;
 					}
 			
 				},
-				/* error: function(data){
-					alert("에러 발생");
-				} */
+				
 			}) 
 			})
 			
-				/* var heartStatus = [[${heartStatus}]];
-				// console.log(heartStatus);
-			
-				if(heartStatus!=null){
-					toggle.src="/images/like.png";
-				}  */
-			
+
 			$("#likeBranch").click(function(){
 				
 				if(toggle.src.match("Cancel")){
@@ -713,7 +705,7 @@ color:black;
 			                dataType:"text", 
 							contentType: "application/json",
 							success:function(response){
-								alert("내 관심 지점 등록이 완료되었습니다.");
+								walert("내 관심 지점 등록이 완료되었습니다.");
 							}
 						}) 
 					} else {

@@ -29,6 +29,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CompositeFilter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
+import com.knockknock.controller.LoginFailController;
 import com.knockknock.security.CustomUserDetailsService;
 import com.knockknock.social.FacebookOAuth2ClientAuthenticationProcessingFilter;
 import com.knockknock.social.SocialService;
@@ -55,16 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception { // 허용되어야할 경로들
-		// 이거 있으면, 모든 인증처리를 무시해서, antMatcher(인증필요한곳)을 해도 인증처리가 안됨
-		// web.ignoring().antMatchers("/meetingModify");
-	}
-
-	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		
 		// 기존설정
 		http.authorizeRequests()
+				.antMatchers("/login").anonymous()
 				// 매치 : static 이하
 				.antMatchers("/contactform/**", "/css/**", "/images/**", "/img/**", "/js/**", "/lib/**", "/vendor/**",
 						"static/**")
@@ -76,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/toSharingGuide", "/toFAQ")
 				.permitAll()
 				// 매치 : MeetingAndEventController
-				.antMatchers("/meetingList", "/meetingView", "/meetingModify", "/eventList","/eventView")
+				.antMatchers("/meetingList", "/meetingView", "/meetingModify", "/eventList", "/eventView")
 				.permitAll()
 				// 매치 : ReplyController
 				.antMatchers("/meetingReplyList").permitAll() // from 민철 추가
@@ -89,20 +85,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/sendpass").permitAll()
 				// 매치 : 방문신청 인증 필요
 				.antMatchers("/visitBooking").authenticated()
-				.anyRequest().authenticated().and()
-				.formLogin().loginPage("/login")
+				.anyRequest().authenticated();
+				
+		http
+				.formLogin()
+				.loginPage("/login")
 				.defaultSuccessUrl("/")
-//			.failureUrl("/login")
-				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-				.permitAll();
-		// loginProcessingUrl없애니 됨
+				.failureHandler(new LoginFailController());
+		http
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login").deleteCookies("JSESSIONID");
 
 		http.authorizeRequests().antMatchers("/**")
 		.permitAll().and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
-		
 		//이 코드가 없으면 CSRF 토큰을 발급하지 않는다.CSRF 위험에 노출.(개발자도구->네트워크->어플리케이션에서 확인)
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		
 	}
 
 	// 로그인 처리 시 인증에 대한 처리

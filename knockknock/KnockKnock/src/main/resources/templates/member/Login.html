@@ -74,6 +74,14 @@
 	font-family: 'Jua', sans-serif;
 	font-size:25px;
 }
+
+#facebookLogin{
+	background-color: #3b5998;
+	color: white;
+	border-radius: 1rem;
+	width:100%;
+	font-size:20px;
+}
 </style>
 </head>
 <body>
@@ -84,7 +92,7 @@
 				<div class="card">
 					<div class="card-header" id="card-header"><strong>KnockKnock 로그인</strong></div>
 					<div class="card-body">
-						<form method="post" class="form-horizontal">
+						<form method="post" class="form-horizontal" id='mainLogin' action="/login">
 							<div class="form-group">
 								<label for="name" class="cols-sm-2 control-label">아이디</label>
 								<div class="cols-sm-10">
@@ -125,19 +133,15 @@
 								<div class="cols-sm-10">
 									<div class="input-group">
 										<input type="submit" name='submit' id='login' value="로그인" class="form-control">
+										<input type="submit" name='facebookLogin' id='facebookLogin' value="페이스북 로그인" class="form-control">
 										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									</div>
-									<!-- 구글로그인 -->
-									<!--<div class="input-group">
-										<input type='submit' class='g-signin2' id='loginBtn' value="checking..." onclick="if(this.value==='Login'){gauth.signIn().then(function(){ checkLoginStatus();}); }else{gauth.signOut().then(function(){checkLoginStatus();});  }">
-										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
-									</div>-->
+									<span class="checkFail" th:text="${fail}"/>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-				
 				<!-- modal modal modal modal modal(findId) -->		
 			    <!-- The Modal -->
 			    <div id="myIdModal" class="modal">
@@ -203,12 +207,19 @@
 				    </div>
 			    </div>
 				<!-- modal modal modal modal modal(findPass) -->
-			<a class="facebook-login-text" href="/login/facebook">facebook으로 로그인</a>
-			</div>
-		</div>
+		</div>	
 	</div>
-
+</div>
 <script>
+
+
+//페이스북 로그인 버튼
+$("#facebookLogin").on('click',function(){
+	var	form = document.getElementById("mainLogin");
+	form.action = "/login/facebook";
+	form.submit();
+	return false;
+})
 
 //Get the modal
 var idModal = document.getElementById('myIdModal');
