@@ -131,11 +131,16 @@ body{
 				</table>
 				<img th:src="${imgPath}" style="width:288px;">
 				<div th:utext="${eventView.content}"></div>
-				<form name="myForm" method="post">
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">이벤트 취소</button>
+				<form name="myForm" action="adminEventDelete" style="display: inline;">
 					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">이벤트 취소</button>
 					<input type="submit" class="btn btn-success" value="이벤트 삭제">
+				</form>
+				<form name="myForm" action="adminEventModifyView" style="display: inline;">
+					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
 					<input type="submit" class="btn btn-success" value="이벤트 수정">
+				</form>
+				<form name="myForm" action="adminEventListView" style="display: inline;">
 					<input type="submit" class="btn btn-success" value="목록으로">
 				</form>
 
@@ -143,19 +148,4 @@ body{
 		</div>
 	</div>
 </body>
-<script>
-	function mySubmit(index){
-		if (index == 1){
-			document.myForm.action = 'adminEventModifyView';
-		}
-		if (index == 2){
-			document.myForm.action = 'adminEventDelete';
-		}
-		if (index == 3){
-			document.myForm.action = 'adminEventListView';
-		}
-	}
-	
-	
-</script>
 </html>

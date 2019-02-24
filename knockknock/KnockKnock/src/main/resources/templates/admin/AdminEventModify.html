@@ -6,20 +6,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
+
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Jua', sans-serif;
+}
+
 body{
-font-family: 'Jua', sans-serif;
+	font-family: 'Jua', sans-serif;
+	margin-top:80px;
+}
+
+.sidenav {
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 130px;
+	left: 60px;
+	background: #eee;
+	overflow-x: hidden;
+	padding: 8px 0;
+	margin-right: 40px;
+}
+
+#sidenav{
+	background-color:white;
+	border: 1px solid #2eca6a;
+	color:#2eca6a;
+	font-weight:bolder;
+	border-radius: 1rem;
+
+}
+
+.sidenav a {
+	padding: 10px 10px 10px 16px;
+	text-decoration: none;
+	font-size: 30px;
+	color: #2eca6a;
+	display: block;
+}
+
+.sidenav a:hover {
+	color: #064579;
+}
+
+.row{
+	margin-left:120px;
+}
+
+#title{
+	color:#2eca6a;
+	font-size:larger;
+	font-weight:bolder;
+	margin-bottom:30px;
 }
 </style>
 
 </head>
 <body>
 	<div layout:fragment="content" class="container">
-		<div class="jumbotron">
-			<h1>이벤트 수정 페이지</h1>
-		</div>
 		<div class="row">
 			<div class="col-md-2">
-				<h3>관리 메뉴</h3>
 				<div class="sidenav">
 					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
 						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
@@ -28,55 +74,22 @@ font-family: 'Jua', sans-serif;
 				</div>
 			</div>
 			<div class="col-md-10">
-				<form action="adminEventModify">
-					<table>
-						<tr>
-							<td>number</td>
-							<td><input type="hidden" name="writingNumber"
-								th:value="${eventModifyView.writingNumber}"></td>
-							<td><input type="hidden" name="memberNumber"
-								th:value="${eventModifyView.memberNumber}"></td>
-						</tr>
-						<tr>
-							<td>title</td>
-							<td><input type="text" name="title"
-								th:value="${eventModifyView.title}"></td>
-						</tr>
-						<tr>
-							<td>event start time</td>
-							<td><input type="date" name="eventStartTime"
-								th:value="${eventModifyView.eventStartTime}"></td>
-						</tr>
-						<tr>
-							<td>event end time</td>
-							<td><input type="date" name="eventEndTime"
-								th:value="${eventModifyView.eventEndTime}"></td>
-						</tr>
-						<tr>
-							<td>accept start time</td>
-							<td><input type="date" name="acceptStartTime"
-								th:value="${eventModifyView.acceptStartTime}"></td>
-						</tr>
-						<tr>
-							<td>accept end time</td>
-							<td><input type="date" name="acceptEndTime"
-								th:value="${eventModifyView.acceptEndTime}"></td>
-						</tr>
-						<tr>
-							<td>recruit number</td>
-							<td><input type="number" name="recruitNumber"
-								th:value="${eventModifyView.recruitNumber}"></td>
-						</tr>
-						<tr>
-							<td>content</td>
-							<td><textarea name="content"
-									th:value="${eventModifyView.content}"></textarea></td>
-						</tr>
-						<tr>
-							<td>send</td>
-							<td><input type="submit" name="eventModify"></td>
-						</tr>
-					</table>
+				<h4 class="modal-title">이벤트 수정</h4>
+				<form action="adminEventModify" method="post" enctype="multipart/form-data" id="form">
+					<label style="width: 100px;">제목</label><input type=text name="title" th:value="${eventModifyView.title}"><br />
+					<label style="width: 100px;">모집 시작 시간</label><input type="date" name="acceptStartTime" th:value="${eventModifyView.acceptStartTime}"><br />
+					<label style="width: 100px;">모집 종료 시간</label><input type="date" name="acceptEndTime" th:value="${eventModifyView.acceptEndTime}"><br />
+					<label style="width: 100px;">이벤트 시작 시간</label><input type="date" name="eventStartTime" th:value="${eventModifyView.eventStartTime}"><br />
+					<label style="width: 100px;">이벤트 종료 시간</label><input type="date" name="eventEndTime" th:value="${eventModifyView.eventEndTime}"><br />
+					<label style="width: 100px;">모집 인원</label><input type="number" name="recruitMaxNumber" th:value="${eventModifyView.recruitMaxNumber}"><br />
+					<label style="width: 100px;">이미지</label><input type="file" name="eventImage"><br />
+					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15"></textarea>
+						<script>
+							CKEDITOR.replace('content');
+						</script></div>
+					<input type="submit" name="eventModify" id="eventModify" value="수정" style="float: right;">
+					<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}">
 				</form>
 			</div>
 		</div>

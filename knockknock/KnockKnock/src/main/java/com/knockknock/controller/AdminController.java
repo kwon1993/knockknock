@@ -51,12 +51,6 @@ public class AdminController {
 		return "admin/AdminEventWrite";
 	}
 
-//	@RequestParam("title") String title, @RequestParam("content") String content,
-//	@RequestParam("eventStartTime") Date eventStartTime, @RequestParam("eventEndTime") Date eventEndTime,
-//	@RequestParam("acceptStartTime") Date acceptStartTime, @RequestParam("acceptEndTime") Date acceptEndTime,
-//	@RequestParam("recruitMaxNumber") int recruitMaxNumber, /*@RequestParam("eventImage") List<MultipartFile> eventImage,*/
-//	, Authentication authentication
-
 	// 이벤트 등록
 	@RequestMapping(value = "adminEventWrite")
 	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
@@ -77,13 +71,10 @@ public class AdminController {
 
 	// 이벤트 수정
 	@RequestMapping("adminEventModify")
-	public String eventModify(Model model, @RequestParam("writingNumber") int writingNumber,
-			@RequestParam("memberNumber") int memberNumber, @RequestParam("title") String title,
-			@RequestParam("content") String content, @RequestParam("eventStartTime") Date eventStartTime,
-			@RequestParam("eventEndTime") Date eventEndTime, @RequestParam("acceptStartTime") Date acceptStartTime,
-			@RequestParam("acceptEndTime") Date acceptEndTime, @RequestParam("recruitNumber") int recruitNumber) {
-		adminService.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
-				acceptStartTime, acceptEndTime, recruitNumber);
+	public String eventModify(Model model, EventDTO eventDTO, Authentication authentication) {
+		adminService.eventModify(eventDTO.getWritingNumber(), eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
+				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
+				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
 		return "redirect:adminEventListView";
 	}
 

@@ -45,12 +45,12 @@ public interface AdminMapper {
 	public ArrayList<Integer> getWritingNumber();
 
 	public ArrayList<Integer> eventWriteNumber(int memberNumber, String title, String content, Date eventStartTime,
-			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 
 	public EventDTO eventModifyView(int writingNumber);
 
 	public void eventModify(int writingNumber, int memberNumber, String title, String content, Date eventStartTime,
-			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitNumber);
+			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 	
 	public void eventCancel(int writingNumber, String cancelReason);
 
