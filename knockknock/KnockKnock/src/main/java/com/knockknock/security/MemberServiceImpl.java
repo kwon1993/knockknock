@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.knockknock.dto.branch.BranchDetailVDTO;
 import com.knockknock.dto.event.EventVDTO;
 import com.knockknock.dto.event.MeetingVDTO;
+import com.knockknock.dto.member.LikeBranchDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.PetDTO;
 import com.knockknock.dto.member.ProfileVDTO;
@@ -193,7 +194,6 @@ public class MemberServiceImpl implements MemberService{
 		return 1;
 	}
 
-
 	@Override
 	public MeetingVDTO confirmReason(int writingNumber) {
 		 return memberMapper.confirmReason(writingNumber);
@@ -202,6 +202,10 @@ public class MemberServiceImpl implements MemberService{
 	public EventVDTO confirmReasonEvent(int writingNumber) {
 		return memberMapper.confirmReasonEvent(writingNumber);
 	}
-
+	
+	@Override
+	public LikeBranchDTO getHeartStatus(int branchNumber, String email) {
+		return memberMapper.getHeartStatus(branchNumber, email);
+	}
 
 }

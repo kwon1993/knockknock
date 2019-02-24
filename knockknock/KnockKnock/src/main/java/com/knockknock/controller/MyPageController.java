@@ -136,7 +136,6 @@ public class MyPageController {
 	@RequestMapping("/MyEventList")
 	public String myEventList(Model model, ProfileVDTO profileVDTO) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
@@ -161,7 +160,6 @@ public class MyPageController {
 	@RequestMapping("/MyMeetingList")
 	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
@@ -177,7 +175,6 @@ public class MyPageController {
 	@RequestMapping("/MyVisitList")
 	public String myVisitList(Model model, ProfileVDTO profileVDTO) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
@@ -187,11 +184,9 @@ public class MyPageController {
 		return "member/MyVisitList";
 	}
 
-	// 내 관심 지점 리스트
 	@RequestMapping("/MyLikeBranch")
 	public String myLikeBranch(Model model) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
@@ -209,7 +204,6 @@ public class MyPageController {
 		
 		 int branchNumber = Integer.parseInt(branchNumber1);
 		 
-		 // 현재 로그인 사용자 정보에 접근 
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 		 User user = (User)authentication.getPrincipal(); 
 		 String email = user.getUsername();
@@ -225,14 +219,12 @@ public class MyPageController {
 	@RequestMapping("/deleteJM")
 	public String deleteJM(Model model, @RequestParam("writingNumber") int writingNumber) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
 		memberService.deleteJM(writingNumber, user.getUsername());
 
-		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 
@@ -247,7 +239,6 @@ public class MyPageController {
 
 		System.out.println(checkBoxArr[0]);
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
@@ -266,14 +257,12 @@ public class MyPageController {
 	@RequestMapping("/deleteMM")
 	public String deleteMM(Model model, @RequestParam("writingNumber") int writingNumber) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
 		memberService.deleteMM(writingNumber, user.getUsername());
 
-		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 
@@ -284,14 +273,12 @@ public class MyPageController {
 	@RequestMapping("/deleteJE")
 	public String deleteJE(Model model, @RequestParam("writingNumber") int writingNumber) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
 		memberService.deleteJE(writingNumber, user.getUsername());
 
-		// 참가한 이벤트 리스트 다시 받아오기
 		model.addAttribute("MEL", memberService.getMEL(user.getUsername()));
 
 		return "member/MyEventList";
@@ -305,7 +292,6 @@ public class MyPageController {
 
 		System.out.println(checkBoxArr[0]);
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
@@ -323,14 +309,12 @@ public class MyPageController {
 	@RequestMapping("/deleteV")
 	public String deleteV(Model model, @RequestParam("writingNumber") int writingNumber) {
 
-		// 현재 로그인 사용자 정보에 접근
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 
 		model.addAttribute("user", user.getUsername());
 		memberService.deleteV(writingNumber, user.getUsername());
 
-		// 방문 신청 리스트 다시 받아오기
 		model.addAttribute("MVL", memberService.getMVL(user.getUsername()));
 
 		return "member/MyVisitList";
@@ -364,7 +348,6 @@ public class MyPageController {
 	@ResponseBody
 	public void cancelMM(@RequestBody MeetingVDTO meetingVDTO, Authentication authentication, Model model) {
 
-		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
@@ -375,7 +358,6 @@ public class MyPageController {
 		memberService.cancelMM(meetingVDTO, email);
 		memberService.cancelMM2(meetingVDTO, email);
 
-		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(user.getUsername()));
 		model.addAttribute("MMLM", memberService.getMMLM(user.getUsername()));
 		
@@ -385,14 +367,12 @@ public class MyPageController {
 	@RequestMapping("/confirmReason")
 	public String ConfirmReason(Model model, @RequestParam int writingNumber, Authentication authentication) {
 		
-		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		
 		model.addAttribute("confirmReason", memberService.confirmReason(writingNumber));
 		
-		// 신청, 개설한 모임 리스트 다시 받아오기
 		model.addAttribute("MMLJ", memberService.getMMLJ(email));
 		model.addAttribute("MMLM", memberService.getMMLM(email));
 		
@@ -402,14 +382,12 @@ public class MyPageController {
 	// 이벤트 취소 사유 확인(SELECT)
 	@RequestMapping("/confirmReasonEvent")
 	public String ConfirmReasonEvent(Model model, @RequestParam int writingNumber, Authentication authentication) {
-		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		
 		model.addAttribute("confirmReasonEvent", memberService.confirmReasonEvent(writingNumber));
 				
-		// 이벤트 리스트 다시 받아오기
 		model.addAttribute("MEL", memberService.getMEL(email));
 				
 		return "member/MyEventList";
