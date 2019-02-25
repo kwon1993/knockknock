@@ -159,7 +159,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<tr  class="text-center" th:each="branchDetailVDTO : ${lists}">
  	 				<td><a th:href="@{'/roomDetailView/?branchNumber='+${branchDetailVDTO.branchNumber}}" id=''>
  	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'/mainImage.jpg'" alt="branchImg" id='img'>
-  	 				<div th:text="'('+${branchDetailVDTO.branchNumber}+호점+')'"></div></a></td>
+  	 				<div th:text="${branchDetailVDTO.branchNumber}+호점"></div></a></td>
 					<td class="td-1" th:text="${branchDetailVDTO.address}"></td>
 					<td th:text="${branchDetailVDTO.theme}"></td>
 					<td th:text="${branchDetailVDTO.gender}"></td>
@@ -225,7 +225,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 										"<tr class='text-center' style='width: 30px;'>"
 										+"<td><a href='/roomDetailView/?branchNumber="+branchDetailVDTO.branchNumber+"' class='' id=''>"
 	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"/mainImage.jpg'"+" alt='' id='img'/>"
-	 									+"<span>"+"("+branchDetailVDTO.branchNumber+"호점)"+"</span>"+"</a></td>"
+	 									+"<span>"+branchDetailVDTO.branchNumber+"호점"+"</span>"+"</a></td>"
 										+"<td class='address'>"+branchDetailVDTO.address+"</td>"
 										+"<td class='theme'>"+branchDetailVDTO.theme+"</td>"
 										+"<td class='gender'>"+branchDetailVDTO.gender+"</td>"
