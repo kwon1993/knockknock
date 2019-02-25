@@ -50,14 +50,13 @@ body{
 				</div>
 			<div class="col">
 			<h1><span id="title" th:text="${MeetingView.title}">제목</span></h1>
-<!-- 			<span th:text="${MeetingView.nickname} + ' | '">닉네임</span> -->
 			<span th:text="'작성일 : '+${MeetingView.writeTime}">작성일</span>
-<!-- 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span> -->
+			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
 				<form>
 					<div>
 						<br/>
 						<span th:text="모임소개"></span>
-						<p th:text="${MeetingView.detailIntroduce}"></p>
+						<p th:utext="${MeetingView.detailIntroduce}"></p>
 					</div>
 					<div>
 						<span>모임정보</span>
