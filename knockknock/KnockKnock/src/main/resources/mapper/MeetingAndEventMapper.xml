@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
             EVENT_START_TIME eventStartTime, EVENT_END_TIME eventEndTime,
             RECRUIT_NUMBER recruitNumber, RECRUIT_MAX_NUMBER recruitMaxNumber,
-            CONTENT content
+            CONTENT content, IMAGE image
         FROM EVENT
         WHERE WRITING_NUMBER = #{writingNumber}
     </select>
@@ -104,11 +104,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		writinghNumber
 		FROM MEETING
 	</select>
-    <!-- 모임글 조회수(미구현) -->
-    <update id="meetingViewHit">
-		UPDATE MEETING
-		SET HIT = HIT + 1
-		WHERE WRITING_NUMBER = #{writingNumber}
+   	<!-- 모임글 조회수 증가 -->
+	<update id="meetingViewHit">
+		UPDATE MEETING SET HIT = HIT + 1 WHERE WRITING_NUMBER =
+		#{param1}
 	</update>
 	<!-- 모임글 수정폼 -->
 	<select id="meetingModifyForm" resultType="MeetingVDTO">
@@ -167,15 +166,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND E.RECRUIT_MAX_NUMBER >= E.RECRUIT_NUMBER;
    	]]> 
 	</update>
-	<!-- 이미지 업로드 -->
-<!-- 	<update id="imageUpload"> -->
-<!-- 		UPDATE MEETING -->
-<!-- 		SET IMAGE = #{finalImage} -->
-<!-- 		WHERE WRITING_NUMBER = #{writingNumber} -->
-<!-- 	</update> -->
-<!-- 	<select id="ImageView" resultType="MemberDTO"> -->
-<!-- 		SELECT MT.IMAGE -->
-<!-- 		FROM MEETING MT, MEMBER MB -->
-<!-- 		WHERE MB.EMAIL = #{username} AND MT.MEMBER_NUMBER = MB.MEMBER_NUMBER -->
-<!--     </select> -->
+   	<!-- 이벤트 조회수 증가 -->
+	<update id="eventViewHit">
+		UPDATE EVENT SET HIT = HIT + 1 WHERE WRITING_NUMBER =
+		#{param1}
+	</update>
 </mapper>
