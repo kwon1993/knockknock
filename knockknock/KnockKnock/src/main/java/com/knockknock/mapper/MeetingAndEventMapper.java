@@ -18,7 +18,7 @@ public interface MeetingAndEventMapper {
 	public List<MeetingVDTO> mMainList() ; //메인페이지 모임리스트
 	public List<MeetingVDTO> meetingList(Criteria cri) ; //모임글 리스트
 	public MeetingVDTO meetingView(int writingNumber) ; //모임상세보기
-	public void meetignViewHit(int writingNumber); //조회수
+	public void meetingViewHit(int writingNumber); //조회수
 	public ArrayList<Integer> getWritingNumber();  //모임 글 번호 가져오기
 	public void meetingInsert(MeetingVDTO meetingVDTO) ; //모임 글쓰기
 	public MeetingVDTO meetingModifyForm(int writingNumber);
@@ -34,7 +34,8 @@ public interface MeetingAndEventMapper {
 	public int eventCount(Criteria cri) ;
 	public List<EventVDTO> eMainList() ; //메인페이지 이벤트리스트
 	public List<EventVDTO> eventList(Criteria cri) ;
-	public EventVDTO eventView(int writingNumber) ;
+	public EventVDTO eventView(int writingNumber) ;//조회수
+	public void eventViewHit(int writingNumber);
 	public int eventSearch() ;
 	public void eparticipate(@Param("eventVDTO")EventVDTO eventVDTO, String email) ;
 	public void epartNumUp(int writingNumber); //모집인원 갱신
