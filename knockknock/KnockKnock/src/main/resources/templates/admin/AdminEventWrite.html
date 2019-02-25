@@ -50,10 +50,6 @@ body{
 	color: #064579;
 }
 
-.row{
-	margin-left:120px;
-}
-
 #title{
 	color:#2eca6a;
 	font-size:larger;
@@ -90,13 +86,13 @@ body{
 						<script>
 							CKEDITOR.replace('content');
 						</script></div>
-					<input type="submit" name="eventWrite" id="eventWrite" value="작성" style="float: right;">
+					<input type="submit" class="btn btn-success" name="eventWrite" id="eventWrite" value="작성" style="float: right;">
 					<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}">
 				</form>
 			</div>
 		</div>
-		<script type="text/javascript" src="../texteditor/sample.js"></script>
+		<!-- <script type="text/javascript" src="../texteditor/sample.js"></script> -->
 	</div>
 </body>
 </html>

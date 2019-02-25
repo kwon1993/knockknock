@@ -35,12 +35,7 @@ public class ReplyController {
 	// 모임 댓글 작성
 	@PostMapping("/meetingReplyInsert")
 	@ResponseBody
-	private int meetingReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {
-		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
-		// ReviewDTO replyDTO = new ReviewDTO();
-		// replyDTO.setBranchNumber(branchNumber);
-		// replyDTO.setContent(content);
-		 
+	private int meetingReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {	 
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
@@ -56,7 +51,7 @@ public class ReplyController {
 		return reMapper.meetingReplyUpdate(replyDTO);
 	}
 
-	// 이벤트 댓글 삭제
+	// 모임 댓글 삭제
 	@RequestMapping("/meetingReplyDelete{replyNumber}")
 	@ResponseBody
 	private int meetingReplyDelete(@PathVariable("replyNumber") int replyNumber) {
@@ -68,6 +63,7 @@ public class ReplyController {
 	@PostMapping("/eventReplyList")
 	@ResponseBody
 	public List<ReplyDTO> eventReplyList(Model model, @RequestBody String writingNumber1) {
+		System.err.println("댓글 컨트롤러"+writingNumber1);
 		int writingNumber = Integer.parseInt(writingNumber1);
 		return reMapper.eventReplyList(writingNumber);
 	}
@@ -76,11 +72,6 @@ public class ReplyController {
 	@PostMapping("/eventReplyInsert")
 	@ResponseBody
 	private int eventReplyInsert(@RequestBody ReplyDTO replyDTO, Authentication authentication) {
-		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
-		// ReviewDTO replyDTO = new ReviewDTO();
-		// replyDTO.setBranchNumber(branchNumber);
-		// replyDTO.setContent(content);
-		 
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
