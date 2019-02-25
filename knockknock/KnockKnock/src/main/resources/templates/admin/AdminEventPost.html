@@ -52,10 +52,6 @@ body{
 	color: #064579;
 }
 
-.row{
-	margin-left:120px;
-}
-
 #title{
 	color:#2eca6a;
 	font-size:larger;
@@ -115,7 +111,7 @@ body{
 				<label style="width: 100px;">모집인원</label><span th:text="${eventView.recruitNumber}"></span>
 				<label> / </label><span th:text="${eventView.recruitMaxNumber}"></span><br />
 				<label>신청한 인원</label>
-				<table class="w3-table-all">
+				<table class="w3-table-all" style="width: 80%;">
 					<tr>
 						<td>회원번호</td>
 						<td>닉네임</td>
@@ -128,8 +124,8 @@ body{
 						<td th:text="${list.name}"></td>
 						<td th:text="${list.gender}"></td>
 					</tr>
-				</table>
-				<img th:src="${imgPath}" style="width:288px;">
+				</table><br />
+				<img th:src="${imgPath}" style="width: 80%;">
 				<div th:utext="${eventView.content}"></div>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">이벤트 취소</button>
 				<form name="myForm" action="adminEventDelete" style="display: inline;">

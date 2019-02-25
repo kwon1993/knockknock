@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
-
 h1, h2, h3, h4, h5, h6{
 	font-family: 'Jua', sans-serif;
 }
@@ -15,6 +14,7 @@ body{
 	font-family: 'Jua', sans-serif;
 	margin-top:80px;
 }
+
 
 .sidenav {
 	width: 200px;
@@ -49,10 +49,6 @@ body{
 	color: #064579;
 }
 
-.row{
-	margin-left:120px;
-}
-
 #title{
 	color:#2eca6a;
 	font-size:larger;
@@ -73,63 +69,21 @@ body{
 				</div>
 			</div>
 			<div class="col-md-10">
-				<h1 id='title'>이벤트 등록</h1>
-				<h2 th:text="${visitView.title}"></h2>
-				
-				
-				
-				
-				
-				<table id="table" class="w3-table-all">
-					<tr>
-						<td>글번호</td>
-						<td>호수</td>
-						<td>닉네임</td>
-						<td>작성시간</td>
-					</tr>
-					<tr>
-						<td th:text="${visitView.writingNumber}"></td>
-						<td th:text="${visitView.branchNumber}"></td>
-						<td th:text="${visitView.nickname}"></td>
-						<td th:text="${visitView.writeTime}"></td>
-					</tr>
-					<tr>
-						<td colspan="1">방문 예약 시간</td>
-						<td colspan="3" th:text=${visitView.reservationTime}></td>
-					</tr>
-					<tr>
-						<td colspan="1">이름</td>
-						<td colspan="3" th:text=${visitView.name}></td>
-					</tr>
-					<tr>
-						<td colspan="1">메모사항</td>
-						<td colspan="3" th:text=${visitView.memo}></td>
-					</tr>
-					<tr>
-						<td colspan="1">확인여부</td>
-						<td colspan="3" th:text=${visitView.ischeck}></td>
-					</tr>
-					<tr>
-						<td colspan="1"></td>
-						<td colspan="1">
-							<form action="adminVisitList">
-								<input type="submit" value="목록으로">
-							</form>
-						</td>
-						<td colspan="1">
-							<form action="adminVisitCheck">
-								<input type="hidden" name="writingNumber"
-									th:value="${visitView.writingNumber}"> <input
-									type="submit" value="확인체크">
-							</form>
-						</td>
-						<td colspan="1">
-							<form action="/">
-								<input type="submit" value="main">
-							</form>
-						</td>
-					</tr>
-				</table>
+				<h1 id='title'>방문문의 확인</h1>
+				<h2 th:text="|*{visitView.branchNumber}호점 방문신청|"></h2>
+				<label style="width: 100px;">작성자</label><span th:text="${visitView.nickname}"></span><br />
+				<label style="width: 100px;">이름</label><span th:text="${visitView.name}"></span><br />
+				<label style="width: 100px;">작성시간</label><span th:text="${visitView.writeTime}"></span><br />
+				<label style="width: 100px;">방문신청시간</label><span th:text="${visitView.reservationTime}"></span><br />
+				<label style="width: 100px;">처리여부</label><span th:text="${visitView.ischeck}"></span><br />
+				<label style="width: 100px;">메모사항</label><span th:text="${visitView.memo}"></span><br />
+				<form action="adminVisitCheck" style="display: inline;">
+					<input type="hidden" name="writingNumber" th:value="${visitView.writingNumber}">
+					<input type="submit" class="btn btn-success" value="확인체크">
+				</form>
+				<form action="adminVisitList" style="display: inline;">
+					<input type="submit" class="btn btn-success" value="목록으로">
+				</form>
 			</div>
 		</div>
 	</div>

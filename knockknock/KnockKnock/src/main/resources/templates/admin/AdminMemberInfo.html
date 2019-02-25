@@ -55,6 +55,9 @@ body{
 	font-weight:bolder;
 	margin-bottom:30px;
 }
+label{
+	width: 100px;
+}
 </style>
 
 </head>
@@ -62,145 +65,56 @@ body{
 	<div layout:fragment="content" class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<h3>관리 메뉴</h3>
 				<div class="sidenav" id='sidenav'>
-					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
-						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
-						th:href="@{adminVisitList}">방문문의관리</a><br> <a
-						th:href="@{adminBranchRegistView}">지점등록</a><br>
+					<a th:href="@{adminEventListView}">이벤트관리</a><br>
+					<a th:href="@{adminMemberSearchView}">회원관리</a><br>
+					<a th:href="@{adminVisitList}">방문문의관리</a><br>
+					<a th:href="@{adminBranchRegistView}">지점등록</a><br>
 				</div>
 			</div>
 			<div class="col-md-10">
 				<div class="w3-container">
 					<h1 id='title'>회원 정보</h1>
-					<table class="w3-table-all">
-						<tr>
-							<td colspan="1">회원번호</td>
-							<td colspan="3" th:text=${memberView.memberNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">권한</td>
-							<td colspan="3" th:text=${memberView.grade}></td>
-						</tr>
-						<tr>
-							<td colspan="1">이메일</td>
-							<td colspan="3" th:text=${memberView.email}></td>
-						</tr>
-						<tr>
-							<td colspan="1">닉네임</td>
-							<td colspan="3" th:text=${memberView.nickname}></td>
-						</tr>
-						<tr>
-							<td colspan="1">이름</td>
-							<td colspan="3" th:text=${memberView.name}></td>
-						</tr>
-						<tr>
-							<td colspan="1">가입일</td>
-							<td colspan="3" th:text=${memberView.joinTime}></td>
-						</tr>
-						<tr>
-							<td colspan="1">생일</td>
-							<td colspan="3" th:text=${memberView.birth}></td>
-						</tr>
-						<tr>
-							<td colspan="1">성별</td>
-							<td colspan="3" th:text=${memberView.gender}></td>
-						</tr>
-						<tr>
-							<td colspan="1">주소</td>
-							<td colspan="3" th:text=${memberView.address}></td>
-						</tr>
-						<tr>
-							<td colspan="1">상세주소</td>
-							<td colspan="3" th:text=${memberView.addressDetail}></td>
-						</tr>
-						<tr>
-							<td colspan="1">주소지 이름</td>
-							<td colspan="3" th:text=${memberView.addressName}></td>
-						</tr>
-						<tr>
-							<td colspan="1">휴대폰 번호</td>
-							<td colspan="3" th:text=${memberView.phoneNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">계약번호</td>
-							<td colspan="3" th:text=${memberView.contractNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">거주중인 지점 호수</td>
-							<td colspan="3" th:text=${memberView.branchNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">거주중인 방 호수</td>
-							<td colspan="3" th:text=${memberView.roomNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">반려동물 보유 여부</td>
-							<td colspan="3" th:text=${memberView.isPet}></td>
-						</tr>
-						<tr>
-							<td colspan="1">비상연락번호</td>
-							<td colspan="3" th:text=${memberView.emergencyNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">회원 은행명</td>
-							<td colspan="3" th:text=${memberView.bankName}></td>
-						</tr>
-						<tr>
-							<td colspan="1">회원 예금주</td>
-							<td colspan="3" th:text=${memberView.depositor}></td>
-						</tr>
-						<tr>
-							<td colspan="1">회원 계좌번호</td>
-							<td colspan="3" th:text=${memberView.memberAccount}></td>
-						</tr>
-						<tr>
-							<td colspan="1">계약일</td>
-							<td colspan="3" th:text=${memberView.contractDate}></td>
-						</tr>
-						<tr>
-							<td colspan="1">계약기간(개월)</td>
-							<td colspan="3" th:text=${memberView.period}></td>
-						</tr>
-						<tr>
-							<td colspan="1">주민등록번호</td>
-							<td colspan="3" th:text=${memberView.idNumber}></td>
-						</tr>
-						<tr>
-							<td colspan="1">체납금액</td>
-							<td colspan="3" th:text=${memberView.payDelayAmount}></td>
-						</tr>
-						<tr>
-							<td colspan="1">패널티금액</td>
-							<td colspan="3" th:text=${memberView.paneltyAmount}></td>
-						</tr>
-						<tr>
-							<td colspan="1">메모</td>
-							<td colspan="3" th:text=${memberView.memo}></td>
-						</tr>
-						<tr>
-							<td colspan="1"></td>
-							<td colspan="1">
-								<form action="adminContractRegistView">
-									<input type="hidden" name="memberNumber"
-										th:value="${memberView.memberNumber}"> <input
-										type="submit" value="계약 정보 등록">
-								</form>
-							</td>
-							<td colspan="1">
-								<form action="adminVisitList">
-									<input type="hidden" name="memberNumber"
-										th:value="${memberView.memberNumber}"> <input
-										type="submit" value="방문문의내역">
-								</form>
-							</td>
-							<td colspan="1">
-								<form action="/">
-									<input type="submit" value="메인으로">
-								</form>
-							</td>
-						</tr>
-					</table>
+					<label>회원번호</label><span th:text="${memberView.memberNumber}"></span><br />
+					<label>권한</label><span th:text="${memberView.grade}"></span><br />
+					<label>이메일</label><span th:text="${memberView.email}"></span><br />
+					<label>닉네임</label><span th:text="${memberView.nickname}"></span><br />
+					<label>이름</label><span th:text="${memberView.name}"></span><br />
+					<label>가입일</label><span th:text="${memberView.joinTime}"></span><br />
+					<label>생일</label><span th:text="${memberView.birth}"></span><br />
+					<label>성별</label><span th:text="${memberView.gender}"></span><br />
+					<label>주소</label><span th:text="${memberView.address}"></span><br />
+					<label>상세주소</label><span th:text="${memberView.addressDetail}"></span><br />
+					<label>주소지이름</label><span th:text="${memberView.addressName}"></span><br />
+					<label>휴대폰번호</label><span th:text="${memberView.phoneNumber}"></span><br />
+					
+					<h1 id='title'>계약 정보</h1>
+					<label>계약번호</label><span th:text="${memberView.contractNumber}"></span><br />
+					<label>거주중인 지점번호</label><span th:text="${memberView.branchNumber}"></span><br />
+					<label>거주중인 방 호수</label><span th:text="${memberView.roomNumber}"></span><br />
+					<label>반려동물 보유여부</label><span th:text="${memberView.isPet}"></span><br />
+					<label>비상연락번호</label><span th:text="${memberView.emergencyNumber}"></span><br />
+					<label>회원 은행명</label><span th:text="${memberView.bankName}"></span><br />
+					<label>회원 예금주</label><span th:text="${memberView.depositor}"></span><br />
+					<label>회원 계좌번호</label><span th:text="${memberView.memberAccount}"></span><br />
+					<label>계약일</label><span th:text="${memberView.contractDate}"></span><br />
+					<label>계약기간(개월)</label><span th:text="${memberView.period}"></span><br />
+					<label>주민등록번호</label><span th:text="${memberView.idNumber}"></span><br />
+					<label>체납금액</label><span th:text="${memberView.payDelayAmount}"></span><br />
+					<label>패널티금액</label><span th:text="${memberView.paneltyAmount}"></span><br />
+					<label>메모</label><span th:text="${memberView.memo}"></span><br />
+					<form action="adminContractRegistView" style="display: inline; float: right;">
+						<input type="hidden" name="memberNumber" th:value="${memberView.memberNumber}">
+						<input type="submit" class="btn btn-default" value="계약 정보 등록">
+					</form>
+					<form action="adminVisitList" style="display: inline; float: right;">
+						<input type="hidden" name="memberNumber" th:value="${memberView.memberNumber}">
+						<input type="submit" class="btn btn-default" value="방문문의내역">
+					</form>
+					<form action="/" style="display: inline; float: right;">
+						<input type="submit" class="btn btn-default" value="메인으로">
+					</form>
+								
 				</div>
 			</div>
 		</div>
