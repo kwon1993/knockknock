@@ -51,9 +51,3 @@ public class FindpassService {
             return resultdto;
     }
 }
-
-/*
- * 이 서비스 객체에서는 mybatis를 활용해서 데이터를 꺼내오고 꺼내온 결과를 resultDto 커맨드 객체에 담으며 그 커맨드 객체가
- * 없을경우 (이메일로 인한 쿼리문 실패) (select * from userinfo where bEmail = 사용자가입력한이메일) 예외를
- * 발생시키고 정상적일 경우 꺼내온 값을 리턴시키고있습니다.
- */

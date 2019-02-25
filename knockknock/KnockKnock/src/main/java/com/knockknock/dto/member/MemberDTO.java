@@ -29,6 +29,7 @@ public class MemberDTO{
 	private String introduce;
 	//임시추가(from 성현)
 	private String animal;
+	
 	//소셜용
 	public String provider;
 	private String providerId;

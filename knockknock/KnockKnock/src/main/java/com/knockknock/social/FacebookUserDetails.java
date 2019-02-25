@@ -17,7 +17,6 @@ public class FacebookUserDetails {
 	public int memberNumber;
 	
 	public void setAccessToken(OAuth2AccessToken accessToken) {
-		System.out.println("FacebookUserDetails: setAccessToken(accessToken)으로 토큰 주입");
 		this.accessToken = accessToken.getValue();
 		this.expireTime = accessToken.getExpiration().getTime();
 	}

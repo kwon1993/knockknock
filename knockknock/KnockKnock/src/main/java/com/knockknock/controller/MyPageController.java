@@ -58,13 +58,11 @@ public class MyPageController {
 		String username = user.getUsername();
 		
 		if (profileVDTO.getAnimal().length() > 0) {
-			System.out.println("Animal이 있다");
 			memberService.deletePet(profileVDTO);//펫초기화
 			memberService.firstMyPetUpdate(profileVDTO);//펫값있으면 넣기
 			memberService.profileUpdate2(profileVDTO);//업뎃
 			
 		} else {
-			System.out.println("Animal이 없다");
 			memberService.deletePet(profileVDTO);//펫초기화
 			memberService.profileUpdate2(profileVDTO);//값없는채로 업뎃
 		}
@@ -80,11 +78,7 @@ public class MyPageController {
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
 
-		
-		//업로드할 절대경로1
-//		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
-		//테스트경로
-		//리눅스(서버)에서 절대경로에서 가져오도록 수정
+		//업로드할 절대경로1(리눅스(서버)에서 절대경로에서 가져오도록 수정)
 		String uploadFolder;
 		String OS = System.getProperty("os.name").toLowerCase();
 		if(OS.indexOf("nux") >= 0) {
@@ -144,17 +138,6 @@ public class MyPageController {
 
 		return "member/MyEventList";
 	}
-
-	/*
-	 * ash
-	 * 
-	 * @RequestMapping("/MyVisitList") public String myVisitList(Model
-	 * model, @RequestParam("memberNumber") int memberNumber) {
-	 * System.out.println(memberNumber);
-	 * model.addAttribute("myVisitLists",memberService.myVisitList(memberNumber));
-	 * 
-	 * return "member/MyVisitList"; }
-	 */
 
 	@RequestMapping("/MyMeetingList")
 	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {
@@ -335,7 +318,7 @@ public class MyPageController {
 		model.addAttribute("profile", memberService.getProfile(username));
 		// 펫정보 불러오기 위한 모델
 		model.addAttribute("getPet", memberService.getPet(username));
-//		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
+		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
 		model.addAttribute("image", memberService.getImageDir(username));
 
 		memberService.changeRealPassword(memberDTO);

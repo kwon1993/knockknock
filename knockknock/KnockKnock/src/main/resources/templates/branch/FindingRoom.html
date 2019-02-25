@@ -323,7 +323,6 @@ var callback = function(result, status){
             map: map,
             position: coords
         });
-        
     	var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
     	
     	// 인포윈도우로 장소에 대한 설명을 표시
@@ -333,7 +332,6 @@ var callback = function(result, status){
     	});
 
 		customOverlay.setMap(map);
-        
         
         //'검색'을 눌렀을 때, 마커 삭제
        jQuery("#roomSearch").on('click',function(){
@@ -393,35 +391,25 @@ function multiSearch(){
 				
 				else{
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
-					
 					for(i=0; i<data.length; i++){
 						content+=
 						"<div class='col-lg-3 col-md-4 col-xs-6' name='list' id='list'>"
 						+
 						"<a href='/roomDetailView/?branchNumber="+ data[i].branchNumber
 						+ "' class='d-block mb-4 h-100' id='gallery'>"
-						
 						+"<img class='img-fluid img-thumbnail' src="+"'/images/branch/"+data[i].branchNumber+"/mainImage.jpg'" + " alt='' id='img'>" 
-						
 						+"<span name='branchNumber' id='branchNumber'>" + data[i].branchNumber + "호점</span><br>"
-						
 						+"<i class='fas fa-map-marker-alt' id='mapmarker'></i>"
-						
 						+"<span name='addressList' id='addressList'>" + data[i].address + "</span><br>"
-						
 						+"<span name='theme' id='theme'>"+data[i].theme+"</span>"
-					
 						+"<i class='fa fa-calculator' id='calculator'></i>"
-						
 						+"<span name='monthlyRent' id='monthlyRent'>"+data[i].monthlyRent+"원</span>"
-						
 						+"</a></div>";
-						
 					}
 					
 					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>More</a></div>";
 					jQuery("#container").html(content);
-					
+					//더보기
 					morePage();
 				}
 			},

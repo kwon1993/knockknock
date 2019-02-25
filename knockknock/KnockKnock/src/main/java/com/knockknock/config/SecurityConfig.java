@@ -49,7 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	SocialService socialService;
 
-	// 요거 추가해주니 로긴 로그아웃창 수정완료
 	@Bean
 	public SpringSecurityDialect springSecurityDialect() {
 		return new SpringSecurityDialect();
@@ -108,7 +107,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// 로그인 처리 시 인증에 대한 처리
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		System.out.println("configureGlobal작동");
 		//eraseCredentials() : 민감한 정보를 유저로부터 삭제하기 위한 메서드 
 		auth.eraseCredentials(false).userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 	}
@@ -126,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new ClientResources();
     }
 
-	// 페북빈
+	//페북빈
 	@Bean
 	public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -135,13 +133,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return registration;
 	}
 	
-	//다른 예제 소셜-------------------
+	//소셜
 	private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
         filters.add(ssoFilter(facebook(), new FacebookOAuth2ClientAuthenticationProcessingFilter(socialService)));
         filter.setFilters(filters);
-        System.out.println("ssoFilter()");
         return filter;
     } 
 	
@@ -153,7 +150,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         filter.setTokenServices(tokenServices);
         tokenServices.setRestTemplate(restTemplate);
-        System.out.println("ssoFilter(client,filter)");
         return filter;
     }
 }
