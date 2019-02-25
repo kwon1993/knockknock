@@ -19,17 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	//username(email)을 통해, 그 이메일에 해당하는 회원정보를 찾아오는 메서드
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("loadUserByUsername 작동");
-		System.out.println("페북유저:"+username);
 		MemberDTO memberDTO = memberMapper.findById(username);
 		
 		//MEMBER테이블에서 가져온 값이 있으면, 시큐리티 멤버를 호출한다
 		if(memberDTO!=null) {
-			System.out.println("널이아니야");
 			return new SecurityMember(memberDTO);
 		}
 		else {
-			System.out.println("널이야");
 			return null;
 		}
 	}

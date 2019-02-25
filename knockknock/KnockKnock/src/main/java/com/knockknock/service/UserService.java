@@ -16,22 +16,16 @@ public class UserService {
     private final UserMapper userMapper;
 
     public void signUp(UserConnectionDTO userConnectionDTO) {
-    	System.out.println("UserService의 signUp메서드입니다");
-//        final MemberDTO memberDTO = userMapper.signUp(userConnectionDTO);
          userMapper.signUp(userConnectionDTO);
     }
 
     public MemberDTO findBySocial(UserConnectionDTO userConnectionDTO) {
-    	System.out.println("UserService의 findBySocial메서드입니다");
         final MemberDTO memberDTO = userMapper.findBySocial(userConnectionDTO);
-//        if (memberDTO == null) throw new RuntimeException();
         return memberDTO;
     }
 
     public boolean isExistUser(UserConnectionDTO userConnectionDTO) {
-    	System.out.println("UserService: isExistUser메서드 실행");
         final MemberDTO memberDTO = userMapper.findBySocial(userConnectionDTO);
-        System.out.println("UserService: findBySocial 결과 "+memberDTO);
         return (memberDTO != null);
     }
 }

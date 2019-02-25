@@ -11,7 +11,7 @@
 <style>
 
 .row{
-	margin-top: 20px;
+	margin-top: 50px;
 	margin-bottom: 20px;
 }
 
@@ -64,6 +64,11 @@
 	font-size:20px;
 }
 
+#login:hover{
+	background-color: white;
+	color:#2eca6a;
+}
+
 #findId,#findPass,#doChangePass{
  	background-color: #2eca6a;
 	color: white;
@@ -75,6 +80,17 @@
 	font-size:25px;
 }
 
+#username,#password{
+	border:1px solid #3b5998;	
+
+}
+
+#username:hover,#password:hover{
+	background-color: #80c2f2;
+	color:white;
+
+}
+
 #facebookLogin{
 	background-color: #3b5998;
 	color: white;
@@ -82,6 +98,10 @@
 	width:100%;
 	font-size:20px;
 }
+
+
+
+
 </style>
 </head>
 <body>
@@ -94,11 +114,11 @@
 					<div class="card-body">
 						<form method="post" class="form-horizontal" id='mainLogin' action="/login">
 							<div class="form-group">
-								<label for="name" class="cols-sm-2 control-label">아이디</label>
+								<label for="name" class="cols-sm-2 control-label" id='labelId'>아이디</label>
 								<div class="cols-sm-10">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
-										<input type="text" name="username" class="form-control"><br>
+										<input type="text" name="username" class="form-control" id='username' placeholder="아이디는 이메일을 사용해요" th:value="${loginFail}"><br>
 									</div>
 								</div>
 							</div>
@@ -107,8 +127,8 @@
 								<label for="name" class="cols-sm-2 control-label">비밀번호</label>
 								<div class="cols-sm-10">
 									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span> 
-										<input type="password" name="password" class="form-control"><br>
+										<span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span> 
+										<input type="password" name="password" id="password" class="form-control" placeholder="비밀번호를 입력해 주세요"><br>
 									</div>
 								</div>
 							</div>
@@ -212,7 +232,6 @@
 </div>
 <script>
 
-
 //페이스북 로그인 버튼
 $("#facebookLogin").on('click',function(){
 	var	form = document.getElementById("mainLogin");
@@ -252,7 +271,7 @@ window.onclick = function(event) {
     }
 }
 
-//아이디찾기 ajax 처리★★★★
+//아이디찾기 ajax 처리
 $(document).ready(function(){
 	$("input[name='findId']").on('click',function(){
 		
@@ -279,18 +298,15 @@ $(document).ready(function(){
 	});
 });
 
-//비밀번호찾기 ajax 처리★★★★
-$(document).ready(function(){
-	$("input[name='findPass']").on('click',function(){
-		//누르면 비번값을 이메일로 보낸다.
-		//이후 새로운 모달창을 만든다. 임시비밀번호란, 신규비밀번호란, 신규비밀번호재확인란을 만든다.
-	});
-})
 $(document).on("click", "#modalx", function(){
 	modal.style.display = "none";
 });
 
-</script>	
+$("#login").mouseenter(function(){
+	$("#login").animate({opacity:"4"},500);
+})
+
+</script>
 
 </div>
 </body>

@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND B.ADDRESS LIKE CONCAT('%',#{address},'%')
 		</if>
 		GROUP BY R.BRANCH_NUMBER
+		ORDER BY B.BRANCH_NUMBER ASC
 	</select>
 
 	<select id="categoryCount" resultType="int">
@@ -44,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BRANCH_NUMBER
 	</select>
 
-<select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
+	<select id="categoryRoomSearch2" resultType="BranchDetailVDTO">
 		SELECT
 		B.BRANCH_NUMBER branchNumber,
 		B.ADDRESS, B.THEME, B.GENDER,
