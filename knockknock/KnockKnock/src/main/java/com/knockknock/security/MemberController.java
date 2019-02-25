@@ -128,6 +128,7 @@ public class MemberController {
 			MemberDTO profileImage = memberMapper.getImageDir(sc.getUsername());
 			session.setAttribute("nickname", nickname.getNickname());
 			session.setAttribute("memberNumber", nickname.getMemberNumber());
+			session.setAttribute("gender", nickname.getGender()); //from 민철_meetingAndEvent 조건처리를 위해 사용
 		  
 			if (profileImage != null) { 
 				session.setAttribute("profileImage", profileImage.getImageProfile()); 

@@ -106,9 +106,9 @@ body{
 							<div class="input-group">
 								<input type="hidden" name="replyNumber">
 								<input type="hidden" name="writingNumber" th:value="${EventView.writingNumber}">
-								<input type="text" class="form-control" id="content" name="replyContent" placeholder="내용을 입력하세요.">
+								<input type="text" class="form-control" id="content" name="replyContent" placeholder="내용을 입력하세요." required="required">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" name="replyInsertBtn">등록</button> 
+									<button class="btn btn-default" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
 								</span>
 							</div>
 						</form>
@@ -316,12 +316,8 @@ $.ajax({
  	// When the user clicks on <span> (x), close the modal
  	$("span").click(function(){
  		modal.style.display = "none";
-// 		modal1.style.display = "none";
  	});
-// 	span.onclick = function() {
-		
-// 	}
-
+ 	
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 		if (event.target == modal) {
@@ -335,11 +331,7 @@ $.ajax({
 
 	$("#closeModal").click(function(){
 		modal.style.display = "none";
-// 		modal1.style.display = "none";
 	})
-// 	closeModal.onclick = function(){
-		
-// 	}
 	
 	//참가하기 처리
 	$("#eparticipate").click(function() {
@@ -348,7 +340,6 @@ $.ajax({
 // 		memberNumber= $("input[name='memberNumber']").val();
 		// var ss = $("#visitBookingForm").serialize();
 		 inner ="";
-		alert(writingNumber);
 		$.ajax({
 			method:'post',
 			url: '/eparticipate',

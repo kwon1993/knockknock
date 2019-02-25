@@ -38,8 +38,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MEETING_REPLY
 		WHERE REPLY_NUMBER = #{replyNumber}
 	</delete>
-	
-	
 	<!-- 이벤트 댓글 -->
 	<select id="eventReplyList" resultType="replyDTO">
 		SELECT 

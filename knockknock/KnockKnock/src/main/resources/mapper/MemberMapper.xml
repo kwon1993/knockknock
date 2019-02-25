@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1 FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1, GENDER FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     
