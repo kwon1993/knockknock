@@ -55,6 +55,10 @@ body{
 	font-weight:bolder;
 	margin-bottom:30px;
 }
+
+label{
+	width: 100px;
+}
 </style>
 
 </head>
@@ -62,79 +66,33 @@ body{
 	<div layout:fragment="content" class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<h3>관리 메뉴</h3>
 				<div class="sidenav">
-					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
-						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
-						th:href="@{adminVisitList}">방문문의관리</a><br> <a
-						th:href="@{adminBranchRegistView}">지점등록</a><br>
+					<a th:href="@{adminEventListView}">이벤트관리</a><br>
+					<a th:href="@{adminMemberSearchView}">회원관리</a><br>
+					<a th:href="@{adminVisitList}">방문문의관리</a><br>
+					<a th:href="@{adminBranchRegistView}">지점등록</a><br>
 				</div>
 			</div>
 			<div class="col-md-10">
 				<h1 id='title'>계약정보 등록</h1>
 				<form action="adminContractRegist">
-					<table>
-						<tr>
-							<td><h3>입력 정보</h3></td>
-							<td><input type="hidden" name="memberNumber"
-								th:value="${memberNumber}"></td>
-						</tr>
-						<tr>
-							<td>회원번호</td>
-							<td th:text=${memberNumber}></td>
-						</tr>
-						<tr>
-							<td>계약일</td>
-							<td><input type="Date" name="contractDate"></td>
-						</tr>
-						<tr>
-							<td>계약기간</td>
-							<td><input type="number" name="period"></td>
-						</tr>
-						<tr>
-							<td>계약 지점</td>
-							<td><input type="number" name="branchNumber"></td>
-						</tr>
-						<tr>
-							<td>계약 방 번호</td>
-							<td><input type="number" name="roomNumber"></td>
-						</tr>
-						<tr>
-							<td>비상 연락 번호</td>
-							<td><input type="text" name="emergencyNumber"></td>
-						</tr>
-						<tr>
-							<td>반려동물 여부</td>
-							<td><select name="isPet">
-									<option value="yes">유</option>
-									<option value="no">무</option>
-							</select></td>
-						</tr>
-						<tr>
-							<td>회원 은행명</td>
-							<td><input type="text" name="bankName"></td>
-						</tr>
-						<tr>
-							<td>회원 예금주</td>
-							<td><input type="text" name="depositor"></td>
-						</tr>
-						<tr>
-							<td>회원 계좌번호</td>
-							<td><input type="text" name="memberAccount"></td>
-						</tr>
-						<tr>
-							<td>주민등록번호</td>
-							<td><input type="text" name="idNumber"></td>
-						</tr>
-						<tr>
-							<td>메모</td>
-							<td><input type="text" name="memo"></td>
-						</tr>
-						<tr>
-							<td>등록</td>
-							<td><input type="submit" name="등록"></td>
-						</tr>
-					</table>
+					<label>회원번호</label><span th:text="${memberNumber}"></span><br />
+					<label>계약일</label><input type="Date" name="contractDate"><br />
+					<label>계약기간</label><input type="number" name="period"><br />
+					<label>계약지점</label><input type="number" name="branchNumber"><br />
+					<label>계약방 호수</label><input type="number" name="roomNumber"><br />
+					<label>비상연락번호</label><input type="text" name="emergencyNumber"><br />
+					<label>반려동물여부</label><select name="isPet">
+												<option value="유">유</option>
+												<option value="무">무</option>
+											</select><br />
+					<label>회원은행명</label><input type="text" name="bankName"><br />
+					<label>회원예금주</label><input type="text" name="depositor"><br />
+					<label>회원계좌번호</label><input type="text" name="memberAccount"><br />
+					<label>주민등록번호</label><input type="text" name="idNumber"><br />
+					<label>메모</label><input type="text" name="memo"><br />
+					<input type="hidden" name="memberNumber" th:value="${memberNumber}">
+					<input type="submit" class="btn btn-success" style="float: right;" value="등록">
 				</form>
 			</div>
 		</div>

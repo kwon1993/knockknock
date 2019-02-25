@@ -117,9 +117,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
               </p>
             </div>
             <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>
@@ -139,9 +136,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
               </p>
             </div>
             <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>
@@ -161,9 +155,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
               </p>
             </div>
             <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>
@@ -561,19 +552,18 @@ layout:decorate="~{etc/fragments/Main_layout}">
   <!--/ Agents End /-->
 
 <script>
-//심플방검색 제이쿼리--------------------------------------------------------------------
+
+//심플방검색 제이쿼리
 $(document).ready(function(){
 	var simpleSearch = $("a[name=simpleRoomSearch]");
 	var inputRoom = $("input[name=simpleAddress]");
 	
 	$(simpleSearch).on('click',function(){
-		alert("심플방검색");
 		simpleSearch.attr('href','/simpleRoomSearch?address=' + inputRoom.val());
 	});
 });
-//심플방검색 제이쿼리--------------------------------------------------------------------
+
 </script>
 </div>
-<!-- / content replace End / -->
 </body>
 </html>

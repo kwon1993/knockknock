@@ -32,8 +32,5 @@ public class LoginFailController implements AuthenticationFailureHandler{
 		request.setAttribute("fail", failMessage);
 		
 		request.getRequestDispatcher("/login").forward(request, response);
-		
-		
 	}
-
 }
