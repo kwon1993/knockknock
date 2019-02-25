@@ -95,29 +95,34 @@ public class AdminController {
 
 	// member
 
+	//회원 검색 페이지
 	@RequestMapping("adminMemberSearchView")
 	public String memberSearchView(Model model) {
 		return "admin/AdminMemberSearch";
 	}
 
+	//회원 검색 기능
 	@RequestMapping("adminMemberSearch")
 	public String memberSearch(Model model, @RequestParam("keyword") String keyword) {
 		model.addAttribute("memberListView", adminService.memberListView(keyword));
 		return "admin/AdminMemberSearch";
 	}
 
+	//회원 정보 페이지
 	@RequestMapping("adminMemberView")
 	public String memberView(Model model, @RequestParam("memberNumber") int memberNumber) {
 		model.addAttribute("memberView", adminService.memberView(memberNumber));
 		return "admin/AdminMemberInfo";
 	}
 
+	//계약 정보 등록 페이지
 	@RequestMapping("adminContractRegistView")
 	public String contractRegistView(Model model, @RequestParam("memberNumber") int memberNumber) {
 		model.addAttribute("memberNumber", memberNumber);
 		return "admin/AdminContractRegist";
 	}
 
+	//회원 계약 등록 페이지
 	@RequestMapping("adminContractRegist")
 	public String contractRegist(Model model, @RequestParam("memberNumber") int memberNumber,
 			@RequestParam("branchNumber") int branchNumber, @RequestParam("roomNumber") int roomNumber,
