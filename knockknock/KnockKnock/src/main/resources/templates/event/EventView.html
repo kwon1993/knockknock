@@ -40,30 +40,36 @@ body{
 <body>
 <div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-			<h3>모임 게시판</h3>
-			<h1 th:text="${EventView.title}">제목</h1>
+			<h3><span style="color:#2eca6a">이벤트</span> 게시판</h3>
+			<div class="row">
+				<div class="col-2">
+					<img class="d-block" width="150" height="150" id="foo" th:src="@{'/images/event/'+${EventView.writingNumber}+'/'+${EventView.image}+''}" onerror="this.src='/images/meeting/default.png';"/>
+				</div>
+			<div class="col">
+			<h1><span id="title" th:text="${EventView.title}">제목</span></h1>
 			<span th:text="${EventView.writeTime} + ' | '">작성일</span>
 			<span th:text="'조회수 : ' + ${EventView.hit}"></span>
-			<form>
-				<div>
-					<br/>
-					<span th:text="'이벤트 내용'"></span>
-					<p th:text="${EventView.content}"></p>
-				</div>
-				<div>
-					<span>모임정보</span>
-					<ul>
-						<li th:text="'이벤트 기간 : '+
-						${#dates.format(EventView.eventStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-						${#dates.format(EventView.eventEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
-						<li th:text="'접수 기간 : '+
-						${#dates.format(EventView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-						${#dates.format(EventView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
-						<li th:text="'모집 인원 : '+${EventView.recruitNumber}+'/'+${EventView.recruitMaxNumber}+'명'"></li>
-					</ul>
-				</div>
-			</form>
-
+				<form>
+					<div>
+						<br/>
+						<span th:text="'이벤트 소개'"></span>
+						<p th:utext="${EventView.content}"></p>
+					</div>
+					<div>
+						<span>이벤트정보</span>
+						<ul>
+							<li th:text="'이벤트 기간 : '+
+							${#dates.format(EventView.eventStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
+							${#dates.format(EventView.eventEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
+							<li th:text="'접수 기간 : '+
+							${#dates.format(EventView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
+							${#dates.format(EventView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
+							<li th:text="'모집 인원 : '+${EventView.recruitNumber}+'/'+${EventView.recruitMaxNumber}+'명'"></li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
 		<!-- from 성현 시큐리티 적용 -->
 		<input type='hidden' th:value="${session.nickname}" id='sessionNickname'>
 		<button class="btn btn-success" id="myBtn" th:text="'참가하기'"></button>

@@ -19,7 +19,7 @@ body{
 	<div layout:fragment="content" class="container">
 
 	    <div class="jumbotron" id="jumbotronId">
-	        <h1>이벤트게시판</h1>
+	        <h1><span style="color:#2eca6a">이벤트</span>게시판</h1>
 	        <!-- 베너 -->
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
@@ -83,6 +83,7 @@ body{
 	            </li>
 	            </ul>
 	          </nav>
+	          <a th:href="@{/meetingList}" class="btn btn-outline-success font-weight-bold pull-left" role="button">모임 게시판</a>
 	    </div>
 	</div>
 </body>

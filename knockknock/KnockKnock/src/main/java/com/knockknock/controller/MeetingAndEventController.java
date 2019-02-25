@@ -1,7 +1,5 @@
 package com.knockknock.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +50,7 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/meetingView") //미팅 상세보기
 	private String meetingView(@RequestParam("writingNumber") int writingNumber, Model model){
+		meMapper.meetingViewHit(writingNumber);
 		model.addAttribute("MeetingView", meMapper.meetingView(writingNumber));
 		return "event/MeetingView";
 	}
@@ -104,6 +103,7 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/eventView") //미팅 상세보기
 	private String eventView(@RequestParam("writingNumber") int writingNumber, Model model){
+		meMapper.eventViewHit(writingNumber);
 		model.addAttribute("EventView", meMapper.eventView(writingNumber));
 
 		return "event/EventView";
