@@ -153,6 +153,13 @@ public class AdminController {
 		model.addAttribute("visitListView", adminService.visitList());
 		return "admin/AdminVisitList";
 	}
+	
+	//특정 인원 방문신청 리스트
+	@RequestMapping("adminVisitListOfMember")
+	public String visitListOfMember(Model model, @RequestParam("memberNumber") int memberNumber) {
+		model.addAttribute("visitListView", adminService.visitListOfMember(memberNumber));
+		return "admin/AdminVisitList";
+	}
 
 	// 방문신청 글 보기
 	@RequestMapping("adminVisitView")

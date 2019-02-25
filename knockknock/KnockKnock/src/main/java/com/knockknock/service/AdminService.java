@@ -263,6 +263,10 @@ public class AdminService {
 	public ArrayList<VisitVDTO> visitList() {
 		return adminMapper.visitListView();
 	}
+	
+	public ArrayList<VisitVDTO> visitListOfMember(int memberNumber){
+		return adminMapper.visitListViewOfMember(memberNumber);
+	}
 
 	public VisitVDTO visitView(int writingNumber) {
 		return adminMapper.visitView(writingNumber);

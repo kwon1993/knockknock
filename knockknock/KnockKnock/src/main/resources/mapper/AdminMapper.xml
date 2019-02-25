@@ -242,7 +242,26 @@
 		M.MEMBER_NUMBER
 		ORDER BY writingNumber DESC
 	</select>
-
+	<select id="visitListViewOfMember" resultType="VisitVDTO">
+		SELECT V.WRITING_NUMBER
+		writingNumber,
+		V.MEMBER_NUMBER memberNumber,
+		V.BRANCH_NUMBER
+		branchNumber,
+		V.WRITE_TIME writeTime,
+		V.RESERVATION_TIME
+		reservationTime,
+		V.MEMO,
+		V.ISCHECK,
+		M.NICKNAME,
+		M.NAME,
+		M.PHONE_NUMBER
+		phoneNumber
+		FROM VISIT V, MEMBER M
+		WHERE V.MEMBER_NUMBER =
+		M.MEMBER_NUMBER AND V.MEMBER_NUMBER = #{param1}
+		ORDER BY writingNumber DESC
+	</select>
 	<select id="visitView" resultType="VisitVDTO">
 		SELECT V.WRITING_NUMBER
 		writingNumber,

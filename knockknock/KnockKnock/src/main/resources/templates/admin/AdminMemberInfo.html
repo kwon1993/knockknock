@@ -56,7 +56,7 @@ body{
 	margin-bottom:30px;
 }
 label{
-	width: 100px;
+	width: 120px;
 }
 </style>
 
@@ -85,7 +85,7 @@ label{
 					<label>성별</label><span th:text="${memberView.gender}"></span><br />
 					<label>주소</label><span th:text="${memberView.address}"></span><br />
 					<label>상세주소</label><span th:text="${memberView.addressDetail}"></span><br />
-					<label>주소지이름</label><span th:text="${memberView.addressName}"></span><br />
+					<!-- <label>주소지이름</label><span th:text="${memberView.addressName}"></span><br /> -->
 					<label>휴대폰번호</label><span th:text="${memberView.phoneNumber}"></span><br />
 					
 					<h1 id='title'>계약 정보</h1>
@@ -100,14 +100,14 @@ label{
 					<label>계약일</label><span th:text="${memberView.contractDate}"></span><br />
 					<label>계약기간(개월)</label><span th:text="${memberView.period}"></span><br />
 					<label>주민등록번호</label><span th:text="${memberView.idNumber}"></span><br />
-					<label>체납금액</label><span th:text="${memberView.payDelayAmount}"></span><br />
-					<label>패널티금액</label><span th:text="${memberView.paneltyAmount}"></span><br />
+					<!-- <label>체납금액</label><span th:text="${memberView.payDelayAmount}"></span><br />
+					<label>패널티금액</label><span th:text="${memberView.paneltyAmount}"></span><br /> -->
 					<label>메모</label><span th:text="${memberView.memo}"></span><br />
 					<form action="adminContractRegistView" style="display: inline; float: right;">
 						<input type="hidden" name="memberNumber" th:value="${memberView.memberNumber}">
 						<input type="submit" class="btn btn-default" value="계약 정보 등록">
 					</form>
-					<form action="adminVisitList" style="display: inline; float: right;">
+					<form action="adminVisitListOfMember" style="display: inline; float: right;">
 						<input type="hidden" name="memberNumber" th:value="${memberView.memberNumber}">
 						<input type="submit" class="btn btn-default" value="방문문의내역">
 					</form>

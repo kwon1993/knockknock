@@ -74,6 +74,8 @@ public interface AdminMapper {
 	// visit
 
 	public ArrayList<VisitVDTO> visitListView();
+	
+	public ArrayList<VisitVDTO> visitListViewOfMember(int memberNumber);
 
 	public VisitVDTO visitView(int writingNumber);
 
