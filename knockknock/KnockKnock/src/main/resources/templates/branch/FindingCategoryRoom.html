@@ -157,7 +157,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			  <tbody id="branchDetailVDTOs">			  
 				<tr  class="text-center" th:each="branchDetailVDTO : ${lists}">
  	 				<td><a th:href="@{'/roomDetailView/?branchNumber='+${branchDetailVDTO.branchNumber}}" id=''>
- 	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'branch.jpg'" alt="branchImg" id='img'>
+ 	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'/mainImage.jpg'" alt="branchImg" id='img'>
   	 				<div th:text="'('+${branchDetailVDTO.branchNumber}+호점+')'"></div></a></td>
 					<td class="td-1" th:text="${branchDetailVDTO.address}"></td>
 					<td th:text="${branchDetailVDTO.theme}"></td>
