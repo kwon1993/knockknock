@@ -3,8 +3,8 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <style>
   tr{
  	height : 40px;
@@ -211,13 +211,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						async : false,
 						data : JSON.stringify(datas),
 						success : function(branchDetailVDTOs) {
-// 							alert("완료!" + branchDetailVDTOs);						
+					
 							//기존의 테이블 삭제	
 							$('#branchDetailVDTOs tr').remove();
 							//each를 통해 테이블 출력
 							$.each(branchDetailVDTOs, function(key, branchDetailVDTO) {
 								console.log(key + ", " + branchDetailVDTO.theme);
 								console.log(key +", "+branchDetailVDTO.pet);
+								
 								<!--새로 표시할 콘텐츠 집어넣기-->
 								$('#branchDetailVDTOs').append(
 										"<tr class='text-center' style='width: 30px;'>"
@@ -232,19 +233,17 @@ layout:decorate="~{etc/fragments/Main_layout}">
 										+"<td class='allowNumber'>"+branchDetailVDTO.pet+"</td>"
 										+"<td class='allowNumber'>"+branchDetailVDTO.branchType+"</td>"
 										+"</tr>");
-//  							}
 							});
  						},//success end
 						error : function(jqXHR, textStatus, errorThrown) {
-// 							alert("에러 발생~~ \n" + textStatus + " : "+ errorThrown);
 
 						}//error  end
-					});//$.ajax({  end
+					});//ajax  end
 				},//sendToServer  end
 
 				//a very basic method
+				//관심사 체크박스 이벤트 바인드
 				themeCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -252,17 +251,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchTheme']:checked").each(function(i){
 							that.searchCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
 						
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				
 				//성별 이벤트 바인드
 				genderCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -270,17 +267,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchGender']:checked").each(function(i){
 							that.genderCategory[i] = $(this).val();
-							console.log($(this).val()+"  " +that.genderCategory[i]);
 						});
-						console.log("genderCheckboxEventBind  size:"+that.genderCategory.length);
 						
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				
 				//반려동물 유무 이벤트 바인드
 				petCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -288,19 +283,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchPet']:checked").each(function(i){
 							that.petCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("petCheckboxEventBind size:"+that.petCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
+
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
-						//}
+						
 					 }); 
 				},
 				
+				//주택유형 이벤트 바인드
 				branchTypeCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -308,14 +299,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchType']:checked").each(function(i){
 							that.branchTypeCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
-						//}
 					 }); 
 				},//branchType end
 				
@@ -324,12 +309,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					
 					$(target).on('click',function(e) {
 // 						that.searchCategory.push($(e.target).val());
-//  						alert("$(e.target).val()::"+$(e.target).val());
+
 						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);4
 					});
 				}
 			};//var categoryRoom end
+			
 			$.noConflict();
+			
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
 				categoryRoom.genderCheckboxEventBind(".genderCheckbox");

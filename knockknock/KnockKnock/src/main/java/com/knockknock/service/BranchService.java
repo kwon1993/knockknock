@@ -40,19 +40,11 @@ public class BranchService {
 		return branchMapper.findingCategoryRoomList(branchDetailVDTO);
 	}
 	
-	
-	//관심사로 찾기의 방검색
-//	 public List<BranchDetailVDTO> categoryRoomSearch( String address,List<String> searchKeyWord) throws
-//	  Exception{ 
-//	 return branchMapper.categoryRoomSearch(address,searchKeyWord);
-//	 }
-	
 	//관심사로 찾기의 방검색
 	public List<BranchDetailVDTO> categoryRoomSearch(BranchDetailVDTO2 branchDetailVDTO2) throws
 		Exception{ 
-//			 System.err.println(branchDetailVDTO2);
-		List<BranchDetailVDTO> searchAndCheckbox=branchMapper.categoryRoomSearch2(branchDetailVDTO2);
-//			 System.err.println("categoryRoomSearch    "+searchAndCheckbox);
+			List<BranchDetailVDTO> searchAndCheckbox=branchMapper.categoryRoomSearch2(branchDetailVDTO2);
+
 		 return  searchAndCheckbox;
 		 }
 	
