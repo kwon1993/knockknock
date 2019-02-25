@@ -1,6 +1,6 @@
 package com.knockknock.dto.member;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 

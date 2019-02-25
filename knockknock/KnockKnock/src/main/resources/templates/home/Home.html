@@ -89,7 +89,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
   <!--/ Carousel end /-->
 
   <!--/ Services Star /-->
-  <section class="section-services section-t8">
+  <section class="section-services section-t8" id='eachOther'>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -191,6 +191,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
+                  	<span th:text="${mb1.branchNumber}+'호점'" class='branchNumberName' id='branchNumberName1'></span><br>
                     <a th:href="@{/property-single.html}"><span th:text="${mb1.address}"></span></a>
                   </h2>
                 </div>
@@ -245,7 +246,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
             <div class="card-overlay">
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
-                  <h2 class="card-title-a">
+                  <h2 class="card-title-a"> 
+                  	<span th:text="${mb2.branchNumber}+'호점'" class='branchNumberName'  id='branchNumberName2'></span><br>
                     <a th:href="@{/property-single.html}"><span th:text="${mb2.address}"></span></a>
                   </h2>
                 </div>
@@ -301,6 +303,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
+                  	<span th:text="${mb3.branchNumber}+'호점'" class='branchNumberName' id='branchNumberName3'></span><br>
                     <a th:href="@{/property-single.html}"><span th:text="${mb3.address}"></span></a>
                   </h2>
                 </div>
