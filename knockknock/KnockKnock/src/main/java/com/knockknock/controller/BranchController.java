@@ -47,7 +47,7 @@ public class BranchController {
 		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
-  	 
+  	 //관심사로 방찾기(체크박스, 주소)
 	 @RequestMapping(value="/categoryRoomSearch") 
 	 @ResponseBody
 	 public List<BranchDetailVDTO> categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO2 data)
@@ -61,15 +61,7 @@ public class BranchController {
 		 
 	 return branchDetailVDTOs;
 	 }
-	 
-//	@PostMapping("/categoryRoomSearch")
-//	@ResponseBody
-//	public List<BranchDetailVDTO>categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO branchDetailVDTO)throws Exception{
-//		model.addAttribute("list", branchService.categoryRoomSearch(branchDetailVDTO));
-//		
-//		return branchService.categoryRoomSearch(branchDetailVDTO);
-//	}
-	  
+	   
 	 // 생년월일을 기준으로 현재 나이 계산 
 	/*
 	 * public int getAge(int birthYear, int birthMonth, int birthDay) { Calendar

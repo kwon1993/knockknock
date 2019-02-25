@@ -3,8 +3,8 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>낙낙-카테고리 방찾기</title>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <style>
   tr{
  	height : 40px;
@@ -73,6 +73,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
  #branchGender{
  	margin : 0px 15px;
  }
+}
 </style>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
 
@@ -81,8 +82,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	<!-- 전체 레이아웃 -->
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-		 <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">취미에</span> 낙낙!</strong></h1>
-		 <h2 class="my-4 text-center text-lg-left" id="bang"><strong>관심있는 분야에<span style="color:#2eca6a">&nbsp;체크!</span>&nbsp;해주세요</strong></h2>
+		 <h1 class="my-4 text-center text-lg-left" id="bang"><strong><span style="color:#2eca6a">지점별 테마에</span> 낙낙!</strong></h1>
+		 <h2 class="my-4 text-center text-lg-left" id="bang"><strong>지점을<span style="color:#2eca6a">&nbsp;찾아</span>&nbsp;보세요</strong></h2>
 			<div class="row">
 				<div class="col-4" id="checkField">			   
 			<!-- 체크박스 -->
@@ -157,7 +158,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 			  <tbody id="branchDetailVDTOs">			  
 				<tr  class="text-center" th:each="branchDetailVDTO : ${lists}">
  	 				<td><a th:href="@{'/roomDetailView/?branchNumber='+${branchDetailVDTO.branchNumber}}" id=''>
- 	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'branch.jpg'" alt="branchImg" id='img'>
+ 	 				<img class='img-responsive img-thumbnail' th:src="'/images/branch/'+${branchDetailVDTO.branchNumber}+'/mainImage.jpg'" alt="branchImg" id='img'>
   	 				<div th:text="'('+${branchDetailVDTO.branchNumber}+호점+')'"></div></a></td>
 					<td class="td-1" th:text="${branchDetailVDTO.address}"></td>
 					<td th:text="${branchDetailVDTO.theme}"></td>
@@ -211,18 +212,19 @@ layout:decorate="~{etc/fragments/Main_layout}">
 						async : false,
 						data : JSON.stringify(datas),
 						success : function(branchDetailVDTOs) {
-// 							alert("완료!" + branchDetailVDTOs);						
+					
 							//기존의 테이블 삭제	
 							$('#branchDetailVDTOs tr').remove();
 							//each를 통해 테이블 출력
 							$.each(branchDetailVDTOs, function(key, branchDetailVDTO) {
 								console.log(key + ", " + branchDetailVDTO.theme);
 								console.log(key +", "+branchDetailVDTO.pet);
+								
 								<!--새로 표시할 콘텐츠 집어넣기-->
 								$('#branchDetailVDTOs').append(
 										"<tr class='text-center' style='width: 30px;'>"
 										+"<td><a href='/roomDetailView/?branchNumber="+branchDetailVDTO.branchNumber+"' class='' id=''>"
-	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"branch.jpg'"+" alt='' id='img'/>"
+	 									+"<img class='img-thumbnail' src="+"'/images/branch/"+branchDetailVDTO.branchNumber+"/mainImage.jpg'"+" alt='' id='img'/>"
 	 									+"<span>"+"("+branchDetailVDTO.branchNumber+"호점)"+"</span>"+"</a></td>"
 										+"<td class='address'>"+branchDetailVDTO.address+"</td>"
 										+"<td class='theme'>"+branchDetailVDTO.theme+"</td>"
@@ -232,19 +234,17 @@ layout:decorate="~{etc/fragments/Main_layout}">
 										+"<td class='allowNumber'>"+branchDetailVDTO.pet+"</td>"
 										+"<td class='allowNumber'>"+branchDetailVDTO.branchType+"</td>"
 										+"</tr>");
-//  							}
 							});
  						},//success end
 						error : function(jqXHR, textStatus, errorThrown) {
-// 							alert("에러 발생~~ \n" + textStatus + " : "+ errorThrown);
 
 						}//error  end
-					});//$.ajax({  end
+					});//ajax  end
 				},//sendToServer  end
 
 				//a very basic method
+				//관심사 체크박스 이벤트 바인드
 				themeCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -252,17 +252,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchTheme']:checked").each(function(i){
 							that.searchCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("themeCheckboxEventBind  size:"+that.searchCategory.length);
 						
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				
 				//성별 이벤트 바인드
 				genderCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -270,17 +268,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchGender']:checked").each(function(i){
 							that.genderCategory[i] = $(this).val();
-							console.log($(this).val()+"  " +that.genderCategory[i]);
 						});
-						console.log("genderCheckboxEventBind  size:"+that.genderCategory.length);
 						
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
 						
 					 }); 
 				},
+				
 				//반려동물 유무 이벤트 바인드
 				petCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -288,19 +284,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchPet']:checked").each(function(i){
 							that.petCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("petCheckboxEventBind size:"+that.petCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
+
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
-						//}
+						
 					 }); 
 				},
 				
+				//주택유형 이벤트 바인드
 				branchTypeCheckboxEventBind : function(target) {
-// 					alert("checkboxEventBind target  :" + target);
 					var that = this;
 				
 					 $(target).change(function(e) { 
@@ -308,14 +300,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 							
 						$("input[name='branchType']:checked").each(function(i){
 							that.branchTypeCategory[i] = $(this).val();
-							//console.log($(this).val()+"  " +that.searchCategory[i]);
 						});
-// 						console.log("branchTypeCheckboxEventBind size:"+that.branchTypeCategory.length);
-					/* 	if(that.searchCategory.size==0){
-							that.sendToServer(
-						}else{ */
 							that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);
-						//}
 					 }); 
 				},//branchType end
 				
@@ -324,12 +310,14 @@ layout:decorate="~{etc/fragments/Main_layout}">
 					
 					$(target).on('click',function(e) {
 // 						that.searchCategory.push($(e.target).val());
-//  						alert("$(e.target).val()::"+$(e.target).val());
+
 						that.sendToServer(that.searchCategory,that.genderCategory,that.petCategory,that.branchTypeCategory);4
 					});
 				}
 			};//var categoryRoom end
+			
 			$.noConflict();
+			
 			$(document).ready(function() {
 				categoryRoom.themeCheckboxEventBind(".themeCheckbox");
 				categoryRoom.genderCheckboxEventBind(".genderCheckbox");

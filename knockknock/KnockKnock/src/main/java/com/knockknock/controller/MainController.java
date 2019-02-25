@@ -102,37 +102,10 @@ public class MainController {
 		model.addAttribute("genderCheckbox",branchService.getIsGender());
 		model.addAttribute("pet", branchService.getIspet());
 		model.addAttribute("branchType", branchService.getBranchType());
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalCount(branchService.categoryCountService(cri));
-//		
-//		model.addAttribute("pageMaker", pageMaker);
+
 		return "branch/FindingCategoryRoom";
 	}
 	
-//	@RequestMapping(value ="/findingCategoryRoom", method=RequestMethod.GET)
-//	public String toFindingCategoryRoom(Model model, Criteria cri) throws Exception {
-//		model.addAttribute("lists", branchService.findingCategoryRoomList(cri));
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalCount(branchService.categoryCountService(cri));
-//		
-//		model.addAttribute("pageMaker", pageMaker);
-//		return "branch/FindingCategoryRoom";
-//	}
-	
-
-//	@RequestMapping(value ="/findingCategoryRoom", method=RequestMethod.GET)
-//	public String toFindingCategoryRoom(Model model, Criteria cri) throws Exception {
-//
-//		//model.addAttribute("lists", branchService.findingCategoryRoomList(cri));
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(cri);
-//		//pageMaker.setTotalCount(branchService.categoryCountService(cri));
-//		
-//		model.addAttribute("pageMaker", pageMaker);
-//		return "branch/FindingCategoryRoom";
-//	}
 	
 	//네비게이션바 '모임 및 이벤트
 	@RequestMapping("/meetingAndEventMain")

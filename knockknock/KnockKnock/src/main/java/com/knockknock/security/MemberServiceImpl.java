@@ -32,9 +32,6 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	//회원아이디(이메일)에 맞는 등급 등을 꺼내기 위해 사용?
-	//private Map<String,MemberDTO> accounts = new HashMap<>();
-	
 	@Override
 	public void register(MemberDTO memberDTO, PetDTO petDTO) {
 		//3.memberDTO의 패스워드를 인코딩처리한다
@@ -43,8 +40,6 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.register(memberDTO);
 		int memberNumber = getMemberNumber();
 		memberDTO.setMemberNumber(memberNumber);
-		System.out.println("가멤버의펫"+petDTO.getAnimal());
-		System.out.println("가입멤버넘버"+memberDTO.getMemberNumber());
 		memberMapper.petRegister(memberDTO, petDTO);
 	}
 	
@@ -103,8 +98,6 @@ public class MemberServiceImpl implements MemberService{
 	
 	public void changeRealPassword(MemberDTO memberDTO) {
 		memberDTO.setPassword(new BCryptPasswordEncoder().encode(memberDTO.getPassword()));
-		System.out.println("인코더후아이디:"+memberDTO.getEmail());
-		System.out.println("인코더후:"+memberDTO.getPassword());
 		memberMapper.changePassword(memberDTO);
 	}
 	
@@ -141,12 +134,7 @@ public class MemberServiceImpl implements MemberService{
 	public void firstMyPetUpdate(ProfileVDTO profileVDTO) {
 		memberMapper.firstMyPetUpdate(profileVDTO);
 	}
-	
-	/*ash
-	 * @Override public List<VisitVDTO> myVisitList(int memberNumber) { return
-	 * memberMapper.myVisitList(memberNumber); }
-	 */
-	
+
 	public List<VisitDTO> getMVL(String email){
 		return memberMapper.getMVL(email);
 	}

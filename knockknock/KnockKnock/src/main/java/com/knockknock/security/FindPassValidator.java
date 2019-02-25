@@ -25,13 +25,11 @@ public class FindPassValidator implements Validator { //비밀번호 찾기 화�
     public void validate(Object target, Errors errors) {
     	System.out.println("validate");
         MemberDTO memberDTO = (MemberDTO)target;    
-        //이메일이 올바른 형식인지 검사
+        //이메일이 올바른 형식인지 검사(정규식검사)
         matcher = pattern.matcher(memberDTO.getEmail());
         if(memberDTO.getEmail() == null || memberDTO.getEmail().trim().isEmpty()) {
-        	System.out.println("이메일이 없어요");
             errors.rejectValue("email", "EmailRequired");
         }else if(!matcher.matches()) { //사용자가 입력한 이메일이 정규표현식에 매치 되지않는다면
-        	System.out.println("이메일이 정규식과 안맞아요");
             errors.rejectValue("email", "bad");
         }
     }

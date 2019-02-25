@@ -20,8 +20,6 @@ public class SecurityMember extends User implements UserDetails{
 	//회원grade처리 메서드.리스트형 컬렉션 객체에 그레이드를 담는다.
 	private static Collection<GrantedAuthority> makeAuth(MemberDTO memberDTO) {
 		Collection<GrantedAuthority> list = new ArrayList<>();
-		System.out.println("여기말야"+memberDTO.getEmail());
-		System.out.println("makeAuth 작동");
 		list.add(new SimpleGrantedAuthority(memberDTO.getGrade()));
 		
 		return list;
