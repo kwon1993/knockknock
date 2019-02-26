@@ -51,6 +51,12 @@ body{
 .formHeight{
 	height:100px;
 }
+.info{
+
+	background-color: #51D88A;
+/*  	color: white; */
+/* 	opacity: 0.5; */
+}
 </style>
 </head>
 <body>
@@ -107,8 +113,6 @@ body{
 							<div class="modal-body">
 								<h5 class="modal-title" id="myModalLable" th:text="'모임에 참가하시겠습니까?'"></h5>
 								<p th:text="'닉네임: '+${session.nickname}"></p>
-								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
-								<input type="hidden" name="gender" th:value="${MeetingView.gender}">
 							</div>
 							<div class="modal-footer">
 									<button type="button" class="btn btn-success" id="mparticipate" data-dismiss="modal" th:text="'참가'"></button>
@@ -170,8 +174,15 @@ body{
 						
 					<!-- from 성현 시큐리티 적용 -->
 					<input type="hidden" th:value="${session.nickname}" id='sessionNickname'>
-					<input type='hidden' th:value="${session.gender}" id='sessionGender'>
 					
+					<!-- js작업을 위해 필요한 값들 -->
+					<input type="hidden" th:value="${session.memberNumber}" id='sessionMemberNum'>
+					<input type='hidden' th:value="${session.gender}" id='sessionGender'>
+					<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
+					<input type="hidden" name="gender" th:value="${MeetingView.gender}">
+					<input type="hidden" name="memberNumber" th:value="${MeetingView.memberNumber}">
+					<input type="hidden" name="recruiNumber" th:value="${MeetingView.recruitNumber}">
+					<input type="hidden" name="recruitMaxNumber" th:value="${MeetingView.recruitMaxNumber}">
 					<!-- 조건처리를 위한 날짜값 -->
 					<input type="hidden" name="acceptDate" th:value="${MeetingView.acceptEndTime}">
 					
@@ -183,8 +194,18 @@ body{
 				</div>
 			</div>
 			<hr class="my-hr"/>
-			<div>
-				<strong>참여신청/취소 안내</strong>
+				<strong>참여신청 / 취소 안내</strong>
+			<div class="info">
+			<br/>
+				<ul>
+					<li>모임 및 이벤트 참여는 로그인 후에 가능합니다.</li>
+					<li>참여하기 후 마이페이지에서 참여한 모임 및 이벤트를 확인 할 수 있습니다.</li>
+					<li>모임이 취소되면 더 이상 참가할 수 없습니다.</li>
+					<li>성별 조건이 있는 경우, 참여가 제한됩니다.</li>
+					<li>모집정원이 가득 차면 더 이상 신청할 수 없습니다.</li>
+					<li>모집정원이 가득 차 있는 경우, 신청기간 내에 다른 신청자가 모임취소를 하면 다시 신청이 가능합니다.</li>
+				</ul>
+				<br/>
 			</div>
 		</div>
 <script> <!-- 댓글 Ajax -->
@@ -359,7 +380,11 @@ inner="";
 	
 	//참가하기 조건체크
 	var pageGender = $("input[name='gender']").val();
+	var memberNumber = $("input[name='memberNumber']").val();
+	var recruiNumber = $("input[name='recruiNumber']").val();
+	var recruiMaxNumber = $("input[name='recruiMaxNumber']").val();
 	var memberGender = $("#sessionGender").val();
+	var sessionMemberNum = $("#sessionMemberNum").val();
 	var memberGenderFinal = memberGender+"자";
 	
 	var acceptDate = new Date();
@@ -393,20 +418,26 @@ inner="";
 			form.submit();
 			return false;
 		}
+		//주최자는 자신의 글의 참여불가
+		else if(memberNumber===sessionMemberNum){
+			alert('작성자는 참여 할 수 없습니다.');
+			location.reload();
+		}
+		else if(recruiNumber>=recruiMaxNumber){
+			alert('모집 정원이 가득찼습니다.');
+			location.reload();
+		}
 		//설정된 성별과 사용자의 성별이 같지 않을경우 참가불가
-		if(pageGender!="무관"){
+		else if(pageGender!="무관"){
 			if(pageGender!=memberGenderFinal){
 				alert(memberGenderFinal+"는 참여 할 수 없습니다.");
 				location.reload();
 			}
 		}
-		if(acceptDate<today){
+		else  if(acceptDate<today){
 			alert("접수기간에만 신청 가능합니다.");
 			location.reload();
 		}
-		/* if(){ //자기 자신이 쓴 글은 신청할 수 없습니다
-			
-		} */
 		modal.style.display = "block";
 		
 	});

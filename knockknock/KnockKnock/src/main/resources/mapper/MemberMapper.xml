@@ -253,7 +253,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cancelMM">
 		UPDATE MEETING 
 		SET 
-		CANCEL_REASON=#{meetingVDTO.cancelReason},
+		CANCEL_REASON=#{meetingVDTO.cancelReason}
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	

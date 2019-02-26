@@ -63,7 +63,6 @@ public class ReplyController {
 	@PostMapping("/eventReplyList")
 	@ResponseBody
 	public List<ReplyDTO> eventReplyList(Model model, @RequestBody String writingNumber1) {
-		System.err.println("댓글 컨트롤러"+writingNumber1);
 		int writingNumber = Integer.parseInt(writingNumber1);
 		return reMapper.eventReplyList(writingNumber);
 	}
