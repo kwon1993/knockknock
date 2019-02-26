@@ -8,6 +8,11 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 body{
 	font-family: 'Jua', sans-serif;
+	text-align:center;
+}
+
+#carouselExampleIndicators{
+	background-color:black;
 }
 
 #jumbotronId{
@@ -21,6 +26,36 @@ body{
 .center{
 text-align:center;
 }
+
+#moimTitle{
+	padding:10px;
+	color:#2eca6a;
+	border-radius:0.5rem;
+	font-size:40px;
+}
+
+#eventTitle{
+	padding:10px;
+	color:#2eca6a;
+	border-radius:0.5rem;
+	font-size:40px;
+}
+
+#more1,#more2{
+	background-color:#2eca6a;
+	color:white;
+	padding:5px;
+	font-size:20px;
+	border-radius:0.5rem;
+}
+
+#head1{
+	font-size:20px;
+}
+
+#head2{
+	font-size:20px;
+}
 </style>
 </head>
 <body id="body">
@@ -29,6 +64,7 @@ text-align:center;
 		<h1>
 			<a th:href="@{/meetingAndEventMain}">
 				<span style="color:#2eca6a">모임</span> 및 <span style="color:#2eca6a">이벤트</span>
+				<h5>"서로 취미를 공유하고 즐거움을 공유해요"</h5>				
 			</a>
 		</h1>
 		<!-- 베너 -->
@@ -69,12 +105,12 @@ text-align:center;
 				    <br/>
    					<h3 class="center">
 						<span class="font-weight-bold">
-							<a class="font-style-success font-weight-bold" role="button" th:href="@{/meetingList}">모임글</a>
+							<a class="font-style-success font-weight-bold" role="button" th:href="@{/meetingList}" id='moimTitle'>모임글</a>
 						</span>
 					</h3>
-					<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}">+더보기</a>
+					<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}" id='more1'>More</a>
 					<table class="table table-hover">
-						<thead>
+						<thead id='head1'>
 							<tr>
 								<th>번호</th>
 								<th>제목</th>
@@ -94,12 +130,12 @@ text-align:center;
 				<br/>
 					<h3 class="center">
 						<span class="font-weight-bold">
-							<a class="font-style-success font-weight-bold" role="button" th:href="@{/eventList}">이벤트글</a>
+							<a class="font-style-success font-weight-bold" role="button" th:href="@{/eventList}" id='eventTitle'>이벤트글</a>
 						</span>
 					</h3>
-					<a class="font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>
+					<a class="font-weight-bold pull-right" role="button" th:href="@{/eventList}" id='more2'>More</a>
 					<table class="table table-hover">		
-						<thead>
+						<thead id='head2'>
 							<tr>
 								<th>번호</th>
 								<th>제목</th>

@@ -122,7 +122,7 @@ body{
 						<td th:text="${list.gender}"></td>
 					</tr>
 				</table><br />
-				<img th:src="${imgPath}" style="width: 80%;">
+				<span th:if="${imgPath}!=null"><img th:src="${imgPath}" style="width: 80%;"></span>
 				<div th:utext="${eventView.content}"></div>
 				<input type="button" th:if="${eventView.cancelReason}==null" class="btn btn-success" data-toggle="modal" data-target="#myModal" value="이벤트취소">
 				<form name="myForm" action="adminEventDelete" style="display: inline;">

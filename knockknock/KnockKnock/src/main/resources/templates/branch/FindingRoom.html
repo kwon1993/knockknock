@@ -151,11 +151,11 @@ body{
 #js-btn-wrap,#hi{
 	color: #2eca6a;
 	border: 2px solid #2eca6a;
-	border-radius: 1rem;
+	border-radius: 2rem;
 	text-transform: uppercase;
 	letter-spacing: 0.030em;
 	background-color:white;
-	font-size:40px;
+	font-size:30px;
 	margin-bottom:20px;
 }
 
@@ -169,8 +169,15 @@ body{
 	opacity:0.7;
 }
 
-#ho{
-	font-family: 'Jua', sans-serif;
+#hoho{
+	font-family: 'Sunflower', sans-serif;
+	font-size:14px;
+}
+
+#hoho:hover{
+	color:#2eca6a;
+	font-size:16px;
+	font-weight: bolder;
 }
 
 #checkbox8,#checkbox9{
@@ -192,6 +199,10 @@ body{
 	font-size:50px;
 }
 
+.swal-button--confirm{
+	background-color:#2eca6a;
+	color:white;
+}
 </style>
     
 </head>
@@ -204,7 +215,6 @@ body{
 		<div class="map_wrap" id="map_wrap">
 			<div id="map" style="width:70%;height:98%;position:relative;overflow:hidden;margin-left:20px"></div><br>
 		</div>
-    
     	<div class="option_wrap" id="option_wrap">
     		<div id='reset'>
     		</div><br>
@@ -269,7 +279,7 @@ body{
 	        <!-- /.thymeleaf gallery-->
 	      </div>
 	      <!-- 더보기 페이징 -->
-	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">More</a></div>
+	      <div id="js-btn-wrap" class="btn-wrap" onclick="morePage();"><a href="javascript:;" class="button">방을 더 보고 싶어요</a></div>
   	</div>
 	<!--지점목록 출력-->
 <script>
@@ -301,6 +311,9 @@ window.onload = function(){
 	jQuery('#findingRoomNav').addClass('active').css('color','#2eca6a');
 }
 
+//방검색,가격검색,체크박스 클릭시 멀티서치 호출
+jQuery("#roomSearch,.checkbox,#roomPay").on('click',multiSearch);
+
 //방검색시 주소를 갤러리,지도 위에 띄우기
 function searchMap(){
 	addressList.forEach(function(addr,i){
@@ -314,7 +327,8 @@ function searchMap(){
 		            position: coords
 		        });
 	
-		        var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+		        //var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+		        var customContent = '<div class="label" id="ho"><span class="left"></span><span class="center"><a id="hoho" href="http://map.daum.net/link/map/낙낙 '+branchNumber[i].textContent + ','+result[0].y+','+result[0].x+'" target="_blank">'+branchNumber[i++].textContent+'</a></span><span class="right"></span></div>';
 		    	
 		    	// 인포윈도우로 장소에 대한 설명을 표시
 		    	var customOverlay = new daum.maps.CustomOverlay({
@@ -323,34 +337,19 @@ function searchMap(){
 		    	});
 			
 	    		customOverlay.setMap(map);
+	    		
+	    		//'검색'을 눌렀을 때,체크박스 클릭시 마커 삭제
+	    		jQuery("#roomSearch,.checkbox,#roomPay").on('click',function(){
+			        i=0;
+			    	marker.setMap(null);
+			    	customOverlay.setMap(null);
+			    });
 	        
-	       		//'검색'을 눌렀을 때, 마커 삭제
-		       jQuery("#roomSearch").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-		       });
-		        
-		        jQuery(".checkbox").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-		        });
-		        
-		        jQuery("#roomPay").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-	        	})
 	    	}//if end
 	    	map.setCenter(coords);
 		});	
 	});
 }
-
-jQuery('.checkbox').on('click',multiSearch);
-jQuery('#roomSearch').on('click',multiSearch);
-jQuery('#roomPay').on('click',multiSearch);
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -382,6 +381,7 @@ function multiSearch(){
 				jQuery("#allGallery").remove();
 				
 				if(data==""){
+					swal("원하시는 지점이 없어요.","다시 찾아주세요!");
 					content += "<h1 class='my-4 text-center text-lg-left' id='bang'><strong><span style='color:#2eca6a'>입주가능</span> 방 목록</strong></h1><div class='row text-center text-lg-left' id='allGallery'>"
 					+"<br><h1 id='nothing'>원하시는 지점이 없어요. 다시 찾아 주세요!</h1><br><br>"+"<img src='/images/errorhouse.png' style='width:10%; height:10%'><img src='/images/sad.png' style='width:10%; height:10%'>"
 					+ "</div>";
@@ -407,7 +407,7 @@ function multiSearch(){
 						+"</a></div>";
 					}
 					
-					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>More</a></div>";
+					content += "</div><div id='js-btn-wrap' class='btn-wrap'><a href='javascript:;' class='button'>방을 더 보고 싶어요</a></div>";
 					jQuery("#container").html(content);
 					//더보기
 					morePage();
@@ -415,7 +415,7 @@ function multiSearch(){
 			},
 			error : function(data){
 				if(data==""){
-					alert("아모야");
+					swal("에러발생");
 					return false;
 				}
 			},
@@ -451,6 +451,7 @@ function load(id, cnt, btn) {
     }
     jQuery(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
+
 
 </script>
 </div>

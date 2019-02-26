@@ -6,6 +6,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 
 body{
 	font-family: 'Jua', sans-serif;
+	text-align:left;
 }
 
 #jumbotronId{
@@ -52,10 +53,40 @@ body{
 	height:100px;
 }
 .info{
+	
+}
 
-	background-color: #51D88A;
-/*  	color: white; */
-/* 	opacity: 0.5; */
+#title{
+	color:#2eca6a;
+	
+	
+}
+
+#titleLine{
+	border-bottom:2px solid #2eca6a;
+}
+
+#maker{
+	padding:7px;
+	background-color: #2eca6a;
+	color:white;
+	border-radius:1rem;
+}
+
+#myBtn{
+	background-color:#2eca6a;
+	border:2px solid #2eca6a;
+}
+
+#content{
+	border:2px solid #2eca6a;
+}
+
+#cancelIntro{
+	padding:7px;
+	background-color: #2eca6a;
+	color:white;
+	border-radius:1rem;
 }
 </style>
 </head>
@@ -67,12 +98,12 @@ body{
 				<div class="col-3">
 					<img class="d-block" width="200" height="200" id="foo" th:src="@{'/images/meeting/'+${MeetingView.writingNumber}+'/mainImage'}" onerror="this.src='/images/meeting/knockLogo2.jpg';"/>
 					<br/>
-					<h5>개설자 정보</h5>
+					<span id='maker'>개설자 정보</span><br>
+					<br>
 					<h6><span th:text="${MeetingView.nickname}"></span></h6>
 				</div>
 			<div class="col">
-			<h1><span id="title" th:text="${MeetingView.title}">제목</span></h1>
-			<hr class="my-hr"/>
+			<h1 id='titleLine'><span id="title" th:text="${MeetingView.title}">제목</span></h1>
 			<span th:text="'작성일 : '+${MeetingView.writeTime}+' |'">작성일</span>
 			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span><br/>
 			<span th:text="'모임장소 : ' + ${MeetingView.place}+' '+ ${MeetingView.placeDetail}"></span>
@@ -91,7 +122,7 @@ body{
 							<li th:text="'모집 정원 : 총 '+${MeetingView.recruitMaxNumber}+'명  |  '+${MeetingView.recruitNumber}+'명 신청'"></li>
 						</ul>
 					</div>
-					<hr class="my-hr"/>
+					<h1 id='titleLine'></h1>
 					<div>
 						<br/>
 						<span th:text="모임소개"></span>
@@ -156,8 +187,6 @@ body{
 					</div>
 				</div>
 			
-			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★댓글 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
-			<hr class="my-hr"/>
 			<div id="reply">
 				<strong>문의/기대평</strong>
 					<div class="form-group">
@@ -193,8 +222,7 @@ body{
 								th:value="${_csrf.token}"> -->
 				</div>
 			</div>
-			<hr class="my-hr"/>
-				<strong>참여신청 / 취소 안내</strong>
+				<strong id='cancelIntro'>참여신청 / 취소 안내</strong>
 			<div class="info">
 			<br/>
 				<ul>
