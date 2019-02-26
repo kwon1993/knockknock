@@ -80,7 +80,7 @@ body{
 					<label style="width: 100px;">이벤트 종료 시간</label><input type="date" name="eventEndTime" th:value="${eventModifyView.eventEndTime}"><br />
 					<label style="width: 100px;">모집 인원</label><input type="number" name="recruitMaxNumber" th:value="${eventModifyView.recruitMaxNumber}"><br />
 					<label style="width: 100px;">이미지</label><input type="file" name="eventImage"><br />
-					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15"></textarea>
+					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15">[[*{eventModifyView.content}]]</textarea>
 						<script>
 							CKEDITOR.replace('content');
 						</script></div>
