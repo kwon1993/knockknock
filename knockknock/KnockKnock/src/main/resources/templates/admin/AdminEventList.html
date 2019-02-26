@@ -87,7 +87,7 @@ body{
 								<p th:text="${list.title}"></p></a></td>
 							<td th:text="${list.hit}"></td>
 							<td th:text="${list.writeTime}"></td>
-							<td th:text="${list.cancelReason}"></td>
+							<td><span th:if="${list.cancelReason}!=null">취소됨</span></td>
 						</tr>
 						<tr>
 							<td colspan="6">

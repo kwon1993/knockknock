@@ -59,9 +59,6 @@ body{
 	margin-bottom:30px;
 }
 
-.modal-backdrop{
-
-}
 </style>
 </head>
 <body>
@@ -69,7 +66,6 @@ body{
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
-				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">이벤트 취소하기</h4>
@@ -88,10 +84,8 @@ body{
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div> -->
 				</div>
-			  
 			</div>
 		</div>
-	
 		<div class="row">
 			<div class="col-md-2">
 				<div class="sidenav">
@@ -105,13 +99,14 @@ body{
 				<h2 th:text="${eventView.title}"></h2>
 				<label style="width: 100px;">작성자</label><span th:text="${eventView.nickname}"></span><br />
 				<label style="width: 100px;">조회수</label><span th:text="${eventView.hit}"></span><br />
-				<label style="width: 100px;">작성시간</label><span th:text="${eventView.writeTime}"></span>
+				<label style="width: 100px;">작성시간</label><span th:text="${eventView.writeTime}"></span><br />
 				<label style="width: 100px;">이벤트 모집기간</label><span th:text="${eventView.acceptStartTime}"></span>
 				<label> ~ </label><span th:text="${eventView.acceptEndTime}"></span><br />
 				<label style="width: 100px;">이벤트 기간</label><span th:text="${eventView.eventStartTime}"></span>
-				<span th:text="${eventView.eventEndTime}"></span><br />
+				<label> ~ </label><span th:text="${eventView.eventEndTime}"></span><br />
 				<label style="width: 100px;">모집인원</label><span th:text="${eventView.recruitNumber}"></span>
 				<label> / </label><span th:text="${eventView.recruitMaxNumber}"></span><br />
+				<span th:if="${eventView.cancelReason}!=null"><label style="width: 100px;">이벤트취소 이유</label><span th:text="${eventView.cancelReason}"></span><br /></span>
 				<label>신청한 인원</label>
 				<table class="w3-table-all" style="width: 80%;">
 					<tr>
@@ -129,7 +124,7 @@ body{
 				</table><br />
 				<img th:src="${imgPath}" style="width: 80%;">
 				<div th:utext="${eventView.content}"></div>
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">이벤트 취소</button>
+				<input type="button" th:if="${eventView.cancelReason}==null" class="btn btn-success" data-toggle="modal" data-target="#myModal" value="이벤트취소">
 				<form name="myForm" action="adminEventDelete" style="display: inline;">
 					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
 					<input type="submit" class="btn btn-success" value="이벤트 삭제">
@@ -141,6 +136,8 @@ body{
 				<form name="myForm" action="adminEventListView" style="display: inline;">
 					<input type="submit" class="btn btn-success" value="목록으로">
 				</form>
+				
+				
 
 			</div>
 		</div>

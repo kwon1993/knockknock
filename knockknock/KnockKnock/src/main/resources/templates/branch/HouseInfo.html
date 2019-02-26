@@ -58,7 +58,7 @@ body {
 
 .sticky {
 	position: fixed;
-	top: 92.18px;
+	top: 99.5px;
 	/* width: 100%; */
 	width: 1015px;
 	z-index: 2;
@@ -66,7 +66,7 @@ body {
 
 .sticky1 {
 	position: fixed;
-	top: 92.18px;
+	top: 99.5px;
 	/* width: 100%; */
 	width: 200px;
 	z-index: 2;
@@ -125,6 +125,11 @@ body {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+element.style {
+    width: 850px;
+    margin-left: 15px;
 }
 
 /* * {
@@ -385,10 +390,10 @@ swal{
 		</script>
 
 				<div id="introduce" class="w3-container">
-					<br /> <br /> <br /> <br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
 					<h2><strong>지점 소개</strong></h2>
 					<br />
-					<p th:text="${details.branchComment}"></p>
+					<p th:utext="${details.branchComment}"></p>
 					<br />
 					<table class="table table-striped">
 						<tr>
@@ -415,82 +420,37 @@ swal{
 
 				<div id="locationInfo" class="w3-container">
 
-					<br /> <br /> <br /> <br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
 
 					<h2><strong>위치 정보</strong></h2>
 
 					<br />
-
-					<div id="map" style="width: 750px; height: 500px;"></div>
-					<br />
-
-					<div class="container">
-						<div class="row">
-							<div class="col-md-4">
-								<h2 id="MT1" name="mouseEvent">대형마트</h2>
-							</div>
-							<div class="col-md-4">
-								<h2 id="CS2" name="mouseEvent">편의점</h2>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
+					<div class="row">
+						<div class="col-md-10">
+							<div id="map" style="width: 850px; height: 500px;"></div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h2 id="PK6" name="mouseEvent">주차장</h2>
-							</div>
-							<div class="col-md-4">
-								<h2 id="SW8" name="mouseEvent">지하철역</h2>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h2 class="field-title" id="BK9" name="mouseEvent">은행</h2>
-							</div>
-							<div class="col-md-4">
-								<h2 class="field-title" id="CT1" name="mouseEvent">문화시설</h2>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h2 id="FD6" name="mouseEvent">음식점</h2>
-							</div>
-							<div class="col-md-4">
-								<h2 id="CE7" name="mouseEvent">카페</h2>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<h2 id="HP8" name="mouseEvent">병원</h2>
-							</div>
-							<div class="col-md-4">
-								<h2 id="PM9" name="mouseEvent">약국</h2>
-							</div>
-							<div class="col-md-4">
-								<h3></h3>
-							</div>
+						<div class="col-md-2">
+							<h2 id="MT1" name="mouseEvent">대형마트</h2>
+							<h2 id="CS2" name="mouseEvent">편의점</h2>
+							<h2 id="PK6" name="mouseEvent">주차장</h2>
+							<h2 id="SW8" name="mouseEvent">지하철역</h2>
+							<h2 class="field-title" id="BK9" name="mouseEvent">은행</h2>
+							<h2 class="field-title" id="CT1" name="mouseEvent">문화시설</h2>
+							<h2 id="FD6" name="mouseEvent">음식점</h2>
+							<h2 id="CE7" name="mouseEvent">카페</h2>
+							<h2 id="HP8" name="mouseEvent">병원</h2>
+							<h2 id="PM9" name="mouseEvent">약국</h2>
 						</div>
 					</div>
+
+					<br />
+
 				</div>
 
 
 				<div id="roomInfo" class="w3-container">
 
-					<br /> <br /> <br /> <br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
 
 					<h2><strong>방 정보</strong></h2>
 					<br /> 
@@ -540,7 +500,7 @@ swal{
 
 				<div id="detailInfo" class="w3-container">
 
-					<br /> <br /> <br /> <br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
 
 					<h2><strong>세부 정보</strong></h2>
 					<br />
@@ -577,13 +537,24 @@ swal{
 
 					<h4>기본 생활 규칙</h4>
 					<br />
-					<p>모든 지점에 공통으로 적용되는 생활 규칙</p>
+					<p>기본 생활 규칙은 낙낙 셰어 하우스의 모든 지점에 공통으로 적용되는 생활 규칙입니다.</p>
+					<br />
+					<p>1. 기본적으로 KnockKnock 입주민이 아닌 사람의 셰어 하우스 방문을 금지합니다.<br />
+					</p>
+					<p>2. </p>
+					<p>3. </p>
+					<p>4. </p>
+					<p>5. </p>
+					<p>6. </p>
+					<p>7. </p>
+					<br />
+					<p>함께 생활하는 공간인만큼 </p>
 					<br />
 					<strong><h4 th:text="|*{details.branchNumber}호점의 생활 규칙|"></h4></strong> 
 					<br />
-					<p th:text="${details.rule}"></p>
+					<p th:text="|*{details.branchNumber}호점에만 적용되는 생활 규칙입니다.|"></p>
+					<p th:utext="${details.rule}"></p>
 					<br />
-
 					<h3><strong>입주민 정보</strong></h3>
 					<br />
 					<div th:each="memberInfo:${memberInfoList}">
@@ -591,11 +562,11 @@ swal{
 						  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:288px;" th:alt="card-cap-image">
 						  <div class="card-body">
 						    <div class="card-text">
-								닉네임: <div th:text="${memberInfo.nickname}"></div>
-								성별: <div th:text="${memberInfo.memberGender}"></div>
-								생일: <div th:text="${memberInfo.birth}"></div>
-								관심사: <div th:text="|*{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
-								소개글: <div th:text="${memberInfo.introduce}"></div>
+								<div th:text="|닉네임: *{memberInfo.nickname}|"></div>
+								<div th:text="|성별: *{memberInfo.memberGender}|"></div>
+								<div th:text="|생일: *{memberInfo.birth}|"></div>
+								<div th:text="|관심사: *{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
+								<div th:text="|소개글: *{memberInfo.introduce}|"></div>
 						    </div>
 						  </div>
 						</div>
@@ -615,7 +586,7 @@ swal{
 				</div>
 
 				<div id="review" class="w3-container">
-					<br /> <br /> <br /> <br /> <br /> <br />
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
 					<h3><strong>리뷰</strong></h3>
 					<br />
 					<div class="row">
@@ -624,7 +595,7 @@ swal{
 								<div class="input-group">
 									<input type="hidden" name="writingNumber">
 									<input type="hidden" name="branchNumber" th:value="${details.branchNumber}"> 
-									<input type="text" style="width: 763.5px" class="form-control" id="content" name="reviewContent" placeholder="내용을 입력하세요.">
+									<input type="text" style="width: 950px; margin-left: 15px" class="form-control" id="content" name="reviewContent" placeholder="내용을 입력하세요.">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="button" name="reviewInsertBtn">등록</button> 
 									</span>
@@ -965,8 +936,8 @@ swal{
 			});
 		</script>
 
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b497e483355c4a6cc558f83dcd637541&libraries=services"></script>
+		<!-- <script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b497e483355c4a6cc558f83dcd637541&libraries=services"></script> -->
 
 		<script>
 		

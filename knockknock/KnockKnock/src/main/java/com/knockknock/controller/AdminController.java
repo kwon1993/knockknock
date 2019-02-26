@@ -89,6 +89,7 @@ public class AdminController {
 	// 이벤트 삭제
 	@RequestMapping("adminEventDelete")
 	public String eventDelete(Model model, @RequestParam("writingNumber") int writingNumber) {
+		adminService.eventJoinDelete(writingNumber);
 		adminService.eventDelete(writingNumber);
 		return "redirect:adminEventListView";
 	}

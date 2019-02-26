@@ -85,7 +85,7 @@ body{
 							CKEDITOR.replace('content');
 						</script></div>
 					<input type="hidden" name="writingNumber" th:value="${eventModifyView.writingNumber}">
-					<input type="submit" name="eventModify" id="eventModify" value="수정" style="float: right;">
+					<input type="submit" class="btn btn-success" name="eventModify" id="eventModify" value="수정" style="float: right;">
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				</form>
 			</div>
