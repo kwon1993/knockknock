@@ -182,7 +182,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
               <h2 class="title-a">최근 등록된 쉐어하우스</h2>
             </div>
             <div class="title-link">
-              <a th:href="@{branch/FindingRoom.html}">모든 지점 보기
+              <a th:href="@{findingRoom}">모든 지점 보기
                 <span class="ion-ios-arrow-forward"></span>
               </a>
             </div>
@@ -367,194 +367,120 @@ layout:decorate="~{etc/fragments/Main_layout}">
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-              <h2 class="title-a">새로운 낙낙 패밀리</h2>
+              <h2 class="title-a">Welcome to KnockKnock!</h2>
             </div>
-            <div class="title-link">
+            <!-- <div class="title-link">
               <a href="agents-grid.html">All Agents
                 <span class="ion-ios-arrow-forward"></span>
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
+      	<h3>입주 절차</h3>
+      	<br /><br />
       <div class="row">
-        <div class="col-md-4">
+      	<br />
+      	 <div class="col-md-3" style="padding:20px;">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img th:src="@{/img/agent-4.jpg}" alt="" class="img-d img-fluid">
+              <img th:src="@{/images/house.png}" alt="" class="img-d img-fluid">
             </div>
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">Margaret Sotillo
-                      <br> Escala</a>
+                    방문 신청 후 <br /> 지점 방문
                   </h3>
                 </div>
               </div>
               <div class="card-body-d">
                 <p class="content-d color-text-a">
-                  Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
+                  방문 희망 날짜와 시간을 정해 입주를 원하는 지점에 방문 신청을 한 뒤 지점을 방문합니다.
                 </p>
                 <div class="info-agents color-a">
-                  <p>
-                    <strong>Phone: </strong> +54 356 945234</p>
-                  <p>
-                    <strong>Email: </strong> agents@example.com</p>
-                </div>
-              </div>
-              <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        
+        <div class="col-md-3" style="padding:20px;">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img th:src="@{/img/agent-1.jpg}" alt="" class="img-d img-fluid">
+              <img th:src="@{/images/insured.png}" alt="" class="img-d img-fluid">
             </div>
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a th:href="@{/agent-single.html}" class="link-two">Stiven Spilver
-                      <br> Darw</a>
+                	    계약서 작성
                   </h3>
                 </div>
               </div>
               <div class="card-body-d">
                 <p class="content-d color-text-a">
-                  Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
+                  방문한 지점이 마음에 들었다면 지점을 재방문해 입주 계약서를 작성합니다.
                 </p>
                 <div class="info-agents color-a">
-                  <p>
-                    <strong>Phone: </strong> +54 356 945234</p>
-                  <p>
-                    <strong>Email: </strong> agents@example.com</p>
-                </div>
-              </div>
-              <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        
+        <div class="col-md-3" style="padding:20px;">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img th:src="@{/img/agent-5.jpg}" alt="" class="img-d img-fluid">
+              <img th:src="@{/images/bribery.png}" alt="" class="img-d img-fluid">
             </div>
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">Emma Toledo
-                      <br> Cascada</a>
+                    보증금 및 월세 납부
                   </h3>
                 </div>
               </div>
               <div class="card-body-d">
                 <p class="content-d color-text-a">
-                  Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.
+                보증금과 월세를 납부합니다(보증금은 계약서 작성 후 3일 이내, 월세는 입주일로부터 3일 전까지).
                 </p>
                 <div class="info-agents color-a">
-                  <p>
-                    <strong>Phone: </strong> +54 356 945234</p>
-                  <p>
-                    <strong>Email: </strong> agents@example.com</p>
-                </div>
-              </div>
-              <div class="card-footer-d">
-                <div class="socials-footer d-flex justify-content-center">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item">
-                      <a href="#" class="link-one">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
+        <div class="col-md-3" style="padding:20px;">
+          <div class="card-box-d">
+            <div class="card-img-d">
+              <img th:src="@{/images/key.png}" alt="" class="img-d img-fluid">
+            </div>
+            <div class="card-overlay card-overlay-hover">
+              <div class="card-header-d">
+                <div class="card-title-d align-self-center">
+                  <h3 class="title-d">
+                  	  셰어 하우스 <br />입주
+                  </h3>
+                </div>
+              </div>
+              <div class="card-body-d">
+                <p class="content-d color-text-a">
+                  계약된 입주 예정일에 맞춰 입주합니다.
+                </p>
+                <div class="info-agents color-a">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+   
+   
+   
+   
+   
       </div>
     </div>
   </section>

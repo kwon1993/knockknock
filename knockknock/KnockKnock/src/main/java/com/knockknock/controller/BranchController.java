@@ -70,20 +70,6 @@ public class BranchController {
 //		return branchService.categoryRoomSearch(branchDetailVDTO);
 //	}
 	  
-	 // 생년월일을 기준으로 현재 나이 계산 
-	/*
-	 * public int getAge(int birthYear, int birthMonth, int birthDay) { Calendar
-	 * current = Calendar.getInstance(); int currentYear =
-	 * current.get(Calendar.YEAR); int currentMonth = current.get(Calendar.MONTH) +
-	 * 1; int currentDay = current.get(Calendar.DAY_OF_MONTH);
-	 * 
-	 * int age = currentYear - birthYear; // 생일 안 지난 경우 -1 if (birthMonth * 100 +
-	 * birthDay > currentMonth * 100 + currentDay) age--;
-	 * 
-	 * return age; }
-	 */
-
-	// GET: 파일 업로드 폼이 있는 페이지
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model, Authentication authentication, MemberDTO memberDTO, HttpSession hs) {
 		mc.getSession(authentication,hs,memberDTO);
@@ -106,16 +92,16 @@ public class BranchController {
 
 		int count = 0;
 		List<String> list = new ArrayList<String>();
-
 		List<String> main = new ArrayList<String>();
+		
 		for (int i = 0; i < files.length; i++) {
 			if(i < files.length-1) {
 				if ( files[i].isFile() ) {
 					count++;
 					list.add(files[i].getName());
-					System.out.println( "파일 : " + files[i].getName() );
+					logger.info( "파일 : " + files[i].getName() );
 				} else {
-					System.out.println( "디렉토리명 : " + files[i].getName() );
+					logger.info( "디렉토리명 : " + files[i].getName() );
 				}
 			} else {
 				if( files[i].isFile() ) {
@@ -125,20 +111,7 @@ public class BranchController {
 			
 		} // end of for
 
-//		for (int i = 0; i < files.length-1; i++) {
-//
-//		if ( files[i].isFile() ) {
-//		count++;
-//		list.add(files[i].getName());
-//		System.out.println( "파일 : " + files[i].getName() );
-//		} else {
-//		System.out.println( "디렉토리명 : " + files[i].getName() );
-//		}
-//		} 
-
 		System.out.println(list);
-		count= count-1;
-		System.out.println("파일 갯수: " +count);
 		model.addAttribute("fileList", list);
 		model.addAttribute("mainImage", main);
 		
@@ -157,12 +130,11 @@ public class BranchController {
 		for(int i = 0; i < filesRoom.length-1; i++) {
 		if(filesRoom[i].isFile()) {
 			roomList.add(filesRoom[i].getName());
-			System.out.println( "파일 : " + filesRoom[i].getName() );
+			logger.info( "파일 : " + filesRoom[i].getName() );
 		} else {
-			System.out.println( "디렉토리명 : " + filesRoom[i].getName() );
+			logger.info( "디렉토리명 : " + filesRoom[i].getName() );
 		}
 		}
-		System.out.println(roomList);
 		model.addAttribute("roomList", roomList);
 		
 		return "branch/HouseInfo";
@@ -176,9 +148,6 @@ public class BranchController {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		logger.info(visitDTO.toString());
-		logger.info("POST/visitBooking");
-
 		branchService.visitBooking(visitDTO, email);
 	}
 	
@@ -186,7 +155,6 @@ public class BranchController {
 	@ResponseBody
 	public void likeBranch(Model model, @RequestBody String branchNumber1, Authentication authentication) {
 		
-		// System.out.println("likeBranch: "+branchNumber1);
 		int branchNumber = Integer.parseInt(branchNumber1);
 		
 		authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -200,8 +168,6 @@ public class BranchController {
 	@ResponseBody
 	public LikeBranchDTO getHeartStatus(Model model, @RequestBody String branchNumber1, Authentication authentication) {
 		
-		System.out.println("하트 상태: "+branchNumber1);
-				
 		 int branchNumber = Integer.parseInt(branchNumber1);
 		 
 		 authentication = SecurityContextHolder.getContext().getAuthentication(); 

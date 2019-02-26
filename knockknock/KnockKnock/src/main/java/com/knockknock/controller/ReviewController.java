@@ -44,10 +44,6 @@ public class ReviewController {
 	@PostMapping("/reviewInsert")
 	@ResponseBody
 	private int reviewServiceInsert(@RequestBody ReviewDTO reviewDTO, Authentication authentication) {
-		// RequestBody로 객체를 받아올 경우에는 아래의 코드 모두 불필요
-		// ReviewDTO reviewDTO = new ReviewDTO();
-		// reviewDTO.setBranchNumber(branchNumber);
-		// reviewDTO.setContent(content);
 		
 		// 현재 로그인 사용자 정보에 접근
 		authentication = SecurityContextHolder.getContext().getAuthentication();

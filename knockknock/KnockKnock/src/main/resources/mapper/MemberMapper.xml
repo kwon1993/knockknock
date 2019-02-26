@@ -202,12 +202,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	WRITING_NUMBER writingNumber,
     	MEMO,
     	RESERVATION_TIME reservationTime,
-    	ISCHECK isCheck
+    	ISCHECK ischeck
     	FROM VISIT
     	WHERE
     	MEMBER_NUMBER
     	= (SELECT MEMBER_NUMBER FROM MEMBER WHERE EMAIL = #{email})
-    	ORDER BY WRITING_NUMBER ASC, RESERVATION_TIME DESC
+    	ORDER BY RESERVATION_TIME DESC, WRITING_NUMBER ASC
     </select>
 
 	<delete id="deleteJM">
@@ -253,7 +253,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cancelMM">
 		UPDATE MEETING 
 		SET 
-		CANCEL_REASON=#{meetingVDTO.cancelReason},
+		CANCEL_REASON=#{meetingVDTO.cancelReason}
 		WHERE WRITING_NUMBER=#{meetingVDTO.writingNumber};
 	</update>
 	
