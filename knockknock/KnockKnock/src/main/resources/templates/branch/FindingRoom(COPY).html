@@ -27,7 +27,7 @@ body{
 .img-fluid img-thumbnail{
   	position: relative;
     height: 100px;
-    border: 0px solid #2eca6a;
+    border: 1px solid #2eca6a;
 }
 
 #theme{
@@ -35,22 +35,23 @@ body{
     top:60%;
     left:82%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:17px;
+    font-size:14px;
     font-family: 'Jua', sans-serif;
     font-weight:bolder;
     color: white;
     z-index: 2;
     text-align: center;
-    background-color:#2eca6a;
     padding:2%;
-    color:white;
+    background-color: white;
+    border: 1px solid black;
+    color:black;
 }
 #option_wrap{
 	display:inline;	
 	position:absolute;
 	float:left;
 	padding:25px 14px;
-	border:2px solid  #2eca6a;
+	border:1px solid  #2eca6a;
 	border-radius: 1rem;
 	height: 470px;
 	width:20%;
@@ -73,7 +74,7 @@ body{
 
 #roomSearch,#roomPay{
   color: #2eca6a;
-  border: 2px solid #2eca6a;
+  border: 1px solid #2eca6a;
   border-radius: 50px;
   text-transform: uppercase;
   letter-spacing: 0.030em;
@@ -104,7 +105,7 @@ body{
 }
 
 #img{
-	background-color:white;
+	background-color:#2eca6a;
 	width:350px;
 	height:250px;
 }
@@ -115,7 +116,7 @@ body{
 
 #searchAddress{
 	border-radius: .25rem;
-	border:2px solid  #2eca6a;
+	border:1px solid  #2eca6a;
 }
 
 /*더보기*/
@@ -173,12 +174,17 @@ body{
 	font-family: 'Jua', sans-serif;
 }
 
-#checkbox8,#checkbox9{
+#checkbox8{
 	width:25%;
 	border-radius: .25rem;
-    border: 2px solid #2eca6a;
+    border: 1px solid #2eca6a;
 }
 
+#checkbox9{
+	width:25%;
+	border-radius:.25rem;
+    border: 1px solid #2eca6a;
+}
 
 #mapmarker,#calculator{
 	color:#2eca6a;
@@ -303,54 +309,58 @@ window.onload = function(){
 
 //방검색시 주소를 갤러리,지도 위에 띄우기
 function searchMap(){
-	addressList.forEach(function(addr,i){
-		geocoder.addressSearch(addr.textContent, function(result, status){
-	    	if(status === daum.maps.services.Status.OK){
-		    	var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-		    	
-		        // 결과값으로 받은 위치를 마커로 표시
-		        var marker = new daum.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-	
-		        var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
-		    	
-		    	// 인포윈도우로 장소에 대한 설명을 표시
-		    	var customOverlay = new daum.maps.CustomOverlay({
-		    	  	position : coords,
-		    	 	content : customContent
-		    	});
-			
-	    		customOverlay.setMap(map);
-	        
-	       		//'검색'을 눌렀을 때, 마커 삭제
-		       jQuery("#roomSearch").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-		       });
-		        
-		        jQuery(".checkbox").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-		        });
-		        
-		        jQuery("#roomPay").on('click',function(){
-		        	i=0;
-		    		marker.setMap(null);
-		    		customOverlay.setMap(null);
-	        	})
-	    	}//if end
-	    	map.setCenter(coords);
-		});	
-	});
+	for(k=0; k<addressList.length; k++){
+		geocoder.addressSearch(addressList[k].textContent, callback);
+	}
 }
 
 jQuery('.checkbox').on('click',multiSearch);
 jQuery('#roomSearch').on('click',multiSearch);
 jQuery('#roomPay').on('click',multiSearch);
+
+//장소검색이 완료됐을 때 호출되는 콜백함수 
+var callback = function(result, status){
+
+    	if (status === daum.maps.services.Status.OK) {
+    	var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+        // 결과값으로 받은 위치를 마커로 표시
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        var customContent = "<div class ='label' id='ho'><span class='left'></span><span class='center'>"+branchNumber[i++].textContent+"</span><span class='right'></span></div>";
+    	
+    	// 인포윈도우로 장소에 대한 설명을 표시
+    	var customOverlay = new daum.maps.CustomOverlay({
+    	  	position : coords,
+    	 	content : customContent
+    	});
+
+		
+    	customOverlay.setMap(map);
+        
+        //'검색'을 눌렀을 때, 마커 삭제
+       jQuery("#roomSearch").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+       });
+        
+        jQuery(".checkbox").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+        });
+        
+        jQuery("#roomPay").on('click',function(){
+        	i=0;
+    		marker.setMap(null);
+    		customOverlay.setMap(null);
+        })
+    }//if end
+    	map.setCenter(coords);
+};
 
 function multiSearch(){
 		var address = jQuery("#searchAddress").val();
@@ -377,7 +387,7 @@ function multiSearch(){
 			data : JSON.stringify({"address":address,"genderList":genderCheckbox,"petList":petCheckbox,"themeList":themeCheckbox,"minRent":minRent,"maxRent":maxRent}),
 			dataType : "json",
 			contentType: 'application/json',
-			async : true,
+			async : false,
 			success : function(data){
 				jQuery("#allGallery").remove();
 				

@@ -288,7 +288,17 @@ color:black;
 	text-align:center;
 } 
 
+swal{
+	font-size:30px;
+}
 
+.swal-button {
+	background-color:#2eca6a;
+}
+
+.swal-button--confirm{
+	
+}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -895,13 +905,15 @@ color:black;
 			var visitBooking = document.getElementById("visitBooking");
 			
 			btn.onclick = function() {
-				if(nick==""){
-					alert('먼저 로그인을 해주세요');
-					var	form =$("#visitBookingForm");
-					form.action = "/login";
-					form.submit();
-					return false;
-				}
+					if(nick==""){
+						swal("먼저 로그인을 해주세요.").then((value)=>{
+						
+						var	form =$("#visitBookingForm");
+						form.action = "/login";
+						form.submit();
+						return false;
+						});
+					}
 				modal.style.display = "block";
 			}
 

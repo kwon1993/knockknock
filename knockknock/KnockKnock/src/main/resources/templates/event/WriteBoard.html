@@ -3,6 +3,7 @@
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
 <title>모임 만들기</title>
+<script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style type="text/css">
 
 body{
@@ -29,7 +30,7 @@ body{
 						<span>대표이미지</span>
 						<img class="d-block" width="150" height="150" id="foo" src="#" onerror="this.src='/images/meeting/default.png';"/>
 						<input class="form-control-file" type='file' name="image" id="imgInp" />
-						<small>* 이미지 등록에 대한 안내는 FAQ를 확인해주세요</small>
+						<small>* 이미지는 정사각형 최대 500*500px 사이즈만 업로드 가능합니다</small>
 					</div>
 					<div class="col">
 						<table class="table">
@@ -95,14 +96,18 @@ body{
 								<td>
 									<select name="gender">
 										<option value="무관">무관</option>
-										<option value="남자만">남자만</option>
-										<option value="여자만">여자만</option>
+										<option value="남자">남자</option>
+										<option value="여자">여자</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td>모임소개<small class="text-danger">(필수)</small></td>
-								<td><textarea name="detailIntroduce" id="ckeditor" maxlength="3000" required></textarea></td>
+								<td><div><textarea class="form-control" name="detailIntroduce" id="content" cols="50" rows="15" maxlength="3000" required></textarea>
+									<script>
+										CKEDITOR.replace('content');
+									</script></div>
+								</td>
 							</tr>
 						</table>
 						<input class="pull-right" type="submit" value="개설완료">
@@ -111,7 +116,7 @@ body{
 				</div>
 			</form>
 		</div>
-<!-- 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
+		<script type="text/javascript" src="../texteditor/sample.js"></script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script type="text/javascript">
 		//사진 미리보기-----------------
@@ -179,31 +184,6 @@ body{
 		    }
 		</script>
 		
-		
-<!-- 		<script th:src="@{/ckeditor/ckeditor.js}"></script> -->
-		<!-- <script>
-		//ck editor-----------------
-		    $(function(){
-		        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
-		            width:'100%',
-		            height:'400px',
-		            //filebrowserImageUploadUrl: '/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-		        });
-	
-		        CKEDITOR.on('dialogDefinition', function( ev ){
-		            var dialogName = ev.data.name;
-		            var dialogDefinition = ev.data.definition;
-		          
-		            switch (dialogName) {
-		                case 'image': //Image Properties dialog
-		                    //dialogDefinition.removeContents('info');
-		                    dialogDefinition.removeContents('advanced');
-		                    dialogDefinition.removeContents('Link');
-		                    break;
-		            }
-		        });
-		    });
-		</script>-->
 	</div>
 </body>
 </html>
