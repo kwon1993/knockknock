@@ -1,6 +1,5 @@
 package com.knockknock.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -69,8 +68,14 @@ public class MainController {
 				return "redirect:/suvRegister";
 			}
 		}
+//		hs.getAttribute("memberNumber");
+//		hs.getAttribute("profileImage");
+		
+		hs.removeAttribute("nickname");
+		hs.removeAttribute("profileImage");
 		
 		mc.getSession(authentication,hs,memberDTO);
+		
 		return "home/Home";
 	}
 	
