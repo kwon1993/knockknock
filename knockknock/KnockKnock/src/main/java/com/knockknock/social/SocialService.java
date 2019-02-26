@@ -31,11 +31,11 @@ public class SocialService{
 	
     public UsernamePasswordAuthenticationToken doAuthentication(UserConnectionDTO userConnectionDTO) {
     	
-        if (userService.isExistUser(userConnectionDTO)) {
+        if(userService.isExistUser(userConnectionDTO)){
             // 기존 회원일 경우에는 데이터베이스에서 조회해서 인증 처리
             final MemberDTO memberDTO = userService.findBySocial(userConnectionDTO);
             return setAuthenticationToken(memberDTO);
-        } else {
+        }else{
             // 새 회원일 경우 회원가입 이후 인증 처리
         	userService.signUp(userConnectionDTO);
             final MemberDTO memberDTO = userService.findBySocial(userConnectionDTO);
@@ -44,11 +44,11 @@ public class SocialService{
         }
     }
 
-    private UsernamePasswordAuthenticationToken setAuthenticationToken(MemberDTO memberDTO) {
+    private UsernamePasswordAuthenticationToken setAuthenticationToken(MemberDTO memberDTO){
         return new UsernamePasswordAuthenticationToken(memberDTO, null, getAuthorities(memberDTO));
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(MemberDTO memberDTO) {
+    private Collection<? extends GrantedAuthority> getAuthorities(MemberDTO memberDTO){
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(memberDTO.getGrade()));
         return authorities;
