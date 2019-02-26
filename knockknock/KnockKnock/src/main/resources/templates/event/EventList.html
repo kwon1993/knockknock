@@ -19,23 +19,27 @@ body{
 	<div layout:fragment="content" class="container">
 
 	    <div class="jumbotron" id="jumbotronId">
-	        <h1>이벤트게시판</h1>
+	        <h1><span style="color:#2eca6a">이벤트</span>게시판</h1>
 	        <!-- 베너 -->
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
 					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<a href="/eventView?writingNumber=1"><img class="d-block w-100" th:src="@{/images/event/banner1.jpg}" alt="첫번째 슬라이드"></a>
+						<a href="/eventView?writingNumber=1" id="atag"><img class="d-block w-100" th:src="@{/images/event/banner/knockBanner1.jpg}" alt="첫번째 슬라이드"></a>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner2.jpg}" alt="두번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner2.jpg}" alt="두번째 슬라이드">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner3.jpg}" alt="세번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner3.jpg}" alt="세번째 슬라이드">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner4.jpg}" alt="네번째 슬라이드">
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -83,6 +87,7 @@ body{
 	            </li>
 	            </ul>
 	          </nav>
+	          <a th:href="@{/meetingList}" class="btn btn-outline-success font-weight-bold pull-left" role="button">모임 게시판</a>
 	    </div>
 	</div>
 </body>

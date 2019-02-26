@@ -1,6 +1,6 @@
 package com.knockknock.dto.member;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
@@ -29,6 +29,7 @@ public class MemberDTO{
 	private String introduce;
 	//임시추가(from 성현)
 	private String animal;
+	
 	//소셜용
 	public String provider;
 	private String providerId;

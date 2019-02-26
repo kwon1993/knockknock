@@ -30,15 +30,12 @@ public class SocialService{
 	MemberMapper memberMapper;
 	
     public UsernamePasswordAuthenticationToken doAuthentication(UserConnectionDTO userConnectionDTO) {
-    	System.out.println("SocialService:FacebookOAuth2ClientAuthenticationProcessingFilter에서 호출");
     	
         if (userService.isExistUser(userConnectionDTO)) {
-        	System.out.println("SocialService: doAuthentication 실행.기존 회원 존재(첫 로그인 아님)");
             // 기존 회원일 경우에는 데이터베이스에서 조회해서 인증 처리
             final MemberDTO memberDTO = userService.findBySocial(userConnectionDTO);
             return setAuthenticationToken(memberDTO);
         } else {
-        	System.out.println("SocialService: doAuthentication 실행.기존 회원 아님(첫 로그인)");
             // 새 회원일 경우 회원가입 이후 인증 처리
         	userService.signUp(userConnectionDTO);
             final MemberDTO memberDTO = userService.findBySocial(userConnectionDTO);

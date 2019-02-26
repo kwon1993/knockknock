@@ -1,6 +1,5 @@
 package com.knockknock.mapper;
 
-import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,8 @@ public interface AdminMapper {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 	
 	public void eventCancel(int writingNumber, String cancelReason);
+	
+	public void eventJoinDelete(int writingNumber);
 
 	public void eventDelete(int writingNumber);
 
@@ -75,6 +76,8 @@ public interface AdminMapper {
 	// visit
 
 	public ArrayList<VisitVDTO> visitListView();
+	
+	public ArrayList<VisitVDTO> visitListViewOfMember(int memberNumber);
 
 	public VisitVDTO visitView(int writingNumber);
 

@@ -47,7 +47,7 @@ public class BranchController {
 		model.addAttribute("list", branchService.roomList(branchDetailVDTO));
 		return branchService.roomList(branchDetailVDTO);
 	}
-  	 
+  	 //관심사로 방찾기(체크박스, 주소)
 	 @RequestMapping(value="/categoryRoomSearch") 
 	 @ResponseBody
 	 public List<BranchDetailVDTO> categoryRoomSearch(Model model,@RequestBody BranchDetailVDTO2 data)
@@ -70,6 +70,7 @@ public class BranchController {
 //		return branchService.categoryRoomSearch(branchDetailVDTO);
 //	}
 	  
+
 	@RequestMapping(value = "roomDetailView", method = RequestMethod.GET)
 	public String roomDetailView(@RequestParam("branchNumber") int branchNumber, Model model, Authentication authentication, MemberDTO memberDTO, HttpSession hs) {
 		mc.getSession(authentication,hs,memberDTO);

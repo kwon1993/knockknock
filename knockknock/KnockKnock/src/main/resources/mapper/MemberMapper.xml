@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(MEMBER_NUMBER, GRADE, EMAIL, PASSWORD, PHONE_NUMBER, NICKNAME, NAME, BIRTH, GENDER,
 		JOIN_TIME, ADDRESS, ADDRESS_DETAIL, FAVORITE1, FAVORITE2, FAVORITE3, IMAGE_PROFILE)
 		VALUES
-		(0, 'NORMAL', #{email}, #{password}, #{phoneNumber}, #{nickname}, #{name}, now(), #{gender},
+		(0, 'NORMAL', #{email}, #{password}, #{phoneNumber}, #{nickname}, #{name}, #{birth}, #{gender},
 		now(), #{address}, #{addressDetail}, #{favorite1}, #{favorite2}, #{favorite3}, 'images/profiles/default.gif')
     </insert>
 
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="findByEmail" resultType="MemberDTO">
-    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1 FROM MEMBER 
+    	SELECT EMAIL, PASSWORD, GRADE, NAME, NICKNAME,MEMBER_NUMBER memberNumber,FAVORITE1, GENDER FROM MEMBER 
     	WHERE EMAIL = #{email}
     </select>
     

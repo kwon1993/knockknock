@@ -18,28 +18,39 @@ body{
 	border-radius: 1rem;
 	width: 50%;
 }
+.center{
+text-align:center;
+}
 </style>
 </head>
 <body id="body">
 	<div layout:fragment="content" class="container">
 		<div class="jumbotron" id="jumbotronId">
-		<h1><span style="color:#2eca6a">모임</span> 및 <span style="color:#2eca6a">이벤트</span></h1>
+		<h1>
+			<a th:href="@{/meetingAndEventMain}">
+				<span style="color:#2eca6a">모임</span> 및 <span style="color:#2eca6a">이벤트</span>
+			</a>
+		</h1>
 		<!-- 베너 -->
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
 					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<a href="/eventView?writingNumber=1" id="atag"><img class="d-block w-100" th:src="@{/images/event/banner1.jpg}" alt="첫번째 슬라이드"></a>
+						<a href="/eventView?writingNumber=1" id="atag"><img class="d-block w-100" th:src="@{/images/event/banner/knockBanner1.jpg}" alt="첫번째 슬라이드"></a>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner2.jpg}" alt="두번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner2.jpg}" alt="두번째 슬라이드">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" th:src="@{/images/event/banner3.jpg}" alt="세번째 슬라이드">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner3.jpg}" alt="세번째 슬라이드">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" th:src="@{/images/event/banner/knockBanner4.jpg}" alt="네번째 슬라이드">
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -55,7 +66,12 @@ body{
 		    <div class="row">
 			    <div class="col">
 				    <!-- 미니 글 리스트 -->
-				    <span class="font-weight-bold">모임글</span>
+				    <br/>
+   					<h3 class="center">
+						<span class="font-weight-bold">
+							<a class="font-style-success font-weight-bold" role="button" th:href="@{/meetingList}">모임글</a>
+						</span>
+					</h3>
 					<a class="font-weight-bold pull-right" role="button" th:href="@{/meetingList}">+더보기</a>
 					<table class="table table-hover">
 						<thead>
@@ -75,8 +91,13 @@ body{
 					</table>
 			    </div>
 				<div class="col">
-					<span class="font-weight-bold">이벤트글</span>
-					<a class="font-style-success font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>		
+				<br/>
+					<h3 class="center">
+						<span class="font-weight-bold">
+							<a class="font-style-success font-weight-bold" role="button" th:href="@{/eventList}">이벤트글</a>
+						</span>
+					</h3>
+					<a class="font-weight-bold pull-right" role="button" th:href="@{/eventList}">+더보기</a>
 					<table class="table table-hover">		
 						<thead>
 							<tr>

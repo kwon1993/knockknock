@@ -218,6 +218,10 @@ public class AdminService {
 	public void eventCancel(int writingNumber, String cancelReason) {
 		adminMapper.eventCancel(writingNumber, cancelReason);
 	}
+	
+	public void eventJoinDelete(int writingNumber) {
+		adminMapper.eventJoinDelete(writingNumber);
+	}
 
 	public void eventDelete(int writingNumber) {
 		adminMapper.eventDelete(writingNumber);
@@ -262,6 +266,10 @@ public class AdminService {
 
 	public ArrayList<VisitVDTO> visitList() {
 		return adminMapper.visitListView();
+	}
+	
+	public ArrayList<VisitVDTO> visitListOfMember(int memberNumber){
+		return adminMapper.visitListViewOfMember(memberNumber);
 	}
 
 	public VisitVDTO visitView(int writingNumber) {

@@ -5,6 +5,7 @@
 <title>이벤트 수정 페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style>
 
 h1, h2, h3, h4, h5, h6{
@@ -49,10 +50,6 @@ body{
 	color: #064579;
 }
 
-.row{
-	margin-left:120px;
-}
-
 #title{
 	color:#2eca6a;
 	font-size:larger;
@@ -83,13 +80,13 @@ body{
 					<label style="width: 100px;">이벤트 종료 시간</label><input type="date" name="eventEndTime" th:value="${eventModifyView.eventEndTime}"><br />
 					<label style="width: 100px;">모집 인원</label><input type="number" name="recruitMaxNumber" th:value="${eventModifyView.recruitMaxNumber}"><br />
 					<label style="width: 100px;">이미지</label><input type="file" name="eventImage"><br />
-					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15"></textarea>
+					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15">[[*{eventModifyView.content}]]</textarea>
 						<script>
 							CKEDITOR.replace('content');
 						</script></div>
-					<input type="submit" name="eventModify" id="eventModify" value="수정" style="float: right;">
-					<input type="hidden" th:name="${_csrf.parameterName}"
-					th:value="${_csrf.token}">
+					<input type="hidden" name="writingNumber" th:value="${eventModifyView.writingNumber}">
+					<input type="submit" class="btn btn-success" name="eventModify" id="eventModify" value="수정" style="float: right;">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				</form>
 			</div>
 		</div>

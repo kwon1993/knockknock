@@ -83,9 +83,8 @@ public class MemberController {
 	
 	// 아이디찾기
 	@RequestMapping("/findId")
-	@ResponseBody // ajax로 받을때 쓰는 어노테이션
-	public MemberDTO findId(Model model, @RequestBody MemberDTO memberDTO) { // @RequestBody 쓰면 객체로 받을 수 있음(뷰단에서
-																				// "name":name 이렇게 쓴게 알아서 name변수에 들어감)
+	@ResponseBody
+	public MemberDTO findId(Model model, @RequestBody MemberDTO memberDTO) {
 		return memberMapper.findByName(memberDTO);
 	}
 
@@ -93,28 +92,25 @@ public class MemberController {
 	@RequestMapping(value = "/findPass", method = RequestMethod.POST)
 	public String findPass(MemberDTO memberDTO, RedirectAttributes redirectattr, Errors errors,
 			HttpServletResponse response) {
-		System.out.println("findPass매핑");
 		// 1.이메일형식검사
 		new FindPassValidator().validate(memberDTO, errors);
 		// 2.이메일형식 안 맞으면 로그인 페이지로 돌아감
 		if (errors.hasErrors()) {
-			System.out.println("error가 있다");
 			return "member/Login";
 		}
 		// 3.이메일형식이 맞으면 서비스 인스턴스 생성
 		FindpassService service = new FindpassService();
 
 		try {
-			System.out.println("try시작111");
 			// 비번찾기를 위한 excute메서드 실행
 			MemberDTO resultDto = service.execute(sqlsession, memberDTO);
 			System.out.println("resultDto" + resultDto);
 			redirectattr.addFlashAttribute("resultDto", resultDto);
-			System.out.println("try끝");
+			
 			return "redirect:sendpass";
 		} catch (Exception e) {
-			System.out.println("예외가 있다");
 			errors.reject("EmailNotExist");
+			
 			return "member/Login";
 		}
 	}
@@ -128,6 +124,7 @@ public class MemberController {
 			MemberDTO profileImage = memberMapper.getImageDir(sc.getUsername());
 			session.setAttribute("nickname", nickname.getNickname());
 			session.setAttribute("memberNumber", nickname.getMemberNumber());
+			session.setAttribute("gender", nickname.getGender()); //from 민철_meetingAndEvent 조건처리를 위해 사용
 		  
 			if (profileImage != null) { 
 				session.setAttribute("profileImage", profileImage.getImageProfile()); 
@@ -138,7 +135,6 @@ public class MemberController {
 	public void getSocialSession(Authentication auth, HttpSession session, MemberDTO memberDTO) {
 		
 		if(auth != null && session.getAttribute("nickname") == null) { 
-			System.out.println("auth는나옴:"+auth);
 			auth = SecurityContextHolder.getContext().getAuthentication();
 			MemberDTO sc = (MemberDTO)auth.getPrincipal();
 			MemberDTO nickname = memberMapper.findByEmail(sc); 

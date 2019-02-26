@@ -3,6 +3,8 @@ package com.knockknock.controller;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.knockknock.dto.event.MeetingVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.ProfileVDTO;
+import com.knockknock.security.MemberController;
 import com.knockknock.security.MemberService;
 
 @Controller
@@ -28,6 +31,8 @@ public class MyPageController {
 
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	MemberController mc;
 
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
@@ -52,22 +57,22 @@ public class MyPageController {
 	@RequestMapping("/updateProfileComplete")
 	@ResponseBody
 	public List<MemberDTO> profileUpdate(Model model, @RequestBody ProfileVDTO profileVDTO,
-		Authentication authentication) {
+		Authentication authentication,HttpSession hs,MemberDTO memberDTO) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
+		memberDTO.setEmail(user.getUsername());
 		
 		if (profileVDTO.getAnimal().length() > 0) {
-			System.out.println("Animal이 있다");
 			memberService.deletePet(profileVDTO);//펫초기화
 			memberService.firstMyPetUpdate(profileVDTO);//펫값있으면 넣기
 			memberService.profileUpdate2(profileVDTO);//업뎃
 			
 		} else {
-			System.out.println("Animal이 없다");
 			memberService.deletePet(profileVDTO);//펫초기화
 			memberService.profileUpdate2(profileVDTO);//값없는채로 업뎃
 		}
+		mc.getSession(authentication, hs, memberDTO);
 		return memberService.getProfile(username);
 	}
 
@@ -75,17 +80,14 @@ public class MyPageController {
 	@RequestMapping(value = "/profileUpdate")
 	@ResponseBody
 	public MemberDTO uploadFormPost(@RequestBody MultipartFile[] uploadFile, Model model, MemberDTO memberDTO,
-			Authentication authentication) {
+			Authentication authentication,HttpSession hs) {
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		String username = user.getUsername();
-
 		
-		//업로드할 절대경로1
-//		String uploadFolder = "C:\\Users\\ash\\Desktop\\knockknock\\knockknock\\KnockKnock\\src\\main\\resources\\static\\images";
-		//테스트경로
-		//리눅스(서버)에서 절대경로에서 가져오도록 수정
+		//업로드할 절대경로1(리눅스(서버)에서 절대경로에서 가져오도록 수정)
 		String uploadFolder;
+		
 		String OS = System.getProperty("os.name").toLowerCase();
 		if(OS.indexOf("nux") >= 0) {
 			uploadFolder = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images";
@@ -105,7 +107,9 @@ public class MyPageController {
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-
+		
+		String finalImage ="";
+		
 		// 다중파일의 경우를 위해 포문으로 파일들을 가져온다(프로필사진 1개니까 상관없음)
 		for (MultipartFile multipartFile : uploadFile) {
 
@@ -113,13 +117,14 @@ public class MyPageController {
 
 			// IE에서 uploadFileName이 풀경로로 나와서, 파일명 이전 경로는 짜르는 작업. 실제 파일명이 나온다.
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-
+			
+		
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				// 경로를 파일화시킨다.(실제파일생성)
 				multipartFile.transferTo(saveFile);
 				// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
-				String finalImage = uploadRelativeDirectory + uploadFileName;
+				finalImage = uploadRelativeDirectory + uploadFileName;
 				// 이미지경로를 저장한다.
 				memberService.saveImageDir(finalImage, username);
 				// 이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
@@ -128,7 +133,16 @@ public class MyPageController {
 				e.getMessage();
 			} // end catch
 		}
-
+		
+		
+		hs.removeAttribute("nickname");
+		hs.removeAttribute("profileImage");
+		
+		memberDTO.setEmail(username);
+		memberDTO.setImageProfile(finalImage);
+		
+		mc.getSession(authentication, hs, memberDTO);
+		
 		return memberService.getImageDir(username);
 	}
 
@@ -144,17 +158,6 @@ public class MyPageController {
 
 		return "member/MyEventList";
 	}
-
-	/*
-	 * ash
-	 * 
-	 * @RequestMapping("/MyVisitList") public String myVisitList(Model
-	 * model, @RequestParam("memberNumber") int memberNumber) {
-	 * System.out.println(memberNumber);
-	 * model.addAttribute("myVisitLists",memberService.myVisitList(memberNumber));
-	 * 
-	 * return "member/MyVisitList"; }
-	 */
 
 	@RequestMapping("/MyMeetingList")
 	public String myMeetingList(Model model, ProfileVDTO profileVDTO) {
@@ -335,7 +338,7 @@ public class MyPageController {
 		model.addAttribute("profile", memberService.getProfile(username));
 		// 펫정보 불러오기 위한 모델
 		model.addAttribute("getPet", memberService.getPet(username));
-//		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
+		//프로필메인을 불러올 때, 이미지도 불러오기 위한 모델
 		model.addAttribute("image", memberService.getImageDir(username));
 
 		memberService.changeRealPassword(memberDTO);
