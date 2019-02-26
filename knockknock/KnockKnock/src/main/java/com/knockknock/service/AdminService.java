@@ -80,25 +80,30 @@ public class AdminService {
 		String imageName = "";
 
 		for (MultipartFile multipartFile : eventImage) {
-			String extension = multipartFile.getOriginalFilename()
-					.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-			String uploadFileName;
-			if (Numbering == 0) {
-				uploadFileName = "mainImage" + extension;
-				Numbering++;
-			} else {
-				uploadFileName = Numbering++ + extension;
+			if (multipartFile.getOriginalFilename().lastIndexOf(".") >= 0 ? true : false) {
+				String extension = multipartFile.getOriginalFilename()
+						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+				if (extension.equals(".jpg") || extension.equals(".png") || extension.equals(".jpeg")
+						|| extension.equals(".gif")) {
+					String uploadFileName;
+					if (Numbering == 0) {
+						uploadFileName = "mainImage" + extension;
+						Numbering++;
+					} else {
+						uploadFileName = Numbering++ + extension;
+					}
+					try {
+						File saveFile = new File(EventUploadPath, uploadFileName);
+						imageName = uploadFileName;
+						multipartFile.transferTo(saveFile);
+					} catch (Exception e) {
+						System.out.println("실패");
+						e.printStackTrace();
+					} // end catch
+					adminMapper.setEventImageName(writingNumber, imageName);
+				}
 			}
-			try {
-				File saveFile = new File(EventUploadPath, uploadFileName);
-				imageName = uploadFileName;
-				multipartFile.transferTo(saveFile);
-			} catch (Exception e) {
-				System.out.println("실패");
-				e.printStackTrace();
-			} // end catch
 		}
-		adminMapper.setEventImageName(writingNumber, imageName);
 	}
 //	public void eventImageUpload(int writingNumber, EventDTO eventDTO) {
 //		int writingNumber = Collections.max(adminMapper.getWritingNumber());
@@ -149,7 +154,11 @@ public class AdminService {
 	public String eventImagePath(int writingNumber) {
 		String path;
 		String name = adminMapper.getEventImageName(writingNumber);
-		path = "/images/event/" + writingNumber + "/" + name;
+		if (name != null) {
+			path = "/images/event/" + writingNumber + "/" + name;
+		} else {
+			path = null;
+		}
 		return path;
 	}
 
@@ -168,57 +177,61 @@ public class AdminService {
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 		int memberNumber = adminMapper.getMemberNumber(email);
-		
-		adminMapper.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime, acceptStartTime,
-				acceptEndTime, recruitMaxNumber);
-		
-		if(eventImage.size() > 1) {
-			String resourceToString;
-			String OS = System.getProperty("os.name").toLowerCase();
-			if (OS.indexOf("nux") >= 0) {
-				resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
-						+ writingNumber;
-			} else {
-				resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
-						+ writingNumber;
-			}
 
-			File EventUploadPath = new File(resourceToString);
+		adminMapper.eventModify(writingNumber, memberNumber, title, content, eventStartTime, eventEndTime,
+				acceptStartTime, acceptEndTime, recruitMaxNumber);
 
-			if (EventUploadPath.exists() == false) {
-				EventUploadPath.mkdirs();
-			}
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/event/"
+					+ writingNumber;
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/event/"
+					+ writingNumber;
+		}
 
-			int Numbering = 0;
-			String imageName = "";
+		File EventUploadPath = new File(resourceToString);
 
-			for (MultipartFile multipartFile : eventImage) {
+		if (EventUploadPath.exists() == false) {
+			EventUploadPath.mkdirs();
+		}
+
+		int Numbering = 0;
+		String imageName = "";
+
+		for (MultipartFile multipartFile : eventImage) {
+			if (multipartFile.getOriginalFilename().lastIndexOf(".") >= 0 ? true : false) {
 				String extension = multipartFile.getOriginalFilename()
 						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-				String uploadFileName;
-				if (Numbering == 0) {
-					uploadFileName = "mainImage" + extension;
-					Numbering++;
-				} else {
-					uploadFileName = Numbering++ + extension;
+				if (extension.equals(".jpg") || extension.equals(".png") || extension.equals(".jpeg")
+						|| extension.equals(".gif")) {
+					String uploadFileName;
+					if (Numbering == 0) {
+						uploadFileName = "mainImage" + extension;
+						Numbering++;
+					} else {
+						uploadFileName = Numbering++ + extension;
+					}
+					try {
+						File saveFile = new File(EventUploadPath, uploadFileName);
+						imageName = uploadFileName;
+						multipartFile.transferTo(saveFile);
+					} catch (Exception e) {
+						System.out.println("실패");
+						e.printStackTrace();
+					} // end catch
+					adminMapper.setEventImageName(writingNumber, imageName);
 				}
-				try {
-					File saveFile = new File(EventUploadPath, uploadFileName);
-					imageName = uploadFileName;
-					multipartFile.transferTo(saveFile);
-				} catch (Exception e) {
-					System.out.println("실패");
-					e.printStackTrace();
-				} // end catch
 			}
-			adminMapper.setEventImageName(writingNumber, imageName);
 		}
+
 	}
 
 	public void eventCancel(int writingNumber, String cancelReason) {
 		adminMapper.eventCancel(writingNumber, cancelReason);
 	}
-	
+
 	public void eventJoinDelete(int writingNumber) {
 		adminMapper.eventJoinDelete(writingNumber);
 	}
@@ -267,8 +280,8 @@ public class AdminService {
 	public ArrayList<VisitVDTO> visitList() {
 		return adminMapper.visitListView();
 	}
-	
-	public ArrayList<VisitVDTO> visitListOfMember(int memberNumber){
+
+	public ArrayList<VisitVDTO> visitListOfMember(int memberNumber) {
 		return adminMapper.visitListViewOfMember(memberNumber);
 	}
 
