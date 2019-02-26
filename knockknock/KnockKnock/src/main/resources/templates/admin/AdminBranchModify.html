@@ -133,7 +133,7 @@ body {
 						<input type="text" name="branchAccount" class="form-control"
 							placeholder="계좌번호" th:value="${branchDTO.branchAccount}">
 						<h4>성별</h4>
-						<select name="gender">
+						<select name="gender" th:field="*{branchDTO.gender}">
 							<option value="공용">공용</option>
 							<option value="남">남</option>
 							<option value="여">여</option>
@@ -147,17 +147,17 @@ body {
 						<input type="text" name="branchType" class="form-control"
 							placeholder="예)아파트" th:value="${branchDTO.branchType}">
 						<h4>주차장</h4>
-						<select name="isParking">
+						<select name="isParking" th:field="*{branchDTO.isParking}">
 							<option value="있음">있음</option>
 							<option value="없음">없음</option>
 						</select>
 						<h4>엘리베이터</h4>
-						<select name="isElevator">
+						<select name="isElevator" th:field="*{branchDTO.isElevator}">
 							<option value="있음">있음</option>
 							<option value="없음">없음</option>
 						</select>
 						<h4>반려동물 가능여부</h4>
-						<select name="pet">
+						<select name="pet"  th:field="*{branchDTO.pet}">
 							<option value="가능">가능</option>
 							<option value="불가능">불가능</option>
 						</select>
@@ -187,25 +187,6 @@ body {
 							</div>
 						</div>
 						<!-- db에 있는 값을 가져와 select option이 선택되어 있게 하는 부분. 실패함 -->
-						<script type="text/javascript" th:inline="javascript">
-							//<![CDATA[
-							var $isParking = $('#isParking')
-									.children(
-											'option[value="'
-													+ /*[[${branchDTO.isParking}]]*/+'"]');
-							$isParking.attr('selected', true);
-							var $isElevator = $('#isElevator')
-									.children(
-											'option[value="'
-													+ /*[[${branchDTO.isElevator}]]*/+'"]');
-							$isElevator.attr('selected', true);
-							var $pet = $('#pet').children(
-									'option[value="'
-											+ /*[[${branchDTO.pet}]]*/+'"]');
-							$pet.attr('selected', true);
-							alert(/*[[${branchDTO.pet}]]*/);
-							//]]>
-						</script>
 						<h4>지점 이미지</h4>
 						<input type="file" name="branchImages" class="form-control"
 							multiple="multiple">
@@ -231,12 +212,12 @@ body {
 									class="form-control" placeholder="보증금"
 									th:value="${room.deposit}"></td>
 								<td><select name="roomGender" id="roomGender"
-									class="form-control">
+									class="form-control"  th:field="*{room.gender}">
 										<option value="남">남</option>
 										<option value="여">여</option>
 								</select></td>
 								<td><select name="allowNumber" id="allowNumber"
-									class="form-control">
+									class="form-control" th:field="*{room.allowNumber}">
 										<option value="1인실">1인실</option>
 										<option value="2인실">2인실</option>
 										<option value="3인실">3인실</option>
@@ -254,16 +235,6 @@ body {
 								<td><input type="date" name="rentableDate"
 									class="form-control" th:value="${room.rentableDate}"></td>
 							</tr>
-							<!-- db에 있는 값을 가져와 select option이 선택되어 있게 하는 부분. 실패함 -->
-							<script type="text/javascript">
-								//<![CDATA[
-								$("#roomGender").val("/*[[${room.gender}]]*/")
-										.prop("selected", true);
-								$("#allowNumber").val(
-										"/*[[${room.allowNumber}]]*/").prop(
-										"selected", true);
-								//]]>
-							</script>
 						</table>
 						<table class=roomInfo id="newRoomInfo">
 							<tr>

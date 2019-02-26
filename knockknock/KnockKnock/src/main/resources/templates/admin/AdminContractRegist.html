@@ -75,7 +75,7 @@ label{
 			</div>
 			<div class="col-md-10">
 				<h1 id='title'>계약정보 등록</h1>
-				<form action="adminContractRegist">
+				<form action="adminContractRegist" method="post">
 					<label>회원번호</label><span th:text="${memberNumber}"></span><br />
 					<label>계약일</label><input type="Date" name="contractDate"><br />
 					<label>계약기간</label><input type="number" name="period"><br />
@@ -93,6 +93,7 @@ label{
 					<label>메모</label><input type="text" name="memo"><br />
 					<input type="hidden" name="memberNumber" th:value="${memberNumber}">
 					<input type="submit" class="btn btn-success" style="float: right;" value="등록">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				</form>
 			</div>
 		</div>

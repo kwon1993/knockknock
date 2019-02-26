@@ -83,6 +83,7 @@ body{
 							<td>닉네임</td>
 							<td>이름</td>
 							<td>가입일</td>
+							<td>계약한 하우스</td>
 						</tr>
 						<tr th:each="list : ${memberListView}">
 							<td th:text="${list.memberNumber}"></td>
@@ -91,6 +92,8 @@ body{
 							<td th:text="${list.nickname}"></td>
 							<td th:text="${list.name}"></td>
 							<td th:text="${list.joinTime}"></td>
+							<td th:if="${list.contractBranchNumber}!=null" th:text="|*{list.contractBranchNumber}호점|"></td>
+							<td th:if="${list.contractBranchNumber}==null">없음</td>
 						</tr>
 					</table>
 				</div>
