@@ -5,20 +5,19 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.event.EventDTO;
+import com.knockknock.dto.member.ContractDTO;
 import com.knockknock.service.AdminService;
 
 @Controller
@@ -58,14 +57,17 @@ public class AdminController {
 				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
 				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
 
-//		adminService.eventImageUpload(writingNumber, eventDTO);
-		return "redirect:adminEventListView";
+		model.addAttribute("eventView", adminService.eventView(eventDTO.getWritingNumber()));
+		model.addAttribute("joinMember", adminService.getEventJoinMember(eventDTO.getWritingNumber()));
+		model.addAttribute("imgPath", adminService.eventImagePath(eventDTO.getWritingNumber()));
+		return "admin/AdminEventPost";
 	}
 
 	// 이벤트 수정 페이지
 	@RequestMapping("adminEventModifyView")
 	public String eventModifyView(Model model, @RequestParam("writingNumber") int writingNumber) {
 		model.addAttribute("eventModifyView", adminService.eventModifyView(writingNumber));
+		
 		return "admin/AdminEventModify";
 	}
 
@@ -75,7 +77,10 @@ public class AdminController {
 		adminService.eventModify(eventDTO.getWritingNumber(), eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
 				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
 				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
-		return "redirect:adminEventListView";
+		model.addAttribute("eventView", adminService.eventView(eventDTO.getWritingNumber()));
+		model.addAttribute("joinMember", adminService.getEventJoinMember(eventDTO.getWritingNumber()));
+		model.addAttribute("imgPath", adminService.eventImagePath(eventDTO.getWritingNumber()));
+		return "admin/AdminEventPost";
 	}
 
 	// 이벤트 취소
@@ -136,7 +141,23 @@ public class AdminController {
 				depositor, memberAccount, contractDate, idNumber, memo);
 		adminService.setReturnAmount(adminService.getContractNumber(),
 				adminService.getDeposit(roomNumber, branchNumber));
-		return "redirect:/";
+		model.addAttribute("memberView", adminService.memberView(memberNumber));
+		return "admin/AdminMemberInfo";
+	}
+	
+	//회원 계약 수정 페이지
+	@RequestMapping("adminContractModifyView")
+	public String contractModifyView(Model model, int contractNumber) {
+		model.addAttribute("contract", adminService.contractModifyView(contractNumber));
+		return "admin/AdminContractModify";
+	}
+	
+	//회원 계약 수정
+	@RequestMapping("adminContractModify")
+	public String contractModify(Model model, ContractDTO contractDTO) {
+		adminService.contractModify(contractDTO);
+		model.addAttribute("memberView", adminService.memberView(contractDTO.getMemberNumber()));
+		return "admin/AdminMemberInfo";
 	}
 
 	// question
