@@ -308,6 +308,8 @@ public class AdminController {
 		model.addAttribute("roomDTO", adminService.roomModifyView(branchNumber));
 		model.addAttribute("branchImage", adminService.branchModifyViewImages(branchNumber));
 		model.addAttribute("roomImage", adminService.roomModifyViewImages(branchNumber));
+		int restRoom = 8 - adminService.roomModifyView(branchNumber).size();
+		model.addAttribute("restRoom", restRoom);
 		return "admin/AdminBranchModify";
 	}
 
