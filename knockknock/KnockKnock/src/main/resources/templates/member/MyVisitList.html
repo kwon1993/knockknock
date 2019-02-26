@@ -97,7 +97,6 @@ body {
 							<th>방문 신청 지점</th>
 							<th>방문 희망 날짜</th>
 							<th>방문 희망 시간</th>
-							<th>승인 여부</th>
 							<th></th>
 						</tr>
 						<tr th:each="MVL:${MVL}">
@@ -106,7 +105,6 @@ body {
 							th:text="|낙낙 *{MVL.branchNumber}호점|"></a></td>
 							<td th:text="${MVL.reservationTime}"></td>
 							<td th:text="${MVL.memo}"></td>
-							<td th:text="${MVL.isCheck}"></td>
 							<td><a role="button" class="btn btn-default"
 							th:href="@{'/deleteV/?writingNumber='+${MVL.writingNumber}}" id='visitCancel'>신청
 								취소</a></td>

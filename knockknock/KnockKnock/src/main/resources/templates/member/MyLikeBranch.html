@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-    <title>�궡 愿��떖 吏��젏</title>
+    <title>내 관심 지점</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <style>
@@ -46,7 +46,7 @@ body {
 
 #sidenav{
 	background-color:white;
-	border: 2px solid #2eca6a;
+	border: 1px solid #2eca6a;
 	color:#2eca6a;
 	font-weight:bolder;
 	border-radius: 1rem;
@@ -108,11 +108,11 @@ font-weight: bolder;
 <div class="row" id='categoryBar'>
 			<div class="col-md-11">
 <div class="sidenav" id='sidenav'>
-  <a th:href="@{/profileMain}">�궡 �봽濡쒗븘</a><br>
-  <a th:href="@{/MyMeetingList}">�궡 紐⑥엫</a><br>
-  <a th:href="@{/MyEventList}">�궡 �씠踰ㅽ듃</a><br>
-  <a th:href="@{/MyVisitList}">�궡 諛⑸Ц �떊泥�</a><br>
-  <a th:href="@{/MyLikeBranch}">�궡 愿��떖 吏��젏</a>
+  <a th:href="@{/profileMain}">내 프로필</a><br>
+  <a th:href="@{/MyMeetingList}">내 모임</a><br>
+  <a th:href="@{/MyEventList}">내 이벤트</a><br>
+  <a th:href="@{/MyVisitList}">내 방문 신청</a><br>
+  <a th:href="@{/MyLikeBranch}">내 관심 지점</a>
 </div>
 </div>
 <div class="col-md-1">
@@ -121,14 +121,14 @@ font-weight: bolder;
 
 <div class="main">
 <div id="Join" class="tabcontent">
-	<h1 class="font-weight-bold" id='title'>�궡 愿��떖 吏��젏</h1>
+	<h1 class="font-weight-bold" id='title'>내 관심 지점</h1>
 	<br />
 		<div th:each="MLBL:${MLBL}">
 			<div class="row">
 			<div class='col-md-4' name='list' id='list'>
 				<a th:href="@{'/roomDetailView/?branchNumber='+${MLBL.branchNumber}}" class='d-block mb-4 h-100' id='gallery'>
 					<img class='img-fluid img-thumbnail' th:src="'/images/branch/'+${MLBL.branchNumber}+'/mainImage.jpg'" alt='' id='img'> 
-				<span name='branchNumber' id='branchNumber' th:text="|*{MLBL.branchNumber}�샇�젏|"></span><br />
+				<span name='branchNumber' id='branchNumber' th:text="|*{MLBL.branchNumber}호점|"></span><br />
 				<span name='addressList' id='addressList' th:text="${MLBL.address}"><br></span>
 				<span name='theme' id='theme' th:text="${MLBL.theme}"></span>
 				</a>
@@ -137,11 +137,11 @@ font-weight: bolder;
 			<br /> <br /> <br />
 				<table class="table table-striped">
 					<tr>
-						<td>理쒕� 嫄곗＜ �씤�썝</td>
-						<td>嫄곗＜ �쑀�삎</td>
-						<td>諛섎젮�룞臾� �룞諛섏엯二�</td>
-						<td>二쇱감�옣 �쑀臾�</td>
-						<td>�뿕由щ쿋�씠�꽣 �쑀臾�</td>
+						<td>최대 거주 인원</td>
+						<td>거주 유형</td>
+						<td>반려동물 동반입주</td>
+						<td>주차장 유무</td>
+						<td>엘리베이터 유무</td>
 					</tr>
 					<tr>
 						<th th:text="${MLBL.maximumResident}"></th>
@@ -151,7 +151,7 @@ font-weight: bolder;
 						<th th:text="${MLBL.isElevator}"></th>
 					</tr>	
 				</table>
-				<button style="float:right" id="getOut" class="btn btn-default" th:value="${MLBL.branchNumber}">�씠�젣 洹몃쭔</button>
+				<button style="float:right" id="getOut" class="btn btn-default" th:value="${MLBL.branchNumber}">삭제</button>
 			</div>
 			</div>
 		</div>
@@ -164,7 +164,7 @@ $(document).ready(function(){
 	
 	$("[id^=getOut]").on('click', function(event){ 
 		
-		if(confirm("�빐�떦 吏��젏�쓣 愿��떖 吏��젏�뿉�꽌 �궘�젣�븯�떆寃좎뒿�땲源�?")){
+		if(confirm("해당 지점을 관심 지점에서 삭제하시겠습니까?")){
         	var branchNumber1= $(this).val();
         	alert(branchNumber1==1);
         	
@@ -175,12 +175,12 @@ $(document).ready(function(){
 		        dataType:"text", 
 				contentType: "application/json",
 				success:function(data){
-					alert("愿��떖 吏��젏�씠 �궘�젣�릺�뿀�뒿�땲�떎.");
+					alert("관심 지점이 삭제되었습니다.");
 					$(location).attr('href', '/MyLikeBranch');
 
 				},
 				error:function(data){
-					alert("�뿉�윭 諛쒖깮");
+					alert("에러 발생");
 				}
 			})
         	
