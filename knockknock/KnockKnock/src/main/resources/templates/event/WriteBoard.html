@@ -2,7 +2,6 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-<title>모임 만들기</title>
 <script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style type="text/css">
 
@@ -32,7 +31,7 @@ body{
 						<input class="form-control-file" type='file' name="image" id="imgInp" />
 						<small>* 이미지는 정사각형 최대 500*500px 사이즈만 업로드 가능합니다</small>
 					</div>
-					<div class="col">
+					<div class="col-10">
 						<table class="table">
 							<tr>
 								<!-- from 성현 -->
@@ -42,12 +41,13 @@ body{
 							</tr>
 							<tr>
 								<td>모임명<small class="text-danger">(필수)</small></td>
-								<td><input type="text" name="title" maxlength="30" required></td>
+								<td><input type="text" name="title" maxlength="30" class="form-control" placeholder="모임명" required></td>
 							</tr>
 							<tr>
 								<td>모임테마</td>
 								<td>
-									<select name=favorite>
+									<div class="input-group mb-2">
+									  <select class="custom-select" name="favorite" id="inputGroupSelect01">
 										<option value="무관">무관</option>
 										<option value="IT">IT</option>
 										<option value="게임">게임</option>
@@ -63,47 +63,63 @@ body{
 										<option value="스터디">스터디</option>
 										<option value="어학">어학</option>
 										<option value="독서">독서</option>
-									</select>
+									  </select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>접수기간<small class="text-danger">(필수)</small></td>
+								<td>
+									<div class="row">
+										&ensp;&ensp;
+										<input class="form-control col-5" type="date" name="acceptStartTime" required/>부터
+										&ensp;&ensp;
+										<input class="form-control col-5" type="date" name="acceptEndTime" required/>까지
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>모임기간<small class="text-danger">(필수)</small></td>
-								<td><input type="date" name="meetingStartTime"/> 부터
-								<input type="date" name="meetingEndTime"/>까지</td>
-							</tr>
-							<tr>
-								<td>접수기간<small class="text-danger">(필수)</small></td>
-								<td><input type="date" name="acceptStartTime" required>부터
-								<input type="date" name="acceptEndTime" required>까지</td>
+								<td>
+									<div class="row">
+										&ensp;&ensp;
+										<input class="form-control col-5" type="date" name="meetingStartTime" required="required"/>부터
+										&ensp;&ensp;
+										<input class="form-control col-5" type="date" name="meetingEndTime" required="required"/>까지
+									</div>
+								</td>
 							</tr>
 							<tr>	
                               	<td>모임장소<small class="text-danger">(필수)</small></td>
                                 <td>
 	                                <span class="input-group-addon"><i class="fa fa-address fa" aria-hidden="true"></i></span>
-									<input class='address1' type="text" id="sample4_postcode" placeholder="우편번호"><br/>
-									<input class='address1' type="text" id="sample4_roadAddress" name="place" placeholder="도로명주소"><br/>
-									<input class='address1' type="text" id="sample4_detailAddress" name="placeDetail" placeholder="상세주소"><br/>
-									<input class='address1' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
+									<input class='address1 form-control' type="text" id="sample4_postcode" placeholder="우편번호" required="required"><br/>
+									<input class='address1 form-control' type="text" id="sample4_roadAddress" name="place" placeholder="도로명주소" required="required"><br/>
+									<input class='address1 form-control' type="text" id="sample4_detailAddress" name="placeDetail" placeholder="상세주소"><br/>
+									<input class='address1 form-control btn btn-success' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
 									<span id="guide" style="color:#999;display:none"></span>
 								</td>
 							</tr>
 							<tr>
 								<td>모집인원<small class="text-danger">(필수)</small></td>
-								<td><input type="number" name="recruitMaxNumber" required>명</td>
+								<td><input class="form-control" type="number" name="recruitMaxNumber" placeholder="최대인원" required></td>
 							</tr>
 							<tr>
 								<td>성별</td>
 								<td>
-									<select name="gender">
-										<option value="무관">무관</option>
-										<option value="남자">남자</option>
-										<option value="여자">여자</option>
-									</select>
+									<div class="input-group mb-2">
+									  <select class="custom-select" name="gender" id="inputGroupSelect01" required="required">
+									    <option value="무관">무관</option>
+									    <option value="남자">남자</option>
+									    <option value="여자">여자</option>
+									  </select>
+									</div>
 								</td>
+								
 							</tr>
 							<tr>
 								<td>모임소개<small class="text-danger">(필수)</small></td>
-								<td><div><textarea class="form-control" name="detailIntroduce" id="content" cols="50" rows="15" maxlength="3000" required></textarea>
+								<td><div><textarea class="form-control" name="detailIntroduce" id="content" maxlength="3000" required></textarea>
 									<script>
 										CKEDITOR.replace('content');
 									</script></div>

@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/toSharingGuide", "/toFAQ")
 				.permitAll()
 				// 매치 : MeetingAndEventController
-				.antMatchers("/meetingList", "/meetingView", "/meetingModify", "/eventList", "/eventView")
+				.antMatchers("/meetingList", "/wrtingBoard", "/meetingView", "/meetingModify", "/eventList", "/eventView")
 				.permitAll()
 				// 매치 : ReplyController
 				.antMatchers("/meetingReplyList").permitAll() // from 민철 추가
