@@ -5,7 +5,7 @@
 <title>지점 등록 페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style>
 h1, h2, h3, h4, h5, h6{
 	font-family: 'Jua', sans-serif;
@@ -133,9 +133,17 @@ body {
 							<option value="여">여</option>
 						</select>
 						<h4>소개글</h4>
-						<textarea name="branchComment"></textarea>
+						<div><textarea name="branchComment" id="branchComment"></textarea>
+							<script>
+								CKEDITOR.replace('branchComment');
+							</script>
+						</div>
 						<h4>규칙</h4>
-						<textarea name="rule"></textarea>
+						<div><textarea name="rule" id="rule"></textarea>
+							<script>
+								CKEDITOR.replace('rule');
+							</script>
+						</div>
 						<h4>거주유형</h4>
 						<input type="text" name="branchType" class="form-control"
 							placeholder="예)아파트">
