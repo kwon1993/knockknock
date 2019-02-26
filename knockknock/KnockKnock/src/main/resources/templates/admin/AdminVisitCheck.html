@@ -77,10 +77,10 @@ body{
 				<label style="width: 100px;">방문신청시간</label><span th:text="${visitView.reservationTime}"></span><br />
 				<label style="width: 100px;">처리여부</label><span th:text="${visitView.ischeck}"></span><br />
 				<label style="width: 100px;">메모사항</label><span th:text="${visitView.memo}"></span><br />
-				<form action="adminVisitCheck" style="display: inline;">
+				<span th:if="${visitView.ischeck.equals('미승인')}"><form action="adminVisitCheck" style="display: inline;">
 					<input type="hidden" name="writingNumber" th:value="${visitView.writingNumber}">
 					<input type="submit" class="btn btn-success" value="확인체크">
-				</form>
+				</form></span>
 				<form action="adminVisitList" style="display: inline;">
 					<input type="submit" class="btn btn-success" value="목록으로">
 				</form>

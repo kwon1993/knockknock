@@ -218,6 +218,10 @@ public class AdminService {
 	public void eventCancel(int writingNumber, String cancelReason) {
 		adminMapper.eventCancel(writingNumber, cancelReason);
 	}
+	
+	public void eventJoinDelete(int writingNumber) {
+		adminMapper.eventJoinDelete(writingNumber);
+	}
 
 	public void eventDelete(int writingNumber) {
 		adminMapper.eventDelete(writingNumber);

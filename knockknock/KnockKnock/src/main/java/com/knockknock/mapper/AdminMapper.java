@@ -52,6 +52,8 @@ public interface AdminMapper {
 			Date eventEndTime, Date acceptStartTime, Date acceptEndTime, int recruitMaxNumber);
 	
 	public void eventCancel(int writingNumber, String cancelReason);
+	
+	public void eventJoinDelete(int writingNumber);
 
 	public void eventDelete(int writingNumber);
 
