@@ -316,6 +316,8 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 </div>
 <script>
 
+
+
 //Get the modal
 var profileModal = document.getElementById('myProfileModal');//프로필수정창
 var modalButton = document.getElementById('popupButton');//프로필수정 버튼
@@ -397,6 +399,10 @@ function uploadProfileShot(){
 		processData:false,
 		contentType:false,
 		success:function(result){
+		
+		/* 	swal("프로필 사진이 변경되었습니다:)","사진은 언제든지 변경 가능해요.").then((value)=>{
+				location.reload();
+			}); */
 			swal("프로필 사진이 변경되었습니다:)","사진은 언제든지 변경 가능해요.");
 		},
 		error:function(error){
