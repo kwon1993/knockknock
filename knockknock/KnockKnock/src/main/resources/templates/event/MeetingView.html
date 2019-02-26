@@ -2,7 +2,6 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" 
 layout:decorate="~{etc/fragments/Main_layout}">
 <head>
-<title th:text="${MeetingView.title}"></title>
 <style type="text/css">
 
 body{
@@ -36,6 +35,22 @@ body{
 	width: 30%;
 	border-top-width: 0px;
 }
+.center{
+  text-align:center;
+}
+.my-hr{
+    border: 0;
+    height: 2px;
+    background: #ccc;
+}
+.my-hr2{
+    border: 0;
+    height: 1px;
+    background: #ccc;
+}
+.formHeight{
+	height:100px;
+}
 </style>
 </head>
 <body>
@@ -43,34 +58,38 @@ body{
 		<div class="jumbotron" id="jumbotronId">
 			<h3><span style="color:#2eca6a">모임</span> 게시판</h3>
 			<div class="row">
-				<div class="col-2">
-					<img class="d-block" width="150" height="150" id="foo" th:src="@{'/images/meeting/'+${MeetingView.writingNumber}+'/mainImage'}" onerror="this.src='/images/meeting/default.png';"/>
-					<h6>개설자 정보</h6>
-					<span th:text="${MeetingView.nickname}"></span>
+				<div class="col-3">
+					<img class="d-block" width="200" height="200" id="foo" th:src="@{'/images/meeting/'+${MeetingView.writingNumber}+'/mainImage'}" onerror="this.src='/images/meeting/knockLogo2.jpg';"/>
+					<br/>
+					<h5>개설자 정보</h5>
+					<h6><span th:text="${MeetingView.nickname}"></span></h6>
 				</div>
 			<div class="col">
 			<h1><span id="title" th:text="${MeetingView.title}">제목</span></h1>
-			<span th:text="'작성일 : '+${MeetingView.writeTime}">작성일</span>
-			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span>
+			<hr class="my-hr"/>
+			<span th:text="'작성일 : '+${MeetingView.writeTime}+' |'">작성일</span>
+			<span th:text="'조회수 : ' + ${MeetingView.hit}"></span><br/>
+			<span th:text="'모임장소 : ' + ${MeetingView.place}+' '+ ${MeetingView.placeDetail}"></span>
 				<form>
-					<div>
-						<br/>
-						<span th:text="모임소개"></span>
-						<p th:utext="${MeetingView.detailIntroduce}"></p>
-					</div>
 					<div>
 						<span>모임정보</span>
 						<ul>
 							<li th:text="'모임 테마 : '+ ${MeetingView.favorite}"></li>
 							<li th:text="'성별 : '+ ${MeetingView.gender}"></li>
 							<li th:text="'모임 기간 : '+
-							${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-							${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd HH:mm')}"></li>						
+							${#dates.format(MeetingView.meetingStartTime, 'yyyy-MM-dd')} + ' ~ ' +
+							${#dates.format(MeetingView.meetingEndTime, 'yyyy-MM-dd')}"></li>						
 							<li th:text="'접수 기간 : '+
-							${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd HH:mm')} + ' ~ ' +
-							${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd HH:mm')}"></li>
-							<li th:text="'모집 인원 : '+${MeetingView.recruitNumber}+'/'+${MeetingView.recruitMaxNumber}+'명'"></li>
+							${#dates.format(MeetingView.acceptStartTime, 'yyyy-MM-dd')} + ' ~ ' +
+							${#dates.format(MeetingView.acceptEndTime, 'yyyy-MM-dd')}"></li>
+							<li th:text="'모집 정원 : 총 '+${MeetingView.recruitMaxNumber}+'명  |  '+${MeetingView.recruitNumber}+'명 신청'"></li>
 						</ul>
+					</div>
+					<hr class="my-hr"/>
+					<div>
+						<br/>
+						<span th:text="모임소개"></span>
+						<p th:utext="${MeetingView.detailIntroduce}"></p>
 					</div>
 				</form>
 			</div>
@@ -103,8 +122,8 @@ body{
 			<!-- from 성현 -->
 			<!-- 세션으로 가져온 닉네임과 글쓴 사람이 맞으면 수정,삭제 활성화 -->
 			<span th:if="${session.nickname}==${MeetingView.nickname}">
-				<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="'수정'"></a>
-				<a id="cancelBtn" name="cancelBtn" class="btn btn-danger pull-right" role="button" th:value="${MeetingView.writingNumber}" th:text="'모임취소'"></a>
+				<a class="btn" role="button" th:href="@{/meetingModifyForm(writingNumber=${MeetingView.writingNumber})}" th:text="수정"></a>
+				<button id="cancelBtn" class="btn btn-danger pull-right" th:value="${MeetingView.writingNumber}" th:text="'모임취소'"></button>
 			</span>
 <!-- 			<input type="text" name="cancelReason" th:value="${MeetingView.cancelReason}"> -->
 			<input type="hidden" name="cancelTitle" th:value="${MeetingView.title}"><!-- 취소사유가 있는지 검토 -->
@@ -116,40 +135,34 @@ body{
 					<div class="modal-content">
 						<form action="cancelMM" method="post" id="cancleMMForm">
 							<span class="close">&times;</span>
+							<div class="modal-header">
 							<h3 style="float: left">개설 모임 취소</h3><br />
-														
-							<br />
+							</div>							
+							<div class="modal-body">
 							<input type="text"
 								class="form-control" name="memo" placeholder="모임 개설 취소 사유를 작성해주세요" /> 
-								<br /> <br />
-							<div class="row">
-								<div class="col-md-6">
-									<button type="button" class="btn btn-default" name="closeModal">취소</button>
-								</div>
-								<div class="col-md-6">
-									<button type="button" class="btn btn-default" id="cancelMM"
-									data-dismiss="modal" th:value="${MeetingView.writingNumber}" >완료</button>
-									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
-								</div>
+							</div>
+							<div modal-footer>
+								<button type="button" class="btn btn-default" id="closeModal" th:text="취소"></button>
+								<button type="button" class="btn btn-success" id="cancelMM"
+								data-dismiss="modal" th:value="${MeetingView.writingNumber}" th:text="확인"></button>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
 							</div>
 						</form>
 					</div>
 				</div>
 			
 			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★댓글 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
-			
+			<hr class="my-hr"/>
 			<div id="reply">
-				<strong>댓글</strong>
-				<div class="row">
+				<strong>문의/기대평</strong>
 					<div class="form-group">
 						<form name="replyInsertForm">
 							<div class="input-group">
 								<input type="hidden" name="replyNumber">
 								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
-								<input type="text" class="form-control" id="content" name="replyContent" placeholder="내용을 입력하세요." required="required">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
-								</span>
+								<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
+								<button class="btn btn-success formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
 							</div>
 						</form>
 
@@ -160,14 +173,18 @@ body{
 					<input type='hidden' th:value="${session.gender}" id='sessionGender'>
 					
 					<!-- 조건처리를 위한 날짜값 -->
-					<input type="text" name="acceptDate" th:value="${MeetingView.acceptEndTime}">
+					<input type="hidden" name="acceptDate" th:value="${MeetingView.acceptEndTime}">
+					
 					<div class="container">
 						<div id="meetingReplyList">
 						</div>
 						<!-- <input type="hidden" th:name="${_csrf.parameterName}"
 								th:value="${_csrf.token}"> -->
-					</div>
 				</div>
+			</div>
+			<hr class="my-hr"/>
+			<div>
+				<strong>참여신청/취소 안내</strong>
 			</div>
 		</div>
 <script> <!-- 댓글 Ajax -->
@@ -396,6 +413,7 @@ inner="";
 	
 	// When the user clicks on <span> (x), close the modal
  	$("span").click(function(){
+ 		alert("나도")
  		modal.style.display = "none";
  	});
 
@@ -411,8 +429,9 @@ inner="";
 	}
 
 	$("#closeModal").click(function(){
+		alert("야")
 		modal.style.display = "none";
-	})
+	});
 	
 	//참가하기 처리
 	$("#mparticipate").click(function() {
