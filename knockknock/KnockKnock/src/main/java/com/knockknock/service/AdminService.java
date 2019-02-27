@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.branch.AddRoomDTO;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
 import com.knockknock.dto.branch.roomVDTO;
@@ -260,11 +261,11 @@ public class AdminService {
 		adminMapper.contractRegist(memberNumber, branchNumber, roomNumber, period, isPet, emergencyNumber, bankName,
 				depositor, memberAccount, contractDate, idNumber, payDelayAmount, paneltyAmount, returnAmount, memo);
 	}
-	
+
 	public ContractDTO contractModifyView(int contractNumber) {
 		return adminMapper.contractModifyView(contractNumber);
 	}
-	
+
 	public void contractModify(ContractDTO contractDTO) {
 		adminMapper.contractModify(contractDTO);
 	}
@@ -543,6 +544,193 @@ public class AdminService {
 		return roomList;
 	}
 
+	public void BranchModify(BranchDTO branchDTO, RoomDTO roomDTO, AddRoomDTO addRoomDTO) {
+		int maximumResident = 0;
+		for (int i = 0; i < roomDTO.getRoomNumber().size()
+				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
+						|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
+						|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
+			switch (roomDTO.getAllowNumber().get(i).toString()) {
+			case "1인실":
+				maximumResident += 1;
+				break;
+			case "2인실":
+				maximumResident += 2;
+				break;
+			case "3인실":
+				maximumResident += 3;
+				break;
+			case "4인실":
+				maximumResident += 4;
+				break;
+			default:
+				break;
+			}
+		}
+		for (int i = 0; i < addRoomDTO.getNewRoomNumber().size() && !(addRoomDTO.getNewRoomNumber().get(i) == null
+				|| addRoomDTO.getNewDeposit().get(i) == null || addRoomDTO.getNewMonthlyRent().get(i) == null
+				|| addRoomDTO.getNewRentableDate().equals(null) || addRoomDTO.getNewSpace().get(i).equals(null)
+				|| addRoomDTO.getNewSpace().get(i) == ""); i++) {
+			switch (addRoomDTO.getNewAllowNumber().get(i).toString()) {
+			case "1인실":
+				maximumResident += 1;
+				break;
+			case "2인실":
+				maximumResident += 2;
+				break;
+			case "3인실":
+				maximumResident += 3;
+				break;
+			case "4인실":
+				maximumResident += 4;
+				break;
+			default:
+				break;
+			}
+		}
+		branchDTO.setMaximumResident(maximumResident);
+		adminMapper.branchModify(branchDTO);
+//		adminMapper.roomModifyReady(branchDTO.getBranchNumber());
+//		adminMapper.roomModify(roomDTO);
+//		adminMapper.addRoomModify(addRoomDTO);
+	}
+	
+	public void roomModify(BranchDTO branchDTO, RoomDTO roomDTO, AddRoomDTO addRoomDTO) {
+		adminMapper.roomModifyReady(branchDTO.getBranchNumber());
+		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
+
+		// String으로 받은 날짜
+		Iterator<String> iterator = roomDTO.getRentableDate().iterator();
+		List<Date> rentableDate = new ArrayList<Date>();
+
+		// String으로 받은 날짜를 -> util.date -> sql.date로 변환. String -> sql.date는 잘 안되더라
+		while (iterator.hasNext()) {
+			String tmp = iterator.next();
+			if (Pattern.matches(dateForm, tmp)) {
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					java.util.Date parsed = (java.util.Date) formatter.parse(tmp);
+					rentableDate.add(new Date(parsed.getTime()));
+				} catch (ParseException e) {
+					rentableDate.add(null);
+				}
+			} else {
+				rentableDate.add(null);
+			}
+		}
+
+		// 날짜를 배열에 넣고 입력 안한 날짜는 null로 처리
+		Iterator<Date> sqlDate = rentableDate.iterator();
+		Date[] roomRentableDate = new Date[roomDTO.getRoomNumber().size()];
+		for (int i = 0; i < roomRentableDate.length; i++) {
+			if (sqlDate.hasNext()) {
+				roomRentableDate[i] = sqlDate.next();
+			} else {
+				roomRentableDate[i] = null;
+			}
+		}
+
+		// 입력한 줄까지만 방 정보가 들어감. 누락된 입력란이 존재하면 입력 안됨
+		for (int i = 0; i < roomDTO.getRoomNumber().size()
+				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
+						|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
+						|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
+			adminMapper.roomRegist(branchDTO.getBranchNumber(), roomDTO.getRoomNumber().get(i), roomDTO.getRoomGender().get(i),
+					roomDTO.getAllowNumber().get(i), roomDTO.getSpace().get(i), roomDTO.getDeposit().get(i),
+					roomDTO.getMonthlyRent().get(i), roomRentableDate[i], roomDTO.getRoomFacility());
+		}
+		
+		
+		
+		// String으로 받은 날짜
+		Iterator<String> newIterator = addRoomDTO.getNewRentableDate().iterator();
+		List<Date> newRentableDate = new ArrayList<Date>();
+
+		// String으로 받은 날짜를 -> util.date -> sql.date로 변환. String -> sql.date는 잘 안되더라
+		while (newIterator.hasNext()) {
+			String tmp = newIterator.next();
+			if (Pattern.matches(dateForm, tmp)) {
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					java.util.Date parsed = (java.util.Date) formatter.parse(tmp);
+					newRentableDate.add(new Date(parsed.getTime()));
+				} catch (ParseException e) {
+					newRentableDate.add(null);
+				}
+			} else {
+				newRentableDate.add(null);
+			}
+		}
+
+		// 날짜를 배열에 넣고 입력 안한 날짜는 null로 처리
+		Iterator<Date> newSqlDate = newRentableDate.iterator();
+		Date[] newRoomRentableDate = new Date[addRoomDTO.getNewRoomNumber().size()];
+		for (int i = 0; i < newRoomRentableDate.length; i++) {
+			if (newSqlDate.hasNext()) {
+				newRoomRentableDate[i] = newSqlDate.next();
+			} else {
+				newRoomRentableDate[i] = null;
+			}
+		}
+
+		// 입력한 줄까지만 방 정보가 들어감. 누락된 입력란이 존재하면 입력 안됨
+		for (int i = 0; i < addRoomDTO.getNewRoomNumber().size()
+				&& !(addRoomDTO.getNewRoomNumber().get(i) == null || addRoomDTO.getNewDeposit().get(i) == null
+						|| addRoomDTO.getNewMonthlyRent().get(i) == null || addRoomDTO.getNewRentableDate().equals(null)
+						|| addRoomDTO.getNewSpace().get(i).equals(null) || addRoomDTO.getNewSpace().get(i) == ""); i++) {
+			adminMapper.roomRegist(branchDTO.getBranchNumber(), addRoomDTO.getNewRoomNumber().get(i), addRoomDTO.getNewRoomGender().get(i),
+					addRoomDTO.getNewAllowNumber().get(i), addRoomDTO.getNewSpace().get(i), addRoomDTO.getNewDeposit().get(i),
+					addRoomDTO.getNewMonthlyRent().get(i), newRoomRentableDate[i], addRoomDTO.getRoomFacility());
+		}
+		
+	}
+
+//	public void roomModify(RoomDTO roomDTO) {
+//		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
+//
+//		// String으로 받은 날짜
+//		Iterator<String> iterator = roomDTO.getRentableDate().iterator();
+//		List<Date> rentableDate = new ArrayList<Date>();
+//
+//		// String으로 받은 날짜를 -> util.date -> sql.date로 변환. String -> sql.date는 잘 안되더라
+//		while (iterator.hasNext()) {
+//			String tmp = iterator.next();
+//			if (Pattern.matches(dateForm, tmp)) {
+//				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//				try {
+//					java.util.Date parsed = (java.util.Date) formatter.parse(tmp);
+//					rentableDate.add(new Date(parsed.getTime()));
+//				} catch (ParseException e) {
+//					rentableDate.add(null);
+//				}
+//			} else {
+//				rentableDate.add(null);
+//			}
+//		}
+//
+//		// 새로 추가되는 방 정보
+//		// 날짜를 배열에 넣고 입력 안한 날짜는 null로 처리
+//		Iterator<Date> sqlDate = rentableDate.iterator();
+//		Date[] roomRentableDate = new Date[roomDTO.getRoomNumber().size()];
+//		for (int i = 0; i < roomRentableDate.length; i++) {
+//			if (sqlDate.hasNext()) {
+//				roomRentableDate[i] = sqlDate.next();
+//			} else {
+//				roomRentableDate[i] = null;
+//			}
+//		}
+//
+//		// 입력한 줄까지만 방 정보가 들어감. 누락된 입력란이 존재하면 입력 안됨
+//		for (int i = 0; i < roomDTO.getRoomNumber().size()
+//				&& !(roomDTO.getRoomNumber().get(i) == null || roomDTO.getDeposit().get(i) == null
+//						|| roomDTO.getMonthlyRent().get(i) == null || roomDTO.getRentableDate().equals(null)
+//						|| roomDTO.getSpace().get(i).equals(null) || roomDTO.getSpace().get(i) == ""); i++) {
+//			adminMapper.roomRegist(roomDTO.getBranchNumber(), roomDTO.getRoomNumber().get(i), roomDTO.getRoomGender().get(i),
+//					roomDTO.getAllowNumber().get(i), roomDTO.getSpace().get(i), roomDTO.getDeposit().get(i),
+//					roomDTO.getMonthlyRent().get(i), roomRentableDate[i], roomDTO.getRoomFacility());
+//		}
+//
+//	}
 
 	public Date dateChanger(String string) {
 		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
