@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.knockknock.dto.branch.AddRoomDTO;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
@@ -100,6 +101,14 @@ public interface AdminMapper {
 	public BranchDTO branchModifyView(int branchNumber);
 	
 	public List<roomVDTO> roomModifyView(int branchNumber);
+	
+	public void branchModify(@Param("branchDTO") BranchDTO branchDTO);
+	
+	public void roomModifyReady(int branchNumber);
+	
+	public void roomModify(@Param("roomVDTO") roomVDTO roomVDTO);
+	
+	public void addRoomModify(@Param("addRoomDTO") AddRoomDTO addRoomDTO);
 	
 	public void roomDelete();
 

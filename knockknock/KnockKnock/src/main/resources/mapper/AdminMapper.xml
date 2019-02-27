@@ -377,8 +377,42 @@
 		WHERE
 		BRANCH_NUMBER = #{param1}
 	</select>
-
-
+	<update id="branchModify">
+		UPDATE BRANCH
+		SET THEME = #{branchDTO.theme},
+		BANK_NAME = #{branchDTO.bankName},
+		DEPOSITOR = #{branchDTO.depositor},
+		BRANCH_ACCOUNT = #{branchDTO.branchAccount},
+		GENDER = #{branchDTO.gender},
+		BRANCH_COMMENT = #{branchDTO.branchComment},
+		BRANCH_TYPE = #{branchDTO.branchType},
+		ISPARKING = #{branchDTO.isParking},
+		ISELEVATOR = #{branchDTO.isElevator},
+		PET = #{branchDTO.pet},
+		ADDRESS = #{branchDTO.address},
+		ADDRESS_DETAIL = #{branchDTO.addressDetail},
+		FACILITY = #{branchDTO.facility},
+		MAXIMUM_RESIDENT = #{branchDTO.maximumResident},
+		RULE = #{branchDTO.rule}
+		WHERE BRANCH_NUMBER = #{branchDTO.branchNumber}
+	</update>
+	<delete id="roomModifyReady">
+		DELETE FROM ROOM
+		WHERE BRANCH_NUMBER = #{param1}
+	</delete>
+	<insert id="roomModify">
+		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER,
+		ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
+		VALUES(#{roomVDTO.branchNumber}, #{roomVDTO.roomNumber}, #{roomVDTO.gender}, #{roomVDTO.allowNumber},
+		#{roomVDTO.space}, #{roomVDTO.deposit}, #{roomVDTO.monthlyRent}, #{roomVDTO.rentableDate}, #{roomVDTO.facility})
+	</insert>
+	<insert id="addRoomModify">
+		INSERT INTO ROOM(BRANCH_NUMBER, ROOM_NUMBER, GENDER,
+		ALLOW_NUMBER, SPACE, DEPOSIT, MONTHLY_RENT, RENTABLE_DATE, FACILITY)
+		VALUES(#{addRoomDTO.newbranchNumber}, #{addRoomDTO.newroomNumber}, #{addRoomDTO.newgender},
+		#{addRoomDTO.newallowNumber}, #{addRoomDTO.newspace}, #{addRoomDTO.newdeposit},
+		#{addRoomDTO.newmonthlyRent}, #{addRoomDTO.newrentableDate}, #{addRoomDTO.newfacility})
+	</insert>
 
 
 

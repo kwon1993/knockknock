@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knockknock.dto.branch.AddRoomDTO;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
+import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.member.ContractDTO;
 import com.knockknock.service.AdminService;
@@ -315,8 +317,10 @@ public class AdminController {
 
 	// 지점 정보 수정
 	@RequestMapping("adminBranchModify")
-	public String adminBranchModify(Model model) {
-		return "";
+	public String adminBranchModify(Model model, BranchDTO branchDTO, RoomDTO roomDTO, AddRoomDTO addRoomDTO) {
+		adminService.BranchModify(branchDTO, roomDTO, addRoomDTO);
+		adminService.roomModify(branchDTO, roomDTO, addRoomDTO);
+		return "redirect:/";
 	}
 
 	// 등록테스트
