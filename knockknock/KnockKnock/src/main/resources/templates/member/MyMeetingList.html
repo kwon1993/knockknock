@@ -38,7 +38,7 @@ body {
 
 .main {
 	position:relative;
-	margin-left: 200px; /* Same width as the sidebar + left position in px */
+	margin-left: 30px;
 	padding: 0px 10px;
 }
 
@@ -51,7 +51,7 @@ body {
 	}
 }
 
-/* Style the tab */
+/* /* Style the tab */
 .tab {
 	overflow: hidden;
 	background-color: #2eca6a;
@@ -112,7 +112,7 @@ keyframes fadeEffect {
 to {
 	opacity: 1;
 }
-}
+} */
 
 /* 모달창  */
 /* The Modal (background) */
@@ -162,7 +162,7 @@ cursor: pointer;
 
 #title{
 	color:#2eca6a;
-	font-size:larger;
+	font-size:30px;
 	font-weight:bolder;
 }
 
@@ -171,6 +171,9 @@ cursor: pointer;
 	color:white;
 }
 
+th {
+	font-size: 20px;
+}
 
 </style>
 </head>
@@ -181,7 +184,7 @@ cursor: pointer;
 		<br /> <br />
 
 		<div class="row" id='categoryBar'>
-			<div class="col-md-11">
+			<div class="col-md-1">
 				<div class="sidenav" id='sidenav'>
 					<a th:href="@{/profileMain}">내 프로필</a><br>
 					<a th:href="@{/MyMeetingList}">내 모임</a><br>
@@ -190,9 +193,8 @@ cursor: pointer;
 					<a th:href="@{/MyLikeBranch}">내 관심 지점</a>
 				</div>
 			</div>
-			<div class="col-md-1"></div>
-		</div>
-
+			<div class="col-md-11">
+			
 		<div class="main">
 			<h2 id='title'>내 모임</h2>
 			<br />
@@ -277,6 +279,11 @@ cursor: pointer;
 				
 				<br />
 			</div>
+			</div>
+			</div>
+			
+		</div>
+
 			
 			<script th:inline="javascript">
 			$(document).ready(function(){
@@ -355,11 +362,7 @@ cursor: pointer;
 			}) 
 			
 			})
-			</script>
 			
-
-	
-			<script>
 				function openCity(evt, cityName) {
 					var i, tabcontent, tablinks;
 					tabcontent = document.getElementsByClassName("tabcontent");
@@ -377,7 +380,7 @@ cursor: pointer;
 
 				document.getElementById("defaultOpen").click();
 			</script>
-		</div>
+		
 	</div>
 </body>
 </html>
