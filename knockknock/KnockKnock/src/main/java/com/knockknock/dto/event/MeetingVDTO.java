@@ -31,10 +31,12 @@ public class MeetingVDTO implements Serializable{
 	private String cancelReason; //취소이유
 	private Date meetingStartTime; //모임 시작시간
 	private Date meetingEndTime; //모임 종료시간
-	private List<MultipartFile> image; //이미지
 	private int like; //좋아요
 	private String nickname;
 	private String gender; //성별
 	private String favorite; //관심사
 	private String meetingStatus;//모임 승인 상태
+	private String image; //이미지
+
+	private List<MultipartFile> meetingImage; //저장용
 }

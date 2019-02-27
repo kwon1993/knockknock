@@ -17,9 +17,9 @@ public class MeetingAndEventService {
 	@Autowired
 	public MeetingAndEventMapper meMapper;
 	
-	public void meetingInsert(MeetingVDTO meetingVDTO) {
-		meMapper.meetingInsert(meetingVDTO);
-	}; //모임 글쓰기
+//	public void meetingInsert(MeetingVDTO meetingVDTO) {
+//		meMapper.meetingInsert(meetingVDTO);
+//	}; //모임 글쓰기
 	
 	
 	public int getWritingNumber(){
@@ -30,49 +30,52 @@ public class MeetingAndEventService {
 	
 	
 	public void meetingImageUpload(int writingNumber, MeetingVDTO meetingVDTO) {
-	//파일업로드
-			String resourceToString;
-			String OS = System.getProperty("os.name").toLowerCase();
-			if (OS.indexOf("nux") >= 0) {
-				resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/meeting/"
-						+ writingNumber;
-			} else {
-				resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/meeting/"
-						+ writingNumber;
-			}
+	//모임글쓰기 파일업로드
+		System.err.println("파일업로드");
+		writingNumber = Collections.max(meMapper.getWritingNumber()); //이게 필요할까?
+		String resourceToString;
+		String OS = System.getProperty("os.name").toLowerCase(); //------상대경로 지정
+		if (OS.indexOf("nux") >= 0) {
+			resourceToString = "/project/knockknock/knockknock/KnockKnock/src/main/resources/static/images/meeting/"
+					+ writingNumber;
+		} else {
+			resourceToString = System.getProperty("user.dir") + "/src/main/resources/static/images/meeting/"
+					+ writingNumber;
+		}
 
-			File MeetingUploadPath = new File(resourceToString);
+		File MeetingUploadPath = new File(resourceToString);
 
-			if (MeetingUploadPath.exists() == false) {
-				MeetingUploadPath.mkdirs();
-			}
+		if (MeetingUploadPath.exists() == false) {
+			MeetingUploadPath.mkdirs();
+		}
 
-			int Numbering = 0;
+		int Numbering = 0;
+		String imageName = "";
 
-			for (MultipartFile multipartFile : meetingVDTO.getImage()) {
-//				String extension = multipartFile.getOriginalFilename();
-				String uploadFileName;
-				if(Numbering == 0) {
-					uploadFileName = "mainImage";
-					Numbering++;
-				} else {
-					uploadFileName = Numbering++ + "";
+		for (MultipartFile multipartFile : meetingVDTO.getMeetingImage()) {
+			if(multipartFile.getOriginalFilename().lastIndexOf(".")>=0 ? true : false) {
+				String extension = multipartFile.getOriginalFilename()
+						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+				if(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".jpeg") || extension.equals(".gif")) {
+					String uploadFileName;
+					if(Numbering == 0) {
+						uploadFileName = "mainImage"+extension;
+						Numbering++;
+					} else {
+						uploadFileName = Numbering++ + extension;
+					}
+					try {
+						File saveFile = new File(MeetingUploadPath, uploadFileName);
+						imageName = uploadFileName;
+						// 경로를 파일화시킨다.(실제파일생성)
+						multipartFile.transferTo(saveFile);
+					} catch (Exception e) {
+						System.err.println("실패");
+						e.printStackTrace();
+					} // end catch
+					meMapper.setMeetingImageName(writingNumber, imageName);
 				}
-				try {
-					File saveFile = new File(MeetingUploadPath, uploadFileName);
-					// 경로를 파일화시킨다.(실제파일생성)
-					multipartFile.transferTo(saveFile);
-					// DB에 저장하기 위해 상대경로명에 유저아이디를 섞은 파일명을 합쳐서 finalImage라는 DB용 경로명을 만든다.
-//					String image = uploadFileName;
-					// 이미지경로를 저장한다.
-//					meMapper.meetingInsert(image, meetingVDTO);
-					// 이미지 경로를 불러온다.(뷰에서 받아 쓰기 위한 용도)
-//					model.addAttribute("image",memberService.getImageDir(username));
-				} catch (Exception e) {
-					System.err.println("실패");
-					e.printStackTrace();
-				} // end catch
 			}
+		}
 	}
-	
 }
