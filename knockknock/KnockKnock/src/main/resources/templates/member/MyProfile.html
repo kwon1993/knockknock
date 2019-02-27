@@ -36,7 +36,7 @@ body {
 
 .main {
 	position:relative;
-	margin-left: 30px;
+	margin-left: 90px; /* Same width as the sidebar + left position in px */
 	padding: 0px 10px;
 }
 
@@ -50,13 +50,10 @@ body {
 }
 
 #profileContainer {
-/* 	margin-left: 400px;
-	margin-bottom:200px; */
+	margin-left: 400px;
+	margin-bottom:200px;
 }
 
-label {
-	font-size: 20px;
-}
 
 /* 모달창  */
 /* The Modal (background) */
@@ -107,13 +104,14 @@ label {
 
 #title{
 	color:#2eca6a;
-	font-size:30px;
+	font-size:larger;
 	font-weight:bolder;
+	margin-left:20%;
 }
 
 /*input tag 공통 스타일*/
 input {             
-	width: 60%;
+	width: 20%;
 	height: 50%;
 	border-radius: 3px;
 	font-weight: 600;
@@ -129,7 +127,7 @@ input.uploadButton {
 }
 button.replace {    /*button tag 에 원하는 스타일 적용*/
 	position: absolute;
-	width: 90%;
+	width: 20%;
 	height: 50%px;
 	border-radius: 3px;
 	font-weight: 600;
@@ -180,7 +178,7 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 <br/><br/><br/><br/> 
 
 <div class="row" id='categoryBar'>
-	<div class="col-md-1">
+	<div class="col-md-11">
 		<div class="sidenav" id='sidenav'>
 		  <a th:href="@{/profileMain}">내 프로필</a><br>
 		  <a th:href="@{/MyMeetingList}">내 모임</a><br>
@@ -189,51 +187,23 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 		  <a th:href="@{/MyLikeBranch}">내 관심 지점</a>
 		</div>
 	</div>
-	
-	<div class="col-md-11">
-	<div class="main">
-	  <h2 id='title'>내 프로필</h2>
-	  <br /><br />
-		<div class="row">		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
+</div>
 
-	
-
-		<div class="col-md-4">
-	
-		<div id='allGallery'>
+<div class="main">
+  <h2 id='title'>내 프로필</h2>
+	<div class="container" id="profileContainer">
+		<div class='row text-center text-lg-left' id='allGallery'>
 				<form action="/profileUpdate" method="post" enctype="multipart/form-data">
-					<button class="replace">사진 올리기</button>
+					<button class="replace">사진올리기</button><br>
 					<input type="file" name="uploadFileShot" value="사진변경" id="uploadProfileShot" class='uploadButton' multiple><br>
 				</form><br>
 		</div>
 		<br>
-		<div  id='allGallery'>
+		<div class='row text-center text-lg-left' id='allGallery'>
 			<a class='d-block mb-4 h-100' id='gallery' >
-		        <img class='img-fluid img-thumbnail' th:src="${image?.imageProfile}" alt="" id='img' style="width:300px; height:300px"><br>
+		        <img class='img-fluid img-thumbnail' th:src="${image?.imageProfile}" alt="" id='img' style="width:170px; height:170px"><br>
 			</a>
 		</div>
-		
-		</div>
-		
-		<div class="col-md-1"></div>
-		
-		
-		
-		
-		
-		<div class="col-md-7">
-		
 		<div>
 			<div th:each="profile:${profile}">
 				<input type="hidden" th:value="${profile.memberNumber}" id="hidden">
@@ -256,40 +226,6 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 		</div>
 	</div>
 	
-
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	</div>	
-	</div>
-	</div> 
-	
-</div> 
-
-
 				<!-- modal 프로필정보 업데이트 -->		
 			    <!-- The Modal -->
 			    <div id="myProfileModal" class="modal">
@@ -377,8 +313,7 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 						</form>
 				    </div>
 			    </div>
-
-
+			</div>
 <script>
 
 

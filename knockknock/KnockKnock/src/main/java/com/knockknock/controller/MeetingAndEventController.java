@@ -66,7 +66,7 @@ public class MeetingAndEventController {
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoard(MeetingVDTO meetingVDTO){
 		int writingNumber = meService.getWritingNumber();
-		meService.meetingInsert(meetingVDTO);
+		meMapper.meetingInsert(meetingVDTO);
 		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		
 		return "redirect:/meetingList";
@@ -80,7 +80,9 @@ public class MeetingAndEventController {
 	
 	@PostMapping("/meetingModify")
 	private String meetingModify(MeetingVDTO meetingVDTO){
+		int writingNumber = meService.getWritingNumber();
 		meMapper.meetingModify(meetingVDTO);
+		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		return "redirect:/meetingList";
 	}
 	

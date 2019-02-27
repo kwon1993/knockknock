@@ -34,14 +34,13 @@ public interface MeetingAndEventMapper {
 	public int eventCount(Criteria cri) ;
 	public List<EventVDTO> eMainList() ; //메인페이지 이벤트리스트
 	public List<EventVDTO> eventList(Criteria cri) ;
-	public EventVDTO eventView(int writingNumber) ;//조회수
+	public EventVDTO eventView(int writingNumber) ;//이벤트 상세보기
 	public void eventViewHit(int writingNumber);
 	public int eventSearch() ;
 	public void eparticipate(@Param("eventVDTO")EventVDTO eventVDTO, String email) ;
 	public void epartNumUp(int writingNumber); //모집인원 갱신
 	
 	//기타
-	public int imageUpload(MultipartFile meetingImage) ;
-	public MeetingVDTO imageView(int writingNumber) ;
+	public void setMeetingImageName(int writingNumber, String imageName);
 	public int likeToggle() ;
 }

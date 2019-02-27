@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	]]>
     </select>
     <!-- 모임글 뷰 -->
-    <select id="meetingView" resultType="MeetingVDTO" parameterType="int">
+    <select id="meetingView" resultType="MeetingVDTO">
         SELECT
             MT.WRITING_NUMBER writingNumber, MT.TITLE, MT.HIT, MT.IMAGE, MT.PLACE, 
             MT.PLACE_DETAIL placeDetail, MT.WRITE_TIME writeTime, MT.MEMBER_NUMBER memberNumber,
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE MT.MEMBER_NUMBER=MB.MEMBER_NUMBER AND WRITING_NUMBER = #{writingNumber}
     </select>
     <!-- 이벤트글 뷰 -->
-    <select id="eventView" resultType="EventVDTO" parameterType="int">
+    <select id="eventView" resultType="EventVDTO">
         SELECT
             WRITING_NUMBER writingNumber, TITLE, HIT, IMAGE, WRITE_TIME writeTime,
             ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
@@ -98,6 +98,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{acceptStartTime},#{acceptEndTime},#{place},#{placeDetail},
 	    	#{recruitMaxNumber},#{detailIntroduce},#{gender},0,NOW(),#{favorite})
     </insert>
+    <!-- 이미지 컬럼에 이미지name저장 -->
+   	<update id="setMeetingImageName">
+		UPDATE MEETING
+		SET IMAGE = #{imageName}
+		WHERE WRITING_NUMBER = #{writingNumber}
+	</update>
     <!-- 모임 글 넘버가져오기 -->
     <select id="getWritingNumber" resultType="Integer">
 		SELECT WRITING_NUMBER
@@ -111,7 +117,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<!-- 모임글 수정폼 -->
 	<select id="meetingModifyForm" resultType="MeetingVDTO">
-		SELECT WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime,
+		SELECT
+		WRITING_NUMBER writingNumber, MEMBER_NUMBER memberNumber, TITLE, MEETING_START_TIME meetingStartTime, IMAGE image,
 		MEETING_END_TIME meetingEndTime, ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime, GENDER,
 		PLACE, PLACE_DETAIL placeDetail, RECRUIT_MAX_NUMBER recruitMaxNumber, DETAIL_INTRODUCE detailIntroduce, FAVORITE
 		FROM MEETING
