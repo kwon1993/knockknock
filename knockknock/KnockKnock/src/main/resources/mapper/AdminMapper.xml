@@ -137,18 +137,21 @@
 	<!-- member -->
 
 	<select id="memberListView" resultType="MemberDTO">
-		SELECT MEMBER_NUMBER
+		SELECT M.MEMBER_NUMBER
 		memberNumber,
-		EMAIL,
-		NAME,
-		NICKNAME,
-		JOIN_TIME joinTime
-		FROM MEMBER
+		M.EMAIL,
+		M.NAME,
+		M.NICKNAME,
+		M.JOIN_TIME joinTime,
+		C.BRANCH_NUMBER contractBranchNumber
+		FROM MEMBER M
+		LEFT OUTER JOIN CONTRACT C
+		ON M.MEMBER_NUMBER = C.MEMBER_NUMBER
 		WHERE
-		EMAIL LIKE CONCAT('%', #{param1}, '%') OR
-		NAME LIKE CONCAT('%',
+		M.EMAIL LIKE CONCAT('%', #{param1}, '%') OR
+		M.NAME LIKE CONCAT('%',
 		#{param1}, '%') OR
-		NICKNAME LIKE CONCAT('%', #{param1}, '%')
+		M.NICKNAME LIKE CONCAT('%', #{param1}, '%')
 		ORDER BY
 		memberNumber ASC
 	</select>
@@ -206,6 +209,38 @@
 		VALUES
 		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15})
 	</insert>
+	<select id="contractModifyView" resultType="ContractDTO">
+		SELECT CONTRACT_NUMBER contractNumber,
+		MEMBER_NUMBER memberNumber,
+		BRANCH_NUMBER branchNumber,
+		ROOM_NUMBER roomNumber,
+		PERIOD, ISPET,
+		EMERGENCY_NUMBER emergencyNumber,
+		BANK_NAME bankName,
+		DEPOSITOR,
+		MEMBER_ACCOUNT memberAccount,
+		CONTRACT_DATE contractDate,
+		ID_NUMBER idNumber,
+		MEMO
+		FROM CONTRACT
+		WHERE CONTRACT_NUMBER = #{param1}
+	</select>
+	<update id="contractModify">
+		UPDATE CONTRACT
+		SET MEMBER_NUMBER = #{contractDTO.memberNumber},
+		BRANCH_NUMBER = #{contractDTO.branchNumber},
+		ROOM_NUMBER = #{contractDTO.roomNumber},
+		PERIOD = #{contractDTO.period},
+		ISPET = #{contractDTO.isPet},
+		EMERGENCY_NUMBER = #{contractDTO.emergencyNumber},
+		BANK_NAME = #{contractDTO.bankName},
+		DEPOSITOR = #{contractDTO.depositor},
+		MEMBER_ACCOUNT = #{contractDTO.memberAccount},
+		CONTRACT_DATE = #{contractDTO.contractDate},
+		ID_NUMBER = #{contractDTO.idNumber},
+		MEMO = #{contractDTO.memo}
+		WHERE CONTRACT_NUMBER = #{contractDTO.contractNumber}
+	</update>
 	<select id="getContractNumber" resultType="Integer">
 		SELECT CONTRACT_NUMBER
 		contractNumber

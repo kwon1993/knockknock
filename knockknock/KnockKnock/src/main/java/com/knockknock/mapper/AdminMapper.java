@@ -12,6 +12,7 @@ import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventJoinMemberVDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.ContractDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitVDTO;
@@ -66,6 +67,10 @@ public interface AdminMapper {
 	public void contractRegist(int memberNumber, int branchNumber, int roomNumber, int period, String isPet,
 			String emergencyNumber, String bankName, String depositor, String memberAccount, Date contractDate,
 			String idNumber, int payDelayAmount, int paneltyAmount, int returnAmount, String memo);
+	
+	public ContractDTO contractModifyView(int contractNumber);
+	
+	public void contractModify(@Param("contractDTO") ContractDTO contractDTO);
 	
 	public ArrayList<Integer> getContractNumber();
 	

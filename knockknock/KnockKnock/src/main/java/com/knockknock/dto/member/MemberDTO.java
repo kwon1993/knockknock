@@ -27,6 +27,7 @@ public class MemberDTO{
 	private Date leaveTime;
 	private String imageProfile;
 	private String introduce;
+	private Integer contractBranchNumber;
 	//임시추가(from 성현)
 	private String animal;
 	

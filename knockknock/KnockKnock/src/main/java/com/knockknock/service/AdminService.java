@@ -24,6 +24,7 @@ import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.event.EventJoinMemberVDTO;
 import com.knockknock.dto.event.EventVDTO;
+import com.knockknock.dto.member.ContractDTO;
 import com.knockknock.dto.member.MemberContractVDTO;
 import com.knockknock.dto.member.MemberDTO;
 import com.knockknock.dto.member.VisitVDTO;
@@ -258,6 +259,14 @@ public class AdminService {
 		int returnAmount = 0;
 		adminMapper.contractRegist(memberNumber, branchNumber, roomNumber, period, isPet, emergencyNumber, bankName,
 				depositor, memberAccount, contractDate, idNumber, payDelayAmount, paneltyAmount, returnAmount, memo);
+	}
+	
+	public ContractDTO contractModifyView(int contractNumber) {
+		return adminMapper.contractModifyView(contractNumber);
+	}
+	
+	public void contractModify(ContractDTO contractDTO) {
+		adminMapper.contractModify(contractDTO);
 	}
 
 	public int getContractNumber() {
@@ -534,15 +543,6 @@ public class AdminService {
 		return roomList;
 	}
 
-	public void testBranchRegist(BranchDTO branchDTO) {
-		adminMapper.testBranchRegist(branchDTO);
-	}
-
-	public void testRoomRegist(int branchNumber, String gender2, int roomNumber2, int allowNumber2, int deposit2,
-			Date rentableDate2, String space2, int monthlyRent2) {
-		adminMapper.testRoomRegist(branchNumber, gender2, roomNumber2, allowNumber2, deposit2, rentableDate2, space2,
-				monthlyRent2);
-	}
 
 	public Date dateChanger(String string) {
 		String dateForm = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$";
