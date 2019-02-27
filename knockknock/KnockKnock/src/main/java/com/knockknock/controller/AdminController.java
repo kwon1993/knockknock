@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.knockknock.dto.branch.AddRoomDTO;
 import com.knockknock.dto.branch.BranchDTO;
 import com.knockknock.dto.branch.RoomDTO;
-import com.knockknock.dto.branch.roomVDTO;
 import com.knockknock.dto.event.EventDTO;
 import com.knockknock.dto.member.ContractDTO;
 import com.knockknock.service.AdminService;
+
 
 @Controller
 public class AdminController {
@@ -28,6 +30,9 @@ public class AdminController {
 	@Autowired
 	public AdminService adminService;
 
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
+	
 	// event
 
 	// 이벤트 리스트 페이지
@@ -307,11 +312,13 @@ public class AdminController {
 	@RequestMapping("adminBranchModifyView")
 	public String adminBranchModifyView(Model model, @RequestParam("branchNumber") int branchNumber) {
 		model.addAttribute("branchDTO", adminService.branchModifyView(branchNumber));
-		model.addAttribute("roomDTO", adminService.roomModifyView(branchNumber));
+		model.addAttribute("roomVDTO", adminService.roomModifyView(branchNumber));
 		model.addAttribute("branchImage", adminService.branchModifyViewImages(branchNumber));
 		model.addAttribute("roomImage", adminService.roomModifyViewImages(branchNumber));
 		int restRoom = 8 - adminService.roomModifyView(branchNumber).size();
 		model.addAttribute("restRoom", restRoom);
+		logger.info(adminService.roomModifyView(branchNumber).get(0).getGender());
+		adminService.branchModifyView(branchNumber).getGender();
 		return "admin/AdminBranchModify";
 	}
 
