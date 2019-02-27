@@ -100,7 +100,7 @@ public interface AdminMapper {
 
 	public BranchDTO branchModifyView(int branchNumber);
 	
-	public List<roomVDTO> roomModifyView(int branchNumber);
+	public ArrayList<roomVDTO> roomModifyView(int branchNumber);
 	
 	public void branchModify(@Param("branchDTO") BranchDTO branchDTO);
 	

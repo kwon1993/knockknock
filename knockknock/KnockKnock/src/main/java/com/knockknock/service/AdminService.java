@@ -485,7 +485,7 @@ public class AdminService {
 		return adminMapper.branchModifyView(branchNumber);
 	}
 
-	public List<roomVDTO> roomModifyView(int branchNumber) {
+	public ArrayList<roomVDTO> roomModifyView(int branchNumber) {
 		return adminMapper.roomModifyView(branchNumber);
 	}
 
