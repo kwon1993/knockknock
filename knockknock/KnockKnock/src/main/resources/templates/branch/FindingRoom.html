@@ -81,6 +81,11 @@ body{
   font-size:15px;
 }
 
+#roomSearch:hover,#roomPay:hover{
+	color:white;
+	background-color:#2eca6a;
+}
+
 .field-title{
   color: #2eca6a;
   text-transform: uppercase;
@@ -165,8 +170,7 @@ body{
 }
 
 #img:hover{
-	background-color:black;
-	opacity:0.7;
+	opacity:0.6;
 }
 
 #hoho{
@@ -305,6 +309,17 @@ var branchNumber = document.getElementsByName('branchNumber');
 //branchNumber 증가 변수
 var i=0;
 
+// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new daum.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
 //갤러리,주소를 지도 위에 띄우기
 window.onload = function(){
 	searchMap();
@@ -344,6 +359,7 @@ function searchMap(){
 			    	marker.setMap(null);
 			    	customOverlay.setMap(null);
 			    });
+
 	        
 	    	}//if end
 	    	map.setCenter(coords);
@@ -451,7 +467,6 @@ function load(id, cnt, btn) {
     }
     jQuery(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
-
 
 </script>
 </div>
