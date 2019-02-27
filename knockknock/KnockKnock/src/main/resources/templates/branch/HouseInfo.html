@@ -43,7 +43,7 @@ body {
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
-	font-size: 17px;
+	font-size: 25px;
 }
 
 #navbar a:hover {
@@ -220,10 +220,12 @@ img {
 	opacity: 1;
 }
 
-#myBtn,#myBtn1 {
+#myBtn,#myBtn1,#roomInfoModify {
 	padding: 2px;
 	color:white;
 	background:#2eca6a;
+	margin: 3px;
+	width: 127px;
 }
 
 #myBtn:hover,#myBtn1:hover {
@@ -329,10 +331,14 @@ h2[name='mouseEvent']{
 	text-align:center;
 	color:#2eca6a;
 }
+
 h2[name='mouseEvent']:hover{
 	color:orange;
 }
 
+th {
+	font-size:20px;
+}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -649,10 +655,12 @@ h2[name='mouseEvent']:hover{
 				<div id="navbar1" class="w3-round-large">
 					<br />
 					<h2 th:text="|낙낙 *{details.branchNumber}호점|" style="color:#2eca6a" id='branchNumberText'></h2>
-					<br />
 					<button id="myBtn1" class='btn btn-default'
-						onclick="location.href='/toSharingGuide'">입주 안내</button>
+						onclick="location.href='/toSharingGuide'">입주 안내</button><br />
 					<button id="myBtn" class='btn btn-default'>방문 신청</button>
+					<span sec:authorize = "hasAuthority('ADMIN')">
+					<a id="roomInfoModify" class='btn btn-default' th:href="@{'/adminBranchModifyView/?branchNumber='+${details.branchNumber}}">방 정보 수정</a>
+					</span>
 					<br />
 				</div>
 			</div>
