@@ -194,13 +194,19 @@ body{
 					<input type="hidden" th:value="${session.nickname}" id='sessionNickname'>
 					
 					<!-- js작업을 위해 필요한 값들 -->
-					<input type="hidden" th:value="${session.memberNumber}" id='sessionMemberNum'>
-					<input type='hidden' th:value="${session.gender}" id='sessionGender'>
-					<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
-					<input type="hidden" name="gender" th:value="${MeetingView.gender}">
-					<input type="hidden" name="memberNumber" th:value="${MeetingView.memberNumber}">
-					<input type="hidden" name="recruiNumber" th:value="${MeetingView.recruitNumber}">
-					<input type="hidden" name="recruitMaxNumber" th:value="${MeetingView.recruitMaxNumber}">
+					<input type="hidden" th:value="${session.memberNumber}" id='sessionMemberNum'> <!-- 로그인 한 회원의 넘버 -->
+					<input type='hidden' th:value="${session.gender}" id='sessionGender'> <!-- 로그인 한 회원의 성별 -->
+					<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}"> <!-- 모임 페이지 넘버 -->
+					<input type="hidden" name="gender" th:value="${MeetingView.gender}"> <!-- 모임에 설정된 성별조건 -->
+					<input type="hidden" name="memberNumber" th:value="${MeetingView.memberNumber}"> <!-- 모임 작성자의 회원넘버 -->
+					<input type="hidden" name="recruiNumber" th:value="${MeetingView.recruitNumber}"> <!-- 모임참가 모집된 인원수 -->
+					<input type="hidden" name="recruitMaxNumber" th:value="${MeetingView.recruitMaxNumber}"> <!-- 모임참가 모집정원 -->
+<!-- 					<div th:if="${session.memberNumber}==${getMMemberNum.memberNumber}"> -->
+<!-- 					딱걸렸어 -->
+<!-- 					</div> -->
+					<div th:each="mNum : ${getMMemberNum}">
+						<input type="hidden" name="recMamberNum" th:value="${mNum.memberNumber}"> <!-- 모임참가한 사람 -->
+					</div>
 					<!-- 조건처리를 위한 날짜값 -->
 					<input type="hidden" name="acceptDate" th:value="${MeetingView.acceptEndTime}">
 					
@@ -279,7 +285,7 @@ inner="";
 				inner += '</div>';	
 					
 				}
-				inner += '<div class="replyContent'+value.replyNumber+'"> <p> 내용 : '
+				inner += '<div class="replyContent'+value.replyNumber+'"> <p>'
 						+ value.content
 						+ '</p>';
 				inner += '</div></div>'; 
@@ -380,7 +386,7 @@ inner="";
 	
 </script>
 <!-- 참가하기 모달 -->
-<script>
+<script th:inline="javascript">
 	//from 성현 :로그인한 사람의 닉네임 가져오기
 	var nick =$("#sessionNickname").val();
 	
@@ -400,6 +406,7 @@ inner="";
 	var memberNumber = $("input[name='memberNumber']").val();
 	var recruiNumber = $("input[name='recruiNumber']").val();
 	var recruiMaxNumber = $("input[name='recruiMaxNumber']").val();
+
 	var memberGender = $("#sessionGender").val();
 	var sessionMemberNum = $("#sessionMemberNum").val();
 	var memberGenderFinal = memberGender+"자";
@@ -436,6 +443,10 @@ inner="";
 		//주최자는 자신의 글의 참여불가
 		else if(memberNumber===sessionMemberNum){
 			alert('작성자는 참여 할 수 없습니다.');
+			return
+		}
+		else if(sessionMemberNum==recMamberNum){
+			alert('이미 신청한 모입입니다.');
 			return
 		}
 		else if(recruiNumber>=recruiMaxNumber){

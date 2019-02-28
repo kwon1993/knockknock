@@ -56,7 +56,7 @@ body{
 							</tr>
 							<tr>
 								<td>모임명<small class="text-danger">(필수)</small></td>
-								<td><input type="text" name="title" maxlength="30" class="form-control" placeholder="모임명" required></td>
+								<td><input type="text" name="title" maxlength="25" class="form-control" placeholder="모임명(최대25자)" required></td>
 							</tr>
 							<tr>
 								<td>모임테마</td>
@@ -112,10 +112,10 @@ body{
 										<input class='address1' type="text" id="sample4_postcode" placeholder="우편번호">
 									</div>
                                 	<div class="input-group">
-										<input class='address1' type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" required>
-										<input class='address1' type="text" id="sample4_detailAddress" name="addressDetail" placeholder="상세주소" required>
+										<input class='address1' type="text" id="sample4_roadAddress" name="place" placeholder="도로명주소" required>
+										<input class='address1' type="text" id="sample4_detailAddress" name="placeDetail" placeholder="상세주소">
 										<input class='address1' type="text" id="sample4_extraAddress" placeholder="참고항목">
-										<input class='address1' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
+										<input class='address1 btn btn-success' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
 										<span id="guide" style="color:#999;display:none"></span>
 									</div>
 								</td>

@@ -17,22 +17,8 @@ public class MeetingAndEventService {
 	@Autowired
 	public MeetingAndEventMapper meMapper;
 	
-//	public void meetingInsert(MeetingVDTO meetingVDTO) {
-//		meMapper.meetingInsert(meetingVDTO);
-//	}; //모임 글쓰기
-	
-	
-	public int getWritingNumber(){
-		ArrayList<Integer> writingNumber = meMapper.getWritingNumber();
-		int maxWritingNumber = Collections.max(writingNumber);
-		return maxWritingNumber;
-	};
-	
-	
-	public void meetingImageUpload(int writingNumber, MeetingVDTO meetingVDTO) {
-	//모임글쓰기 파일업로드
-		System.err.println("파일업로드");
-		writingNumber = Collections.max(meMapper.getWritingNumber()); //이게 필요할까?
+	public void meetingImageUpload(int writingNumber, MeetingVDTO meetingVDTO) { //모임글쓰기 파일업로드
+		writingNumber = Collections.max(meMapper.getWritingNumber()); //글번호 불러오기
 		String resourceToString;
 		String OS = System.getProperty("os.name").toLowerCase(); //------상대경로 지정
 		if (OS.indexOf("nux") >= 0) {

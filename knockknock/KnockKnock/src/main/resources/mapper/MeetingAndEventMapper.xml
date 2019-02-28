@@ -79,12 +79,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 이벤트글 뷰 -->
     <select id="eventView" resultType="EventVDTO">
         SELECT
-            WRITING_NUMBER writingNumber, TITLE, HIT, IMAGE, WRITE_TIME writeTime,
-            ACCEPT_START_TIME acceptStartTime, ACCEPT_END_TIME acceptEndTime,
-            EVENT_START_TIME eventStartTime, EVENT_END_TIME eventEndTime,
-            RECRUIT_NUMBER recruitNumber, RECRUIT_MAX_NUMBER recruitMaxNumber,
-            CONTENT content, IMAGE image
-        FROM EVENT
+            E.WRITING_NUMBER writingNumber, E.TITLE, E.HIT, E.IMAGE, E.WRITE_TIME writeTime,
+            E.ACCEPT_START_TIME acceptStartTime, E.ACCEPT_END_TIME acceptEndTime,
+            E.EVENT_START_TIME eventStartTime, E.EVENT_END_TIME eventEndTime,
+            E.RECRUIT_NUMBER recruitNumber, E.RECRUIT_MAX_NUMBER recruitMaxNumber,
+            E.CONTENT content, E.IMAGE image
+        FROM EVENT E
         WHERE WRITING_NUMBER = #{writingNumber}
     </select>
     <!-- 모임글 작성 -->
@@ -109,6 +109,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT WRITING_NUMBER
 		writinghNumber
 		FROM MEETING
+	</select>
+	 <!-- 모임참여자 넘버가져오기 -->
+    <select id="getMMemberNum" resultType="MeetingVDTO">
+		SELECT JM.MEMBER_NUMBER memberNumber
+		FROM JOIN_MEETING JM, MEETING M
+		WHERE JM.WRITING_NUMBER=M.WRITING_NUMBER AND M.WRITING_NUMBER = #{writingNumber}
+	</select>
+	 <!-- 이벤트참여자 넘버가져오기 -->
+    <select id="getEMemberNum" resultType="Integer">
+		SELECT MEMBER_NUMBER memberNumber
+		FROM JOIN_EVENT
 	</select>
    	<!-- 모임글 조회수 증가 -->
 	<update id="meetingViewHit">
