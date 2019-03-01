@@ -16,7 +16,7 @@ body {
 }
 
 .roomInfo input {
-	width: 150px;
+	width: 100%;
 }
 .sidenav {
 	width: 200px;
@@ -115,19 +115,34 @@ body {
 					<h1 id='title'>지점 등록</h1>
 					<div class="form-group">
 						<h4>테마</h4>
-						<input type="text" name="theme" class="form-control"
-							placeholder="테마">
+						<select name="theme" class="form-control">
+							<option class='favorite1' type="text" name="theme">없음</option>
+							<option class='favorite1' type="text" name="theme">IT</option>
+							<option class='favorite1' type="text" name="theme">음악</option>
+							<option class='favorite1' type="text" name="theme">쿠킹</option>
+							<option class='favorite1' type="text" name="theme">전시/공연</option>
+							<option class='favorite1' type="text" name="theme">커피</option>
+							<option class='favorite1' type="text" name="theme">드로잉</option>
+							<option class='favorite1' type="text" name="theme">영화</option>
+							<option class='favorite1' type="text" name="theme">어학</option>
+							<option class='favorite1' type="text" name="theme">패션</option>
+							<option class='favorite1' type="text" name="theme">운동</option>
+							<option class='favorite1' type="text" name="theme">게임</option>
+							<option class='favorite1' type="text" name="theme">독서</option>
+							<option class='favorite1' type="text" name="theme">와인</option>
+							<option class='favorite1' type="text" name="theme">스터디</option>
+				 		</select>
 						<h4>지점은행</h4>
 						<input type="text" name="bankName" class="form-control"
-							placeholder="지점 은행 이름">
+							placeholder="지점 은행 이름" value="카카오뱅크">
 						<h4>지점은행 예금주</h4>
 						<input type="text" name="depositor" class="form-control"
-							placeholder="예금주">
+							placeholder="예금주" value="라이언">
 						<h4>지점은행 계좌</h4>
 						<input type="text" name="branchAccount" class="form-control"
-							placeholder="계좌번호">
+							placeholder="계좌번호" value="3333-05-7492761">
 						<h4>성별</h4>
-						<select name="gender">
+						<select name="gender" class="form-control">
 							<option value="공용">공용</option>
 							<option value="남">남</option>
 							<option value="여">여</option>
@@ -145,20 +160,23 @@ body {
 							</script>
 						</div>
 						<h4>거주유형</h4>
-						<input type="text" name="branchType" class="form-control"
-							placeholder="예)아파트">
+						<select name="branchType" class="form-control">
+							<option value="아파트">아파트</option>
+							<option value="빌라">빌라</option>
+							<option value="단독주택">단독주택</option>
+						</select>
 						<h4>주차장</h4>
-						<select name="isParking">
+						<select name="isParking" class="form-control">
 							<option value="있음">있음</option>
 							<option value="없음">없음</option>
 						</select>
 						<h4>엘리베이터</h4>
-						<select name="isElevator">
+						<select name="isElevator" class="form-control">
 							<option value="있음">있음</option>
 							<option value="없음">없음</option>
 						</select>
 						<h4>반려동물 가능여부</h4>
-						<select name="pet">
+						<select name="pet" class="form-control">
 							<option value="가능">가능</option>
 							<option value="불가능">불가능</option>
 						</select>
@@ -195,12 +213,13 @@ body {
 							</tr>
 							<tr>
 								<td><input type="number" name="roomNumber"
-									class="form-control" placeholder="방 호수 ex)101"></td>
+									class="form-control" placeholder="방 호수 ex)101" value="101"></td>
 								<td><input type="text" name="space"
-									class="form-control" placeholder="면적 ex)12mx12m"></td>
+									class="form-control" placeholder="면적 ex)15m²" value="15m²"></td>
 								<td><input type="number" name="deposit"
-									class="form-control" placeholder="보증금"></td>
+									class="form-control" placeholder="보증금" value="5000000"></td>
 								<td><select name="roomGender" class="form-control">
+										<option value="공용">공용</option>
 										<option value="남">남</option>
 										<option value="여">여</option>
 								</select></td>
@@ -217,8 +236,8 @@ body {
 							</tr>
 							<tr>
 								<td><input type="number" name="monthlyRent"
-									class="form-control" placeholder="월세"></td>
-								<td><input type="date" name="rentableDate"
+									class="form-control" placeholder="월세" value="500000"></td>
+								<td><input type="date" name="rentableDate" id="now"
 									class="form-control"></td>
 							</tr>
 							<tr>
@@ -471,9 +490,9 @@ body {
 
 						</table>
 						<h4>공용 시설</h4>
-						<input type="text" name="publicFacility">
+						<input type="text" name="publicFacility" class="form-control" value="냉장고, TV, 세탁기, 에어컨, 전자레인지, 인덕션">
 						<h4>개인 시설</h4>
-						<input type="text" name="roomFacility">
+						<input type="text" name="roomFacility" class="form-control" value="책상, 책장, 옷장">
 					</div>
 				<button type="submit" class="btn btn-default" style="float: center;" id='okay'>완료</button>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -481,6 +500,9 @@ body {
 			</div>
 		</form>
 
+		<script type="text/javascript">
+			document.getElementById('now').valueAsDate = new Date();
+		</script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
 			//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.

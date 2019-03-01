@@ -127,7 +127,7 @@ th {
 <div class="main">
 <div id="Join" class="tabcontent">
 				<h3 class="font-weight-bold" id='title'>내 이벤트</h3>
-				<br />
+				<br /><br />
 				<div class="w3-container">
 					<table class="table table-striped">
 						<tr>
@@ -175,33 +175,6 @@ th {
 				<script th:inline="javascript">
 			$(document).ready(function(){
 				
-				$('[data-toggle="tooltip"]').tooltip();
-				
-				var modal = document.getElementById('myModal');				
-				var span = document.getElementsByClassName("close")[0];
-							
-				var closeModal = document.getElementById("closeModal");
-						
-				span.onclick = function() {
-					modal.style.display = "none";
-				}
-				
-				window.onclick = function(event) {
-					if (event.target == modal) {
-							modal.style.display = "none";
-					}
-				}
-					
-				closeModal.onclick = function(){
-					modal.style.display = "none";
-				} 	
-					
-				var confirmReasonEvent = [[${confirmReasonEvent}]];
-
-				if(confirmReasonEvent!=null){
-					modal.style.display = "block";
-				}
-				
 				$("#checkAll").click(function(){
 					if($("#checkAll").prop("checked")){
 				        $("input[name=checkRow]").prop("checked", true);
@@ -245,11 +218,39 @@ th {
 		            	return false;
 		        	}
 		   		}) 
+				
+				
+				$('[data-toggle="tooltip"]').tooltip();
+				
+				var modal = document.getElementById('myModal');				
+				var span = document.getElementsByClassName("close")[0];
+							
+				var closeModal = document.getElementById("closeModal");
+						
+				span.onclick = function() {
+					modal.style.display = "none";
+				}
+				
+				window.onclick = function(event) {
+					if (event.target == modal) {
+							modal.style.display = "none";
+					}
+				}
+					
+				closeModal.onclick = function(){
+					modal.style.display = "none";
+				} 	
+					
+				var confirmReasonEvent = [[${confirmReasonEvent}]];
+
+				if(confirmReasonEvent!=null){
+					modal.style.display = "block";
+				}
+				
+			
 			})	
 	
 			</script>
 </div>
 </body>
 </html>
-
-

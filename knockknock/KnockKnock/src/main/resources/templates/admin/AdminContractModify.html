@@ -76,22 +76,22 @@ label{
 			<div class="col-md-10">
 				<h1 id='title'>계약정보 수정</h1>
 				<form action="adminContractModify" method="post">
-					<label>계약번호</label><span th:text="${contract.contractNumber}"></span>
+					<label>계약번호</label><span th:text="${contract.contractNumber}"></span><br />
 					<label>회원번호</label><span th:text="${contract.memberNumber}"></span><br />
-					<label>계약일</label><input type="Date" name="contractDate" th:value="${contract.contractDate}"><br />
-					<label>계약기간</label><input type="number" name="period" th:value=${contract.period}><br />
-					<label>계약지점</label><input type="number" name="branchNumber" th:value=${contract.branchNumber}><br />
-					<label>계약방 호수</label><input type="number" name="roomNumber" th:value=${contract.roomNumber}><br />
-					<label>비상연락번호</label><input type="text" name="emergencyNumber" th:value=${contract.emergencyNumber}><br />
-					<label>반려동물여부</label><select name="isPet" th:field="*{contract.isPet}">
+					<label>계약일</label><input type="Date" class="form-control" name="contractDate" th:value="${contract.contractDate}"><br />
+					<label>계약기간</label><input type="number" class="form-control" name="period" th:value=${contract.period}><br />
+					<label>계약지점</label><input type="number" class="form-control" name="branchNumber" th:value=${contract.branchNumber}><br />
+					<label>계약방 호수</label><input type="number" class="form-control" name="roomNumber" th:value=${contract.roomNumber}><br />
+					<label>비상연락번호</label><input type="text" class="form-control" name="emergencyNumber" th:value=${contract.emergencyNumber}><br />
+					<label>반려동물여부</label><select name="isPet" class="form-control" th:field="*{contract.isPet}">
 												<option value="예">예</option>
 												<option value="아니오">아니오</option>
 											</select><br />
-					<label>회원은행명</label><input type="text" name="bankName" th:value=${contract.bankName}><br />
-					<label>회원예금주</label><input type="text" name="depositor" th:value=${contract.depositor}><br />
-					<label>회원계좌번호</label><input type="text" name="memberAccount" th:value=${contract.memberAccount}><br />
-					<label>주민등록번호</label><input type="text" name="idNumber" th:value=${contract.idNumber}><br />
-					<label>메모</label><input type="text" name="memo" th:value=${contract.memo}><br />
+					<label>회원은행명</label><input type="text" class="form-control" name="bankName" th:value=${contract.bankName}><br />
+					<label>회원예금주</label><input type="text" class="form-control" name="depositor" th:value=${contract.depositor}><br />
+					<label>회원계좌번호</label><input type="text" class="form-control" name="memberAccount" th:value=${contract.memberAccount}><br />
+					<label>주민등록번호</label><input type="text" class="form-control" name="idNumber" th:value=${contract.idNumber}><br />
+					<label>메모</label><input type="text" class="form-control" name="memo" th:value=${contract.memo}><br />
 					<input type="hidden" name="contractNumber" th:value="${contract.contractNumber}">
 					<input type="hidden" name="memberNumber" th:value="${contract.memberNumber}">
 					<input type="submit" class="btn btn-success" style="float: right;" value="등록">

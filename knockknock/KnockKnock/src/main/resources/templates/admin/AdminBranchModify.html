@@ -133,10 +133,9 @@ body {
 							<option value="여">여</option>
 						</select>
 						<h4>소개글</h4>
-						<textarea name="branchComment"
-							th:text="${branchDTO.branchComment}"></textarea>
+						<textarea name="branchComment">[[*{branchDTO.branchComment}]]</textarea>
 						<h4>규칙</h4>
-						<textarea name="rule" th:text="${branchDTO.rule}"></textarea>
+						<textarea name="rule">[[*{branchDTO.rule}]]</textarea>
 						<h4>거주유형</h4>
 						<input type="text" name="branchType" class="form-control"
 							placeholder="예)아파트" th:value="${branchDTO.branchType}">
@@ -187,7 +186,7 @@ body {
 						<input type="file" name="roomImages" class="form-control"
 							multiple="multiple">
 						<h4>방 정보</h4>
-						<table class="roomInfo" id='roomInfo' th:each="room : ${roomDTO}">
+						<table class="roomInfo" id='roomInfo' th:each="room:${roomVDTO}">
 							<tr>
 								<td>방 호수</td>
 								<td>면적</td>
@@ -204,18 +203,18 @@ body {
 								<td><input type="number" name="deposit"
 									class="form-control" placeholder="보증금"
 									th:value="${room.deposit}"></td>
-								<td><select name="roomGender" id="roomGender"
-									class="form-control"  th:field="*{room.roomGender}">
+								<td><select name="roomGender">
+										<option value="공용">공용</option>
 										<option value="남">남</option>
 										<option value="여">여</option>
 								</select></td>
-								<td><select name="allowNumber" id="allowNumber"
-									class="form-control" th:field="*{room.allowNumber}">
+								<td><select name="allowNumber">
 										<option value="1인실">1인실</option>
 										<option value="2인실">2인실</option>
 										<option value="3인실">3인실</option>
 										<option value="4인실">4인실</option>
 								</select></td>
+								
 							</tr>
 							<tr>
 								<td>월세</td>
@@ -230,7 +229,7 @@ body {
 							</tr>
 						</table>
 						<h4>방 추가</h4>
-						<table class=roomInfo id="newRoomInfo" th:each="num : ${#number.sequence(1, ${restRoom})}">
+						<table class=roomInfo id="newRoomInfo">
 							<tr>
 								<td>방 호수</td>
 								<td>면적</td>
@@ -270,7 +269,7 @@ body {
 						<h4>공용 시설</h4>
 						<input type="text" name="publicFacility" th:value="${branchDTO.facility}">
 						<h4>개인 시설</h4>
-						<input type="text" name="roomFacility" th:value="${room.roomFacility}">
+						<input type="text" name="roomFacility" th:value="${roomVDTO.facility}">
 					</div>
 				</div>
 				<input type="hidden" name="restRoom" th:value="${restRoom}">

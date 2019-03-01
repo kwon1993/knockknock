@@ -9,7 +9,6 @@
 body {
 	font-family: 'Jua', sans-serif;
 }
-
 .sidenav {
 	width: 200px;
 	position: fixed;
@@ -21,7 +20,6 @@ body {
 	padding: 8px 0;
 	margin-right: 40px;
 }
-
 .sidenav a {
 	padding: 10px 10px 10px 16px;
 	text-decoration: none;
@@ -29,17 +27,14 @@ body {
 	color: #2eca6a;
 	display: block;
 }
-
 .sidenav a:hover {
 	color: #064579;
 }
-
 .main {
 	position:relative;
 	margin-left: 30px;
 	padding: 0px 10px;
 }
-
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
@@ -48,16 +43,13 @@ body {
 		font-size: 30px;
 	}
 }
-
 #profileContainer {
 /* 	margin-left: 400px;
 	margin-bottom:200px; */
 }
-
 label {
 	font-size: 20px;
 }
-
 /* 모달창  */
 /* The Modal (background) */
 .modal {
@@ -81,7 +73,6 @@ label {
 	border: 1px solid #888;
 	width: 50%; /* Could be more or less, depending on screen size */                          
 }
-
 /* The Close Button */
 .close {
 	color: #aaa;
@@ -89,14 +80,12 @@ label {
 	font-size: 28px;
 	font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
-
 #sidenav{
 	background-color:white;
 	border: 2px solid #2eca6a;
@@ -104,13 +93,11 @@ label {
 	font-weight:bolder;
 	border-radius: 1rem;
 }
-
 #title{
 	color:#2eca6a;
 	font-size:30px;
 	font-weight:bolder;
 }
-
 /*input tag 공통 스타일*/
 input {             
 	width: 60%;
@@ -129,7 +116,7 @@ input.uploadButton {
 }
 button.replace {    /*button tag 에 원하는 스타일 적용*/
 	position: absolute;
-	width: 80%;
+	width: 90%;
 	height: 50%px;
 	border-radius: 3px;
 	font-weight: 600;
@@ -139,39 +126,31 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 	color: #fff;
 	cursor: pointer;
 }
-
 #profileChange{
 	font-size:20px;
 	font-weight: bolder;
 }
-
 #afterChangeProfile{
 	font-size:20px;
 	font-weight: bolder;
 }
-
 #doChangePass{
 	background-color: #2eca6a;
 	color: white;
 	border-radius: 1rem;
 }
-
 #img{
 	background-color:#2eca6a;
 }
-
 #updateProfileComplete{
 	background-color: #2eca6a;
 	color: white;
 	border-radius: 1rem;
 	font-size:20px;
 }
-
 .swal-button {
 	background-color:#2eca6a;
 }
-
-
 </style>
 </head>
 <body>
@@ -380,28 +359,21 @@ button.replace {    /*button tag 에 원하는 스타일 적용*/
 
 
 <script>
-
-
-
 //Get the modal
 var profileModal = document.getElementById('myProfileModal');//프로필수정창
 var modalButton = document.getElementById('popupButton');//프로필수정 버튼
 var updateProfile = document.getElementById('updateProfileComplete');//프로필수정완료 버튼
-
 //프로필 수정 클릭하면 프로필 수정 창 띄우기
 $(modalButton).on('click',function(){
 	profileModal.style.display = "block";
 });
-
 //Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close");                                          
-
 //프로필업데이트 수정창 닫기
 span[0].onclick = function() {
 	profileModal.style.display = "none";
 	location.reload();
 }
-
 //프로필정보업데이트--
 $(updateProfile).on('click',function(){
 	memberNumber = $("#hidden").val();
@@ -427,12 +399,10 @@ $(updateProfile).on('click',function(){
 		}
 	});
 })
-
 //파일올리기버튼 클릭시 readURL호출
 $("#uploadProfileShot").change(function(){
 	readURL(this);
 })
-
 //프로필 미리보기
 function readURL(input){
 	if(input.files && input.files[0]){
@@ -446,7 +416,6 @@ function readURL(input){
 	}
 	uploadProfileShot();
 }
-
 //프로필사진 업데이트--
 function uploadProfileShot(){
 	var formData = new FormData();
@@ -456,7 +425,6 @@ function uploadProfileShot(){
 	for(var i=0; i<files.length; i++){
 		formData.append("uploadFile",files[i]); //uploadFile은 컨트롤러 MultipartFile의 변수명
 	}	
-
 	$.ajax({
 		type:'post',
 		url:'/profileUpdate',
@@ -476,21 +444,17 @@ function uploadProfileShot(){
 		}
 	});
 }
-
 //비밀번호변경
 var changePassModal = document.getElementById('myChangePassModal');
 var btns = document.getElementById('popupButton2');//비밀번호 변경 버튼
-
 btns.onclick = function(){
 	changePassModal.style.display = "block";
 }
-
 //비번변경 모달창 닫기
 span[1].onclick = function() {
     changePassModal.style.display = "none";
     location.reload();
 }
-
 //When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == changePassModal || event.target == profileModal) {
@@ -499,13 +463,11 @@ window.onclick = function(event) {
         location.reload();
     }
 }
-
 //동적으로 생성된 태그에 이벤트 걸기
 $(document).on("click", "#modalx", function(){
 	profileModal.style.display = "none";
 	location.reload();
 });
-
 //패스워드 체크 관련
 	var form = $("#passForm");
 	
@@ -532,4 +494,3 @@ $(document).on("click", "#modalx", function(){
 </div>
 </body>
 </html>
-
