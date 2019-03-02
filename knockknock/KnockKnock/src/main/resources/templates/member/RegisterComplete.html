@@ -12,7 +12,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	margin-top:200px;
 	margin-bottom:200px;
 	border-radius:20px;
-	border:7px solid #2eca6a;
+	border-right:7px solid #2eca6a;
+	border-left:7px solid #2eca6a;
 	padding:30px;
 	background:white;
 }
@@ -27,26 +28,20 @@ layout:decorate="~{etc/fragments/Main_layout}">
 	font-family: 'Jua', sans-serif;
 }
 
+#knockknock{
+	color:#2eca6a;
+}
 
 </style>
 
-
-
-
-
-
 </head>
-
 
 <body>
 
 <div layout:fragment="content" class="container" id='allRegisterComplete'>
     <div class="class">
-    	<video  autoplay="autoplay">
-    		<source src="video/video.mp4" type="video/mp4" />
-        <h1>회원가입이 완료되었습니다.</h1>
+        <h1>회원가입이 완료되었어요. 이제 <strong id='knockknock'>KnockKnock</strong>과 함께하세요 !</h1>
         <a href="/" id='returnMain'>메인화면으로 돌아가기</a>
-    	</video>
     </div>
 </div>
 
