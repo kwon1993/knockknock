@@ -1,5 +1,8 @@
 package com.knockknock.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ import com.knockknock.mapper.MeetingAndEventMapper;
 import com.knockknock.security.MemberController;
 import com.knockknock.service.MeetingAndEventService;
 
+import net.sf.json.JSONArray;
+
 @Controller
 public class MeetingAndEventController {
 	@Autowired
@@ -38,7 +43,7 @@ public class MeetingAndEventController {
 	MemberController mc;
 	
 	@RequestMapping("/meetingList") //미팅리스트
-	private String meetingList(@ModelAttribute("cri") Criteria cri, Model model){
+	private String meetingList(@ModelAttribute("cri") Criteria cri, Model model){		
 		model.addAttribute("MeetingList", meMapper.meetingList(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -48,8 +53,14 @@ public class MeetingAndEventController {
 		return "event/MeetingList";
 	}
 	
+	@SuppressWarnings("static-access") //경고무시
 	@RequestMapping("/meetingView") //미팅 상세보기
 	private String meetingView(@RequestParam("writingNumber") int writingNumber, Model model){
+		List<MeetingVDTO> pro = new ArrayList<MeetingVDTO>();
+		pro.addAll(meMapper.patyMemberNum(writingNumber));
+		JSONArray jsonArray = new JSONArray();
+		model.addAttribute("patyMemberNum", jsonArray.fromObject(pro));
+//		System.err.println(jsonArray.fromObject(pro));
 		meMapper.meetingViewHit(writingNumber);
 		model.addAttribute("MeetingView", meMapper.meetingView(writingNumber));
 		return "event/MeetingView";
@@ -65,7 +76,7 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/writeBoard") //미팅 글 쓰기
 	private String writeBoard(MeetingVDTO meetingVDTO){
-		int writingNumber = meService.getWritingNumber();
+		int writingNumber = meetingVDTO.getWritingNumber();
 		meMapper.meetingInsert(meetingVDTO);
 		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		
@@ -80,7 +91,7 @@ public class MeetingAndEventController {
 	
 	@PostMapping("/meetingModify")
 	private String meetingModify(MeetingVDTO meetingVDTO){
-		int writingNumber = meService.getWritingNumber();
+		int writingNumber = meetingVDTO.getWritingNumber();
 		meMapper.meetingModify(meetingVDTO);
 		meService.meetingImageUpload(writingNumber, meetingVDTO);
 		return "redirect:/meetingList";
@@ -105,6 +116,7 @@ public class MeetingAndEventController {
 	
 	@RequestMapping("/eventView") //미팅 상세보기
 	private String eventView(@RequestParam("writingNumber") int writingNumber, Model model){
+		model.addAttribute("getEMemberNum", meMapper.getEMemberNum());
 		meMapper.eventViewHit(writingNumber);
 		model.addAttribute("EventView", meMapper.eventView(writingNumber));
 

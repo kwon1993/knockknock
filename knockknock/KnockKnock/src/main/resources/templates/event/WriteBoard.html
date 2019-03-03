@@ -14,7 +14,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
-    border-radius: 1rem;
+    border-radius: 0.3rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 body{
@@ -31,6 +31,39 @@ body{
 .width{
 	width: 110px;
 }
+.filebox label {  /*이미지 업로드 버튼*/
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #6ed36e;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 </style>
 </head>
 <body>
@@ -43,8 +76,12 @@ body{
 					<div class="col-2">
 						<span>대표이미지</span>
 						<img class="d-block" width="150" height="150" id="foo" src="#" onerror="this.src='/images/meeting/default.png';"/>
-						<input class="form-control-file" type='file' name="meetingImage" id="imgInp" />
-						<small>* 이미지는 정사각형 최대 250*250px 사이즈만 업로드 가능합니다</small>
+						<br/>
+						<div class="filebox">
+						  <label for="imgInp">대표이미지 업로드</label>
+						  <input type="file" name="meetingImage" id="imgInp">
+						</div>
+						<small>* 이미지는 정사각형 최대 500*500px 사이즈만 업로드 가능합니다</small>
 					</div>
 					<div class="col">
 						<table class="table">
@@ -56,7 +93,7 @@ body{
 							</tr>
 							<tr>
 								<td>모임명<small class="text-danger">(필수)</small></td>
-								<td><input type="text" name="title" maxlength="30" class="form-control" placeholder="모임명" required></td>
+								<td><input type="text" name="title" maxlength="25" class="form-control" placeholder="모임명(최대25자)" required></td>
 							</tr>
 							<tr>
 								<td>모임테마</td>
@@ -112,10 +149,10 @@ body{
 										<input class='address1' type="text" id="sample4_postcode" placeholder="우편번호">
 									</div>
                                 	<div class="input-group">
-										<input class='address1' type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" required>
-										<input class='address1' type="text" id="sample4_detailAddress" name="addressDetail" placeholder="상세주소" required>
+										<input class='address1' type="text" id="sample4_roadAddress" name="place" placeholder="도로명주소" required>
+										<input class='address1' type="text" id="sample4_detailAddress" name="placeDetail" placeholder="상세주소">
 										<input class='address1' type="text" id="sample4_extraAddress" placeholder="참고항목">
-										<input class='address1' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
+										<input class='address1 btn btn-success' id='addressSearch' type="button" onclick="sample4_execDaumPostcode()" value="주소찾기">
 										<span id="guide" style="color:#999;display:none"></span>
 									</div>
 								</td>
