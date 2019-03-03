@@ -178,20 +178,20 @@ body{
 				<br/>
 				<strong>문의/기대평</strong>
 					<div class="form-group">
-						<form name="replyInsertForm">
+<!-- 						<form name="replyInsertForm"> -->
 							<div class="input-group">
 								<input type="hidden" name="replyNumber">
 								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
 								<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
 								<button class="btn btn-success formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
 							</div>
-						</form>
+<!-- 						</form> -->
 					</div>
 						
 					<!-- from 성현 시큐리티 적용 -->
 					<input type="hidden" th:value="${session.nickname}" id='sessionNickname'>
 					
-					<!-- js작업을 위해 필요한 값들 -->
+					<!-- Js작업을 위해 필요한 값들 -->
 					<input type="hidden" th:value="${session.memberNumber}" id='sessionMemberNum'> <!-- 로그인 한 회원의 넘버 -->
 					<input type='hidden' th:value="${session.gender}" id='sessionGender'> <!-- 로그인 한 회원의 성별 -->
 					<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}"> <!-- 모임 페이지 넘버 -->
@@ -201,7 +201,7 @@ body{
 					<input type="hidden" name="recruitMaxNumber" th:value="${MeetingView.recruitMaxNumber}"> <!-- 모임참가 모집정원 -->
 					
 					<div th:each="mNum : ${patyMemberNum}">
-						<input type="text" th:value="${mNum.memberNumber}">
+						<input type="hidden" th:value="${mNum.memberNumber}">
 					</div>
 					<!-- 조건처리를 위한 날짜값 -->
 					<input type="hidden" name="acceptDate" th:value="${MeetingView.acceptEndTime}">
@@ -264,11 +264,11 @@ inner="";
 						+ value.nickname;
 				
 				if(value.nickname==nick){
-				inner += '<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
+				inner += '&nbsp<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
 						+ value.replyNumber
 						+ ',\''
 						+ value.content
-						+ '\');"> 수정 </button>';
+						+ '\');">수정 </button>';
 				inner += '&nbsp<button name="aboutReply" class="btn btn-default" onclick="deleteConfirm('
 						+ value.replyNumber
 						+ ');"> 삭제 </button> </div>';
@@ -290,13 +290,24 @@ inner="";
 		}
 	});
 }; 
-
+		//엔터키 클릭시 댓글등록
+		$('input[type="text"]').keydown(function() {
+		    if (event.keyCode === 13) {
+		    	$('[name=replyInsertBtn]').click()
+		    }
+		});
 	// 댓글 등록
 		$('[name=replyInsertBtn]').click(function() { // 댓글 등록 버튼 클릭시 
 			var writingNumber= $("input[name='writingNumber']").val();
 			var content = $("input[name='replyContent']").val();
 		// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
-	
+			if(nick===""){
+				alert('먼저 로그인을 해주세요');
+				var	form =$("#mparticipateForm");
+				form.action = "/login";
+				form.submit();
+				return false;
+			}
 		$.ajax({
 			url : '/meetingReplyInsert',
 			type : 'post',
