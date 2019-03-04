@@ -506,7 +506,8 @@ inner="";
 				$("#myModal").html(inner);
 			} ,
 			error:function(data){  
-				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>에러 발생</h4><br /></div>"
+// 				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>에러 발생</h4><br /></div>"
+				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>이미 신청한 모임입니다.</h4><br /></div>"
 				$("#myModal").html(inner);
 			}
 		});
