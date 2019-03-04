@@ -10,5 +10,3 @@ facebook:
       scope: email
     resource:
       userInfoUri: https://graph.facebook.com/me?fields=name,email
-
-     
