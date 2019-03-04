@@ -49,6 +49,15 @@ body{
 	color: #064579;
 }
 
+.btn {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
 #title{
 	color:#2eca6a;
 	font-size:larger;
@@ -79,10 +88,10 @@ body{
 				<label style="width: 100px;">메모사항</label><span th:text="${visitView.memo}"></span><br />
 				<span th:if="${visitView.ischeck.equals('미승인')}"><form action="adminVisitCheck" style="display: inline;">
 					<input type="hidden" name="writingNumber" th:value="${visitView.writingNumber}">
-					<input type="submit" class="btn btn-success" value="확인체크">
+					<input type="submit" class="btn btn-default" value="확인체크">
 				</form></span>
 				<form action="adminVisitList" style="display: inline;">
-					<input type="submit" class="btn btn-success" value="목록으로">
+					<input type="submit" class="btn btn-default" value="목록으로">
 				</form>
 			</div>
 		</div>

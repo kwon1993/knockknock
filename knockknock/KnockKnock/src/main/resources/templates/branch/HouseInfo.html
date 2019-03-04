@@ -285,6 +285,16 @@ button[name='reviewInsertBtn']:hover{
 	clear:both;
 }
 
+#closeModal, #visitBooking {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
+
 #navbar1{
 background:white;
 border: 3px solid #2eca6a;
@@ -362,7 +372,7 @@ th {
 		<hr>
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+		<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
   		  <div class="carousel-inner">
 		    <div class="carousel-item active" th:each="main : ${mainImage}">
 		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'/'+${main}" alt="First slide">
@@ -371,11 +381,11 @@ th {
 			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
 			 </div>
 		  </div>
-		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+		  <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Previous</span>
 		  </a>
-		  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+		  <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Next</span>
 		  </a>

@@ -37,6 +37,15 @@ body{
 
 }
 
+.btn {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
 .sidenav a {
 	padding: 10px 10px 10px 16px;
 	text-decoration: none;
@@ -112,12 +121,14 @@ label{
 						<input type="hidden" name="contractNumber" th:value="${memberView.contractNumber}">
 						<input type="submit" class="btn btn-default" value="계약 정보 수정">
 					</form></div>
+					
 					<form action="adminVisitListOfMember" style="display: inline; float: right;">
 						<input type="hidden" name="memberNumber" th:value="${memberView.memberNumber}">
-						<input type="submit" class="btn btn-default" value="방문문의내역">
+						<input type="submit" class="btn btn-default" value="방문문의내역">&nbsp;
 					</form>
+					
 					<form action="/" style="display: inline; float: right;">
-						<input type="submit" class="btn btn-default" value="메인으로">
+						<input type="submit" class="btn btn-default" value="메인으로">&nbsp;
 					</form>
 								
 				</div>
