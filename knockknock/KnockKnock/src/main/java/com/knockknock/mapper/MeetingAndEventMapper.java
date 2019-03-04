@@ -20,7 +20,7 @@ public interface MeetingAndEventMapper {
 	public MeetingVDTO meetingView(int writingNumber) ; //모임상세보기
 	public void meetingViewHit(int writingNumber); //조회수
 	public ArrayList<Integer> getWritingNumber();  //모임 글 번호 가져오기
-	public ArrayList<MeetingVDTO> getMMemberNum(int writingNumber);  //모임 글 번호 가져오기
+	public List<MeetingVDTO> patyMemberNum(int writingNumber);  //모임 글 번호 가져오기
 	public void meetingInsert(MeetingVDTO meetingVDTO) ; //모임 글쓰기
 	public MeetingVDTO meetingModifyForm(int writingNumber);
 	public int meetingModify(MeetingVDTO meeting) ; //모임 수정

@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MEETING
 	</select>
 	 <!-- 모임참여자 넘버가져오기 -->
-    <select id="getMMemberNum" resultType="MeetingVDTO">
+    <select id="patyMemberNum" resultType="MeetingVDTO">
 		SELECT JM.MEMBER_NUMBER memberNumber
 		FROM JOIN_MEETING JM, MEETING M
 		WHERE JM.WRITING_NUMBER=M.WRITING_NUMBER AND M.WRITING_NUMBER = #{writingNumber}

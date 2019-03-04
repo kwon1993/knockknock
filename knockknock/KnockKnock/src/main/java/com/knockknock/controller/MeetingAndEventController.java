@@ -1,6 +1,7 @@
 package com.knockknock.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -52,9 +53,14 @@ public class MeetingAndEventController {
 		return "event/MeetingList";
 	}
 	
+	@SuppressWarnings("static-access") //경고무시
 	@RequestMapping("/meetingView") //미팅 상세보기
 	private String meetingView(@RequestParam("writingNumber") int writingNumber, Model model){
-		model.addAttribute("getMMemberNum", meMapper.getMMemberNum(writingNumber));
+		List<MeetingVDTO> pro = new ArrayList<MeetingVDTO>();
+		pro.addAll(meMapper.patyMemberNum(writingNumber));
+		JSONArray jsonArray = new JSONArray();
+		model.addAttribute("patyMemberNum", jsonArray.fromObject(pro));
+//		System.err.println(jsonArray.fromObject(pro));
 		meMapper.meetingViewHit(writingNumber);
 		model.addAttribute("MeetingView", meMapper.meetingView(writingNumber));
 		return "event/MeetingView";
