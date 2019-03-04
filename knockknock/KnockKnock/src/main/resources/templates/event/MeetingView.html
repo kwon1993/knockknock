@@ -190,14 +190,12 @@ body{
 				<br/>
 				<strong>문의/기대평</strong>
 					<div class="form-group">
-<!-- 						<form name="replyInsertForm"> -->
-							<div class="input-group">
-								<input type="hidden" name="replyNumber">
-								<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
-								<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
-								<button class="btn btn-success formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
-							</div>
-<!-- 						</form> -->
+						<div class="input-group">
+							<input type="hidden" name="replyNumber">
+							<input type="hidden" name="writingNumber" th:value="${MeetingView.writingNumber}">
+							<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
+							<button class="btn btn-success formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
+						</div>
 					</div>
 						
 					<!-- from 성현 시큐리티 적용 -->
