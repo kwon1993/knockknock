@@ -687,9 +687,6 @@ th {
 			var branchNumber1 = $("input[name='branchNumber']").val();
 			
 			 $(function(){
-				
-				// alert("넘어가기 전: "+branchNumber1);
-				// alert("heartStatus 값: " +heartStatus);
 			
 			 $.ajax({
 				type:'post',
@@ -698,9 +695,6 @@ th {
 				dataType:'json',
 				contentType: "application/json",
 				success: function(data){
-					
-					//alert("성공");
-					console.log("data: "+data.branchNumber);
 					
 					if(data.branchNumber!=null){
 						toggle.src='/images/like.png';

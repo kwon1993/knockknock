@@ -209,13 +209,13 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							 success:function(response){
-					            alert("선택한 이벤트 참가가 취소되었습니다.");
+					            swal("선택한 이벤트 참가가 취소되었습니다.");
 					            
 					            $(location).attr('href', '/MyEventList');
 
 							 },
 							 error:function(response){
-								 alert("에러 발생");
+								 swal("에러 발생");
 							 }
 						})   
 

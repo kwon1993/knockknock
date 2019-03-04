@@ -26,6 +26,15 @@
   background-color: #777;
 }
 
+#checkedDelete {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
   color: black;
@@ -295,13 +304,13 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							 success:function(response){
-					            alert("선택한 모임 신청이 취소되었습니다.");
+					            swal("선택한 모임 신청이 취소되었습니다.");
 					            
 					            $(location).attr('href', '/MyMeetingList');
 
 							 },
 							 error:function(response){
-								 alert("에러 발생");
+								 swal("에러 발생");
 							 }
 						})
 		        }else{

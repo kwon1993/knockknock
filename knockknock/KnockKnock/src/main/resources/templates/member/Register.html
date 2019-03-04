@@ -61,6 +61,7 @@
 }
 
 #checkEmail{
+	 font-size:60%;
  	 background-color: white; 
 	 color: #2eca6a;
 	 border-radius: 1rem;
@@ -79,11 +80,23 @@
 }
 
 #addressSearch{
-	font-size:25px;
+	font-size:60%;
 }
 
 .swal-button{
 	background-color:#2eca6a;
+}
+
+#introduce{
+	font-size:60%;
+}
+
+#gender{
+	font-size:80%;
+}
+
+#animal{
+	font-size:60%;
 }
 
 </style>
@@ -108,7 +121,7 @@
                                         <label for="name" class="cols-sm-2 control-label">이름</label>
                                         <div class="cols-sm-10">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="fas fa-signature"></i></span>
+                                                <span class="input-group-addon"><i class="fas fa-signature" style="font-size:75%;"></i></span>
                                                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
                                             </div>
                                         </div>
@@ -195,33 +208,33 @@
 						            <div class="form-group">	
                                      	<label for="confirm" class="cols-sm-2 control-label">자기소개</label>
                                      	<div class="cols-sm-10">
-											<div class="input-group">
+											<div class="input-group" style="margin-bottom:3%;">
 												<span class="input-group-addon"><i class="far fa-user"></i></i></span>
 												<input class='introduce' type="text" id="introduce" name="introduce" placeholder="introduce">
 											 </div>
-                                        </div><br>
+                                        </div>
                                         <label for="confirm" class="cols-sm-2 control-label">성별</label>
                                      	<div class="cols-sm-10">
-											<div class="input-group">
+											<div class="input-group" style="margin-bottom:3%;">
 											    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-												<select name="gender">
+												<select name="gender" id='gender'>
 													<option class='introduce' type="text" id="male" name="male" placeholder="male">남자</option>
 													<option class='introduce' type="text" id="female" name="female" placeholder="female">여자</option>
 										 		</select>
 										 	</div>
-                                        </div><br>
+                                        </div>
                                         <label for="confirm" class="cols-sm-2 control-label">반려동물</label>
                                      	<div class="cols-sm-10">
-											<div class="input-group">
+											<div class="input-group" style="margin-bottom:3%;">
 												<span class="input-group-addon"><i class="fas fa-dog"></i></span>
 												<input class='pet' type="text" id="animal" name="animal" placeholder="animal">
 											 </div>
-                                        </div><br>
+                                        </div>
                                         <label for="confirm" class="cols-sm-2 control-label">관심사(최대 3개 선택 가능)</label>
                                      	<div class="cols-sm-10">
 											<div class="input-group">
 											    <span class="input-group-addon"><i class="far fa-star"></i></span>
-												<select name="favorite1">
+												<select name="favorite1" style="font-size:60%;">
 													<option class='favorite1' type="text" id="male" name="favorite1">없음</option>
 													<option class='favorite1' type="text" id="female" name="favorite1">IT</option>
 													<option class='favorite1' type="text" id="female" name="favorite1">음악</option>
@@ -241,7 +254,7 @@
 										 	</div>
 										 	<div class="input-group">
 											    <span class="input-group-addon"><i class="far fa-star"></i></i></span>
-												<select name="favorite2">
+												<select name="favorite2" style="font-size:60%;">
 													<option class='favorite2' type="text" id="male" name="favorite2">없음</option>
 													<option class='favorite2' type="text" id="female" name="favorite2">IT</option>
 													<option class='favorite2' type="text" id="female" name="favorite2">음악</option>
@@ -261,7 +274,7 @@
 										 	</div>
 										 	<div class="input-group">
 											    <span class="input-group-addon"><i class="far fa-star"></i></span>
-												<select name="favorite3">
+												<select name="favorite3" style="font-size:60%;">
 													<option class='favorite3' type="text" id="male" name="favorite3">없음</option>
 													<option class='favorite3' type="text" id="female" name="favorite3">IT</option>
 													<option class='favorite3' type="text" id="female" name="favorite3">음악</option>
@@ -286,7 +299,7 @@
                                         <button type="submit" class="btn btn-primary btn-lg btn-block login-button" id='signUp'>회원가입</button>
                                     </div>
                                     <div class="login-register">
-                                        <a href="/login">로그인</a>
+                                        <a href="/login">로그인 하러 갈래요</a>
                                     </div>
                                 </form>
                             </div>
