@@ -179,6 +179,10 @@ body {
 th {
 	font-size: 20px;
 }
+
+.table{
+	text-align:center;
+}
 </style>
 </head>
 <body>
@@ -310,13 +314,13 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							 success:function(response){
-					            alert("선택한 모임 신청이 취소되었습니다.");
+					            swal("선택한 모임 신청이 취소되었습니다.");
 					            
 					            $(location).attr('href', '/MyMeetingList');
 
 							 },
 							 error:function(response){
-								 alert("에러 발생");
+								 swal("에러 발생");
 							 }
 						})
 		        }else{

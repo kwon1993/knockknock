@@ -697,9 +697,6 @@ th {
 			var branchNumber1 = $("input[name='branchNumber']").val();
 			
 			 $(function(){
-				
-				// alert("넘어가기 전: "+branchNumber1);
-				// alert("heartStatus 값: " +heartStatus);
 			
 			 $.ajax({
 				type:'post',
@@ -708,9 +705,6 @@ th {
 				dataType:'json',
 				contentType: "application/json",
 				success: function(data){
-					
-					//alert("성공");
-					console.log("data: "+data.branchNumber);
 					
 					if(data.branchNumber!=null){
 						toggle.src='/images/like.png';
@@ -735,7 +729,7 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							success:function(response){
-								walert("내 관심 지점 등록이 완료되었습니다.");
+								swal("내 관심 지점 등록이 완료되었습니다.");
 							}
 						}) 
 					} else {
@@ -754,10 +748,10 @@ th {
 					        dataType:"text",
 					        contentType: "application/json",
 							success:function(data){
-								alert("관심 지점이 삭제되었습니다.");
+								swal("관심 지점이 삭제되었습니다.");
 							},
 							error:function(data){
-								alert("에러 발생");
+								swal("에러 발생");
 							}
 						})
 			        	
