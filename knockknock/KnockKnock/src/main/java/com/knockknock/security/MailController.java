@@ -50,7 +50,7 @@ public class MailController {
           
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('성공적으로 메일을 발송했습니다.');history.go(-1);</script>");
+        out.println("<script>alert('성공적으로 메일을 발송했어요.');history.go(-1);</script>");
         out.flush();
  
       } catch(Exception e){
