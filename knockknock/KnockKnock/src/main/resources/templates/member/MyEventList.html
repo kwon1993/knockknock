@@ -159,7 +159,7 @@ th {
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.acceptEndTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.eventStartTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.eventEndTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
-							<td><a th:if="${MEL.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJE/?writingNumber='+${MEL.writingNumber}}">참가 취소</a><a th:unless="${MEL.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="이벤트 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReasonEvent/?writingNumber='+${MEL.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
+							<td><a th:if="${MEL.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJE/?writingNumber='+${MEL.writingNumber}}">참가 취소</a><a th:unless="${MEL.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="이벤트 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" th:href="@{'/confirmReasonEvent/?writingNumber='+${MEL.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
