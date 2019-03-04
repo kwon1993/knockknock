@@ -58,18 +58,38 @@ body{
 	font-weight:bolder;
 	margin-bottom:30px;
 }
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 3; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 30px;
+	border: 1px solid #888;
+	width: 30%;
+	border-top-width: 0px;
+}
 
 </style>
 </head>
 <body>
 	<div layout:fragment="content" class="container">
 		<!-- Modal -->
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
+		<div class="modal" id="myModal">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">이벤트 취소하기</h4>
-						<button type="button" class="close" data-dismiss="modal" th:text="X"></button>
+						<button type="button" class="close" th:text="X"></button>
 					</div>
 					<div class="modal-body">
 						<p>이벤트 취소 사유를 적어주세요.</p>
@@ -77,14 +97,10 @@ body{
 							<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
 							<input type="text" name="cancelReason" value=""><br />
 							<button type="submit" class="btn btn-success" th:text="완료"></button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="취소"></button>
+							<button type="button" class="btn btn-default" id="closeModal" th:text="취소"></button>
 						</form>
 					</div>
-					<!-- <div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div> -->
 				</div>
-			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-2">
@@ -124,7 +140,7 @@ body{
 				</table><br />
 				<span th:if="${imgPath}!=null"><img th:src="${imgPath}" style="width: 80%;"></span>
 				<div th:utext="${eventView.content}"></div>
-				<input type="button" th:if="${eventView.cancelReason}==null" class="btn btn-success" data-toggle="modal" data-target="#myModal" value="이벤트취소">
+				<input type="button" th:if="${eventView.cancelReason}==null" class="btn btn-success" id="cancelBtn" value="이벤트취소">
 				<form name="myForm" action="adminEventDelete" style="display: inline;">
 					<input type="hidden" name="writingNumber" th:value="${eventView.writingNumber}">
 					<input type="submit" class="btn btn-success" value="이벤트 삭제">
@@ -136,11 +152,31 @@ body{
 				<form name="myForm" action="adminEventListView" style="display: inline;">
 					<input type="submit" class="btn btn-success" value="목록으로">
 				</form>
-				
-				
-
 			</div>
 		</div>
+		<script>
+			var modal = document.getElementById('myModal');
+			//취소하기 클릭시 모달창 생성
+			$("#cancelBtn").click(function(){
+				modal.style.display = "block";
+			});
+			
+			//모달창에서 x버튼 클릭시 모달 종료
+		 	$(".close").click(function(){
+				modal.style.display = "none";
+		 	});
+			
+		 	//모달창 생성된 상태에서 윈도우 클릭시 모달창 종료
+			$(window).click(function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			});
+			//모달창에서 취소버튼 클릭시 모달 종료
+			$("#closeModal").click(function(){
+				modal.style.display = "none";
+			});
+		</script>
 	</div>
 </body>
 </html>
