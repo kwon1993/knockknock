@@ -8,6 +8,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <style>
+
 /* Style tab links */
 .tablink {
   background-color: #555;
@@ -37,10 +38,9 @@
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  color: black;
   display: none;
   padding: 100px 20px;
-  height: 300px;
+  height: 500px;
 }
 
 #News {background-color: white;}
@@ -50,16 +50,19 @@ p {
 	font-size: 25px;
 }
 
+.btn {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
 .title {
 	text-decoration: underline;
 	font-color: ; 
 }
-
-
-
-
-
-
 
 #Process,#Culture{
 	text-align:center;
@@ -68,7 +71,6 @@ p {
 #imgParty,#imgCulture1,#imgCulture2{
 	width:400px;
 }
-
 
 
 /* Style the tab content */
@@ -116,6 +118,7 @@ to {
 
 body {
   font-family: "Lato", sans-serif;
+  text-align:center;
 }
 
 .sidenav {
@@ -181,7 +184,7 @@ th {
 
 <div layout:fragment="content" class="container" id='container'>
 
-<br /><br /><br /><br /><br />
+<br /><br /><br /><br />
 <div class="row" id='categoryBar'>
 			<div class="col-md-1">
 <div class="sidenav" id='sidenav'>
@@ -193,6 +196,7 @@ th {
 </div>
 </div>
 <div class="col-md-11">
+<div class="main">
 <h2 id='title'>내 모임</h2>
 			<br /><br />
 	<button class="tablink" onclick="openPage('News', this, '#2eca6a')" id="defaultOpen">신청한 모임</button>
@@ -222,7 +226,7 @@ th {
 							<td><div th:if="${MMLJ.cancelReason}==null" th:text="${MMLJ.meetingEndTime}"></div><div th:unless="${MMLJ.cancelReason}==null">-</div></td>
 							<!-- 타임리프의 href는 a 태그에서만 동작한다 -->
 							<!-- <td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" id="confirmReason" role="button" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}">취소 사유 확인</a></td> -->
-							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="모임 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
+							<td><a th:if="${MMLJ.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJM/?writingNumber='+${MMLJ.writingNumber}}">신청 취소</a><a th:unless="${MMLJ.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="모임 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" th:href="@{'/confirmReason/?writingNumber='+${MMLJ.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 
@@ -244,11 +248,12 @@ th {
 							<th>개설 상태</th>
 						</tr>
 						<tr th:each="MMLM:${MMLM}">
-							<td><div th:unless="${MMLM.cancelReason}==null"><a id="hideRow" data-toggle="tooltip" data-placement="left" title="목록에서 제거"><img id="trash" src="/images/trash.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></div></td>
+							<td><div th:unless="${MMLM.cancelReason}==null"><a id="hideRow" th:href="@{'/deleteMM/?writingNumber='+${MMLM.writingNumber}}" data-toggle="tooltip" data-placement="left" title="목록에서 제거"><img id="trash" src="/images/trash.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></div></td>
 							<td><a th:href="@{'/meetingView/?writingNumber='+${MMLM.writingNumber}}" th:text="${MMLM.title}"></a></td>
 							<td th:text="${MMLM.acceptEndTime}"></td>
 							<td th:text="${MMLM.meetingStartTime}"></td>
 							<td th:text="${MMLM.meetingEndTime}"></td>
+							<td th:if="${MMLM.cancelReason}==null"></td>
 							<td th:unless="${MMLM.cancelReason}==null">취소됨</td>
 						</tr>
 					</table>
@@ -269,7 +274,7 @@ th {
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
 				</div>
 			</div> 
-
+</div>
 </div>
 
 

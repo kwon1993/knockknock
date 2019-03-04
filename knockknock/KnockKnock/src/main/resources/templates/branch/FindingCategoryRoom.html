@@ -90,6 +90,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
  	border-bottom: 2px solid #2eca6a;
 }
 
+#mapmarker{
+	color:#2eca6a;
+}
+
+#address{
+	 border: 2px solid #2eca6a;
+	 border-radius: 5px;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
 
@@ -108,8 +117,8 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<div class="" id="search">
 <!-- 					<h7><strong>세부주소를 찾아봐요!</strong></h7> -->
 						<div id="categorySearch" class="form-group">
-							<input type="text" name="address"  id="address"/>
-							<button id="categoryRoomSearch" class="btn btn-outline-success">주소 검색</button>
+							<i class="fas fa-map-marker-alt" id='mapmarker'></i>&nbsp;<input placeholder="주소 및 위치" type="text" name="address"  id="address"/>
+							<button id="categoryRoomSearch" class="btn btn-outline-success">찾기</button>
 						</div>					
 				</div><!-- 주소검색 end-->
 				
@@ -124,7 +133,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<br>
 			<!-- 성별 checkbox -->
 				<div class="genderCheckbox">
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;남 Or 여 </strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;성별 </strong></h5></label>
 					<div  th:each="genderCheck : ${genderCheckbox}" th:name="branchGender" th:id="branchGender">
 							<div class="branchGender">
 							<input type="checkbox" th:value="${genderCheck}" th:id="${genderCheck}" th:name="branchGender"><span  th:text="${genderCheck}" th:for="${genderCheck}"></span>
@@ -134,7 +143,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 				<br>
 			<!-- 반려동물유무 checkbox -->
 				<div class="petCheckbox">										
-					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물 유무</strong></h5></label>
+					<label class="field-title"><h5 style="color:#2eca6a"><strong>&nbsp;반려동물</strong></h5></label>
 					<div th:each="pet : ${pet}" th:name="branchPet" th:id="branchPet">
 						<div class="branchPet">
 							<input type="checkbox" th:value="${pet}" th:id="${pet}" th:name="branchPet"><span th:text="${pet}" th:for="${pet}"></span>
