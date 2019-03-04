@@ -89,7 +89,9 @@ layout:decorate="~{etc/fragments/Main_layout}">
   <!--/ Carousel end /-->
 
   <!--/ Services Star /-->
-  <section class="section-services section-t8" id='eachOther'>
+  <div class="row">
+  	<div class="col-md-11">
+  		<section class="section-services section-t8" id='eachOther'>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -503,7 +505,15 @@ layout:decorate="~{etc/fragments/Main_layout}">
     </div>
   </section>
   <!--/ Agents End /-->
-
+  
+  			
+  	</div>
+  	<div class="col-md-1">
+		<img id="weather" />  		
+  	</div>
+  </div>
+  
+  
 <script>
 
 //심플방검색 제이쿼리
@@ -514,6 +524,48 @@ $(document).ready(function(){
 	$(simpleSearch).on('click',function(){
 		simpleSearch.attr('href','/simpleRoomSearch?address=' + inputRoom.val());
 	});
+	
+	
+	if ("geolocation" in navigator) {
+		  /* 지오로케이션 사용 가능 */
+		navigator.geolocation.getCurrentPosition(function(pos) {
+        latitude = pos.coords.latitude;
+        longitude = pos.coords.longitude;
+        
+        console.log("현재 위치는 : " + latitude + ", "+ longitude+"입니다.");
+    
+		});
+		  
+		// var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=bb59bce923e25292bdda17937da7b0b1";
+		 var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=bb59bce923e25292bdda17937da7b0b1";
+        $.ajax({
+            url: apiURI,
+            dataType: "json",
+            type: "GET",
+            async: "false",
+            success: function(resp) {
+                console.log(resp);
+                console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+                console.log("현재습도 : "+ resp.main.humidity);
+                console.log("날씨 : "+ resp.weather[0].main );
+                console.log("상세날씨설명 : "+ resp.weather[0].description );
+                console.log("날씨 이미지 : "+ resp.weather[0].icon );
+                console.log("바람   : "+ resp.wind.speed );
+                console.log("나라   : "+ resp.sys.country );
+                console.log("도시이름  : "+ resp.name );
+                console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+            }
+        })
+        var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+        $("#weather").attr("src", imgURL);
+    
+		
+		} else {
+		  /* 지오로케이션 사용 불가능 */
+		  return false;
+		}
+	
+	
 });
 
 //날씨넣기
