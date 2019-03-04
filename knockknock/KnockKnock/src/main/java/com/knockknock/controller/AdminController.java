@@ -58,16 +58,16 @@ public class AdminController {
 	}
 
 	// 이벤트 등록
-	@RequestMapping(value = "adminEventWrite")
+	@RequestMapping("adminEventWrite")
 	public String eventWrite(Model model, EventDTO eventDTO, Authentication authentication) {
 		adminService.eventWrite(eventDTO.getTitle(), eventDTO.getContent(), eventDTO.getEventStartTime(),
 				eventDTO.getEventEndTime(), eventDTO.getAcceptStartTime(), eventDTO.getAcceptEndTime(),
 				eventDTO.getRecruitMaxNumber(), eventDTO.getEventImage(), authentication);
 
-		model.addAttribute("eventView", adminService.eventView(eventDTO.getWritingNumber()));
-		model.addAttribute("joinMember", adminService.getEventJoinMember(eventDTO.getWritingNumber()));
-		model.addAttribute("imgPath", adminService.eventImagePath(eventDTO.getWritingNumber()));
-		return "admin/AdminEventPost";
+//		model.addAttribute("eventView", adminService.eventView(eventDTO.getWritingNumber()));
+//		model.addAttribute("joinMember", adminService.getEventJoinMember(eventDTO.getWritingNumber()));
+//		model.addAttribute("imgPath", adminService.eventImagePath(eventDTO.getWritingNumber()));
+		return "redirect:adminEventListView";
 	}
 
 	// 이벤트 수정 페이지
