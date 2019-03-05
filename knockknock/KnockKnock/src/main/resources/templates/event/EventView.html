@@ -416,12 +416,12 @@ inner="";
 			dataType: "text", // 리턴 타입이 void일 경우에는 "json"이 아니라 "text"로
 			contentType:"application/json", // 정확한 이유는 모르겠으나 이거 없으면 415 에러 발생
 			success:function(data){
-				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>모임참여신청이 완료되었습니다</h4><br /><a class='btn btn-default pull-rigth' href='/MyEventList'>신청확인하기</a><br /></div>"
+				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>이벤트 참여신청이 완료되었습니다</h4><br /><a class='btn btn-default pull-rigth' href='/MyEventList'>신청확인하기</a><br /></div>"
 
 				$("#myModal").html(inner);
 			} ,
 			error:function(data){  
-				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>에러 발생</h4><br /></div>"
+				inner+="<div class='modal-content'><span id='modalx' class='close'>&times;</span><br /><h4>이미 신청한 이벤트입니다.</h4><br /></div>"
 				$("#myModal").html(inner);
 			}
 		});

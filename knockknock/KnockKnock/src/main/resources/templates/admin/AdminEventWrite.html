@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="../texteditor/ckeditor.js"></script>
 <style>
-
 h1, h2, h3, h4, h5, h6{
 	font-family: 'Jua', sans-serif;
 }
@@ -16,6 +15,7 @@ body{
 	font-family: 'Jua', sans-serif;
 	margin-top:80px;
 }
+
 
 .sidenav {
 	width: 200px;
@@ -65,7 +65,7 @@ body{
 	<div layout:fragment="content" class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<div class="sidenav">
+				<div class="sidenav" id="sidenav">
 					<a th:href="@{adminEventListView}">이벤트관리</a><br> <a
 						th:href="@{adminMemberSearchView}">회원관리</a><br> <a
 						th:href="@{adminVisitList}">방문문의관리</a><br> <a
@@ -75,14 +75,14 @@ body{
 			<div class="col-md-10">
 				<h1 id='title'>이벤트 등록</h1>
 				<form action="adminEventWrite" method="post" enctype="multipart/form-data" id="form">
-					<label style="width: 100px;">제목</label><input type=text name="title"><br />
+					<label style="width: 100px;">제목</label><input type=text name="title" required><br />
 					<label style="width: 100px;">모집 시작 시간</label><input type="date" name="acceptStartTime"><br />
 					<label style="width: 100px;">모집 종료 시간</label><input type="date" name="acceptEndTime"><br />
 					<label style="width: 100px;">이벤트 시작 시간</label><input type="date" name="eventStartTime"><br />
 					<label style="width: 100px;">이벤트 종료 시간</label><input type="date" name="eventEndTime"><br />
-					<label style="width: 100px;">모집 인원</label><input type="number" name="recruitMaxNumber"><br />
-					<label style="width: 100px;">이미지</label><input type="file" name="eventImage" id="imgInp"><br />
-					<div><textarea class="form-control" name="content" id="content" cols="50" rows="15"></textarea>
+					<label style="width: 100px;">모집 인원</label><input class="form-control col-3" type="number" name="recruitMaxNumber"><br />
+					<label style="width: 100px;">이미지</label><input class="form-control" type="file" name="eventImage" id="imgInp"><br />
+					<div><textarea class="form-control col-5" name="content" id="content" cols="50" rows="15"></textarea>
 						<script>
 							CKEDITOR.replace('content');
 						</script></div>
