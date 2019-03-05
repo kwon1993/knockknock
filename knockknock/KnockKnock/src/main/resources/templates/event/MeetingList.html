@@ -11,6 +11,23 @@ body{
 #jumbotronId{
     background-color: white;
 }
+
+.btn {
+border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
+.btn:hover {
+	background-color:white;
+	color:#2eca6a;
+	border: 2px solid #2eca6a;
+}
+
+
 </style>
 </head>
 <body>
@@ -151,8 +168,8 @@ body{
 					</li>
 				</ul>
 			</nav>
-		<a th:href="@{/writeBoardForm}" class="btn btn-outline-success font-weight-bold pull-right" role="button">모임 만들기</a>
-		<a th:href="@{/eventList}" class="btn btn-outline-success font-weight-bold pull-left" role="button">이벤트 게시판</a>
+		<a th:href="@{/writeBoardForm}" class="btn btn-default font-weight-bold pull-right" id="moim" role="button">모임 만들기</a>
+		<a th:href="@{/eventList}" class="btn btn-default font-weight-bold pull-left" id="moim1" role="button">이벤트 게시판</a>
 			
 		</div>
 

@@ -375,10 +375,10 @@ th {
 		<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
   		  <div class="carousel-inner">
 		    <div class="carousel-item active" th:each="main : ${mainImage}">
-		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'/'+${main}" alt="First slide">
+		      <img class="d-block w-100" style="width:750px; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${main}" alt="First slide">
 		    </div>
 			 <div class="carousel-item" th:each="item : ${fileList}">
-			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
+			   <img class="d-block w-100" style="width:750px; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
 			 </div>
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
@@ -506,10 +506,10 @@ th {
 						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   		  <div class="carousel-inner" style="margin-top:10px;">
 		    <div class="carousel-item active">
-		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'room/mainImage.jpg'" alt="First slide">
+		      <img class="d-block w-100" style="width:750px; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'room/mainImage.jpg'" alt="First slide">
 		    </div>
 			 <div class="carousel-item" th:each="i : ${roomList}">
-			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'room/'+${i}" alt="none">
+			   <img class="d-block w-100" style="width:750px; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'room/'+${i}" alt="none">
 			 </div>
 		  </div>
 		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

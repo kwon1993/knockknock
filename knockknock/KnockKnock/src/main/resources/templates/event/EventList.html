@@ -14,6 +14,14 @@ body{
 #jumbotronId{
     background-color: white;
 }
+#moim {
+border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -88,7 +96,7 @@ body{
 	            </li>
 	            </ul>
 	          </nav>
-	          <a th:href="@{/meetingList}" class="btn btn-outline-success font-weight-bold pull-left" role="button">모임 게시판</a>
+	          <a th:href="@{/meetingList}" class="btn btn-default font-weight-bold pull-left" id="moim" role="button">모임 게시판</a>
 	    </div>
 	</div>
 </body>
