@@ -301,7 +301,6 @@ $(document).ready(function(){
 			success:function(data){ //ajax성공시 이거 호출.data는 매핑의 반환타입..findId매핑의 반환타입은 MemberDTO이기 때문에 data=MemberDTO...그래서 여기서 data.name 이런식으로 사용 가능
 				content+="<div class='modal-content'><span id='modalx' class='close'>&times;</span>"+data.name+" 님의 ID는 "+data.email+" 입니다</div>"
 				$("#myIdModal").html(content);
-				
 			},
 			error:function(data){ //ajax실패시 이거 호출
 				content+="<div class='modal-content'><span id='modalx' class='close'>&times;</span>"+"아이디가 존재하지 않습니다</div>"
@@ -312,15 +311,15 @@ $(document).ready(function(){
 });
 
 $(document).on("click", "#modalx", function(){
-	modal.style.display = "none";
+    idModal.style.display = "none";
+    passModal.style.display = "none";
+    location.reload();
 });
 
 $("#login").mouseenter(function(){
 	$("#login").animate({opacity:"4"},500);
 })
-
 </script>
-
 </div>
 </body>
 </html>

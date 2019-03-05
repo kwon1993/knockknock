@@ -4,7 +4,6 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <head>
     <title>내 관심 지점</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <style>
 body {
   font-family: "Lato", sans-serif;
@@ -46,7 +45,7 @@ body {
 
 #sidenav{
 	background-color:white;
-	border: 1px solid #2eca6a;
+	border: 2px solid #2eca6a;
 	color:#2eca6a;
 	font-weight:bolder;
 	border-radius: 1rem;
@@ -79,18 +78,19 @@ height:250px;
 }
 
 #theme{
- 	position: absolute;
-    top:67%;
+    position: absolute;
+    top:60%;
     left:82%;
     transform: translate(-50%, -50%);                                                                   
-    font-size:11px;
+    font-size:17px;
     font-family: 'Jua', sans-serif;
+    font-weight:bolder;
     color: white;
     z-index: 2;
     text-align: center;
-    padding:12px 15px;
-    background-color: #2eca6a;
-    border-radius: .25rem;
+    background-color:#2eca6a;
+    padding:2%;
+    color:white;
 }
 
 #branchNumber{
@@ -101,6 +101,10 @@ font-weight: bolder;
 	font-family: 'Jua', sans-serif;
 }
 
+.table{
+	text-align:center;
+}
+
 #getOut {
 	border-radius: 3px;
 	font-weight: 100;
@@ -108,6 +112,7 @@ font-weight: bolder;
 	background: #2eca6a;
 	color: #fff;
 	cursor: pointer;
+
 }
 </style>
 </head>
@@ -178,7 +183,6 @@ $(document).ready(function(){
 		
 		if(confirm("해당 지점을 관심 지점에서 삭제하시겠습니까?")){
         	var branchNumber1= $(this).val();
-        	alert(branchNumber1==1);
         	
         	$.ajax({
         		type:'post',  
@@ -187,12 +191,12 @@ $(document).ready(function(){
 		        dataType:"text", 
 				contentType: "application/json",
 				success:function(data){
-					alert("관심 지점이 삭제되었습니다.");
+					swal("관심 지점이 삭제되었습니다.");
 					$(location).attr('href', '/MyLikeBranch');
 
 				},
 				error:function(data){
-					alert("에러 발생");
+					swal("에러 발생");
 				}
 			})
         	

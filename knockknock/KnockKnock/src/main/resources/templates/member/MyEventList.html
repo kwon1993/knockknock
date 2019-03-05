@@ -8,6 +8,7 @@ layout:decorate="~{etc/fragments/Main_layout}">
 <style>
 body {
   font-family: "Lato", sans-serif;
+  text-align:center;
 }
 
 .sidenav {
@@ -107,6 +108,20 @@ cursor: pointer;
 th {
 	font-size: 20px;
 }
+
+.btn {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
+.table{
+	text-align:center;
+}
+
 </style>
 </head>
 <body>
@@ -145,7 +160,7 @@ th {
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.acceptEndTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.eventStartTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
 							<td><div th:if="${MEL.cancelReason}==null" th:text="${MEL.eventEndTime}"></div><div th:unless="${MEL.cancelReason}==null">-</div></td>
-							<td><a th:if="${MEL.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJE/?writingNumber='+${MEL.writingNumber}}">참가 취소</a><a th:unless="${MEL.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="이벤트 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" class="btn btn-default" th:href="@{'/confirmReasonEvent/?writingNumber='+${MEL.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
+							<td><a th:if="${MEL.cancelReason}==null" id="DJBtn" role="button" class="btn btn-default" th:href="@{'/deleteJE/?writingNumber='+${MEL.writingNumber}}">참가 취소</a><a th:unless="${MEL.cancelReason}==null" data-toggle="tooltip" data-placement="right" title="이벤트 취소 사유 확인" name="confirmReason" role="button" data-dismiss="modal" th:href="@{'/confirmReasonEvent/?writingNumber='+${MEL.writingNumber}}"><img id="cryingImage" src="/images/crying.png" width="35" height="35" style="cursor: pointer;" alt="submit" /></a></td>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</tr>
 					</table>
@@ -204,13 +219,13 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							 success:function(response){
-					            alert("선택한 이벤트 참가가 취소되었습니다.");
+					            swal("선택한 이벤트 참가가 취소되었습니다.");
 					            
 					            $(location).attr('href', '/MyEventList');
 
 							 },
 							 error:function(response){
-								 alert("에러 발생");
+								 swal("에러 발생");
 							 }
 						})   
 

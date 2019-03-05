@@ -285,6 +285,16 @@ button[name='reviewInsertBtn']:hover{
 	clear:both;
 }
 
+#closeModal, #visitBooking {
+	border-radius: 3px;
+	font-weight: 100;
+	border-color: transparent;
+	background: #2eca6a;
+	color: #fff;
+	cursor: pointer;
+}
+
+
 #navbar1{
 background:white;
 border: 3px solid #2eca6a;
@@ -362,7 +372,7 @@ th {
 		<hr>
 		<br /> <br /> <br /> <br /> <br /> <br />
 		
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+		<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
   		  <div class="carousel-inner">
 		    <div class="carousel-item active" th:each="main : ${mainImage}">
 		      <img class="d-block w-100" style="width:750" th:src="'/images/branch/'+${details.branchNumber}+'/'+${main}" alt="First slide">
@@ -371,11 +381,11 @@ th {
 			   <img class="d-block w-100" style="width:750; height:530px;" th:src="'/images/branch/'+${details.branchNumber}+'/'+${item}" alt="none">
 			 </div>
 		  </div>
-		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+		  <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Previous</span>
 		  </a>
-		  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+		  <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Next</span>
 		  </a>
@@ -543,7 +553,7 @@ th {
 					<hr style="width:96.6%;">
 					<br />
 
-					<h3 style="margin-top:10px;"><strong>시설 정보</strong></h3>
+					<h3 style="margin-top:10px;"><strong style="border-bottom:2px solid #2eca6a;">시설 정보</strong></h3>
 					<br />
 
 					<h4>공용 시설</h4>
@@ -570,7 +580,7 @@ th {
 
 					<br /> <br /> <br />
 
-					<h3><strong>공동 생활 규칙</strong></h3>
+					<h3><strong style="border-bottom:2px solid #2eca6a;">공동 생활 규칙</strong></h3>
 					<br />
 
 					<h4>기본 생활 규칙</h4>
@@ -592,18 +602,18 @@ th {
 					<br />
 					<p th:utext="${details.rule}"></p>
 					<br /><br /><br />
-					<h3><strong>입주민 정보</strong></h3>
+					<h3><strong style="border-bottom:2px solid #2eca6a;">입주민 정보</strong></h3>
 					<br />
 					<div th:each="memberInfo:${memberInfoList}">
 						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:288px;" th:alt="card-cap-image">
-						  <div class="card-body">
+						  <img class="card-img-top" th:src="${memberInfo.imageProfile}" style="width:286px;" th:alt="card-cap-image">
+						  <div class="card-body" style="border:1px solid #2eca6a;">
 						    <div class="card-text">
-								<div th:text="|닉네임: *{memberInfo.nickname}|"></div>
-								<div th:text="|성별: *{memberInfo.memberGender}|"></div>
-								<div th:text="|생일: *{memberInfo.birth}|"></div>
-								<div th:text="|관심사: *{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"></div>
-								<div th:text="|소개글: *{memberInfo.introduce}|"></div>
+								<div th:text="|닉네임: *{memberInfo.nickname}|" style="color:chocolate;"></div>
+								<div th:text="|성별: *{memberInfo.memberGender}|"  style="color:darkcyan;"></div>
+								<div th:text="|생일: *{memberInfo.birth}|"  style="color:cornflowerblue;"></div>
+								<div th:text="|관심사: *{memberInfo.favorite1}, *{memberInfo.favorite2}, *{memberInfo.favorite3}|"  style="color:darked;"></div>
+								<div th:text="|소개글: *{memberInfo.introduce}|"  style="color:black;"></div>
 						    </div>
 						  </div>
 						</div>
@@ -612,7 +622,7 @@ th {
 					<div class="clear"></div>
 					
 					<br /> <br /> <br />
-					<h3><strong>반려 동물 정보</strong></h3>
+					<h3><strong style="border-bottom:2px solid #2eca6a;">반려 동물 정보</strong></h3>
 					<div th:each="petInfo:${petInfoList}">
 					<br />
 					<div>
@@ -687,9 +697,6 @@ th {
 			var branchNumber1 = $("input[name='branchNumber']").val();
 			
 			 $(function(){
-				
-				// alert("넘어가기 전: "+branchNumber1);
-				// alert("heartStatus 값: " +heartStatus);
 			
 			 $.ajax({
 				type:'post',
@@ -699,9 +706,6 @@ th {
 				contentType: "application/json",
 				success: function(data){
 					
-					//alert("성공");
-					console.log("data: "+data.branchNumber);
-					
 					if(data.branchNumber!=null){
 						toggle.src='/images/like.png';
 					}
@@ -709,7 +713,7 @@ th {
 				},
 			}) 
 			})
-			
+
 
 			$("#likeBranch").click(function(){
 				
@@ -717,7 +721,6 @@ th {
 					toggle.src="/images/like.png";
 					
 					if(confirm("해당 지점을 내 관심 지점으로 등록하시겠습니까?")){
-						
 						$.ajax({
 			 				type:'post',  
 							url:'/likeBranch',
@@ -725,7 +728,7 @@ th {
 			                dataType:"text", 
 							contentType: "application/json",
 							success:function(response){
-								walert("내 관심 지점 등록이 완료되었습니다.");
+								swal("내 관심 지점 등록이 완료되었습니다.");
 							}
 						}) 
 					} else {
@@ -744,10 +747,10 @@ th {
 					        dataType:"text",
 					        contentType: "application/json",
 							success:function(data){
-								alert("관심 지점이 삭제되었습니다.");
+								swal("관심 지점이 삭제되었습니다.");
 							},
 							error:function(data){
-								alert("에러 발생");
+								swal("에러 발생");
 							}
 						})
 			        	
@@ -763,7 +766,7 @@ th {
 		//
 		
 		window.onload = function(){
-			$('#categoryFindingRoomNav').addClass('active').css('color','#2eca6a');;
+			$('#categoryFindingRoomNav').addClass('active').css('color','#2eca6a');
 		}
 		
 		var token = $("meta[name='_csrf']").attr("content");

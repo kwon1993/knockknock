@@ -76,6 +76,17 @@ body{
 	color:white;
 	border-radius:1rem;
 }
+#replyModify,#replyCancel{
+	padding:7px;
+	background-color: #2eca6a;
+	color:white;
+	border-radius:1rem;
+}
+#backIndex{
+	background-color:#2eca6a;
+	border:2px solid #2eca6a;
+	color:white;
+}
 </style>
 </head>
 <body>
@@ -135,21 +146,19 @@ body{
 					</div>
 				</div>
 				  
-			<a class="btn" role="button" th:href="@{/eventList}" th:text="'목록'"></a>
+			<a class="btn" id='backIndex' role="button" th:href="@{/eventList}" th:text="'목록'"></a>
 			
 			<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★댓글 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
 			<div id="reply">
 				<br/>
 				<strong>문의/기대평</strong>
 					<div class="form-group">
-						<form name="replyInsertForm">
-							<div class="input-group">
-								<input type="hidden" name="replyNumber">
-								<input type="hidden" name="writingNumber" th:value="${EventView.writingNumber}">
-								<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
-								<button class="btn btn-default formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
-							</div>
-						</form>
+						<div class="input-group">
+							<input type="hidden" name="replyNumber">
+							<input type="hidden" name="writingNumber" th:value="${EventView.writingNumber}">
+							<input type="text" class="form-control formHeight" id="content" name="replyContent" placeholder="내용을 입력하세요.">
+							<button class="btn btn-success formHeight" type="button" name="replyInsertBtn" id="myBtn">등록</button> 
+						</div>
 					</div>
 						
 					<!-- from 성현 시큐리티 적용 -->
@@ -218,12 +227,12 @@ inner="";
 						+ value.nickname;
 				
 				if(value.nickname==nick){
-				inner += '<button name="aboutReply" class="btn btn-default" onclick="replyUpdate('
+				inner += '&nbsp<button id="replyModify" name="aboutReply" class="btn btn-default" onclick="replyUpdate('
 						+ value.replyNumber
 						+ ',\''
 						+ value.content
 						+ '\');"> 수정 </button>';
-				inner += '&nbsp<button name="aboutReply" class="btn btn-default" onclick="deleteConfirm('
+				inner += '&nbsp<button id="replyCancel" name="aboutReply" class="btn btn-default" onclick="deleteConfirm('
 						+ value.replyNumber
 						+ ');"> 삭제 </button> </div>';
 				}else{
@@ -237,37 +246,44 @@ inner="";
 			});
 			
 			$("#eventReplyList").html(inner);
-		},
-		error:function(result){
-			inner+="<br /><h3>에러 발생</h3><br />"
-			$("#eventReplyList").html(inner);
-		}
+			},
+			error:function(result){
+				inner+="<br /><h3>에러 발생</h3><br />"
+				$("#eventReplyList").html(inner);
+			}
+		});
+	}; 	
+
+	//엔터키 클릭시 댓글등록
+	$('input[type="text"]').keydown(function() {
+	    if (event.keyCode === 13) {
+	    	$('[name=replyInsertBtn]').click()
+	    }
 	});
-}; 	
-
-// 댓글 등록
-$('[name=replyInsertBtn]').click(function() { // 댓글 등록 버튼 클릭시 
-	var writingNumber= $("input[name='writingNumber']").val();
-	var content = $("input[name='replyContent']").val();
-// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
-
-$.ajax({
-	url : '/eventReplyInsert',
-	type : 'post',
-	data : JSON.stringify({
-			"writingNumber":writingNumber,
-			"content":content
-	}),
-	dataType : 'text',
-	contentType: "application/json",
-	success : function(data) {
-		if (data == 1) {
-			showReplyList(); // 댓글 작성 후 댓글 목록 reload
-			$('[name=replyContent]').val(''); 
-		}
-	}
-});
-})
+	
+	// 댓글 등록
+	$('[name=replyInsertBtn]').click(function() { // 댓글 등록 버튼 클릭시 
+		var writingNumber= $("input[name='writingNumber']").val();
+		var content = $("input[name='replyContent']").val();
+	// var insertData = $('[name=replyInsertForm]').serialize(); // replyInsertForm의 내용을 가져옴
+	
+		$.ajax({
+			url : '/eventReplyInsert',
+			type : 'post',
+			data : JSON.stringify({
+					"writingNumber":writingNumber,
+					"content":content
+			}),
+			dataType : 'text',
+			contentType: "application/json",
+			success : function(data) {
+				if (data == 1) {
+					showReplyList(); // 댓글 작성 후 댓글 목록 reload
+					$('[name=replyContent]').val(''); 
+				}
+			}
+		});
+	})
 
 // 댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
 	function replyUpdate(replyNumber, content) {
